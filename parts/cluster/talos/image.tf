@@ -1,19 +1,25 @@
 locals {
   version = var.image.version
   schematic = var.image.schematic
-  image_id = "${talos_image_factory_schematic.this.id}_${local.version}"
+  schematic_id = jsondecode(data.http.schematic_id.response_body)["id"]
+  image_id = "${local.schematic_id}_${local.version}"
 
   update_version = coalesce(var.image.update_version, var.image.version)
   update_schematic = coalesce(var.image.update_schematic, var.image.schematic)
-  update_image_id = "${talos_image_factory_schematic.updated.id}_${local.update_version}"
+  update_schematic_id = jsondecode(data.http.updated_schematic_id.response_body)["id"]
+  update_image_id = "${local.update_schematic_id}_${local.update_version}"
 }
 
-resource "talos_image_factory_schematic" "this" {
-  schematic = local.schematic
+data "http" "schematic_id" {
+  url          = "${var.image.factory_url}/schematics"
+  method       = "POST"
+  request_body = local.schematic
 }
 
-resource "talos_image_factory_schematic" "updated" {
-  schematic = local.update_schematic
+data "http" "updated_schematic_id" {
+  url          = "${var.image.factory_url}/schematics"
+  method       = "POST"
+  request_body = local.update_schematic
 }
 
 resource "proxmox_virtual_environment_download_file" "this" {

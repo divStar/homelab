@@ -10,6 +10,12 @@ Held together using [Proxmox VE](https://www.proxmox.com/en/proxmox-virtual-envi
 [Argo CD](https://argoproj.github.io/cd/) and copious amounts of [YAML](https://yaml.org/) with some help
 from [Renovate](https://www.mend.io/renovate/).
 
+Changes in fork:
+* tear the individual modules / projects further apart in order to not have to remove e.g. disks from the Terraform / OpenTofu state management
+* use only one control-plane and one worker node
+* rework `project.auto.tfvars` a little to provide a centralized way of specifying variables such as hostnames, IPs, endpoints
+* this is a work-in-progress and by no means complete; I suggest you use the original - it worked for me, I just want something slightly different
+
 </div>
 
 ---

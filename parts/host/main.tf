@@ -13,6 +13,23 @@
  *     host = "example.com"
  *     user = "admin"
  *   }
+ *
+ *   packages = [
+ *     "vim",
+ *     "git"
+ *   ]
+ *
+ *   scripts = {
+ *     items = [
+ *         {
+ *             name = "pve-mod-nag-screen.sh"
+ *             url = "https://raw.githubusercontent.com/Meliox/PVE-mods/refs/heads/main/pve-mod-nag-screen.sh"
+ *             apply_params = "install"
+ *             destroy_params = "uninstall"
+ *             # run_on_destroy defaults to true if not specified
+ *         }
+ *     ]
+ *   }
  * }
  * ```
  */

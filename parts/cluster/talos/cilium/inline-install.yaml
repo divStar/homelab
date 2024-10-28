@@ -67,7 +67,7 @@ spec:
               apiVersion: v1
               fieldPath: status.podIP
         - name: KUBERNETES_SERVICE_PORT
-          value: "6443"
+          value: "${kubernetes_service_port}"
         volumeMounts:
           - name: values
             mountPath: /root/app/values.yaml
@@ -75,7 +75,7 @@ spec:
         command:
           - cilium
           - install
-          - --version=v1.16.2 # renovate: github-releases=cilium/cilium
+          - --version=${version} # renovate: github-releases=cilium/cilium
           - --set
           - kubeProxyReplacement=true
           - --values

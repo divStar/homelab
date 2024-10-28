@@ -35,7 +35,6 @@ variable "nodes" {
     cpu           = number
     ram_dedicated = number
     update = optional(bool, false)
-    igpu = optional(bool, false)
   }))
 }
 

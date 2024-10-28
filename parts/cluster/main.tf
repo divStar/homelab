@@ -13,7 +13,10 @@ module "talos" {
 
   cilium = {
     values = file("${path.module}/talos/cilium/values.yaml")
-    install = file("${path.module}/talos/cilium/inline-install.yaml")
+    install = templatefile("${path.module}/talos/cilium/inline-install.yaml", {
+      version = var.cilium.version
+      kubernetes_service_port = 6443
+    })
   }
 
   cluster = {

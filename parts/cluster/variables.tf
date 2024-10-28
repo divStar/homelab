@@ -38,6 +38,13 @@ variable "talos" {
   }
 }
 
+variable "cilium" {
+  description = "Cilium object, containing Cilium-related configuration"
+  type = object({
+    version = string
+  })
+}
+
 variable "ssh_private_key_path" {
   description = "Path to the SSH private key file"
   type        = string

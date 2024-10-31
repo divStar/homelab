@@ -12,3 +12,15 @@ output "managed_scripts" {
         destroy_params = script.destroy_params
     }}
 }
+
+output "proxmox_terraform_api_token_id" {
+   description = "The ID of the generated Proxmox API token"
+   value       = local.token_data.full-tokenid
+   sensitive   = false
+}
+
+output "proxmox_terraform_api_token_secret" {
+   description = "The secret value of the generated Proxmox API token"
+   value       = local.token_data.value
+   sensitive   = true
+}

@@ -49,6 +49,9 @@ locals {
   # Package management commands
   pkg_install_cmd = [for pkg in var.packages : "DEBIAN_FRONTEND=noninteractive apt-get install -y ${pkg}"]
   pkg_remove_cmd  = [for pkg in var.packages : "DEBIAN_FRONTEND=noninteractive apt-get remove -y ${pkg}"]
+
+  # User management result
+  token_data = jsondecode(ssh_resource.proxmox_api_token.result)
 }
 
 #------------------------------------------------------------------------------
@@ -147,4 +150,57 @@ resource "ssh_resource" "script_cleanup" {
     lifecycle {
         create_before_destroy = true
     }
+}
+
+#------------------------------------------------------------------------------
+# User Management Resources
+#------------------------------------------------------------------------------
+
+resource "ssh_resource" "proxmox_terraform_user_create" {
+    host         = local.ssh_config.host
+    user         = local.ssh_config.user
+    private_key  = local.ssh_config.private_key
+
+    # when = "create"
+
+    commands = [
+        # Create user with no password (API token only)
+        "pveum user add terraform@pve --comment 'Terraform automation user' --enable 0",
+
+        # Create role with permissions needed for Talos/K8s setup
+        "pveum role add TerraformProv -privs 'VM.Allocate,VM.Clone,VM.Config.Disk,VM.Config.CPU,VM.Config.Memory,VM.Config.Network,VM.Config.Cloudinit,VM.Config.Options,VM.PowerMgmt,VM.Monitor,Datastore.Allocate,Datastore.AllocateSpace,Datastore.Audit,SDN.Use,Sys.Audit'",
+
+        # Assign role to user
+        "pveum aclmod / -user terraform@pve -role TerraformProv"
+    ]
+}
+
+resource "ssh_resource" "proxmox_api_token" {
+    host         = local.ssh_config.host
+    user         = local.ssh_config.user
+    private_key  = local.ssh_config.private_key
+
+    # when = "create"
+
+    depends_on = [ssh_resource.proxmox_terraform_user_create]
+
+    commands = [
+        "pveum user token add terraform@pve terraform-token --privsep=0 --output-format=json"
+    ]
+}
+
+resource "ssh_resource" "proxmox_terraform_cleanup" {
+    host         = local.ssh_config.host
+    user         = local.ssh_config.user
+    private_key  = local.ssh_config.private_key
+
+    when = "destroy"
+    timeout = "30s"
+
+    commands = [
+        # Remove in correct order to prevent dependency issues
+        "pveum user token remove terraform@pve terraform-token",
+        "pveum user delete terraform@pve",
+        "pveum role delete TerraformProv"
+    ]
 }

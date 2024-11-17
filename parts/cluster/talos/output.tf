@@ -8,7 +8,6 @@ output "client_configuration" {
 }
 
 output "kube_config" {
-  #value     = data.talos_cluster_kubeconfig.this
   value =  talos_cluster_kubeconfig.this
   sensitive = true
 }

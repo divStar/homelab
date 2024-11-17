@@ -51,7 +51,7 @@ variable "ssh_private_key_path" {
   default     = "~/.ssh/id_rsa"
 
   validation {
-    condition = can(fileexists(pathexpand(var.ssh_private_key_path))) && can(file(pathexpand(var.ssh_private_key_path)))
+    condition     = can(fileexists(pathexpand(var.ssh_private_key_path))) && can(file(pathexpand(var.ssh_private_key_path)))
     error_message = "The specified SSH private key file does not exist or is not accessible."
   }
 }

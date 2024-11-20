@@ -1,17 +1,17 @@
-variable "ssh_configuration" {
+variable "ssh" {
   description = "SSH configuration for remote connection"
   # @field host The target host to connect to using SSH
   # @field user SSH user to connect with
   # @field id Path to SSH private key file (defaults to ~/.ssh/id_rsa)
   # @type object
   type = object({
-    host = string
-    user = string
-    id   = optional(string, "~/.ssh/id_rsa")
+    host    = string
+    user    = string
+    id_file = optional(string, "~/.ssh/id_rsa")
   })
 }
 
-variable "proxmox_configuration" {
+variable "proxmox" {
   description = "Proxmox host configuration"
   # @field name The name of the Proxmox node
   # @field host The target host for Proxmox API use
@@ -26,7 +26,6 @@ variable "proxmox_configuration" {
 variable "packages" {
   description = "List of packages to install via apt-get"
   # @example ["git", "curl", "wget"]
-  # @type list(string)
   type    = list(string)
   default = []
 }
@@ -94,13 +93,13 @@ variable "terraform_user" {
       ])
     })
     token = object({
-      name = optional(string, "terraform-token")
+      name    = optional(string, "terraform-token")
       comment = optional(string, "Terraform automation user API token")
     })
   })
 
   default = {
-    role = {}
+    role  = {}
     token = {}
   }
 
@@ -113,28 +112,28 @@ variable "terraform_user" {
   }
 }
 
-variable "storages" {
-  description = "Configuration of the storages (pools and directories) to import"
+variable "storage" {
+  description = "Configuration of the storage (pools and directories) to import"
   # @field type[*].name           name / ID of the storage pool or directory
   # @field type[*].type           type of the storage; valid values are: pool, directory
   # @field type[*].path           (only if type=directory) path of the directory on the host
   # @field type[*].content_types  (only if type=directory) content types of the directory; valid values are: iso, vztmpl, backup, snippets, rootdir, images
   type = list(object({
-    name          = string
-    type          = string # "pool" or "directory"
+    name = string
+    type = string # "pool" or "directory"
     # For directories only:
     path          = optional(string)
     content_types = optional(list(string))
   }))
 
   validation {
-    condition     = alltrue([for item in var.storages : contains(["pool", "directory"], item.type)])
+    condition     = alltrue([for item in var.storage : contains(["pool", "directory"], item.type)])
     error_message = "Storage type must be either 'pool' or 'directory'."
   }
 
   validation {
     condition = alltrue([
-      for item in var.storages :
+      for item in var.storage :
       item.type == "directory" ? (item.content_types != null && length(item.content_types) > 0) : true
     ])
     error_message = "Directories must have at least one content_type specified."
@@ -142,31 +141,34 @@ variable "storages" {
 
   validation {
     condition = alltrue([
-      for item in var.storages :
-      item.type == "directory" ? 
-        alltrue([
-          for content_type in item.content_types :
-          contains(["iso", "vztmpl", "backup", "snippets", "rootdir", "images"], content_type)
-        ]) : true
+      for item in var.storage :
+      item.type == "directory" ?
+      alltrue([
+        for content_type in item.content_types :
+        contains(["iso", "vztmpl", "backup", "snippets", "rootdir", "images"], content_type)
+      ]) : true
     ])
     error_message = "Content types must be one or more of: iso, vztmpl, backup, snippets, rootdir, images."
   }
 }
 
-variable "no_subscription_repository" {
+variable "no_subscription" {
   description = "Whether to use no-subscription repository instead of enterprise repository or not"
-  type        = object({
-    use               = bool
-    sources_file_name = optional(string, "pve-no-subscription.list")
-    repository_line   = optional(string, "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription")
+  # @field enabled true if no-subscription repository should be used, false otherwise
+  # @field list_file Name of the file within the /etc/apt/sources.list.d/ directory
+  # @field list_file_content Repository line to add (e.g. deb http://... <version> <name>)
+  type = object({
+    enabled           = bool
+    list_file         = optional(string, "pve-no-subscription.list")
+    list_file_content = optional(string, "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription")
   })
-  
-  default     = {
-    use               = true
+
+  default = {
+    enabled = true
   }
 
   validation {
-    condition         = !can(regex("\\s", var.no_subscription_repository.sources_file_name))
-    error_message     = "The sources_file_name cannot contain whitespace characters"
+    condition     = !can(regex("\\s", var.no_subscription.list_file))
+    error_message = "The 'list_file' field cannot contain whitespace characters"
   }
 }

@@ -12,11 +12,11 @@ terraform {
 }
 
 provider "restapi" {
-  uri = "https://${var.proxmox_configuration.host}:${var.proxmox_configuration.port}/api2/json"
-  insecure = true  # For self-signed certs
+  uri      = "https://${local.proxmox.host}:${local.proxmox.port}/api2/json"
+  insecure = true # For self-signed certs
 
   write_returns_object = true
-  debug = true
+  debug                = true
 
   headers = {
     Authorization = local.token

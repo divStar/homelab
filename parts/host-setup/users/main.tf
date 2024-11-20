@@ -4,18 +4,12 @@
  * Handles the creation and deletion of a dedicated user with a custom role
  * and API token for the Terraform provisioner on the host
  */
-
-locals {
-  rawtoken = jsondecode(ssh_resource.create_terraform_api_token.result)
-  token = "PVEAPIToken=${local.rawtoken.full-tokenid}=${local.rawtoken.value}"
-}
-
 resource "ssh_resource" "create_terraform_user" {
-  host        = local.ssh_config.host
-  user        = local.ssh_config.user
-  private_key = local.ssh_config.private_key
-
   # when = "create"
+
+  host        = local.ssh.host
+  user        = local.ssh.user
+  private_key = local.ssh.private_key
 
   commands = [
     # Create user, who cannot login
@@ -30,12 +24,12 @@ resource "ssh_resource" "create_terraform_user" {
 }
 
 resource "ssh_resource" "create_terraform_api_token" {
-  host        = local.ssh_config.host
-  user        = local.ssh_config.user
-  private_key = local.ssh_config.private_key
-
   # when = "create"
   timeout = "30s"
+
+  host        = local.ssh.host
+  user        = local.ssh.user
+  private_key = local.ssh.private_key
 
   depends_on = [ssh_resource.create_terraform_user]
 
@@ -45,12 +39,12 @@ resource "ssh_resource" "create_terraform_api_token" {
 }
 
 resource "ssh_resource" "remove_terraform_user" {
-  host        = local.ssh_config.host
-  user        = local.ssh_config.user
-  private_key = local.ssh_config.private_key
-
   when    = "destroy"
   timeout = "30s"
+
+  host        = local.ssh.host
+  user        = local.ssh.user
+  private_key = local.ssh.private_key
 
   commands = [
     # Remove in correct order to prevent dependency issues

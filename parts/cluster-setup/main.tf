@@ -55,14 +55,14 @@ module "sealed_secrets" {
   }
 }
 
-# module "proxmox_csi_plugin" {
-#   depends_on = [module.talos]
-#   source = "./proxmox-csi-plugin"
+module "proxmox_csi_plugin" {
+  depends_on = [module.talos]
+  source = "./proxmox-csi-plugin"
 
-#   providers = {
-#     proxmox    = proxmox
-#     kubernetes = kubernetes
-#   }
+  providers = {
+    proxmox    = proxmox
+    kubernetes = kubernetes
+  }
 
-#   proxmox = var.proxmox
-# }
+  proxmox = var.proxmox
+}

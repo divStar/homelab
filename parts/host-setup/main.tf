@@ -34,11 +34,47 @@
  * ```
  */
 
-locals {
-  # SSH connection settings for reuse
-  ssh_config = {
-    host        = var.ssh_configuration.host
-    user        = var.ssh_configuration.user
-    private_key = file(var.ssh_configuration.id)
+module "repositories" {
+  source = "./repositories"
+
+  ssh             = local.ssh
+  no_subscription = local.no_subscription
+}
+
+module "packages" {
+  source = "./packages"
+
+  depends_on = [module.repositories]
+
+  ssh      = local.ssh
+  packages = local.packages
+}
+
+module "scripts" {
+  source = "./scripts"
+
+  ssh     = local.ssh
+  scripts = local.scripts
+}
+
+module "users" {
+  source = "./users"
+
+  ssh            = local.ssh
+  terraform_user = local.terraform_user
+}
+
+module "storage" {
+  source = "./storage"
+
+  depends_on = [module.scripts, module.users]
+
+  providers = {
+    restapi = restapi
   }
+
+  ssh     = local.ssh
+  proxmox = local.proxmox
+  storage = local.storage
+  token   = local.token
 }

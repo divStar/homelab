@@ -20,6 +20,20 @@ resource "ssh_resource" "add_no_sub_repository" {
   ]
 }
 
+resource "ssh_resource" "update_all_repositories" {
+  # when = "create"
+
+  depends_on = [ssh_resource.add_no_sub_repository]
+
+  host        = local.ssh.host
+  user        = local.ssh.user
+  private_key = local.ssh.private_key
+
+  commands = [
+    "apt-get update"
+  ]
+}
+
 resource "ssh_resource" "remove_no_sub_repository" {
   when = "destroy"
 

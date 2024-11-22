@@ -23,6 +23,22 @@ variable "proxmox" {
   })
 }
 
+variable "configuration_files" {
+  description = "Configuration files to copy to the host"
+  # @field item.source Source of the file on the system, that OpenTofu / Terraform is running on
+  # @field item.destination Destination of the file on the host
+  # @field item.permissions Permissions of the file to be set on the host
+  # @field item.owner (optional) Owner of the file to be set on the host
+  # @field item.group (optional) Group of the file to be set on the host
+  type = list(object({
+    source      = string
+    destination = string
+    permissions = optional(number)
+    owner       = optional(string)
+    group       = optional(string)
+  }))
+}
+
 variable "packages" {
   description = "List of packages to install via apt-get"
   # @example ["git", "curl", "wget"]

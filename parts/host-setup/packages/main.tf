@@ -13,7 +13,6 @@ resource "ssh_resource" "package_install" {
   private_key = local.ssh.private_key
 
   commands = concat(
-    ["apt-get update"],
     local.pkg_install_cmd
   )
 }

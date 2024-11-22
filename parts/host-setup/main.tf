@@ -9,7 +9,7 @@
  * module "remote_setup" {
  *   source = "github.com/username/repo"
  *   
- *   ssh_configuration = {
+ *   ssh = {
  *     host = "example.com"
  *     user = "admin"
  *   }
@@ -33,6 +33,13 @@
  * }
  * ```
  */
+
+module "copy_configs" {
+  source = "./copy_configs"
+
+  ssh                 = local.ssh
+  configuration_files = local.configuration_files
+}
 
 module "repositories" {
   source = "./repositories"

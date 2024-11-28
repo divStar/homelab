@@ -1,4 +1,4 @@
-output "users" {
+output "pve-user" {
   description = "The user and role created on the Proxmox host"
   value = {
     name    = var.terraform_user.name
@@ -10,6 +10,6 @@ output "users" {
 
 output "token" {
   description = "The API token created on the Proxmox host"
-  value = "Authorization: ${local.token}"
-  sensitive = true
+  value       = "Authorization: ${local.token}"
+  sensitive   = true
 }

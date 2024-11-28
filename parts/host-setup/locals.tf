@@ -7,5 +7,5 @@ locals {
   no_subscription     = var.no_subscription
   terraform_user      = var.terraform_user
   storage             = var.storage
-  token               = module.users.token
+  token               = module.pve-user.token
 }

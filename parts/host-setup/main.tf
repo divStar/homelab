@@ -34,6 +34,13 @@
  * ```
  */
 
+module "terraform_user" {
+  source = "./terraform-user"
+
+  ssh            = local.ssh
+  terraform_user = local.terraform_user
+}
+
 module "copy_configs" {
   source = "./copy_configs"
 
@@ -64,17 +71,10 @@ module "scripts" {
   scripts = local.scripts
 }
 
-module "users" {
-  source = "./users"
-
-  ssh            = local.ssh
-  terraform_user = local.terraform_user
-}
-
 module "storage" {
   source = "./storage"
 
-  depends_on = [module.scripts, module.users]
+  depends_on = [module.scripts, module.pve-user]
 
   providers = {
     restapi = restapi

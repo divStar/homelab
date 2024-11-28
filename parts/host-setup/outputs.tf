@@ -18,15 +18,15 @@ output "installed_scripts" {
   value       = module.scripts.installed_scripts
 }
 
-output "users" {
+output "pve-user" {
   description = "The user and role created on the Proxmox host"
-  value       = module.users.users
+  value       = module.pve-user.pve-user
   sensitive   = true
 }
 
 output "token" {
   description = "The API token created on the Proxmox host"
-  value       = module.users.token
+  value       = module.pve-user.token
   sensitive   = true
 }
 

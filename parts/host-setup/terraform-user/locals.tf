@@ -7,6 +7,7 @@ locals {
   }
 
   # User and API token token
-  rawtoken = jsondecode(ssh_resource.create_terraform_api_token.result)
-  token    = "PVEAPIToken=${local.rawtoken.full-tokenid}=${local.rawtoken.value}"
+  terraform_user = var.terraform_user
+  rawtoken       = jsondecode(ssh_resource.create_api_token.result)
+  token          = "PVEAPIToken=${local.rawtoken.full-tokenid}=${local.rawtoken.value}"
 }

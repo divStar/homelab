@@ -20,13 +20,13 @@ output "installed_scripts" {
 
 output "pve-user" {
   description = "The user and role created on the Proxmox host"
-  value       = module.pve-user.pve-user
+  value       = module.terraform_user.pve-user
   sensitive   = true
 }
 
 output "token" {
   description = "The API token created on the Proxmox host"
-  value       = module.pve-user.token
+  value       = module.terraform_user.token
   sensitive   = true
 }
 

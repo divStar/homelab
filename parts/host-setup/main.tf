@@ -35,7 +35,7 @@
  */
 
 module "terraform_user" {
-  source = "./terraform-user"
+  source = "./terraform_user"
 
   ssh            = local.ssh
   terraform_user = local.terraform_user
@@ -74,7 +74,7 @@ module "scripts" {
 module "storage" {
   source = "./storage"
 
-  depends_on = [module.scripts, module.pve-user]
+  depends_on = [module.scripts, module.terraform_user]
 
   providers = {
     restapi = restapi
@@ -84,4 +84,22 @@ module "storage" {
   proxmox = local.proxmox
   storage = local.storage
   token   = local.token
+}
+
+module "gitops_user" {
+  source = "./gitops_user"
+
+  # this module depends on module.storage in order for the gitops repository to be present beforehand
+  depends_on = [module.storage]
+
+  # this is the SSH user, that is used to create the gitops git+ssh user
+  ssh = local.ssh
+
+  gitops_user           = local.gitops_user
+  org_source_repo_owner = local.org_source_repo_owner
+
+  # Note: in order to make use of the gitops git repository and user,
+  # public SSH keys of users/applications, who want to access it,
+  # have to be introduced into the /home/<user, e.g. gitops>/.ssh/authorized_keys file.
+  # You can use the `authorized_keys_appender` script for it.
 }

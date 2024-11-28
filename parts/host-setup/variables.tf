@@ -128,6 +128,28 @@ variable "terraform_user" {
   }
 }
 
+variable "gitops_user" {
+  description = "Configuration of GitOps user."
+  type = object({
+    user        = optional(string, "gitops")
+    group       = optional(string, "gitops")
+    repo_name   = optional(string, "repo")
+    source_repo = optional(string, "/storage-pool/gitops")
+  })
+
+  default = {}
+}
+
+variable "org_source_repo_owner" {
+  description = "Original owner of the source repository (before, e.g. root:root)"
+  type = object({
+    owner = optional(string, "root")
+    group = optional(string, "root")
+  })
+
+  default = {}
+}
+
 variable "storage" {
   description = "Configuration of the storage (pools and directories) to import"
   # @field type[*].name           name / ID of the storage pool or directory

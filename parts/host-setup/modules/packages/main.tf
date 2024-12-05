@@ -15,7 +15,7 @@ locals {
   }
 
   # Package to install or remove
-  packages_string    = join(" ", var.packages)
+  packages_string = join(" ", var.packages)
 }
 
 resource "ssh_resource" "package_install" {

@@ -72,7 +72,7 @@ resource "ssh_resource" "create_api_token" {
 }
 
 resource "ssh_resource" "delete_role" {
-  when       = "destroy"
+  when = "destroy"
 
   host        = local.ssh.host
   user        = local.ssh.user
@@ -85,7 +85,7 @@ resource "ssh_resource" "delete_role" {
 }
 
 resource "ssh_resource" "delete_user" {
-  when       = "destroy"
+  when = "destroy"
 
   host        = local.ssh.host
   user        = local.ssh.user

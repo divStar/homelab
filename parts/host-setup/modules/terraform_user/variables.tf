@@ -31,6 +31,7 @@ variable "terraform_user" {
         "VM.Monitor",
         "Datastore.Allocate",
         "Datastore.AllocateSpace",
+        "Datastore.AllocateTemplate",
         "Datastore.Audit",
         "SDN.Use",
         "Sys.Audit",

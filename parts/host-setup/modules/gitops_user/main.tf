@@ -4,6 +4,17 @@
  * Handles the creation and deletion of a dedicated user git+ssh access (gitops)
  * as well as setting and restoring owner / group of the original gitops repository.
  */
+locals {
+  # SSH connection settings for reuse
+  ssh = {
+    host        = var.ssh.host
+    user        = var.ssh.user
+    private_key = file(var.ssh.id_file)
+  }
+
+  user_home = "/home/${var.gitops_user.user}"
+}
+
 # Create user and set up repository
 resource "ssh_resource" "add_gitops_user" {
   # when = "create"

@@ -23,7 +23,7 @@ variable "target_user" {
 
 variable "repo_name" {
   description = "Name of the symbolic link to the actual gitops git repository"
-  type = string
+  type        = string
 }
 
 variable "git_access_mode" {

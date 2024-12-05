@@ -3,6 +3,15 @@
  * 
  * Handles the copying of configuration files to the host.
  */
+locals {
+  # SSH connection settings for reuse
+  ssh = {
+    host        = var.ssh.host
+    user        = var.ssh.user
+    private_key = file(var.ssh.id_file)
+  }
+}
+
 resource "ssh_resource" "copy_configuration_files" {
   # when = "create"
 

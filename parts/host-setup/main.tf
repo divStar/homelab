@@ -35,6 +35,8 @@ module "packages" {
 module "scripts" {
   source = "./modules/scripts"
 
+  depends_on = [module.terraform_user]
+
   ssh     = local.ssh
   scripts = local.scripts
 }

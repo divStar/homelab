@@ -4,6 +4,18 @@
  * Handles the deactivation of the enterprise repositories and
  * the creation and activation of the no-subscription repositories.
  */
+locals {
+  # SSH connection settings for reuse
+  ssh = {
+    host        = var.ssh.host
+    user        = var.ssh.user
+    private_key = file(var.ssh.id_file)
+  }
+
+  # no-subscription related local variables
+  resource_count = var.no_subscription.enabled ? 1 : 0
+}
+
 resource "ssh_resource" "add_no_sub_repository" {
   # when = "create"
 

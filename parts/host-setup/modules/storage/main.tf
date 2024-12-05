@@ -3,6 +3,24 @@
  *
  * Handles the import and export of ZFS pools as well as directories.
  */
+locals {
+  # SSH connection settings for reuse
+  ssh = {
+    host        = var.ssh.host
+    user        = var.ssh.user
+    private_key = file(var.ssh.id_file)
+  }
+
+  # Storage data
+  pools       = [for item in var.storage : item if item.type == "pool"]
+  directories = [for item in var.storage : item if item.type == "directory"]
+
+  storage_api_url = "https://${var.proxmox.host}:${var.proxmox.port}/api2/json/storage"
+  storage_api_headers = {
+    "Content-Type"  = "application/json"
+    "Authorization" = "${var.token}"
+  }
+}
 
 # Import ZFS pools
 resource "ssh_resource" "import_zfs_pools" {

@@ -1,0 +1,8 @@
+# This patch disables Flannel (Talos' default CNI) and kube-proxy.
+# See https://www.talos.dev/v1.9/kubernetes-guides/network/deploying-cilium/#installation-using-cilium-cli for more details.
+cluster:
+  network:
+    cni:
+      name: none
+  proxy:
+    disabled: true

@@ -21,6 +21,8 @@ variable "terraform_user" {
       privileges = optional(list(string), [
         "VM.Allocate",
         "VM.Clone",
+        "VM.Audit",
+        "VM.Config.HWType",
         "VM.Config.Disk",
         "VM.Config.CPU",
         "VM.Config.Memory",

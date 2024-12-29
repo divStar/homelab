@@ -1,3 +1,9 @@
+locals {
+  control_plane_patches_dir = "control_plane_patches"
+  worker_patches_dir        = "worker_patches"
+  patches_dir               = var.node_machine_type == "controlplane" ? local.control_plane_patches_dir : local.worker_patches_dir
+}
+
 data "talos_machine_configuration" "this" {
   depends_on       = [local_file.cilium_patch]
   cluster_name     = var.cluster.name
@@ -6,7 +12,7 @@ data "talos_machine_configuration" "this" {
   machine_type     = var.node_machine_type
   machine_secrets  = var.talos_machine_secrets
   config_patches = [
-    for patch in fileset("${path.module}/patches", "*.yaml") : file("${path.module}/patches/${patch}")
+    for patch in fileset("${path.module}/${local.patches_dir}", "*.yaml") : file("${path.module}/${local.patches_dir}/${patch}")
   ]
 }
 

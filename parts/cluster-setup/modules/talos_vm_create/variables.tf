@@ -156,3 +156,10 @@ variable "cilium_timeout" {
   default     = 60
   nullable    = false
 }
+
+variable "target_kube_version" {
+  description = "Target version of Kubernetes the template is built for"
+  type        = string
+  default     = "1.32"
+  nullable    = false
+}

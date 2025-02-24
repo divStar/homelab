@@ -1,0 +1,47 @@
+# This patch disables Flannel (Talos' default CNI), kube-proxy and installs Cilium.
+# See https://www.talos.dev/v1.9/kubernetes-guides/network/deploying-cilium/#installation-using-cilium-cli for more details.
+cluster:
+  network:
+    cni:
+      name: none
+  proxy:
+    disabled: true
+  inlineManifests:
+  # Create *privileged* Cilium namespace IF a dedicated namespace is used
+  %{~ if cilium_namespace != "kube-system" ~}
+  - name: cilium-namespace
+    contents: |
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: ${cilium_namespace}
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+          pod-security.kubernetes.io/audit: privileged
+          pod-security.kubernetes.io/warn: privileged
+  %{~ endif ~}
+  # Install Cilium CNI
+  - name: cilium
+    contents: |
+      ${indent(6, cilium_manifest)}
+  - name: cilium-ip-pool
+    contents: |
+      apiVersion: cilium.io/v2alpha1
+      kind: CiliumLoadBalancerIPPool
+      metadata:
+        name: service-pool
+        namespace: ${cilium_namespace}
+      spec:
+        allowFirstLastIPs: "Yes"
+        blocks:
+        - cidr: ${cilium_loadbalancer_cidr}
+  - name: cilium-l2-policy
+    contents: |
+      apiVersion: cilium.io/v2alpha1
+      kind: CiliumL2AnnouncementPolicy
+      metadata:
+        name: default-l2-announcement-policy
+        namespace: ${cilium_namespace}
+      spec:
+        externalIPs: true
+        loadBalancerIPs: true

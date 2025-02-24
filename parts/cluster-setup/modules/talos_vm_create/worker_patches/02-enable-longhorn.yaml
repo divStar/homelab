@@ -1,0 +1,15 @@
+machine:
+  disks:
+    - device: /dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_storage
+      partitions:
+        - mountpoint: /var/lib/longhorn
+          size: 0
+  kubelet:
+    extraMounts:
+      - destination: /var/lib/longhorn
+        type: bind
+        source: /var/lib/longhorn
+        options:
+          - bind
+          - rshared
+          - rw

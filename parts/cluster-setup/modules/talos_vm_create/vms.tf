@@ -25,7 +25,7 @@ resource "proxmox_virtual_environment_vm" "this" {
   }
 
   network_device {
-    bridge      = "vmbr0"
+    bridge      = var.node_bridge
     mac_address = var.node_mac_address
   }
 
@@ -38,7 +38,23 @@ resource "proxmox_virtual_environment_vm" "this" {
     discard      = "on"
     ssd          = true
     file_format  = "raw"
-    size         = 20
+    size         = 8
+    serial       = "boot"
+  }
+
+  dynamic "disk" {
+    for_each = var.node_machine_type == "worker" ? [1] : []
+    content {
+      datastore_id = var.node_datastore_id
+      interface    = "scsi1"
+      iothread     = true
+      cache        = "writethrough"
+      discard      = "on"
+      ssd          = true
+      file_format  = "raw"
+      size         = 32
+      serial       = "storage"
+    }
   }
 
   boot_order = ["scsi0"]

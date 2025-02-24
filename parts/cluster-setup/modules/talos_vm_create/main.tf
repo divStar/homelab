@@ -5,7 +5,8 @@ locals {
 }
 
 data "talos_machine_configuration" "this" {
-  depends_on       = [local_file.cilium_patch]
+  depends_on = [local_file.cilium_patch]
+
   cluster_name     = var.cluster.name
   cluster_endpoint = "https://${var.cluster.endpoint}:6443"
   talos_version    = var.cluster.talos_version

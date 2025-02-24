@@ -11,8 +11,9 @@ terraform {
       version = ">= 0.7.0"
     }
     helm = {
-      source  = "hashicorp/helm"
-      version = ">= 2.17.0"
+      source                = "hashicorp/helm"
+      version               = ">= 2.17.0"
+      configuration_aliases = [helm.templating]
     }
   }
 }

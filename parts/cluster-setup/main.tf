@@ -1,8 +1,11 @@
 # 1. Collect all versions and schemas of the desired Talos Kubernetes Linux images.
 # 2. Run module `talos_image` for each distinct version.
-# 3. Instantiate all Talos VMs in parallel using `talos_vm`.
+# 3. Instantiate all Talos VMs in parallel using `talos_vm` with all patches (including Cilium).
 # 4. Await cluster deployment completion using `talos_cluster`.
-# 5. Install cilium, openebs, cert-manager, sealed-secrets and all DNS related services.
+# 5. Install cert-manager
+# 6. Install sealed-secrets.
+# 7. Install PiHole.
+# 8. Install external-dns.
 locals {
   nodes_with_iso = [
     for node in var.nodes : merge(node, {
@@ -44,6 +47,10 @@ module "create_talos_vms" {
   source     = "./modules/talos_vm_create"
   depends_on = [module.prepare_talos_cluster]
 
+  providers = {
+    helm.templating = helm.templating
+  }
+
   proxmox                    = var.proxmox
   cluster                    = var.cluster
   talos_machine_secrets      = module.prepare_talos_cluster.machine_secrets
@@ -57,6 +64,7 @@ module "create_talos_vms" {
   node_name          = each.value.name
   node_host          = each.value.host
   node_machine_type  = each.value.machine_type
+  node_bridge        = each.value.bridge
   node_ip            = each.value.ip
   node_mac_address   = each.value.mac_address
   node_vm_id         = each.value.vm_id
@@ -86,50 +94,89 @@ module "await_talos_cluster" {
   }]
 }
 
-# module "network_cilium" {
-#   source = "./modules/network_cilium"
+module "install_cert_manager" {
+  source     = "./modules/core_cert_manager_install"
+  depends_on = [module.await_talos_cluster]
 
-#   depends_on = [module.talos_cluster]
-# }
+  providers = {
+    helm.deploying = helm.deploying
+  }
 
-# module "storage_openebs" {
-#   source = "./modules/storage_openebs"
+  chart_version = var.cert_manager_version
+  namespace     = var.cert_manager_namespace
+}
 
-#   depends_on = [module.network_cilium]
-# }
+module "install_sealed_secrets" {
+  source     = "./modules/core_sealed_secrets_install"
+  depends_on = [module.install_cert_manager]
 
-# module "cert_manager" {
-#   source = "./modules/cert_manager"
+  providers = {
+    helm.deploying = helm.deploying
+  }
 
-#   depends_on = [module.storage_openebs]
-# }
+  chart_version = var.sealed_secrets_version
+  namespace     = var.sealed_secrets_namespace
+}
 
-# module "sealed_secrets" {
-#   source = "./modules/sealed_secrets"
+module "k8s_ca_create" {
+  source     = "./modules/core_k8s_cert_create"
+  depends_on = [module.install_sealed_secrets]
 
-#   depends_on = [module.storage_openebs]
-# }
+  proxmox = {
+    host     = var.proxmox.host
+    ssh_user = var.proxmox.ssh_user
+    ssh_key  = var.proxmox.ssh_key
+  }
 
-# module "dns_core" {
-#   source = "./modules/dns_core"
+  proxmox_root_ca = var.proxmox_root_ca
+  k8s_ca          = var.k8s_ca
+}
 
-#   depends_on = [
-#     module.cert_manager,
-#     module.sealed_secrets
-#   ]
+module "k8s_ca_seal" {
+  source     = "./modules/core_k8s_cert_seal"
+  depends_on = [module.k8s_ca_create]
+
+  k8s_ca_tls_crt   = module.k8s_ca_create.k8s_ca_tls_crt
+  k8s_ca_tls_key   = module.k8s_ca_create.k8s_ca_tls_key
+  secret_namespace = var.cert_manager_namespace
+}
+
+module "k8s_ca_install" {
+  source     = "./modules/core_k8s_cert_install"
+  depends_on = [module.k8s_ca_seal]
+
+  sealed_k8s_ca_tls = module.k8s_ca_seal.sealed_k8s_ca_tls
+}
+
+module "install_longhorn" {
+  source     = "./modules/storage_longhorn_install"
+  depends_on = [module.k8s_ca_install]
+
+  providers = {
+    helm.deploying = helm.deploying
+  }
+
+  chart_version = var.longhorn_version
+  nodes_count   = length([for node in var.nodes : true if node.machine_type == "worker"])
+  ca_issuer     = module.k8s_ca_install.k8s_ca_issuer
+}
+
+module "expose_hubble_ui" {
+  source     = "./modules/monitoring_hubble_expose"
+  depends_on = [module.k8s_ca_install]
+
+  ca_issuer = module.k8s_ca_install.k8s_ca_issuer
+}
+
+# module "install_pihole" {
+#   source     = "./modules/dns_pihole_install"
+#   depends_on = [module.install_sealed_secrets]
+
+#   chart_version = var.pihole_version
 # }
 
 # module "dns_external" {
 #   source = "./modules/dns_external"
 
 #   depends_on = [module.dns_core]
-# }
-
-# module "dns_pihole" {
-#   source = "./modules/dns_pihole"
-
-#   depends_on = [
-#     module.dns_core,
-#     module.dns_external
-#   ]
 # }

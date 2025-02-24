@@ -18,6 +18,7 @@ variable "cluster" {
     gateway       = string
     talos_version = string
     endpoint      = string
+    lb_cidr       = string
   })
 }
 
@@ -63,6 +64,13 @@ variable "node_machine_type" {
     condition     = contains(["controlplane", "worker"], var.node_machine_type)
     error_message = "The machine_type must be either 'controlplane' or 'worker'."
   }
+}
+
+variable "node_bridge" {
+  description = "Network bridge to use for this node"
+  type        = string
+  default     = "vmbr0"
+  nullable    = false
 }
 
 variable "node_ip" {
@@ -131,6 +139,13 @@ variable "cilium_version" {
 
 variable "cilium_name" {
   description = "Name of the Cilium Helm release"
+  type        = string
+  default     = "cilium"
+  nullable    = false
+}
+
+variable "cilium_namespace" {
+  description = "Namespace to install Cilium into"
   type        = string
   default     = "cilium"
   nullable    = false

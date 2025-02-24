@@ -2,6 +2,7 @@ variable "proxmox" {
   description = "Proxmox host configuration"
   type = object({
     name      = string
+    host      = string
     endpoint  = string
     insecure  = bool
     api_token = string
@@ -18,7 +19,56 @@ variable "cluster" {
     endpoint      = string
     talos_version = string
     gateway       = string
+    lb_cidr       = string
   })
+}
+
+variable "proxmox_root_ca" {
+  description = "Proxmox root CA certificate and key to use for the intermediate k8s certificate"
+  type = object({
+    pve_root_cert = string
+    pve_root_key  = string
+  })
+  default = {
+    pve_root_cert = "/etc/pve/pve-root-ca.pem"
+    pve_root_key  = "/etc/pve/priv/pve-root-ca.key"
+  }
+  nullable = false
+}
+
+variable "k8s_ca" {
+  description = "Intermediate Kubernetes CA used as ClusterIssuer"
+  type = object({
+    subject = object({
+      common_name         = string
+      organization        = string
+      organizational_unit = string
+      country             = string
+      locality            = string
+      province            = string
+    })
+    private_key = object({
+      algorithm = string
+      rsa_bits  = number
+    })
+    validity_period_hours = number
+  })
+  default = {
+    subject = {
+      common_name         = "Proxmox VE Kubernetes Intermediate CA"
+      organization        = "PVE Cluster Manager CA"
+      organizational_unit = "Kubernetes"
+      country             = "DE"
+      locality            = "Home Lab"
+      province            = "Private Network"
+    }
+    private_key = {
+      algorithm = "RSA"
+      rsa_bits  = 4096
+    }
+    validity_period_hours = 78840 # 9 years
+  }
+  nullable = false
 }
 
 variable "kube_config_file" {
@@ -42,11 +92,6 @@ variable "talos_machine_config_file" {
   nullable    = false
 }
 
-variable "cilium_version" {
-  description = "Cilium version"
-  type        = string
-}
-
 variable "nodes" {
   description = "Configuration for cluster nodes"
   type = list(object({
@@ -60,6 +105,7 @@ variable "nodes" {
     tags          = optional(list(string))
     host          = string
     machine_type  = string
+    bridge        = optional(string)
     ip            = string
     mac_address   = string
     vm_id         = number
@@ -97,4 +143,60 @@ variable "nodes" {
     ])
     error_message = "MAC addresses must be in valid format (e.g., BC:24:11:2E:C8:00)"
   }
+}
+
+variable "cilium_version" {
+  description = "Cilium version"
+  type        = string
+  default     = "1.17.1"
+  nullable    = false
+}
+
+variable "longhorn_version" {
+  description = "Version of the Longhorn Helm Chart to install"
+  type        = string
+  default     = "1.8.0"
+  nullable    = false
+}
+
+variable "cert_manager_version" {
+  description = "Version of the cert-manager Helm Chart to install"
+  type        = string
+  default     = "1.17.1"
+  nullable    = false
+}
+
+variable "cert_manager_namespace" {
+  description = "Namespace where the cert-manager will be installed to"
+  type        = string
+  default     = "cert-manager"
+  nullable    = false
+}
+
+variable "pihole_version" {
+  description = "Version of the pihole Helm Chart to install"
+  type        = string
+  default     = "2.27.0"
+  nullable    = false
+}
+
+variable "sealed_secrets_version" {
+  description = "Version of the sealed-secrets Helm Chart to install"
+  type        = string
+  default     = "2.17.1"
+  nullable    = false
+}
+
+variable "sealed_secrets_namespace" {
+  description = "Namespace where the sealed-secrets operator will be installed to"
+  type        = string
+  default     = "sealed-secrets"
+  nullable    = false
+}
+
+variable "sealed_secrets_controller_name" {
+  description = "Name of the sealed-secrets controller"
+  type        = string
+  default     = "sealed-secrets-release"
+  nullable    = false
 }

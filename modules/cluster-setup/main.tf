@@ -147,7 +147,7 @@ module "setup_k8s_ca" {
 # when a such a service is deployed (add) or destroyed (remove).
 module "install_external_dns" {
   source     = "./modules/dns-install-external-dns"
-  depends_on = [module.k8s_ca_install]
+  depends_on = [module.setup_k8s_ca]
 
   providers = {
     helm.deploying = helm.deploying
@@ -160,7 +160,7 @@ module "install_external_dns" {
 # storage of `PersistentVolume` and `PersistentVolumeClaims`.
 module "install_longhorn" {
   source     = "./modules/storage-install-longhorn"
-  depends_on = [module.external_dns_install]
+  depends_on = [module.install_external_dns]
 
   providers = {
     helm.deploying = helm.deploying
@@ -168,14 +168,14 @@ module "install_longhorn" {
 
   chart_version = var.longhorn_version
   nodes_count   = length([for node in var.nodes : true if node.machine_type == "worker"])
-  ca_issuer     = module.k8s_ca_install.k8s_ca_issuer
+  ca_issuer     = module.setup_k8s_ca.k8s_ca_issuer
 }
 
 # Exposes the [Cilium Hubble UI](https://docs.cilium.io/en/stable/observability/hubble/hubble-ui/),
 # which allows to see a Service Map and inspect a variety of network traffic.
 module "expose_hubble_ui" {
   source     = "./modules/monitoring-expose-hubble-ui"
-  depends_on = [module.external_dns_install]
+  depends_on = [module.install_external_dns]
 
-  ca_issuer = module.k8s_ca_install.k8s_ca_issuer
+  ca_issuer = module.setup_k8s_ca.k8s_ca_issuer
 }

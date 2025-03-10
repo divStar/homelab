@@ -18,7 +18,7 @@ resource "local_file" "kube_config" {
 }
 
 resource "local_file" "k8s_sealed_secret" {
-  content         = module.k8s_ca_install.k8s_sealed_secret_yaml
+  content         = module.setup_k8s_ca.k8s_sealed_secret_yaml
   filename        = var.k8s_sealed_secret_ca_file
   file_permission = "0600"
 }

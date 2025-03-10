@@ -1,0 +1,7 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: k8s-ca-issuer
+spec:
+  ca:
+    secretName: ${k8s_ca_secret_name} # k8s-ca-secret

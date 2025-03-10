@@ -1,0 +1,9 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/terraform.tfstate*": true,
+        "**/.DS_Store": true
+    }
+}

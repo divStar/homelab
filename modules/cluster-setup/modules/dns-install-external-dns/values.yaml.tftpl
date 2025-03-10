@@ -1,0 +1,34 @@
+# The following custom image and security settings need to be changed temporarily
+# as long as PiHole v6 support is not merged yet
+global:
+  security:
+    allowInsecureImages: true
+image:
+  repository: tjouve/external-dns
+  tag: 6a4d8474
+
+# This environment variable sets the version PiHole to v6
+extraEnvVars:
+  - name: EXTERNAL_DNS_PIHOLE_API_VERSION
+    value: "6"
+
+provider: pihole
+pihole:
+  server: https://pihole.my.family
+  tlsSkipVerify: true
+  secretName: ${pihole_secret_name}
+
+registry: noop
+policy: sync
+txtOwnerId: talos-cluster
+
+domainFilters:
+  - "my.world"
+
+resources:
+  requests:
+    memory: 50Mi
+    cpu: 10m
+  limits:
+    memory: 150Mi
+    cpu: 100m

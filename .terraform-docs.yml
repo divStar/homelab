@@ -1,0 +1,152 @@
+formatter: "markdown" # this is required
+
+header-from: "main.tf"
+
+recursive:
+  enabled: true
+  path: modules
+  include-main: false
+
+sections:
+  hide: []
+  show: []
+
+content: |-
+  {{ .Header }}
+  ## Contents
+
+  <blockquote>
+
+  - [Requirements](#requirements)
+  - [Providers](#providers)
+  {{- if .Module.HasModuleCalls }}
+  - [Modules](#modules)
+    {{- range .Module.ModuleCalls }}
+    - [{{ .Name }}](#{{ .Name }})
+    {{- end }}
+  {{- end }}
+  - [Inputs](#inputs)
+  {{- range .Module.Inputs }}
+    - [{{ .Name }}](#{{ .Name }}-{{- if .Required -}}required{{- else }}optional{{- end }}) ({{- if .Required -}}**Required**{{- else }}*Optional*{{- end }})
+  {{- end }}
+  - [Outputs](#outputs)
+  {{- if .Module.HasResources }}
+    - [resource](#resource)
+    {{- range .Module.Resources }}
+      {{- if eq .GetMode "resource" }}
+        {{- $spec := split "." .Spec }}
+      - [{{ $spec._1 }}](#{{ $spec._1 }}-{{ $spec._0 }}) (*{{ $spec._0 }}*)
+      {{- end -}}
+    {{- end }}
+  {{- end }}
+    - [output](#output)
+  {{- range .Module.Outputs }}
+      - [{{ .Name }}](#{{ .Name }})
+  {{- end -}}
+
+  </blockquote>
+
+  {{ .Requirements }}
+  {{ .Providers }}
+
+  {{- if .Module.HasModuleCalls }}
+  ## Modules
+    {{- range .Module.ModuleCalls }}
+  <blockquote>
+
+  ### `{{ .Name }}`
+  {{ .Description.Raw }}
+
+  | | |
+  |:--- |:--- |
+  | Module location | `{{ .Source }}`
+  | Called in file | `{{ .Position.Filename }}#{{ .Position.Line }}`
+  </blockquote>
+    {{- end }}
+  {{- end }}
+
+  ## Inputs
+  {{- range .Module.Inputs }}
+  <blockquote>
+
+  ### `{{ .Name }}` ({{- if .Required -}}**Required**{{- else }}*Optional*{{- end }})
+  {{ .Description.Raw }}
+
+  <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+    <summary>Show more...</summary>
+
+    **Type**:
+    ```hcl
+      {{ .Type }}
+    ````
+    {{- if .HasDefault }}
+    **Default**:
+    ```json
+      {{ .GetValue }}
+    ```
+    {{- end }}
+    {{- $position := split "/" .Position.Filename }}
+    Defined in file: `{{ $position._2 }}#{{ .Position.Line }}`
+
+  </details>
+  </blockquote>
+  {{- end }}
+
+  ## Outputs
+  {{- if .Module.HasResources }}
+  ### `resource`
+    {{- range .Module.Resources }}
+      {{- if eq .GetMode "resource" }}
+        {{- $specs := split "." .Spec }}
+  <blockquote>
+
+  #### `{{ $specs._1 }}` (_{{ $specs._0 }}_)
+  {{- $position := split "/" .Position.Filename }}
+  Defined in file: `{{ $position._2 }}#{{ .Position.Line }}`
+  </blockquote>
+      {{- end -}}
+    {{- end }}
+  {{- end }}
+  
+  ### `output`
+  {{- range .Module.Outputs }}
+  <blockquote>
+
+  #### `{{ .Name }}`
+  {{ .Description.Raw }}
+
+  {{- $position := split "/" .Position.Filename }}
+  Defined in file: `{{ $position._2 }}#{{ .Position.Line }}`
+  </blockquote>
+  {{- end -}}
+  
+  {{ .Footer }}
+
+output:
+  file: "README.md"
+  mode: replace
+  template: |-
+    {{ .Content }}
+
+output-values:
+  enabled: false
+  from: ""
+
+sort:
+  enabled: true
+  by: required
+
+settings:
+  anchor: true
+  color: true
+  default: true
+  description: true
+  escape: true
+  hide-empty: false
+  html: false
+  indent: 2
+  lockfile: true
+  read-comments: true
+  required: true
+  sensitive: true
+  type: true

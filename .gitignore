@@ -62,6 +62,3 @@ terraform.rc
 
 # Ignore MacOS caching folders
 **/.DS_Store
-
-# Ignore Talos machine patches
-**/*patches*/*

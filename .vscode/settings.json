@@ -4,7 +4,6 @@
         "**/.svn": true,
         "**/.hg": true,
         "**/terraform.tfstate*": true,
-        "**/.DS_Store": true,
-        "**/.terraform*": true
+        "**/.DS_Store": true
     }
 }

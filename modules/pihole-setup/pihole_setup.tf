@@ -19,20 +19,6 @@ resource "ssh_resource" "install_pihole" {
   user        = "root"
   private_key = tls_private_key.alpine_ssh_key.private_key_pem
 
-  # We are using the original set up script
-  # file {
-  #   source      = "${path.module}/files/pihole_setup.sh"
-  #   destination = "/tmp/pihole_setup.sh"
-  #   permissions = "0700"
-  # }
-
-  # Not using specific
-  # file {
-  #   source      = "${path.module}/files/pihole-FTL.service"
-  #   destination = "/etc/init.d/pihole-FTL"
-  #   permissions = "0644"
-  # }
-
   file {
     source      = "${path.module}/files/pihole.toml"
     destination = "/etc/pihole/pihole.toml"

@@ -1,0 +1,39 @@
+#!/sbin/openrc-run
+
+# The rest are OpenRC variables.
+extra_commands="checkconfig"
+
+name="pihole-FTL"
+description="Pi-hole FTL DNS server"
+command="/usr/bin/pihole-FTL"
+command_user="pihole:pihole"
+pidfile="/run/${RC_SVCNAME}.pid"
+
+depend() {
+  need net
+  use logger
+}
+
+checkconfig() {
+  ebegin "Verifying pihole-FTL config files"
+  # Save the output in case verification fails and errors are printed.
+  OUTPUT=$( ${command} test debug )
+
+  # Save the exit code from the verification so that `echo` doesn't
+  # clobber it. Then, if verification failed, show its
+  # output. Otherwise, succeed quietly.
+  local exit_code=$?
+  [ $exit_code -ne 0 ] && echo "${OUTPUT}" >&2
+  eend $exit_code
+}
+
+start_pre() {
+  checkconfig || return $?
+}
+
+reload() {
+  checkconfig || return $?
+  ebegin "Reloading ${RC_SVCNAME}"
+  start-stop-daemon --signal HUP --pidfile "${pidfile}"
+  eend $?
+}

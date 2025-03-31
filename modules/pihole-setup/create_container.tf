@@ -101,24 +101,6 @@ resource "proxmox_virtual_environment_container" "alpine_container" {
     backup    = true
   }
 
-  # Perhaps not needed
-  # mount_point {
-  #   volume    = var.pihole_datastore_id
-  #   path      = "/var/www/html/admin"
-  #   size      = "128M"
-  #   replicate = true
-  #   backup    = true
-  # }
-
-  # Probably not needed
-  # mount_point {
-  #   volume    = var.pihole_datastore_id
-  #   path      = "/etc/.pihole"
-  #   size      = "128M"
-  #   replicate = true
-  #   backup    = true
-  # }
-
   # Basic startup configuration
   startup {
     order      = 1

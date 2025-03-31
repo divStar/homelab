@@ -57,7 +57,7 @@ variable "packages" {
 }
 
 variable "proxmox_root_ca" {
-  description = "Proxmox root CA certificate and key to use for the intermediate k8s certificate"
+  description = "Proxmox root CA certificate and key to use for the PiHole admin UI"
   type = object({
     pve_root_cert = string
     pve_root_key  = string
@@ -69,8 +69,8 @@ variable "proxmox_root_ca" {
   nullable = false
 }
 
-variable "pihole_ca" {
-  description = "Intermediate PiHole CA"
+variable "pihole_domain_cert" {
+  description = "PiHole domain certificate details"
   type = object({
     subject = object({
       common_name         = string
@@ -84,13 +84,15 @@ variable "pihole_ca" {
       algorithm = string
       rsa_bits  = number
     })
+    dns_names             = list(string)
+    ip_addresses          = list(string)
     validity_period_hours = number
   })
   default = {
     subject = {
-      common_name         = "Proxmox VE PiHole Intermediate CA"
-      organization        = "PVE Cluster Manager CA"
-      organizational_unit = "Kubernetes"
+      common_name         = "pihole.my.world"
+      organization        = "Home Network"
+      organizational_unit = "Network Services"
       country             = "DE"
       locality            = "Home Lab"
       province            = "Private Network"
@@ -99,6 +101,8 @@ variable "pihole_ca" {
       algorithm = "RSA"
       rsa_bits  = 4096
     }
+    dns_names             = ["pihole.my.world", "pihole.local", "pi.hole"]
+    ip_addresses          = ["192.168.178.150"]
     validity_period_hours = 78840 # 9 years
   }
   nullable = false

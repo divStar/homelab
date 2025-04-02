@@ -47,7 +47,7 @@ SSH configuration for remote connection
     user    = string
     id_file = optional(string, "~/.ssh/id_rsa")
   })
-  ````
+  ```
   Defined in file: `variables.tf#1`
 
 </details>
@@ -67,7 +67,7 @@ Whether to use no-subscription repository instead of enterprise repository or no
     list_file         = optional(string, "pve-no-subscription.list")
     list_file_content = optional(string, "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription")
   })
-  ````
+  ```
   **Default**:
   ```json
     {
@@ -102,5 +102,6 @@ Defined in file: `main.tf#35`
 
 #### `no_subscription`
 States, whether a no-subscription repository was used (and some further details)
+
 Defined in file: `outputs.tf#1`
 </blockquote>

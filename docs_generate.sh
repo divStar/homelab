@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Store the path where the script was started from
-START_PATH=$(pwd)
-CONFIG_PATH="$START_PATH/.terraform-docs.yml"
+CONFIG_PATH=$(pwd)"/.terraform-docs.yml"
 
 # Check if config file exists
 if [ ! -f "$CONFIG_PATH" ]; then

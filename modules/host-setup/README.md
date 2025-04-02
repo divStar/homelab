@@ -15,6 +15,7 @@ This module and its sub-modules setup the Proxmox host.
   - [scripts](#scripts)
   - [storage](#storage)
   - [terraform_user](#terraform_user)
+  - [update_ssl](#update_ssl)
 - [Inputs](#inputs)
   - [configuration_files](#configuration_files-required) (**Required**)
   - [proxmox](#proxmox-required) (**Required**)
@@ -43,10 +44,11 @@ This module and its sub-modules setup the Proxmox host.
 |------|---------|
 | <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | >= 1.20.0 |
 | <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+| <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.13.0 |
+| <a name="requirement_tls"></a> [tls](#requirement\_tls) | >= 4.0.6 |
 ## Providers
 
 No providers.
-
 ## Modules
 <blockquote>
 
@@ -118,6 +120,16 @@ Handles the creation and deletion of a dedicated user with a custom role and API
 | Module location | `./modules/terraform-user`
 | Called in file | `main.tf#9`
 </blockquote>
+<blockquote>
+
+### `update_ssl`
+
+
+| | |
+|:--- |:--- |
+| Module location | `./modules/update-ssl`
+| Called in file | `main.tf#90`
+</blockquote>
 
 ## Inputs
 <blockquote>
@@ -137,8 +149,8 @@ Configuration files to copy to the host
     owner       = optional(string)
     group       = optional(string)
   }))
-  ````
-  Defined in file: `./variables.tf#26`
+  ```
+  Defined in file: `variables.tf#26`
 
 </details>
 </blockquote>
@@ -157,8 +169,8 @@ Proxmox host configuration
     host = string
     port = number
   })
-  ````
-  Defined in file: `./variables.tf#14`
+  ```
+  Defined in file: `variables.tf#14`
 
 </details>
 </blockquote>
@@ -177,8 +189,8 @@ SSH configuration for remote connection
     user    = string
     id_file = optional(string, "~/.ssh/id_rsa")
   })
-  ````
-  Defined in file: `./variables.tf#1`
+  ```
+  Defined in file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -199,8 +211,8 @@ Configuration of the storage (pools and directories) to import
     path          = optional(string)
     content_types = optional(list(string))
   }))
-  ````
-  Defined in file: `./variables.tf#156`
+  ```
+  Defined in file: `variables.tf#156`
 
 </details>
 </blockquote>
@@ -220,12 +232,12 @@ Configuration of GitOps user.
     repo_name   = optional(string, "repo")
     source_repo = optional(string, "/storage-pool/gitops")
   })
-  ````
+  ```
   **Default**:
   ```json
     {}
   ```
-  Defined in file: `./variables.tf#134`
+  Defined in file: `variables.tf#134`
 
 </details>
 </blockquote>
@@ -244,14 +256,14 @@ Whether to use no-subscription repository instead of enterprise repository or no
     list_file         = optional(string, "pve-no-subscription.list")
     list_file_content = optional(string, "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription")
   })
-  ````
+  ```
   **Default**:
   ```json
     {
   "enabled": true
 }
   ```
-  Defined in file: `./variables.tf#196`
+  Defined in file: `variables.tf#196`
 
 </details>
 </blockquote>
@@ -269,12 +281,12 @@ Original owner of the source repository (before, e.g. root:root)
     owner = optional(string, "root")
     group = optional(string, "root")
   })
-  ````
+  ```
   **Default**:
   ```json
     {}
   ```
-  Defined in file: `./variables.tf#146`
+  Defined in file: `variables.tf#146`
 
 </details>
 </blockquote>
@@ -289,12 +301,12 @@ List of packages to install via apt-get
   **Type**:
   ```hcl
     list(string)
-  ````
+  ```
   **Default**:
   ```json
     []
   ```
-  Defined in file: `./variables.tf#42`
+  Defined in file: `variables.tf#42`
 
 </details>
 </blockquote>
@@ -318,7 +330,7 @@ Configuration for script management including shared directory and script items
       run_on_destroy = optional(bool, true)
     }))
   })
-  ````
+  ```
   **Default**:
   ```json
     {
@@ -326,7 +338,7 @@ Configuration for script management including shared directory and script items
   "items": []
 }
   ```
-  Defined in file: `./variables.tf#49`
+  Defined in file: `variables.tf#49`
 
 </details>
 </blockquote>
@@ -372,7 +384,7 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
       comment = optional(string, "Terraform automation user API token")
     })
   })
-  ````
+  ```
   **Default**:
   ```json
     {
@@ -380,7 +392,7 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
   "token": {}
 }
   ```
-  Defined in file: `./variables.tf#85`
+  Defined in file: `variables.tf#85`
 
 </details>
 </blockquote>

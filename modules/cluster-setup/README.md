@@ -61,7 +61,6 @@ This module and its sub-modules setup the Talos cluster on the Proxmox host.
 | Name | Version |
 |------|---------|
 | <a name="provider_local"></a> [local](#provider\_local) | 2.5.2 |
-
 ## Modules
 <blockquote>
 
@@ -183,8 +182,8 @@ Cluster configuration
     lb_cidr           = string
     talos_factory_url = optional(string, "https://factory.talos.dev/")
   })
-  ````
-  Defined in file: `./variables.tf#15`
+  ```
+  Defined in file: `variables.tf#15`
 
 </details>
 </blockquote>
@@ -216,8 +215,8 @@ Configuration for cluster nodes
     ram           = number
     datastore_id  = optional(string)
   }))
-  ````
-  Defined in file: `./variables.tf#103`
+  ```
+  Defined in file: `variables.tf#103`
 
 </details>
 </blockquote>
@@ -241,8 +240,8 @@ Proxmox host configuration
     ssh_user  = string
     ssh_key   = string
   })
-  ````
-  Defined in file: `./variables.tf#1`
+  ```
+  Defined in file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -257,12 +256,12 @@ Namespace where the cert-manager will be installed to
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "cert-manager"
   ```
-  Defined in file: `./variables.tf#175`
+  Defined in file: `variables.tf#175`
 
 </details>
 </blockquote>
@@ -277,12 +276,12 @@ Version of the cert-manager Helm Chart to install
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "1.17.1"
   ```
-  Defined in file: `./variables.tf#168`
+  Defined in file: `variables.tf#168`
 
 </details>
 </blockquote>
@@ -297,12 +296,12 @@ Cilium version
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "1.17.1"
   ```
-  Defined in file: `./variables.tf#154`
+  Defined in file: `variables.tf#154`
 
 </details>
 </blockquote>
@@ -317,12 +316,12 @@ Version of the external-dns Helm Chart to install
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "8.7.5"
   ```
-  Defined in file: `./variables.tf#182`
+  Defined in file: `variables.tf#182`
 
 </details>
 </blockquote>
@@ -351,7 +350,7 @@ Intermediate Kubernetes CA used as ClusterIssuer
     })
     validity_period_hours = number
   })
-  ````
+  ```
   **Default**:
   ```json
     {
@@ -370,7 +369,7 @@ Intermediate Kubernetes CA used as ClusterIssuer
   "validity_period_hours": 78840
 }
   ```
-  Defined in file: `./variables.tf#40`
+  Defined in file: `variables.tf#40`
 
 </details>
 </blockquote>
@@ -385,12 +384,12 @@ File name and path for the generated sealed secret of the intermediate Kubernete
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "output/k8s_sealed_secret_ca.yaml"
   ```
-  Defined in file: `./variables.tf#96`
+  Defined in file: `variables.tf#96`
 
 </details>
 </blockquote>
@@ -405,12 +404,12 @@ File name and path for the generated kube-config
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "output/kube-config.yaml"
   ```
-  Defined in file: `./variables.tf#75`
+  Defined in file: `variables.tf#75`
 
 </details>
 </blockquote>
@@ -425,12 +424,12 @@ Version of the Longhorn Helm Chart to install
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "1.8.0"
   ```
-  Defined in file: `./variables.tf#161`
+  Defined in file: `variables.tf#161`
 
 </details>
 </blockquote>
@@ -448,7 +447,7 @@ Proxmox root CA certificate and key to use for the intermediate k8s certificate
     pve_root_cert = string
     pve_root_key  = string
   })
-  ````
+  ```
   **Default**:
   ```json
     {
@@ -456,7 +455,7 @@ Proxmox root CA certificate and key to use for the intermediate k8s certificate
   "pve_root_key": "/etc/pve/priv/pve-root-ca.key"
 }
   ```
-  Defined in file: `./variables.tf#27`
+  Defined in file: `variables.tf#27`
 
 </details>
 </blockquote>
@@ -471,12 +470,12 @@ Name of the sealed-secrets controller
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "sealed-secrets-release"
   ```
-  Defined in file: `./variables.tf#203`
+  Defined in file: `variables.tf#203`
 
 </details>
 </blockquote>
@@ -491,12 +490,12 @@ Namespace where the sealed-secrets operator will be installed to
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "sealed-secrets"
   ```
-  Defined in file: `./variables.tf#196`
+  Defined in file: `variables.tf#196`
 
 </details>
 </blockquote>
@@ -511,12 +510,12 @@ Version of the sealed-secrets Helm Chart to install
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "2.17.1"
   ```
-  Defined in file: `./variables.tf#189`
+  Defined in file: `variables.tf#189`
 
 </details>
 </blockquote>
@@ -531,12 +530,12 @@ File name and path for the generated talos-config
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "output/talos-config.yaml"
   ```
-  Defined in file: `./variables.tf#82`
+  Defined in file: `variables.tf#82`
 
 </details>
 </blockquote>
@@ -551,12 +550,12 @@ File name and path for the generated talos-machine-config; use <node-name> in th
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "output/talos-machine-config-<node-name>.yaml"
   ```
-  Defined in file: `./variables.tf#89`
+  Defined in file: `variables.tf#89`
 
 </details>
 </blockquote>
@@ -566,25 +565,21 @@ File name and path for the generated talos-machine-config; use <node-name> in th
 <blockquote>
 
 #### `k8s_sealed_secret` (_local_file_)
-      
 Defined in file: `outputs.tf#20`
 </blockquote>
 <blockquote>
 
 #### `kube_config` (_local_file_)
-      
 Defined in file: `outputs.tf#14`
 </blockquote>
 <blockquote>
 
 #### `machine_configs` (_local_file_)
-      
 Defined in file: `outputs.tf#7`
 </blockquote>
 <blockquote>
 
 #### `talos_config` (_local_file_)
-      
 Defined in file: `outputs.tf#1`
 </blockquote>
 

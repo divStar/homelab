@@ -3,9 +3,7 @@ formatter: "markdown" # this is required
 header-from: "main.tf"
 
 recursive:
-  enabled: true
-  path: modules
-  include-main: false
+  enabled: false
 
 sections:
   hide: []
@@ -78,15 +76,14 @@ content: |-
     **Type**:
     ```hcl
       {{ .Type }}
-    ````
+    ```
     {{- if .HasDefault }}
     **Default**:
     ```json
       {{ .GetValue }}
     ```
     {{- end }}
-    {{- $position := split "/" .Position.Filename }}
-    Defined in file: `{{ $position._2 }}#{{ .Position.Line }}`
+    Defined in file: `{{ .Position.Filename }}#{{ .Position.Line }}`
 
   </details>
   </blockquote>
@@ -101,8 +98,7 @@ content: |-
   <blockquote>
 
   #### `{{ $specs._1 }}` (_{{ $specs._0 }}_)
-  {{- $position := split "/" .Position.Filename }}
-  Defined in file: `{{ $position._2 }}#{{ .Position.Line }}`
+  Defined in file: `{{ .Position.Filename }}#{{ .Position.Line }}`
   </blockquote>
       {{- end -}}
     {{- end }}
@@ -115,8 +111,7 @@ content: |-
   #### `{{ .Name }}`
   {{ .Description.Raw }}
 
-  {{- $position := split "/" .Position.Filename }}
-  Defined in file: `{{ $position._2 }}#{{ .Position.Line }}`
+  Defined in file: `{{ .Position.Filename }}#{{ .Position.Line }}`
   </blockquote>
   {{- end -}}
   

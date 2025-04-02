@@ -45,7 +45,7 @@ Cluster configuration
     name          = string
     talos_version = string
   })
-  ````
+  ```
   Defined in file: `variables.tf#1`
 
 </details>
@@ -64,7 +64,7 @@ Configuration for cluster nodes
     machine_type = string
     ip           = string
   }))
-  ````
+  ```
   Defined in file: `variables.tf#9`
 
 </details>
@@ -83,17 +83,20 @@ Defined in file: `main.tf#7`
 
 #### `client_configuration`
 Client configuration for Talos cluster
+
 Defined in file: `outputs.tf#7`
 </blockquote>
 <blockquote>
 
 #### `machine_secrets`
 Machine secrets for Talos cluster
+
 Defined in file: `outputs.tf#1`
 </blockquote>
 <blockquote>
 
 #### `talos_config`
 Talos configuration file
+
 Defined in file: `outputs.tf#13`
 </blockquote>

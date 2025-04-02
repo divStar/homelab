@@ -48,7 +48,7 @@ CA certificate issuer (for Certificate resource managed by cert-manager)
   **Type**:
   ```hcl
     string
-  ````
+  ```
   Defined in file: `variables.tf#11`
 
 </details>
@@ -64,7 +64,7 @@ Helm Chart version to install
   **Type**:
   ```hcl
     string
-  ````
+  ```
   Defined in file: `variables.tf#1`
 
 </details>
@@ -80,7 +80,7 @@ Amount of nodes (usually worker nodes only); will be used for Longhorn replicaCo
   **Type**:
   ```hcl
     number
-  ````
+  ```
   Defined in file: `variables.tf#6`
 
 </details>
@@ -96,7 +96,7 @@ Name of the Helm release
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "longhorn-release"
@@ -116,7 +116,7 @@ Kubernetes namespace to install into
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "longhorn-system"
@@ -136,7 +136,7 @@ Host to expose the longhorn UI on, e.g. longhorn.my.domain
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "longhorn.my.world"
@@ -156,7 +156,7 @@ Time in seconds to wait for the Helm Chart to be installed
   **Type**:
   ```hcl
     number
-  ````
+  ```
   **Default**:
   ```json
     120
@@ -176,7 +176,7 @@ Additional values to pass to the helm chart (in YAML format)
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     ""

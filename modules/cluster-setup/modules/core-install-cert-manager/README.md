@@ -42,7 +42,7 @@ Helm Chart version to install
   **Type**:
   ```hcl
     string
-  ````
+  ```
   Defined in file: `variables.tf#1`
 
 </details>
@@ -58,7 +58,7 @@ Name of the Helm release
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "cert-manager-release"
@@ -78,7 +78,7 @@ Kubernetes namespace to install into
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "cert-manager"
@@ -98,7 +98,7 @@ Time in seconds to wait for the Helm Chart to be installed
   **Type**:
   ```hcl
     number
-  ````
+  ```
   **Default**:
   ```json
     120
@@ -118,7 +118,7 @@ Additional values to pass to the helm chart (in YAML format)
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     ""

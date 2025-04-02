@@ -47,7 +47,7 @@ Configuration files to copy to the host
     owner       = optional(string)
     group       = optional(string)
   }))
-  ````
+  ```
   Defined in file: `variables.tf#14`
 
 </details>
@@ -67,7 +67,7 @@ SSH configuration for remote connection
     user    = string
     id_file = optional(string, "~/.ssh/id_rsa")
   })
-  ````
+  ```
   Defined in file: `variables.tf#1`
 
 </details>
@@ -91,5 +91,6 @@ Defined in file: `main.tf#33`
 
 #### `configuration_files`
 Configuration files copied to host
+
 Defined in file: `outputs.tf#1`
 </blockquote>

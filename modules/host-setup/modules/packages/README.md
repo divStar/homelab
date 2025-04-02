@@ -48,7 +48,7 @@ SSH configuration for remote connection
     user    = string
     id_file = optional(string, "~/.ssh/id_rsa")
   })
-  ````
+  ```
   Defined in file: `variables.tf#1`
 
 </details>
@@ -64,7 +64,7 @@ List of packages to install via apt-get
   **Type**:
   ```hcl
     list(string)
-  ````
+  ```
   **Default**:
   ```json
     []
@@ -92,5 +92,6 @@ Defined in file: `main.tf#32`
 
 #### `installed_packages`
 The packages, that have been installed/removed
+
 Defined in file: `outputs.tf#1`
 </blockquote>

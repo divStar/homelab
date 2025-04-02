@@ -70,7 +70,7 @@ Cilium version
   **Type**:
   ```hcl
     string
-  ````
+  ```
   Defined in file: `variables.tf#122`
 
 </details>
@@ -92,7 +92,7 @@ Cluster configuration
     endpoint      = string
     lb_cidr       = string
   })
-  ````
+  ```
   Defined in file: `variables.tf#14`
 
 </details>
@@ -108,7 +108,7 @@ Number of CPUs for the node
   **Type**:
   ```hcl
     number
-  ````
+  ```
   Defined in file: `variables.tf#101`
 
 </details>
@@ -124,7 +124,7 @@ Host node for the cluster
   **Type**:
   ```hcl
     string
-  ````
+  ```
   Defined in file: `variables.tf#54`
 
 </details>
@@ -140,7 +140,7 @@ IP address of the node
   **Type**:
   ```hcl
     string
-  ````
+  ```
   Defined in file: `variables.tf#76`
 
 </details>
@@ -156,7 +156,7 @@ The path to the Talos node ISO, that is supposed to be used
   **Type**:
   ```hcl
     any
-  ````
+  ```
   Defined in file: `variables.tf#111`
 
 </details>
@@ -172,7 +172,7 @@ MAC address of the node
   **Type**:
   ```hcl
     string
-  ````
+  ```
   Defined in file: `variables.tf#86`
 
 </details>
@@ -188,7 +188,7 @@ Type of machine (controlplane or worker)
   **Type**:
   ```hcl
     string
-  ````
+  ```
   Defined in file: `variables.tf#59`
 
 </details>
@@ -204,7 +204,7 @@ Name of the cluster node
   **Type**:
   ```hcl
     string
-  ````
+  ```
   Defined in file: `variables.tf#49`
 
 </details>
@@ -220,7 +220,7 @@ Dedicated RAM for the node
   **Type**:
   ```hcl
     number
-  ````
+  ```
   Defined in file: `variables.tf#106`
 
 </details>
@@ -236,7 +236,7 @@ VM ID of the node
   **Type**:
   ```hcl
     number
-  ````
+  ```
   Defined in file: `variables.tf#96`
 
 </details>
@@ -260,7 +260,7 @@ Proxmox host configuration
     ssh_user  = string
     ssh_key   = string
   })
-  ````
+  ```
   Defined in file: `variables.tf#1`
 
 </details>
@@ -276,7 +276,7 @@ Talos cluster client configuration
   **Type**:
   ```hcl
     any
-  ````
+  ```
   Defined in file: `variables.tf#30`
 
 </details>
@@ -292,7 +292,7 @@ Talos cluster machine configuration
   **Type**:
   ```hcl
     any
-  ````
+  ```
   Defined in file: `variables.tf#25`
 
 </details>
@@ -308,7 +308,7 @@ Name of the Cilium Helm Chart to use
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "cilium"
@@ -328,7 +328,7 @@ Name of the Cilium Helm release
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "cilium"
@@ -348,7 +348,7 @@ Namespace to install Cilium into
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "cilium"
@@ -368,7 +368,7 @@ URL of the Cilium Helm repository to use
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "https://helm.cilium.io"
@@ -388,7 +388,7 @@ Cilium Helm template creation timeout
   **Type**:
   ```hcl
     number
-  ````
+  ```
   **Default**:
   ```json
     60
@@ -408,7 +408,7 @@ Network bridge to use for this node
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "vmbr0"
@@ -428,7 +428,7 @@ Datastore ID for the node
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "local"
@@ -448,7 +448,7 @@ Description to set for the given node
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     ""
@@ -468,7 +468,7 @@ Tags to set for the given node
   **Type**:
   ```hcl
     list(string)
-  ````
+  ```
   **Default**:
   ```json
     []
@@ -488,7 +488,7 @@ Target version of Kubernetes the template is built for
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "1.32"

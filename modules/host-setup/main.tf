@@ -86,3 +86,10 @@ module "gitops_user" {
   gitops_user           = local.gitops_user
   org_source_repo_owner = local.org_source_repo_owner
 }
+
+module "update_ssl" {
+  source = "./modules/update-ssl"
+
+  ssh          = local.ssh
+  proxmox_host = var.proxmox.name
+}

@@ -59,7 +59,7 @@ Proxmox host configuration
     ssh_user  = string # not used in talos_image
     ssh_key   = string # not used in talos_image
   })
-  ````
+  ```
   Defined in file: `variables.tf#1`
 
 </details>
@@ -75,7 +75,7 @@ Talos version to use
   **Type**:
   ```hcl
     string
-  ````
+  ```
   Defined in file: `variables.tf#14`
 
 </details>
@@ -91,7 +91,7 @@ Architecture to use (amd64 or arm64)
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "amd64"
@@ -111,7 +111,7 @@ URL of the Talos image factory
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "https://factory.talos.dev"
@@ -131,7 +131,7 @@ Platform to use (e.g. metal, nocloud, aws, etc., see https://registry.terraform.
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "nocloud"
@@ -151,7 +151,7 @@ Schematic configuration as YAML string
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "schematic/default.yaml"
@@ -179,23 +179,27 @@ Defined in file: `main.tf#15`
 
 #### `downloaded_iso_file_name`
 The filename on the local node
+
 Defined in file: `outputs.tf#11`
 </blockquote>
 <blockquote>
 
 #### `downloaded_iso_id`
 The full ID on the local node
+
 Defined in file: `outputs.tf#16`
 </blockquote>
 <blockquote>
 
 #### `installer`
 The installer URL without http/https
+
 Defined in file: `outputs.tf#6`
 </blockquote>
 <blockquote>
 
 #### `schematic_id`
 The calculated ID of the schematic, that's being used
+
 Defined in file: `outputs.tf#1`
 </blockquote>

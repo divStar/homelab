@@ -51,7 +51,7 @@ SSH configuration for remote connection
     user    = string
     id_file = optional(string, "~/.ssh/id_rsa")
   })
-  ````
+  ```
   Defined in file: `variables.tf#1`
 
 </details>
@@ -72,7 +72,7 @@ Configuration of GitOps user.
     repo_name   = optional(string, "repo")
     source_repo = optional(string, "/storage-pool/gitops")
   })
-  ````
+  ```
   **Default**:
   ```json
     {}
@@ -95,7 +95,7 @@ Original owner of the source repository (before, e.g. root:root)
     owner = optional(string, "root")
     group = optional(string, "root")
   })
-  ````
+  ```
   **Default**:
   ```json
     {}
@@ -123,29 +123,34 @@ Defined in file: `main.tf#48`
 
 #### `git_ssh_url`
 The git+ssh address / URL
+
 Defined in file: `outputs.tf#1`
 </blockquote>
 <blockquote>
 
 #### `repo_actual_path`
 Actual path to the git repository
+
 Defined in file: `outputs.tf#21`
 </blockquote>
 <blockquote>
 
 #### `repo_local_path`
 Local path to the repository symlink
+
 Defined in file: `outputs.tf#16`
 </blockquote>
 <blockquote>
 
 #### `user`
 Name of the gitops user, that allows access to the gitops git repository via SSH
+
 Defined in file: `outputs.tf#6`
 </blockquote>
 <blockquote>
 
 #### `user_home`
 Home directory of the git user
+
 Defined in file: `outputs.tf#11`
 </blockquote>

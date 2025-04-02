@@ -52,7 +52,7 @@ Cluster configuration
     talos_version = string
     endpoint      = string
   })
-  ````
+  ```
   Defined in file: `variables.tf#1`
 
 </details>
@@ -72,7 +72,7 @@ Configuration for cluster nodes
     machine_type = string
     ip           = string
   }))
-  ````
+  ```
   Defined in file: `variables.tf#41`
 
 </details>
@@ -88,7 +88,7 @@ Talos cluster client configuration
   **Type**:
   ```hcl
     map(any)
-  ````
+  ```
   Defined in file: `variables.tf#15`
 
 </details>
@@ -104,7 +104,7 @@ Talos cluster machine configuration
   **Type**:
   ```hcl
     any
-  ````
+  ```
   Defined in file: `variables.tf#10`
 
 </details>
@@ -120,7 +120,7 @@ Cluster bootstrap timeout
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "5m"
@@ -140,7 +140,7 @@ Cluster health-check timeout
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "10m"
@@ -160,7 +160,7 @@ Cluster kubeconfig creation timeout
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "1m"
@@ -188,11 +188,13 @@ Defined in file: `main.tf#12`
 
 #### `kube_config`
 Talos cluster kubeconfig
+
 Defined in file: `outputs.tf#6`
 </blockquote>
 <blockquote>
 
 #### `machine_config`
 Talos machine configurations
+
 Defined in file: `outputs.tf#1`
 </blockquote>

@@ -51,7 +51,7 @@ SSH configuration for remote connection
     user    = string
     id_file = optional(string, "~/.ssh/id_rsa")
   })
-  ````
+  ```
   Defined in file: `variables.tf#1`
 
 </details>
@@ -98,7 +98,7 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
       comment = optional(string, "Terraform automation user API token")
     })
   })
-  ````
+  ```
   **Default**:
   ```json
     {
@@ -149,11 +149,13 @@ Defined in file: `main.tf#87`
 
 #### `pve-user`
 The user and role created on the Proxmox host
+
 Defined in file: `outputs.tf#1`
 </blockquote>
 <blockquote>
 
 #### `token`
 The API token created on the Proxmox host
+
 Defined in file: `outputs.tf#11`
 </blockquote>

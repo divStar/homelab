@@ -65,7 +65,7 @@ Proxmox SSH connection details
     ssh_user = string
     ssh_key  = string
   })
-  ````
+  ```
   Defined in file: `variables.tf#1`
 
 </details>
@@ -81,7 +81,7 @@ Namespace to deploy the secret and - by extension - the sealed secret to
   **Type**:
   ```hcl
     string
-  ````
+  ```
   Defined in file: `variables.tf#65`
 
 </details>
@@ -111,7 +111,7 @@ Intermediate Kubernetes CA used as ClusterIssuer
     })
     validity_period_hours = number
   })
-  ````
+  ```
   **Default**:
   ```json
     {
@@ -148,7 +148,7 @@ Proxmox root CA certificate and key to use for the intermediate k8s certificate
     pve_root_cert = string
     pve_root_key  = string
   })
-  ````
+  ```
   **Default**:
   ```json
     {
@@ -171,7 +171,7 @@ Name of the secret and - by extension - the sealed secret
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "k8s-ca-secret"
@@ -229,17 +229,20 @@ Defined in file: `main.tf#44`
 
 #### `k8s_ca_issuer`
 Name of the ClusterIssuer resource
+
 Defined in file: `outputs.tf#1`
 </blockquote>
 <blockquote>
 
 #### `k8s_ca_secret_name`
 Name of the secret ClusterIssuer resource is referring to
+
 Defined in file: `outputs.tf#6`
 </blockquote>
 <blockquote>
 
 #### `k8s_sealed_secret_yaml`
 YAML string (not file) containing the /sealed/ secret of the intermediate Kubernetes CA certificate
+
 Defined in file: `outputs.tf#11`
 </blockquote>

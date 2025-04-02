@@ -52,7 +52,7 @@ Proxmox host configuration
     host = string
     port = number
   })
-  ````
+  ```
   Defined in file: `variables.tf#14`
 
 </details>
@@ -72,7 +72,7 @@ SSH configuration for remote connection
     user    = string
     id_file = optional(string, "~/.ssh/id_rsa")
   })
-  ````
+  ```
   Defined in file: `variables.tf#1`
 
 </details>
@@ -94,7 +94,7 @@ Configuration of the storage (pools and directories) to import
     path          = optional(string)
     content_types = optional(list(string))
   }))
-  ````
+  ```
   Defined in file: `variables.tf#26`
 
 </details>
@@ -110,7 +110,7 @@ API token for the terraform user on the Proxmox host
   **Type**:
   ```hcl
     string
-  ````
+  ```
   Defined in file: `variables.tf#66`
 
 </details>
@@ -144,11 +144,13 @@ Defined in file: `main.tf#26`
 
 #### `storage_pools`
 List of storage pools that were imported and added to Proxmox
+
 Defined in file: `outputs.tf#1`
 </blockquote>
 <blockquote>
 
 #### `storage_pools_directories`
 List of directories/datasets that were configured in Proxmox
+
 Defined in file: `outputs.tf#11`
 </blockquote>

@@ -39,7 +39,7 @@ CA certificate issuer (for Certificate resource managed by cert-manager)
   **Type**:
   ```hcl
     string
-  ````
+  ```
   Defined in file: `variables.tf#1`
 
 </details>
@@ -55,7 +55,7 @@ Host to expose the hubble UI on, e.g. hubble.my.domain
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "hubble.my.world"

@@ -47,7 +47,7 @@ Name of the symbolic link to the actual gitops git repository
   **Type**:
   ```hcl
     string
-  ````
+  ```
   Defined in file: `variables.tf#24`
 
 </details>
@@ -67,7 +67,7 @@ SSH configuration for remote connection
     user    = string
     id_file = optional(string, "~/.ssh/id_rsa")
   })
-  ````
+  ```
   Defined in file: `variables.tf#1`
 
 </details>
@@ -83,7 +83,7 @@ Path to SSH public key file to add to authorized_keys (e.g. ~/.ssh/id_rsa.pub)
   **Type**:
   ```hcl
     string
-  ````
+  ```
   Defined in file: `variables.tf#14`
 
 </details>
@@ -99,7 +99,7 @@ Username to add SSH key for
   **Type**:
   ```hcl
     string
-  ````
+  ```
   Defined in file: `variables.tf#19`
 
 </details>
@@ -115,7 +115,7 @@ Git access mode: 'read-only' or 'read-write'
   **Type**:
   ```hcl
     string
-  ````
+  ```
   **Default**:
   ```json
     "read-write"
@@ -138,29 +138,34 @@ Defined in file: `main.tf#27`
 
 #### `access_mode`
 Applied access mode (read-only or read-write) for the SSH key
+
 Defined in file: `outputs.tf#6`
 </blockquote>
 <blockquote>
 
 #### `authorized_keys_path`
 Path to the authorized_keys file where the key was added
+
 Defined in file: `outputs.tf#1`
 </blockquote>
 <blockquote>
 
 #### `key_permissions`
 Summary of permissions applied to this key
+
 Defined in file: `outputs.tf#22`
 </blockquote>
 <blockquote>
 
 #### `key_with_restrictions`
 Complete authorized_keys entry including all restrictions
+
 Defined in file: `outputs.tf#16`
 </blockquote>
 <blockquote>
 
 #### `ssh_key_file_used`
 Path to the SSH public key file that was used
+
 Defined in file: `outputs.tf#11`
 </blockquote>

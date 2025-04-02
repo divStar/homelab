@@ -8,6 +8,14 @@ terraform {
       source  = "Mastercard/restapi"
       version = ">= 1.20.0"
     }
+    tls = {
+      source  = "hashicorp/tls"
+      version = ">= 4.0.6"
+    }
+    time = {
+      source  = "hashicorp/time"
+      version = ">= 0.13.0"
+    }
   }
 }
 

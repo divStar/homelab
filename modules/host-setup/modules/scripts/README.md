@@ -46,7 +46,7 @@ SSH configuration for remote connection
     user    = string
     id_file = optional(string, "~/.ssh/id_rsa")
   })
-  ````
+  ```
   Defined in file: `variables.tf#1`
 
 </details>
@@ -71,7 +71,7 @@ Configuration for script management including shared directory and script items
       run_on_destroy = optional(bool, true)
     }))
   })
-  ````
+  ```
   **Default**:
   ```json
     {
@@ -107,5 +107,6 @@ Defined in file: `main.tf#39`
 
 #### `installed_scripts`
 The scripts, that have been installed/removed
+
 Defined in file: `outputs.tf#1`
 </blockquote>

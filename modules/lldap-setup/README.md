@@ -8,44 +8,40 @@
 - [Inputs](#inputs)
   - [proxmox](#proxmox-required) (**Required**)
   - [alpine_image](#alpine_image-optional) (*Optional*)
+  - [lldap_bridge](#lldap_bridge-optional) (*Optional*)
+  - [lldap_datastore_id](#lldap_datastore_id-optional) (*Optional*)
+  - [lldap_description](#lldap_description-optional) (*Optional*)
+  - [lldap_domain_cert](#lldap_domain_cert-optional) (*Optional*)
+  - [lldap_gateway](#lldap_gateway-optional) (*Optional*)
+  - [lldap_hostname](#lldap_hostname-optional) (*Optional*)
+  - [lldap_imagestore_id](#lldap_imagestore_id-optional) (*Optional*)
+  - [lldap_ip](#lldap_ip-optional) (*Optional*)
+  - [lldap_mac_address](#lldap_mac_address-optional) (*Optional*)
+  - [lldap_ni_name](#lldap_ni_name-optional) (*Optional*)
+  - [lldap_tags](#lldap_tags-optional) (*Optional*)
+  - [lldap_vm_id](#lldap_vm_id-optional) (*Optional*)
   - [packages](#packages-optional) (*Optional*)
-  - [pihole_admin_password](#pihole_admin_password-optional) (*Optional*)
-  - [pihole_bridge](#pihole_bridge-optional) (*Optional*)
-  - [pihole_datastore_id](#pihole_datastore_id-optional) (*Optional*)
-  - [pihole_description](#pihole_description-optional) (*Optional*)
-  - [pihole_domain_cert](#pihole_domain_cert-optional) (*Optional*)
-  - [pihole_gateway](#pihole_gateway-optional) (*Optional*)
-  - [pihole_hostname](#pihole_hostname-optional) (*Optional*)
-  - [pihole_imagestore_id](#pihole_imagestore_id-optional) (*Optional*)
-  - [pihole_ip](#pihole_ip-optional) (*Optional*)
-  - [pihole_mac_address](#pihole_mac_address-optional) (*Optional*)
-  - [pihole_ni_name](#pihole_ni_name-optional) (*Optional*)
-  - [pihole_tags](#pihole_tags-optional) (*Optional*)
-  - [pihole_vm_id](#pihole_vm_id-optional) (*Optional*)
   - [proxmox_root_ca](#proxmox_root_ca-optional) (*Optional*)
 - [Outputs](#outputs)
   - [resource](#resource)
     - [alpine_container](#alpine_container-proxmox_virtual_environment_container) (*proxmox_virtual_environment_container*)
     - [alpine_template](#alpine_template-proxmox_virtual_environment_download_file) (*proxmox_virtual_environment_download_file*)
     - [alpine_password](#alpine_password-random_password) (*random_password*)
-    - [pihole_admin](#pihole_admin-random_password) (*random_password*)
+    - [install_lldap](#install_lldap-ssh_resource) (*ssh_resource*)
+    - [install_lldap_cert](#install_lldap_cert-ssh_resource) (*ssh_resource*)
     - [install_openssh](#install_openssh-ssh_resource) (*ssh_resource*)
     - [install_packages](#install_packages-ssh_resource) (*ssh_resource*)
-    - [install_pihole](#install_pihole-ssh_resource) (*ssh_resource*)
-    - [install_pihole_cert](#install_pihole_cert-ssh_resource) (*ssh_resource*)
     - [proxmox_ca_cert](#proxmox_ca_cert-ssh_resource) (*ssh_resource*)
     - [proxmox_ca_key](#proxmox_ca_key-ssh_resource) (*ssh_resource*)
-    - [pihole_cert_request](#pihole_cert_request-tls_cert_request) (*tls_cert_request*)
-    - [pihole_cert](#pihole_cert-tls_locally_signed_cert) (*tls_locally_signed_cert*)
+    - [lldap_cert_request](#lldap_cert_request-tls_cert_request) (*tls_cert_request*)
+    - [lldap_cert](#lldap_cert-tls_locally_signed_cert) (*tls_locally_signed_cert*)
     - [alpine_ssh_key](#alpine_ssh_key-tls_private_key) (*tls_private_key*)
-    - [pihole_key](#pihole_key-tls_private_key) (*tls_private_key*)
+    - [lldap_key](#lldap_key-tls_private_key) (*tls_private_key*)
   - [output](#output)
     - [alpine_container_id](#alpine_container_id)
     - [alpine_container_password](#alpine_container_password)
     - [alpine_container_private_key](#alpine_container_private_key)
-    - [alpine_container_public_key](#alpine_container_public_key)
-    - [pihole_admin_password](#pihole_admin_password)
-    - [pihole_admin_url](#pihole_admin_url)</blockquote>
+    - [alpine_container_public_key](#alpine_container_public_key)</blockquote>
 
 ## Requirements
 
@@ -119,71 +115,8 @@ Alpine image configuration
 </blockquote>
 <blockquote>
 
-### `packages` (*Optional*)
-List of packages to install on the container
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-    list(string)
-  ```
-  **Default**:
-  ```json
-    [
-  "bash",
-  "bind-tools",
-  "binutils",
-  "coreutils",
-  "curl",
-  "git",
-  "grep",
-  "iproute2-ss",
-  "jq",
-  "libcap",
-  "logrotate",
-  "ncurses",
-  "nmap-ncat",
-  "procps-ng",
-  "psmisc",
-  "shadow",
-  "sudo",
-  "tzdata",
-  "unzip",
-  "wget",
-  "abuild",
-  "build-base"
-]
-  ```
-  Defined in file: `variables.tf#30`
-
-</details>
-</blockquote>
-<blockquote>
-
-### `pihole_admin_password` (*Optional*)
-PiHole Administrator password
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-    string
-  ```
-  **Default**:
-  ```json
-    ""
-  ```
-  Defined in file: `variables.tf#188`
-
-</details>
-</blockquote>
-<blockquote>
-
-### `pihole_bridge` (*Optional*)
-PiHole bridge
+### `lldap_bridge` (*Optional*)
+LLDAP bridge
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -196,14 +129,14 @@ PiHole bridge
   ```json
     "vmbr0"
   ```
-  Defined in file: `variables.tf#181`
+  Defined in file: `variables.tf#141`
 
 </details>
 </blockquote>
 <blockquote>
 
-### `pihole_datastore_id` (*Optional*)
-PiHole datastore ID
+### `lldap_datastore_id` (*Optional*)
+LLDAP datastore ID
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -216,13 +149,13 @@ PiHole datastore ID
   ```json
     "storage-pool"
   ```
-  Defined in file: `variables.tf#139`
+  Defined in file: `variables.tf#99`
 
 </details>
 </blockquote>
 <blockquote>
 
-### `pihole_description` (*Optional*)
+### `lldap_description` (*Optional*)
 Description of the container
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -234,79 +167,62 @@ Description of the container
   ```
   **Default**:
   ```json
-    "Alpine Linux based LXC container with PiHole"
+    "Alpine Linux based LXC container with LLDAP"
   ```
-  Defined in file: `variables.tf#111`
+  Defined in file: `variables.tf#71`
 
 </details>
 </blockquote>
 <blockquote>
 
-### `pihole_domain_cert` (*Optional*)
-PiHole domain certificate details
+### `lldap_domain_cert` (*Optional*)
+
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
 
   **Type**:
   ```hcl
-    object({
-    subject = object({
-      common_name         = string
-      organization        = string
-      organizational_unit = string
-      country             = string
-      locality            = string
-      province            = string
-    })
-    private_key = object({
-      algorithm = string
-      rsa_bits  = number
-    })
-    dns_names             = list(string)
-    ip_addresses          = list(string)
-    validity_period_hours = number
-  })
+    map
   ```
   **Default**:
   ```json
     {
   "dns_names": [
     "localhost",
-    "pihole",
-    "pi.hole",
-    "pihole.local",
-    "pihole.my.world",
-    "pihole.fritz.box"
+    "lldap",
+    "lldap.local",
+    "lldap.my.world",
+    "lldap.fritz.box"
   ],
   "ip_addresses": [
     "127.0.0.1",
     "::1",
-    "192.168.178.150"
+    "192.168.178.155"
   ],
   "private_key": {
     "algorithm": "RSA",
     "rsa_bits": 4096
   },
   "subject": {
-    "common_name": "pihole.my.world",
+    "common_name": "lldap.my.world",
     "country": "DE",
     "locality": "Home Lab",
     "organization": "Home Network",
-    "organizational_unit": "Network Services",
+    "organizational_unit": "Authentication Services",
     "province": "Private Network"
   },
   "validity_period_hours": 78840
 }
   ```
-  Defined in file: `variables.tf#72`
+  Defined in file: `variables.tf#51`
 
 </details>
 </blockquote>
 <blockquote>
 
-### `pihole_gateway` (*Optional*)
-PiHole gateway
+### `lldap_gateway` (*Optional*)
+LLDAP gateway
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -319,14 +235,14 @@ PiHole gateway
   ```json
     "192.168.178.1"
   ```
-  Defined in file: `variables.tf#167`
+  Defined in file: `variables.tf#127`
 
 </details>
 </blockquote>
 <blockquote>
 
-### `pihole_hostname` (*Optional*)
-PiHole host name
+### `lldap_hostname` (*Optional*)
+LLDAP host name
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -337,16 +253,16 @@ PiHole host name
   ```
   **Default**:
   ```json
-    "pihole"
+    "lldap"
   ```
-  Defined in file: `variables.tf#125`
+  Defined in file: `variables.tf#85`
 
 </details>
 </blockquote>
 <blockquote>
 
-### `pihole_imagestore_id` (*Optional*)
-PiHole imagestore ID
+### `lldap_imagestore_id` (*Optional*)
+LLDAP imagestore ID
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -359,14 +275,14 @@ PiHole imagestore ID
   ```json
     "images-host"
   ```
-  Defined in file: `variables.tf#132`
+  Defined in file: `variables.tf#92`
 
 </details>
 </blockquote>
 <blockquote>
 
-### `pihole_ip` (*Optional*)
-PiHole IP address
+### `lldap_ip` (*Optional*)
+LLDAP IP address
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -377,16 +293,16 @@ PiHole IP address
   ```
   **Default**:
   ```json
-    "192.168.178.150"
+    "192.168.178.155"
   ```
-  Defined in file: `variables.tf#160`
+  Defined in file: `variables.tf#120`
 
 </details>
 </blockquote>
 <blockquote>
 
-### `pihole_mac_address` (*Optional*)
-PiHole MAC address
+### `lldap_mac_address` (*Optional*)
+LLDAP MAC address
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -397,16 +313,16 @@ PiHole MAC address
   ```
   **Default**:
   ```json
-    "3C:77:71:89:24:58"
+    "E8:31:0E:A5:D8:4C"
   ```
-  Defined in file: `variables.tf#174`
+  Defined in file: `variables.tf#134`
 
 </details>
 </blockquote>
 <blockquote>
 
-### `pihole_ni_name` (*Optional*)
-PiHole network interface name
+### `lldap_ni_name` (*Optional*)
+LLDAP network interface name
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -419,13 +335,13 @@ PiHole network interface name
   ```json
     "eth0"
   ```
-  Defined in file: `variables.tf#153`
+  Defined in file: `variables.tf#113`
 
 </details>
 </blockquote>
 <blockquote>
 
-### `pihole_tags` (*Optional*)
+### `lldap_tags` (*Optional*)
 Tags
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -442,14 +358,14 @@ Tags
   "alpine"
 ]
   ```
-  Defined in file: `variables.tf#118`
+  Defined in file: `variables.tf#78`
 
 </details>
 </blockquote>
 <blockquote>
 
-### `pihole_vm_id` (*Optional*)
-PiHole VM ID
+### `lldap_vm_id` (*Optional*)
+LLDAP VM ID
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -460,16 +376,38 @@ PiHole VM ID
   ```
   **Default**:
   ```json
-    700
+    695
   ```
-  Defined in file: `variables.tf#146`
+  Defined in file: `variables.tf#106`
+
+</details>
+</blockquote>
+<blockquote>
+
+### `packages` (*Optional*)
+List of packages to install on the container
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+    list(string)
+  ```
+  **Default**:
+  ```json
+    [
+  "bash"
+]
+  ```
+  Defined in file: `variables.tf#30`
 
 </details>
 </blockquote>
 <blockquote>
 
 ### `proxmox_root_ca` (*Optional*)
-Proxmox root CA certificate and key to use for the PiHole admin UI
+Proxmox root CA certificate and key to use for the LLDAP admin UI
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -488,7 +426,7 @@ Proxmox root CA certificate and key to use for the PiHole admin UI
   "pve_root_key": "/etc/pve/priv/pve-root-ca.key"
 }
   ```
-  Defined in file: `variables.tf#59`
+  Defined in file: `variables.tf#38`
 
 </details>
 </blockquote>
@@ -512,8 +450,13 @@ Defined in file: `create_container.tf#18`
 </blockquote>
 <blockquote>
 
-#### `pihole_admin` (_random_password_)
-Defined in file: `setup_pihole.tf#6`
+#### `install_lldap` (_ssh_resource_)
+Defined in file: `setup_lldap.tf#2`
+</blockquote>
+<blockquote>
+
+#### `install_lldap_cert` (_ssh_resource_)
+Defined in file: `setup_lldap_cert.tf#69`
 </blockquote>
 <blockquote>
 
@@ -527,33 +470,23 @@ Defined in file: `setup_container.tf#37`
 </blockquote>
 <blockquote>
 
-#### `install_pihole` (_ssh_resource_)
-Defined in file: `setup_pihole.tf#13`
-</blockquote>
-<blockquote>
-
-#### `install_pihole_cert` (_ssh_resource_)
-Defined in file: `setup_pihole_cert.tf#69`
-</blockquote>
-<blockquote>
-
 #### `proxmox_ca_cert` (_ssh_resource_)
-Defined in file: `setup_pihole_cert.tf#2`
+Defined in file: `setup_lldap_cert.tf#2`
 </blockquote>
 <blockquote>
 
 #### `proxmox_ca_key` (_ssh_resource_)
-Defined in file: `setup_pihole_cert.tf#15`
+Defined in file: `setup_lldap_cert.tf#15`
 </blockquote>
 <blockquote>
 
-#### `pihole_cert_request` (_tls_cert_request_)
-Defined in file: `setup_pihole_cert.tf#34`
+#### `lldap_cert_request` (_tls_cert_request_)
+Defined in file: `setup_lldap_cert.tf#34`
 </blockquote>
 <blockquote>
 
-#### `pihole_cert` (_tls_locally_signed_cert_)
-Defined in file: `setup_pihole_cert.tf#51`
+#### `lldap_cert` (_tls_locally_signed_cert_)
+Defined in file: `setup_lldap_cert.tf#51`
 </blockquote>
 <blockquote>
 
@@ -562,8 +495,8 @@ Defined in file: `create_container.tf#12`
 </blockquote>
 <blockquote>
 
-#### `pihole_key` (_tls_private_key_)
-Defined in file: `setup_pihole_cert.tf#28`
+#### `lldap_key` (_tls_private_key_)
+Defined in file: `setup_lldap_cert.tf#28`
 </blockquote>
 
 ### `output`
@@ -594,18 +527,4 @@ Defined in file: `outputs.tf#15`
 Alpine SSH public key
 
 Defined in file: `outputs.tf#22`
-</blockquote>
-<blockquote>
-
-#### `pihole_admin_password`
-Password for Pi-hole admin interface
-
-Defined in file: `outputs.tf#28`
-</blockquote>
-<blockquote>
-
-#### `pihole_admin_url`
-PiHole admin web UI URL
-
-Defined in file: `outputs.tf#35`
 </blockquote>

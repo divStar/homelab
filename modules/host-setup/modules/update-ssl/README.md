@@ -115,6 +115,7 @@ Proxmox certificate details
   "dns_names": [
     "localhost",
     "sanctum",
+    "sanctum.local",
     "sanctum.my.world",
     "sanctum.fritz.box"
   ],
@@ -215,7 +216,7 @@ Defined in file: `main.tf#49`
 <blockquote>
 
 #### `certificate_info`
-Output the certificate details for verification
+pve-ssl Certificate information
 
-Defined in file: `outputs.tf#2`
+Defined in file: `outputs.tf#1`
 </blockquote>

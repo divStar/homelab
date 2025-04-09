@@ -29,6 +29,7 @@ This module and its sub-modules setup the Proxmox host.
   - [terraform_user](#terraform_user-optional) (*Optional*)
 - [Outputs](#outputs)
   - [output](#output)
+    - [certificate_info](#certificate_info)
     - [configuration_files](#configuration_files)
     - [installed_packages](#installed_packages)
     - [installed_scripts](#installed_scripts)
@@ -400,6 +401,13 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
 ## Outputs
 
 ### `output`
+<blockquote>
+
+#### `certificate_info`
+pve-ssl Certificate information
+
+Defined in file: `outputs.tf#43`
+</blockquote>
 <blockquote>
 
 #### `configuration_files`

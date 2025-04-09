@@ -1,0 +1,12 @@
+#!/sbin/openrc-run
+
+name="LLDAP Server"
+description="Lightweight LDAP server"
+command="/opt/lldap/lldap"
+command_args="run --config-file /data/lldap_config.toml"
+# command_user="1001:127"
+command_background="yes"
+pidfile="/run/${RC_SVCNAME}.pid"
+directory="/opt/lldap"
+output_log="/var/log/lldap.log"
+error_log="/var/log/lldap.err"

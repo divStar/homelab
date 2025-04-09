@@ -61,7 +61,7 @@ variable "proxmox_domain_cert" {
       algorithm = "RSA"
       rsa_bits  = 2048
     }
-    dns_names             = ["localhost", "sanctum", "sanctum.my.world", "sanctum.fritz.box"]
+    dns_names             = ["localhost", "sanctum", "sanctum.local", "sanctum.my.world", "sanctum.fritz.box"]
     ip_addresses          = ["127.0.0.1", "192.168.178.27"]
     validity_period_hours = 78840 # 9 years
   }

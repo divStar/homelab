@@ -1,5 +1,5 @@
-# Output the certificate details for verification
 output "certificate_info" {
+  description = "pve-ssl Certificate information"
   value = {
     subject          = tls_cert_request.pve_ssl_cert_request.subject
     domains          = tls_cert_request.pve_ssl_cert_request.dns_names

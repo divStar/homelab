@@ -39,3 +39,8 @@ output "storage_pools_directories" {
   description = "List of directories/datasets that were configured in Proxmox"
   value       = module.storage.storage_pools_directories
 }
+
+output "certificate_info" {
+  description = "pve-ssl Certificate information"
+  value       = module.update_ssl.certificate_info
+}

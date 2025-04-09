@@ -31,33 +31,12 @@ variable "packages" {
   description = "List of packages to install on the container"
   type        = list(string)
   default = [
-    "bash",
-    "bind-tools",
-    "binutils",
-    "coreutils",
-    "curl",
-    "git",
-    "grep",
-    "iproute2-ss",
-    "jq",
-    "libcap",
-    "logrotate",
-    "ncurses",
-    "nmap-ncat",
-    "procps-ng",
-    "psmisc",
-    "shadow",
-    "sudo",
-    "tzdata",
-    "unzip",
-    "wget",
-    "abuild",
-    "build-base"
+    "bash"
   ]
 }
 
 variable "proxmox_root_ca" {
-  description = "Proxmox root CA certificate and key to use for the PiHole admin UI"
+  description = "Proxmox root CA certificate and key to use for the LLDAP admin UI"
   type = object({
     pve_root_cert = string
     pve_root_key  = string
@@ -69,30 +48,12 @@ variable "proxmox_root_ca" {
   nullable = false
 }
 
-variable "pihole_domain_cert" {
-  description = "PiHole domain certificate details"
-  type = object({
-    subject = object({
-      common_name         = string
-      organization        = string
-      organizational_unit = string
-      country             = string
-      locality            = string
-      province            = string
-    })
-    private_key = object({
-      algorithm = string
-      rsa_bits  = number
-    })
-    dns_names             = list(string)
-    ip_addresses          = list(string)
-    validity_period_hours = number
-  })
+variable "lldap_domain_cert" {
   default = {
     subject = {
-      common_name         = "pihole.my.world"
+      common_name         = "lldap.my.world"
       organization        = "Home Network"
-      organizational_unit = "Network Services"
+      organizational_unit = "Authentication Services"
       country             = "DE"
       locality            = "Home Lab"
       province            = "Private Network"
@@ -101,93 +62,85 @@ variable "pihole_domain_cert" {
       algorithm = "RSA"
       rsa_bits  = 4096
     }
-    dns_names             = ["localhost", "pihole", "pi.hole", "pihole.local", "pihole.my.world", "pihole.fritz.box"]
-    ip_addresses          = ["127.0.0.1", "::1", "192.168.178.150"]
+    dns_names             = ["localhost", "lldap", "lldap.local", "lldap.my.world", "lldap.fritz.box"]
+    ip_addresses          = ["127.0.0.1", "::1", "192.168.178.155"]
     validity_period_hours = 78840 # 9 years
   }
-  nullable = false
 }
 
-variable "pihole_description" {
+variable "lldap_description" {
   description = "Description of the container"
   type        = string
-  default     = "Alpine Linux based LXC container with PiHole"
+  default     = "Alpine Linux based LXC container with LLDAP"
   nullable    = false
 }
 
-variable "pihole_tags" {
+variable "lldap_tags" {
   description = "Tags"
   type        = list(string)
   default     = ["lxc", "alpine"]
   nullable    = false
 }
 
-variable "pihole_hostname" {
-  description = "PiHole host name"
+variable "lldap_hostname" {
+  description = "LLDAP host name"
   type        = string
-  default     = "pihole"
+  default     = "lldap"
   nullable    = false
 }
 
-variable "pihole_imagestore_id" {
-  description = "PiHole imagestore ID"
+variable "lldap_imagestore_id" {
+  description = "LLDAP imagestore ID"
   type        = string
   default     = "images-host"
   nullable    = false
 }
 
-variable "pihole_datastore_id" {
-  description = "PiHole datastore ID"
+variable "lldap_datastore_id" {
+  description = "LLDAP datastore ID"
   type        = string
   default     = "storage-pool"
   nullable    = false
 }
 
-variable "pihole_vm_id" {
-  description = "PiHole VM ID"
+variable "lldap_vm_id" {
+  description = "LLDAP VM ID"
   type        = number
-  default     = 700
+  default     = 695
   nullable    = false
 }
 
-variable "pihole_ni_name" {
-  description = "PiHole network interface name"
+variable "lldap_ni_name" {
+  description = "LLDAP network interface name"
   type        = string
   default     = "eth0"
   nullable    = false
 }
 
-variable "pihole_ip" {
-  description = "PiHole IP address"
+variable "lldap_ip" {
+  description = "LLDAP IP address"
   type        = string
-  default     = "192.168.178.150"
+  default     = "192.168.178.155"
   nullable    = false
 }
 
-variable "pihole_gateway" {
-  description = "PiHole gateway"
+variable "lldap_gateway" {
+  description = "LLDAP gateway"
   type        = string
   default     = "192.168.178.1"
   nullable    = false
 }
 
-variable "pihole_mac_address" {
-  description = "PiHole MAC address"
+variable "lldap_mac_address" {
+  description = "LLDAP MAC address"
   type        = string
-  default     = "3C:77:71:89:24:58"
+  default     = "E8:31:0E:A5:D8:4C"
   nullable    = false
 }
 
-variable "pihole_bridge" {
-  description = "PiHole bridge"
+variable "lldap_bridge" {
+  description = "LLDAP bridge"
   type        = string
   default     = "vmbr0"
-  nullable    = false
-}
-
-variable "pihole_admin_password" {
-  description = "PiHole Administrator password"
-  type        = string
-  default     = ""
   nullable    = false
 }

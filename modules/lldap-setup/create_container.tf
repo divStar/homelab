@@ -1,7 +1,7 @@
 # Downloads the `alpine` image.
 resource "proxmox_virtual_environment_download_file" "alpine_template" {
   content_type       = "vztmpl"
-  datastore_id       = var.pihole_imagestore_id
+  datastore_id       = var.lldap_imagestore_id
   node_name          = var.proxmox.name
   url                = var.alpine_image.url
   checksum           = var.alpine_image.checksum
@@ -27,20 +27,20 @@ resource "proxmox_virtual_environment_container" "alpine_container" {
   depends_on = [proxmox_virtual_environment_download_file.alpine_template]
 
   node_name    = var.proxmox.name
-  description  = var.pihole_description
-  tags         = var.pihole_tags
-  vm_id        = var.pihole_vm_id
+  description  = var.lldap_description
+  tags         = var.lldap_tags
+  vm_id        = var.lldap_vm_id
   unprivileged = true
 
   # Container initialization settings
   initialization {
-    hostname = var.pihole_hostname
+    hostname = var.lldap_hostname
 
     # Network configuration
     ip_config {
       ipv4 {
-        address = "${var.pihole_ip}/24"
-        gateway = var.pihole_gateway
+        address = "${var.lldap_ip}/24"
+        gateway = var.lldap_gateway
       }
     }
 
@@ -55,9 +55,9 @@ resource "proxmox_virtual_environment_container" "alpine_container" {
 
   # Network interface
   network_interface {
-    name        = var.pihole_ni_name
-    bridge      = var.pihole_bridge
-    mac_address = var.pihole_mac_address
+    name        = var.lldap_ni_name
+    bridge      = var.lldap_bridge
+    mac_address = var.lldap_mac_address
   }
 
   # Operating system - using Alpine template
@@ -80,23 +80,15 @@ resource "proxmox_virtual_environment_container" "alpine_container" {
 
   # Disk configuration (default)
   disk {
-    datastore_id = var.pihole_datastore_id
+    datastore_id = var.lldap_datastore_id
     size         = 2
   }
 
-  # Mount points for Pi-hole data persistence
+  # Mount points for user data persistence
   mount_point {
-    volume    = var.pihole_datastore_id
-    path      = "/etc/pihole"
+    volume    = var.lldap_datastore_id
+    path      = "/data"
     size      = "128M"
-    replicate = true
-    backup    = true
-  }
-
-  mount_point {
-    volume    = var.pihole_datastore_id
-    path      = "/var/log/pihole"
-    size      = "1G"
     replicate = true
     backup    = true
   }

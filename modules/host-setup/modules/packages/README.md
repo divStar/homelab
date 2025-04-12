@@ -10,15 +10,14 @@ and `apt-get remove` are not yet supported by Proxmox API.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Inputs](#inputs)
+- [Resources](#resources)
+  - [package_install](#package_install-ssh_resource) (*ssh_resource*)
+  - [package_remove](#package_remove-ssh_resource) (*ssh_resource*)
+- [Variables](#variables)
   - [ssh](#ssh-required) (**Required**)
   - [packages](#packages-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [resource](#resource)
-    - [package_install](#package_install-ssh_resource) (*ssh_resource*)
-    - [package_remove](#package_remove-ssh_resource) (*ssh_resource*)
-  - [output](#output)
-    - [installed_packages](#installed_packages)</blockquote>
+  - [installed_packages](#installed_packages)</blockquote>
 
 ## Requirements
 
@@ -32,7 +31,20 @@ and `apt-get remove` are not yet supported by Proxmox API.
 |------|---------|
 | <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
 
-## Inputs
+
+## Resources
+<blockquote>
+
+#### `package_install` (_ssh_resource_)
+Defined in file: `main.tf#21`
+</blockquote>
+<blockquote>
+
+#### `package_remove` (_ssh_resource_)
+Defined in file: `main.tf#32`
+</blockquote>
+
+## Variables
 <blockquote>
 
 ### `ssh` (**Required**)
@@ -43,7 +55,7 @@ SSH configuration for remote connection
 
   **Type**:
   ```hcl
-    object({
+  object({
     host    = string
     user    = string
     id_file = optional(string, "~/.ssh/id_rsa")
@@ -63,31 +75,19 @@ List of packages to install via apt-get
 
   **Type**:
   ```hcl
-    list(string)
+  list(string)
   ```
   **Default**:
   ```json
-    []
+  []
   ```
   Defined in file: `variables.tf#14`
 
 </details>
 </blockquote>
 
+
 ## Outputs
-### `resource`
-<blockquote>
-
-#### `package_install` (_ssh_resource_)
-Defined in file: `main.tf#21`
-</blockquote>
-<blockquote>
-
-#### `package_remove` (_ssh_resource_)
-Defined in file: `main.tf#32`
-</blockquote>
-
-### `output`
 <blockquote>
 
 #### `installed_packages`

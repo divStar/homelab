@@ -18,30 +18,30 @@ content: |-
   - [Requirements](#requirements)
   - [Providers](#providers)
   {{- if .Module.HasModuleCalls }}
-  - [Modules](#modules)
+  - [Modules](#modules) _(nested and adjacent)_
     {{- range .Module.ModuleCalls }}
     - [{{ .Name }}](#{{ .Name }})
     {{- end }}
   {{- end }}
-  - [Inputs](#inputs)
-  {{- range .Module.Inputs }}
-    - [{{ .Name }}](#{{ .Name }}-{{- if .Required -}}required{{- else }}optional{{- end }}) ({{- if .Required -}}**Required**{{- else }}*Optional*{{- end }})
-  {{- end }}
-  - [Outputs](#outputs)
   {{- if .Module.HasResources }}
-    - [resource](#resource)
+  - [Resources](#resources)
     {{- range .Module.Resources }}
       {{- if eq .GetMode "resource" }}
         {{- $spec := split "." .Spec }}
-      - [{{ $spec._1 }}](#{{ $spec._1 }}-{{ $spec._0 }}) (*{{ $spec._0 }}*)
+    - [{{ $spec._1 }}](#{{ $spec._1 }}-{{ $spec._0 }}) (*{{ $spec._0 }}*)
       {{- end -}}
-    {{- end }}
+    {{- end -}}
   {{- end }}
-    - [output](#output)
-  {{- range .Module.Outputs }}
-      - [{{ .Name }}](#{{ .Name }})
+  - [Variables](#variables)
+  {{- range .Module.Inputs }}
+    - [{{ .Name }}](#{{ .Name }}-{{- if .Required -}}required{{- else }}optional{{- end }}) ({{- if .Required -}}**Required**{{- else }}*Optional*{{- end }})
+  {{- end }}
+  {{- if .Module.HasOutputs }}
+  - [Outputs](#outputs)
+    {{- range .Module.Outputs }}
+    - [{{ .Name }}](#{{ .Name }})
+    {{- end -}}
   {{- end -}}
-
   </blockquote>
 
   {{ .Requirements }}
@@ -63,35 +63,8 @@ content: |-
     {{- end }}
   {{- end }}
 
-  ## Inputs
-  {{- range .Module.Inputs }}
-  <blockquote>
-
-  ### `{{ .Name }}` ({{- if .Required -}}**Required**{{- else }}*Optional*{{- end }})
-  {{ .Description.Raw }}
-
-  <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-    <summary>Show more...</summary>
-
-    **Type**:
-    ```hcl
-      {{ .Type }}
-    ```
-    {{- if .HasDefault }}
-    **Default**:
-    ```json
-      {{ .GetValue }}
-    ```
-    {{- end }}
-    Defined in file: `{{ .Position.Filename }}#{{ .Position.Line }}`
-
-  </details>
-  </blockquote>
-  {{- end }}
-
-  ## Outputs
-  {{- if .Module.HasResources }}
-  ### `resource`
+  {{ if .Module.HasResources }}
+  ## Resources
     {{- range .Module.Resources }}
       {{- if eq .GetMode "resource" }}
         {{- $specs := split "." .Spec }}
@@ -103,9 +76,36 @@ content: |-
       {{- end -}}
     {{- end }}
   {{- end }}
-  
-  ### `output`
-  {{- range .Module.Outputs }}
+
+  ## Variables
+  {{- range .Module.Inputs }}
+  <blockquote>
+
+  ### `{{ .Name }}` ({{- if .Required -}}**Required**{{- else }}*Optional*{{- end }})
+  {{ .Description.Raw }}
+
+  <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+    <summary>Show more...</summary>
+
+    **Type**:
+    ```hcl
+    {{ .Type }}
+    ```
+    {{- if .HasDefault }}
+    **Default**:
+    ```json
+    {{ .GetValue }}
+    ```
+    {{- end }}
+    Defined in file: `{{ .Position.Filename }}#{{ .Position.Line }}`
+
+  </details>
+  </blockquote>
+  {{- end }}
+
+  {{ if .Module.HasOutputs }}
+  ## Outputs
+    {{- range .Module.Outputs }}
   <blockquote>
 
   #### `{{ .Name }}`
@@ -113,7 +113,8 @@ content: |-
 
   Defined in file: `{{ .Position.Filename }}#{{ .Position.Line }}`
   </blockquote>
-  {{- end -}}
+    {{- end -}}
+  {{- end -}} 
   
   {{ .Footer }}
 

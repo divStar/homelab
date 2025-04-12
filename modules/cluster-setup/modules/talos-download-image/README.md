@@ -8,7 +8,10 @@ architecture, platform and schematics.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Inputs](#inputs)
+- [Resources](#resources)
+  - [this](#this-proxmox_virtual_environment_download_file) (*proxmox_virtual_environment_download_file*)
+  - [this](#this-talos_image_factory_schematic) (*talos_image_factory_schematic*)
+- [Variables](#variables)
   - [proxmox](#proxmox-required) (**Required**)
   - [talos_version](#talos_version-required) (**Required**)
   - [arch](#arch-optional) (*Optional*)
@@ -16,14 +19,10 @@ architecture, platform and schematics.
   - [platform](#platform-optional) (*Optional*)
   - [schematic](#schematic-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [resource](#resource)
-    - [this](#this-proxmox_virtual_environment_download_file) (*proxmox_virtual_environment_download_file*)
-    - [this](#this-talos_image_factory_schematic) (*talos_image_factory_schematic*)
-  - [output](#output)
-    - [downloaded_iso_file_name](#downloaded_iso_file_name)
-    - [downloaded_iso_id](#downloaded_iso_id)
-    - [installer](#installer)
-    - [schematic_id](#schematic_id)</blockquote>
+  - [downloaded_iso_file_name](#downloaded_iso_file_name)
+  - [downloaded_iso_id](#downloaded_iso_id)
+  - [installer](#installer)
+  - [schematic_id](#schematic_id)</blockquote>
 
 ## Requirements
 
@@ -39,7 +38,20 @@ architecture, platform and schematics.
 | <a name="provider_proxmox"></a> [proxmox](#provider\_proxmox) | 0.68.1 |
 | <a name="provider_talos"></a> [talos](#provider\_talos) | 0.6.1 |
 
-## Inputs
+
+## Resources
+<blockquote>
+
+#### `this` (_proxmox_virtual_environment_download_file_)
+Defined in file: `main.tf#19`
+</blockquote>
+<blockquote>
+
+#### `this` (_talos_image_factory_schematic_)
+Defined in file: `main.tf#15`
+</blockquote>
+
+## Variables
 <blockquote>
 
 ### `proxmox` (**Required**)
@@ -50,7 +62,7 @@ Proxmox host configuration
 
   **Type**:
   ```hcl
-    object({
+  object({
     name      = string
     endpoint  = string
     insecure  = bool
@@ -74,7 +86,7 @@ Talos version to use
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   Defined in file: `variables.tf#14`
 
@@ -90,11 +102,11 @@ Architecture to use (amd64 or arm64)
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "amd64"
+  "amd64"
   ```
   Defined in file: `variables.tf#40`
 
@@ -110,11 +122,11 @@ URL of the Talos image factory
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "https://factory.talos.dev"
+  "https://factory.talos.dev"
   ```
   Defined in file: `variables.tf#26`
 
@@ -130,11 +142,11 @@ Platform to use (e.g. metal, nocloud, aws, etc., see https://registry.terraform.
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "nocloud"
+  "nocloud"
   ```
   Defined in file: `variables.tf#33`
 
@@ -150,31 +162,19 @@ Schematic configuration as YAML string
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "schematic/default.yaml"
+  "schematic/default.yaml"
   ```
   Defined in file: `variables.tf#19`
 
 </details>
 </blockquote>
 
+
 ## Outputs
-### `resource`
-<blockquote>
-
-#### `this` (_proxmox_virtual_environment_download_file_)
-Defined in file: `main.tf#19`
-</blockquote>
-<blockquote>
-
-#### `this` (_talos_image_factory_schematic_)
-Defined in file: `main.tf#15`
-</blockquote>
-
-### `output`
 <blockquote>
 
 #### `downloaded_iso_file_name`

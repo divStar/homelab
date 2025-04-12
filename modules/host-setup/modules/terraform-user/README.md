@@ -8,20 +8,19 @@ and API token for the Terraform provisioner on the host.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Inputs](#inputs)
+- [Resources](#resources)
+  - [assign_role](#assign_role-ssh_resource) (*ssh_resource*)
+  - [create_api_token](#create_api_token-ssh_resource) (*ssh_resource*)
+  - [create_role](#create_role-ssh_resource) (*ssh_resource*)
+  - [create_user](#create_user-ssh_resource) (*ssh_resource*)
+  - [delete_role](#delete_role-ssh_resource) (*ssh_resource*)
+  - [delete_user](#delete_user-ssh_resource) (*ssh_resource*)
+- [Variables](#variables)
   - [ssh](#ssh-required) (**Required**)
   - [terraform_user](#terraform_user-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [resource](#resource)
-    - [assign_role](#assign_role-ssh_resource) (*ssh_resource*)
-    - [create_api_token](#create_api_token-ssh_resource) (*ssh_resource*)
-    - [create_role](#create_role-ssh_resource) (*ssh_resource*)
-    - [create_user](#create_user-ssh_resource) (*ssh_resource*)
-    - [delete_role](#delete_role-ssh_resource) (*ssh_resource*)
-    - [delete_user](#delete_user-ssh_resource) (*ssh_resource*)
-  - [output](#output)
-    - [pve-user](#pve-user)
-    - [token](#token)</blockquote>
+  - [pve-user](#pve-user)
+  - [token](#token)</blockquote>
 
 ## Requirements
 
@@ -35,7 +34,40 @@ and API token for the Terraform provisioner on the host.
 |------|---------|
 | <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
 
-## Inputs
+
+## Resources
+<blockquote>
+
+#### `assign_role` (_ssh_resource_)
+Defined in file: `main.tf#46`
+</blockquote>
+<blockquote>
+
+#### `create_api_token` (_ssh_resource_)
+Defined in file: `main.tf#60`
+</blockquote>
+<blockquote>
+
+#### `create_role` (_ssh_resource_)
+Defined in file: `main.tf#33`
+</blockquote>
+<blockquote>
+
+#### `create_user` (_ssh_resource_)
+Defined in file: `main.tf#20`
+</blockquote>
+<blockquote>
+
+#### `delete_role` (_ssh_resource_)
+Defined in file: `main.tf#74`
+</blockquote>
+<blockquote>
+
+#### `delete_user` (_ssh_resource_)
+Defined in file: `main.tf#87`
+</blockquote>
+
+## Variables
 <blockquote>
 
 ### `ssh` (**Required**)
@@ -46,7 +78,7 @@ SSH configuration for remote connection
 
   **Type**:
   ```hcl
-    object({
+  object({
     host    = string
     user    = string
     id_file = optional(string, "~/.ssh/id_rsa")
@@ -66,7 +98,7 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
 
   **Type**:
   ```hcl
-    object({
+  object({
     name    = optional(string, "terraform@pve")
     comment = optional(string, "Terraform automation user")
     role = object({
@@ -101,7 +133,7 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
   ```
   **Default**:
   ```json
-    {
+  {
   "role": {},
   "token": {}
 }
@@ -111,40 +143,8 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
 </details>
 </blockquote>
 
+
 ## Outputs
-### `resource`
-<blockquote>
-
-#### `assign_role` (_ssh_resource_)
-Defined in file: `main.tf#46`
-</blockquote>
-<blockquote>
-
-#### `create_api_token` (_ssh_resource_)
-Defined in file: `main.tf#60`
-</blockquote>
-<blockquote>
-
-#### `create_role` (_ssh_resource_)
-Defined in file: `main.tf#33`
-</blockquote>
-<blockquote>
-
-#### `create_user` (_ssh_resource_)
-Defined in file: `main.tf#20`
-</blockquote>
-<blockquote>
-
-#### `delete_role` (_ssh_resource_)
-Defined in file: `main.tf#74`
-</blockquote>
-<blockquote>
-
-#### `delete_user` (_ssh_resource_)
-Defined in file: `main.tf#87`
-</blockquote>
-
-### `output`
 <blockquote>
 
 #### `pve-user`

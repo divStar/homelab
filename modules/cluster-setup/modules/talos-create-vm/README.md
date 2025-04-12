@@ -9,7 +9,11 @@ Creates a Talos VM with a given ISO, type and other settings.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Inputs](#inputs)
+- [Resources](#resources)
+  - [cilium_patch](#cilium_patch-local_file) (*local_file*)
+  - [this](#this-proxmox_virtual_environment_vm) (*proxmox_virtual_environment_vm*)
+  - [this](#this-talos_machine_configuration_apply) (*talos_machine_configuration_apply*)
+- [Variables](#variables)
   - [cilium_version](#cilium_version-required) (**Required**)
   - [cluster](#cluster-required) (**Required**)
   - [node_cpu](#node_cpu-required) (**Required**)
@@ -33,13 +37,7 @@ Creates a Talos VM with a given ISO, type and other settings.
   - [node_datastore_id](#node_datastore_id-optional) (*Optional*)
   - [node_description](#node_description-optional) (*Optional*)
   - [node_tags](#node_tags-optional) (*Optional*)
-  - [target_kube_version](#target_kube_version-optional) (*Optional*)
-- [Outputs](#outputs)
-  - [resource](#resource)
-    - [cilium_patch](#cilium_patch-local_file) (*local_file*)
-    - [this](#this-proxmox_virtual_environment_vm) (*proxmox_virtual_environment_vm*)
-    - [this](#this-talos_machine_configuration_apply) (*talos_machine_configuration_apply*)
-  - [output](#output)</blockquote>
+  - [target_kube_version](#target_kube_version-optional) (*Optional*)</blockquote>
 
 ## Requirements
 
@@ -58,7 +56,25 @@ Creates a Talos VM with a given ISO, type and other settings.
 | <a name="provider_proxmox"></a> [proxmox](#provider\_proxmox) | 0.68.1 |
 | <a name="provider_talos"></a> [talos](#provider\_talos) | 0.6.1 |
 
-## Inputs
+
+## Resources
+<blockquote>
+
+#### `cilium_patch` (_local_file_)
+Defined in file: `cilium.tf#30`
+</blockquote>
+<blockquote>
+
+#### `this` (_proxmox_virtual_environment_vm_)
+Defined in file: `vms.tf#1`
+</blockquote>
+<blockquote>
+
+#### `this` (_talos_machine_configuration_apply_)
+Defined in file: `main.tf#28`
+</blockquote>
+
+## Variables
 <blockquote>
 
 ### `cilium_version` (**Required**)
@@ -69,7 +85,7 @@ Cilium version
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   Defined in file: `variables.tf#122`
 
@@ -85,7 +101,7 @@ Cluster configuration
 
   **Type**:
   ```hcl
-    object({
+  object({
     name          = string
     gateway       = string
     talos_version = string
@@ -107,7 +123,7 @@ Number of CPUs for the node
 
   **Type**:
   ```hcl
-    number
+  number
   ```
   Defined in file: `variables.tf#101`
 
@@ -123,7 +139,7 @@ Host node for the cluster
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   Defined in file: `variables.tf#54`
 
@@ -139,7 +155,7 @@ IP address of the node
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   Defined in file: `variables.tf#76`
 
@@ -155,7 +171,7 @@ The path to the Talos node ISO, that is supposed to be used
 
   **Type**:
   ```hcl
-    any
+  any
   ```
   Defined in file: `variables.tf#111`
 
@@ -171,7 +187,7 @@ MAC address of the node
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   Defined in file: `variables.tf#86`
 
@@ -187,7 +203,7 @@ Type of machine (controlplane or worker)
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   Defined in file: `variables.tf#59`
 
@@ -203,7 +219,7 @@ Name of the cluster node
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   Defined in file: `variables.tf#49`
 
@@ -219,7 +235,7 @@ Dedicated RAM for the node
 
   **Type**:
   ```hcl
-    number
+  number
   ```
   Defined in file: `variables.tf#106`
 
@@ -235,7 +251,7 @@ VM ID of the node
 
   **Type**:
   ```hcl
-    number
+  number
   ```
   Defined in file: `variables.tf#96`
 
@@ -251,7 +267,7 @@ Proxmox host configuration
 
   **Type**:
   ```hcl
-    object({
+  object({
     name      = string
     endpoint  = string
     insecure  = bool
@@ -275,7 +291,7 @@ Talos cluster client configuration
 
   **Type**:
   ```hcl
-    any
+  any
   ```
   Defined in file: `variables.tf#30`
 
@@ -291,7 +307,7 @@ Talos cluster machine configuration
 
   **Type**:
   ```hcl
-    any
+  any
   ```
   Defined in file: `variables.tf#25`
 
@@ -307,11 +323,11 @@ Name of the Cilium Helm Chart to use
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "cilium"
+  "cilium"
   ```
   Defined in file: `variables.tf#148`
 
@@ -327,11 +343,11 @@ Name of the Cilium Helm release
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "cilium"
+  "cilium"
   ```
   Defined in file: `variables.tf#127`
 
@@ -347,11 +363,11 @@ Namespace to install Cilium into
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "cilium"
+  "cilium"
   ```
   Defined in file: `variables.tf#134`
 
@@ -367,11 +383,11 @@ URL of the Cilium Helm repository to use
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "https://helm.cilium.io"
+  "https://helm.cilium.io"
   ```
   Defined in file: `variables.tf#141`
 
@@ -387,11 +403,11 @@ Cilium Helm template creation timeout
 
   **Type**:
   ```hcl
-    number
+  number
   ```
   **Default**:
   ```json
-    60
+  60
   ```
   Defined in file: `variables.tf#155`
 
@@ -407,11 +423,11 @@ Network bridge to use for this node
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "vmbr0"
+  "vmbr0"
   ```
   Defined in file: `variables.tf#69`
 
@@ -427,11 +443,11 @@ Datastore ID for the node
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "local"
+  "local"
   ```
   Defined in file: `variables.tf#115`
 
@@ -447,11 +463,11 @@ Description to set for the given node
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    ""
+  ""
   ```
   Defined in file: `variables.tf#35`
 
@@ -467,11 +483,11 @@ Tags to set for the given node
 
   **Type**:
   ```hcl
-    list(string)
+  list(string)
   ```
   **Default**:
   ```json
-    []
+  []
   ```
   Defined in file: `variables.tf#42`
 
@@ -487,33 +503,13 @@ Target version of Kubernetes the template is built for
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "1.32"
+  "1.32"
   ```
   Defined in file: `variables.tf#162`
 
 </details>
 </blockquote>
-
-## Outputs
-### `resource`
-<blockquote>
-
-#### `cilium_patch` (_local_file_)
-Defined in file: `cilium.tf#30`
-</blockquote>
-<blockquote>
-
-#### `this` (_proxmox_virtual_environment_vm_)
-Defined in file: `vms.tf#1`
-</blockquote>
-<blockquote>
-
-#### `this` (_talos_machine_configuration_apply_)
-Defined in file: `main.tf#28`
-</blockquote>
-
-### `output`

@@ -14,9 +14,11 @@ terraform {
 }
 
 provider "proxmox" {
-  endpoint  = var.proxmox.endpoint
-  insecure  = var.proxmox.insecure
-  api_token = var.proxmox.api_token
+  endpoint = var.proxmox.endpoint
+  insecure = var.proxmox.insecure
+  # use root@pam because of bind-mounts
+  username = "root@pam"
+  password = var.proxmox.root_password
 
   ssh {
     username    = var.proxmox.ssh_user

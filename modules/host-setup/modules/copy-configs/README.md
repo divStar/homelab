@@ -7,15 +7,14 @@ Handles the copying of configuration files to the host.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Inputs](#inputs)
+- [Resources](#resources)
+  - [copy_configuration_files](#copy_configuration_files-ssh_resource) (*ssh_resource*)
+  - [remove_configuration_files](#remove_configuration_files-ssh_resource) (*ssh_resource*)
+- [Variables](#variables)
   - [configuration_files](#configuration_files-required) (**Required**)
   - [ssh](#ssh-required) (**Required**)
 - [Outputs](#outputs)
-  - [resource](#resource)
-    - [copy_configuration_files](#copy_configuration_files-ssh_resource) (*ssh_resource*)
-    - [remove_configuration_files](#remove_configuration_files-ssh_resource) (*ssh_resource*)
-  - [output](#output)
-    - [configuration_files](#configuration_files)</blockquote>
+  - [configuration_files](#configuration_files)</blockquote>
 
 ## Requirements
 
@@ -29,7 +28,20 @@ Handles the copying of configuration files to the host.
 |------|---------|
 | <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
 
-## Inputs
+
+## Resources
+<blockquote>
+
+#### `copy_configuration_files` (_ssh_resource_)
+Defined in file: `main.tf#15`
+</blockquote>
+<blockquote>
+
+#### `remove_configuration_files` (_ssh_resource_)
+Defined in file: `main.tf#33`
+</blockquote>
+
+## Variables
 <blockquote>
 
 ### `configuration_files` (**Required**)
@@ -40,7 +52,7 @@ Configuration files to copy to the host
 
   **Type**:
   ```hcl
-    list(object({
+  list(object({
     source      = string
     destination = string
     permissions = optional(number)
@@ -62,7 +74,7 @@ SSH configuration for remote connection
 
   **Type**:
   ```hcl
-    object({
+  object({
     host    = string
     user    = string
     id_file = optional(string, "~/.ssh/id_rsa")
@@ -73,20 +85,8 @@ SSH configuration for remote connection
 </details>
 </blockquote>
 
+
 ## Outputs
-### `resource`
-<blockquote>
-
-#### `copy_configuration_files` (_ssh_resource_)
-Defined in file: `main.tf#15`
-</blockquote>
-<blockquote>
-
-#### `remove_configuration_files` (_ssh_resource_)
-Defined in file: `main.tf#33`
-</blockquote>
-
-### `output`
 <blockquote>
 
 #### `configuration_files`

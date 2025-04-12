@@ -7,7 +7,7 @@ This module and its sub-modules setup the Proxmox host.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Modules](#modules)
+- [Modules](#modules) _(nested and adjacent)_
   - [copy_configs](#copy_configs)
   - [gitops_user](#gitops_user)
   - [packages](#packages)
@@ -16,7 +16,7 @@ This module and its sub-modules setup the Proxmox host.
   - [storage](#storage)
   - [terraform_user](#terraform_user)
   - [update_ssl](#update_ssl)
-- [Inputs](#inputs)
+- [Variables](#variables)
   - [configuration_files](#configuration_files-required) (**Required**)
   - [proxmox](#proxmox-required) (**Required**)
   - [ssh](#ssh-required) (**Required**)
@@ -28,16 +28,15 @@ This module and its sub-modules setup the Proxmox host.
   - [scripts](#scripts-optional) (*Optional*)
   - [terraform_user](#terraform_user-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [output](#output)
-    - [certificate_info](#certificate_info)
-    - [configuration_files](#configuration_files)
-    - [installed_packages](#installed_packages)
-    - [installed_scripts](#installed_scripts)
-    - [no_subscription](#no_subscription)
-    - [pve-user](#pve-user)
-    - [storage_pools](#storage_pools)
-    - [storage_pools_directories](#storage_pools_directories)
-    - [token](#token)</blockquote>
+  - [certificate_info](#certificate_info)
+  - [configuration_files](#configuration_files)
+  - [installed_packages](#installed_packages)
+  - [installed_scripts](#installed_scripts)
+  - [no_subscription](#no_subscription)
+  - [pve-user](#pve-user)
+  - [storage_pools](#storage_pools)
+  - [storage_pools_directories](#storage_pools_directories)
+  - [token](#token)</blockquote>
 
 ## Requirements
 
@@ -132,7 +131,9 @@ Handles the creation and deletion of a dedicated user with a custom role and API
 | Called in file | `main.tf#90`
 </blockquote>
 
-## Inputs
+
+
+## Variables
 <blockquote>
 
 ### `configuration_files` (**Required**)
@@ -143,7 +144,7 @@ Configuration files to copy to the host
 
   **Type**:
   ```hcl
-    list(object({
+  list(object({
     source      = string
     destination = string
     permissions = optional(number)
@@ -165,7 +166,7 @@ Proxmox host configuration
 
   **Type**:
   ```hcl
-    object({
+  object({
     name = string
     host = string
     port = number
@@ -185,7 +186,7 @@ SSH configuration for remote connection
 
   **Type**:
   ```hcl
-    object({
+  object({
     host    = string
     user    = string
     id_file = optional(string, "~/.ssh/id_rsa")
@@ -205,7 +206,7 @@ Configuration of the storage (pools and directories) to import
 
   **Type**:
   ```hcl
-    list(object({
+  list(object({
     name = string
     type = string # "pool" or "directory"
     # For directories only:
@@ -227,7 +228,7 @@ Configuration of GitOps user.
 
   **Type**:
   ```hcl
-    object({
+  object({
     user        = optional(string, "gitops")
     group       = optional(string, "gitops")
     repo_name   = optional(string, "repo")
@@ -236,7 +237,7 @@ Configuration of GitOps user.
   ```
   **Default**:
   ```json
-    {}
+  {}
   ```
   Defined in file: `variables.tf#134`
 
@@ -252,7 +253,7 @@ Whether to use no-subscription repository instead of enterprise repository or no
 
   **Type**:
   ```hcl
-    object({
+  object({
     enabled           = bool
     list_file         = optional(string, "pve-no-subscription.list")
     list_file_content = optional(string, "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription")
@@ -260,7 +261,7 @@ Whether to use no-subscription repository instead of enterprise repository or no
   ```
   **Default**:
   ```json
-    {
+  {
   "enabled": true
 }
   ```
@@ -278,14 +279,14 @@ Original owner of the source repository (before, e.g. root:root)
 
   **Type**:
   ```hcl
-    object({
+  object({
     owner = optional(string, "root")
     group = optional(string, "root")
   })
   ```
   **Default**:
   ```json
-    {}
+  {}
   ```
   Defined in file: `variables.tf#146`
 
@@ -301,11 +302,11 @@ List of packages to install via apt-get
 
   **Type**:
   ```hcl
-    list(string)
+  list(string)
   ```
   **Default**:
   ```json
-    []
+  []
   ```
   Defined in file: `variables.tf#42`
 
@@ -321,7 +322,7 @@ Configuration for script management including shared directory and script items
 
   **Type**:
   ```hcl
-    object({
+  object({
     directory = optional(string, "scripts")
     items = list(object({
       name           = string
@@ -334,7 +335,7 @@ Configuration for script management including shared directory and script items
   ```
   **Default**:
   ```json
-    {
+  {
   "directory": "scripts",
   "items": []
 }
@@ -353,7 +354,7 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
 
   **Type**:
   ```hcl
-    object({
+  object({
     name    = optional(string, "terraform@pve")
     comment = optional(string, "Terraform automation user")
     role = object({
@@ -388,7 +389,7 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
   ```
   **Default**:
   ```json
-    {
+  {
   "role": {},
   "token": {}
 }
@@ -398,9 +399,8 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
 </details>
 </blockquote>
 
-## Outputs
 
-### `output`
+## Outputs
 <blockquote>
 
 #### `certificate_info`

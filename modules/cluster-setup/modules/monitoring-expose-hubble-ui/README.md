@@ -7,13 +7,11 @@ Exposes the Hubble UI from Cilium CNI.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Inputs](#inputs)
+- [Resources](#resources)
+  - [longhorn_namespace](#longhorn_namespace-kubectl_manifest) (*kubectl_manifest*)
+- [Variables](#variables)
   - [ca_issuer](#ca_issuer-required) (**Required**)
-  - [service_host](#service_host-optional) (*Optional*)
-- [Outputs](#outputs)
-  - [resource](#resource)
-    - [longhorn_namespace](#longhorn_namespace-kubectl_manifest) (*kubectl_manifest*)
-  - [output](#output)</blockquote>
+  - [service_host](#service_host-optional) (*Optional*)</blockquote>
 
 ## Requirements
 
@@ -27,7 +25,15 @@ Exposes the Hubble UI from Cilium CNI.
 |------|---------|
 | <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | >= 1.19.0 |
 
-## Inputs
+
+## Resources
+<blockquote>
+
+#### `longhorn_namespace` (_kubectl_manifest_)
+Defined in file: `main.tf#7`
+</blockquote>
+
+## Variables
 <blockquote>
 
 ### `ca_issuer` (**Required**)
@@ -38,7 +44,7 @@ CA certificate issuer (for Certificate resource managed by cert-manager)
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   Defined in file: `variables.tf#1`
 
@@ -54,23 +60,13 @@ Host to expose the hubble UI on, e.g. hubble.my.domain
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "hubble.my.world"
+  "hubble.my.world"
   ```
   Defined in file: `variables.tf#6`
 
 </details>
 </blockquote>
-
-## Outputs
-### `resource`
-<blockquote>
-
-#### `longhorn_namespace` (_kubectl_manifest_)
-Defined in file: `main.tf#7`
-</blockquote>
-
-### `output`

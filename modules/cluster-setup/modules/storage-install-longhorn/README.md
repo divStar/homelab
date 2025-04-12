@@ -7,7 +7,10 @@ Handles the setup of `longhorn` (storage solution for PV/PVCs).
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Inputs](#inputs)
+- [Resources](#resources)
+  - [longhorn](#longhorn-helm_release) (*helm_release*)
+  - [longhorn_namespace](#longhorn_namespace-kubectl_manifest) (*kubectl_manifest*)
+- [Variables](#variables)
   - [ca_issuer](#ca_issuer-required) (**Required**)
   - [chart_version](#chart_version-required) (**Required**)
   - [nodes_count](#nodes_count-required) (**Required**)
@@ -15,12 +18,7 @@ Handles the setup of `longhorn` (storage solution for PV/PVCs).
   - [namespace](#namespace-optional) (*Optional*)
   - [service_host](#service_host-optional) (*Optional*)
   - [timeout](#timeout-optional) (*Optional*)
-  - [values](#values-optional) (*Optional*)
-- [Outputs](#outputs)
-  - [resource](#resource)
-    - [longhorn](#longhorn-helm_release) (*helm_release*)
-    - [longhorn_namespace](#longhorn_namespace-kubectl_manifest) (*kubectl_manifest*)
-  - [output](#output)</blockquote>
+  - [values](#values-optional) (*Optional*)</blockquote>
 
 ## Requirements
 
@@ -36,7 +34,20 @@ Handles the setup of `longhorn` (storage solution for PV/PVCs).
 | <a name="provider_helm.deploying"></a> [helm.deploying](#provider\_helm.deploying) | >= 2.17.0 |
 | <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | >= 1.19.0 |
 
-## Inputs
+
+## Resources
+<blockquote>
+
+#### `longhorn` (_helm_release_)
+Defined in file: `main.tf#15`
+</blockquote>
+<blockquote>
+
+#### `longhorn_namespace` (_kubectl_manifest_)
+Defined in file: `main.tf#7`
+</blockquote>
+
+## Variables
 <blockquote>
 
 ### `ca_issuer` (**Required**)
@@ -47,7 +58,7 @@ CA certificate issuer (for Certificate resource managed by cert-manager)
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   Defined in file: `variables.tf#11`
 
@@ -63,7 +74,7 @@ Helm Chart version to install
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   Defined in file: `variables.tf#1`
 
@@ -79,7 +90,7 @@ Amount of nodes (usually worker nodes only); will be used for Longhorn replicaCo
 
   **Type**:
   ```hcl
-    number
+  number
   ```
   Defined in file: `variables.tf#6`
 
@@ -95,11 +106,11 @@ Name of the Helm release
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "longhorn-release"
+  "longhorn-release"
   ```
   Defined in file: `variables.tf#16`
 
@@ -115,11 +126,11 @@ Kubernetes namespace to install into
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "longhorn-system"
+  "longhorn-system"
   ```
   Defined in file: `variables.tf#23`
 
@@ -135,11 +146,11 @@ Host to expose the longhorn UI on, e.g. longhorn.my.domain
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "longhorn.my.world"
+  "longhorn.my.world"
   ```
   Defined in file: `variables.tf#44`
 
@@ -155,11 +166,11 @@ Time in seconds to wait for the Helm Chart to be installed
 
   **Type**:
   ```hcl
-    number
+  number
   ```
   **Default**:
   ```json
-    120
+  120
   ```
   Defined in file: `variables.tf#30`
 
@@ -175,28 +186,13 @@ Additional values to pass to the helm chart (in YAML format)
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    ""
+  ""
   ```
   Defined in file: `variables.tf#37`
 
 </details>
 </blockquote>
-
-## Outputs
-### `resource`
-<blockquote>
-
-#### `longhorn` (_helm_release_)
-Defined in file: `main.tf#15`
-</blockquote>
-<blockquote>
-
-#### `longhorn_namespace` (_kubectl_manifest_)
-Defined in file: `main.tf#7`
-</blockquote>
-
-### `output`

@@ -8,20 +8,19 @@ as well as setting and restoring owner / group of the original gitops repository
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Inputs](#inputs)
+- [Resources](#resources)
+  - [add_gitops_user](#add_gitops_user-ssh_resource) (*ssh_resource*)
+  - [remove_gitops_user](#remove_gitops_user-ssh_resource) (*ssh_resource*)
+- [Variables](#variables)
   - [ssh](#ssh-required) (**Required**)
   - [gitops_user](#gitops_user-optional) (*Optional*)
   - [org_source_repo_owner](#org_source_repo_owner-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [resource](#resource)
-    - [add_gitops_user](#add_gitops_user-ssh_resource) (*ssh_resource*)
-    - [remove_gitops_user](#remove_gitops_user-ssh_resource) (*ssh_resource*)
-  - [output](#output)
-    - [git_ssh_url](#git_ssh_url)
-    - [repo_actual_path](#repo_actual_path)
-    - [repo_local_path](#repo_local_path)
-    - [user](#user)
-    - [user_home](#user_home)</blockquote>
+  - [git_ssh_url](#git_ssh_url)
+  - [repo_actual_path](#repo_actual_path)
+  - [repo_local_path](#repo_local_path)
+  - [user](#user)
+  - [user_home](#user_home)</blockquote>
 
 ## Requirements
 
@@ -35,7 +34,20 @@ as well as setting and restoring owner / group of the original gitops repository
 |------|---------|
 | <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
 
-## Inputs
+
+## Resources
+<blockquote>
+
+#### `add_gitops_user` (_ssh_resource_)
+Defined in file: `main.tf#19`
+</blockquote>
+<blockquote>
+
+#### `remove_gitops_user` (_ssh_resource_)
+Defined in file: `main.tf#48`
+</blockquote>
+
+## Variables
 <blockquote>
 
 ### `ssh` (**Required**)
@@ -46,7 +58,7 @@ SSH configuration for remote connection
 
   **Type**:
   ```hcl
-    object({
+  object({
     host    = string
     user    = string
     id_file = optional(string, "~/.ssh/id_rsa")
@@ -66,7 +78,7 @@ Configuration of GitOps user.
 
   **Type**:
   ```hcl
-    object({
+  object({
     user        = optional(string, "gitops")
     group       = optional(string, "gitops")
     repo_name   = optional(string, "repo")
@@ -75,7 +87,7 @@ Configuration of GitOps user.
   ```
   **Default**:
   ```json
-    {}
+  {}
   ```
   Defined in file: `variables.tf#14`
 
@@ -91,34 +103,22 @@ Original owner of the source repository (before, e.g. root:root)
 
   **Type**:
   ```hcl
-    object({
+  object({
     owner = optional(string, "root")
     group = optional(string, "root")
   })
   ```
   **Default**:
   ```json
-    {}
+  {}
   ```
   Defined in file: `variables.tf#26`
 
 </details>
 </blockquote>
 
+
 ## Outputs
-### `resource`
-<blockquote>
-
-#### `add_gitops_user` (_ssh_resource_)
-Defined in file: `main.tf#19`
-</blockquote>
-<blockquote>
-
-#### `remove_gitops_user` (_ssh_resource_)
-Defined in file: `main.tf#48`
-</blockquote>
-
-### `output`
 <blockquote>
 
 #### `git_ssh_url`

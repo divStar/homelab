@@ -8,16 +8,15 @@ the creation and activation of the no-subscription repositories.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Inputs](#inputs)
+- [Resources](#resources)
+  - [add_no_sub_repository](#add_no_sub_repository-ssh_resource) (*ssh_resource*)
+  - [remove_no_sub_repository](#remove_no_sub_repository-ssh_resource) (*ssh_resource*)
+  - [update_all_repositories](#update_all_repositories-ssh_resource) (*ssh_resource*)
+- [Variables](#variables)
   - [ssh](#ssh-required) (**Required**)
   - [no_subscription](#no_subscription-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [resource](#resource)
-    - [add_no_sub_repository](#add_no_sub_repository-ssh_resource) (*ssh_resource*)
-    - [remove_no_sub_repository](#remove_no_sub_repository-ssh_resource) (*ssh_resource*)
-    - [update_all_repositories](#update_all_repositories-ssh_resource) (*ssh_resource*)
-  - [output](#output)
-    - [no_subscription](#no_subscription)</blockquote>
+  - [no_subscription](#no_subscription)</blockquote>
 
 ## Requirements
 
@@ -31,7 +30,25 @@ the creation and activation of the no-subscription repositories.
 |------|---------|
 | <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
 
-## Inputs
+
+## Resources
+<blockquote>
+
+#### `add_no_sub_repository` (_ssh_resource_)
+Defined in file: `main.tf#19`
+</blockquote>
+<blockquote>
+
+#### `remove_no_sub_repository` (_ssh_resource_)
+Defined in file: `main.tf#49`
+</blockquote>
+<blockquote>
+
+#### `update_all_repositories` (_ssh_resource_)
+Defined in file: `main.tf#35`
+</blockquote>
+
+## Variables
 <blockquote>
 
 ### `ssh` (**Required**)
@@ -42,7 +59,7 @@ SSH configuration for remote connection
 
   **Type**:
   ```hcl
-    object({
+  object({
     host    = string
     user    = string
     id_file = optional(string, "~/.ssh/id_rsa")
@@ -62,7 +79,7 @@ Whether to use no-subscription repository instead of enterprise repository or no
 
   **Type**:
   ```hcl
-    object({
+  object({
     enabled           = bool
     list_file         = optional(string, "pve-no-subscription.list")
     list_file_content = optional(string, "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription")
@@ -70,7 +87,7 @@ Whether to use no-subscription repository instead of enterprise repository or no
   ```
   **Default**:
   ```json
-    {
+  {
   "enabled": true
 }
   ```
@@ -79,25 +96,8 @@ Whether to use no-subscription repository instead of enterprise repository or no
 </details>
 </blockquote>
 
+
 ## Outputs
-### `resource`
-<blockquote>
-
-#### `add_no_sub_repository` (_ssh_resource_)
-Defined in file: `main.tf#19`
-</blockquote>
-<blockquote>
-
-#### `remove_no_sub_repository` (_ssh_resource_)
-Defined in file: `main.tf#49`
-</blockquote>
-<blockquote>
-
-#### `update_all_repositories` (_ssh_resource_)
-Defined in file: `main.tf#35`
-</blockquote>
-
-### `output`
 <blockquote>
 
 #### `no_subscription`

@@ -7,16 +7,15 @@ Handles the download, execution and cleanup of (shell-)scripts on the host
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Inputs](#inputs)
+- [Resources](#resources)
+  - [script_cleanup](#script_cleanup-ssh_resource) (*ssh_resource*)
+  - [script_download](#script_download-ssh_resource) (*ssh_resource*)
+  - [script_execute](#script_execute-ssh_resource) (*ssh_resource*)
+- [Variables](#variables)
   - [ssh](#ssh-required) (**Required**)
   - [scripts](#scripts-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [resource](#resource)
-    - [script_cleanup](#script_cleanup-ssh_resource) (*ssh_resource*)
-    - [script_download](#script_download-ssh_resource) (*ssh_resource*)
-    - [script_execute](#script_execute-ssh_resource) (*ssh_resource*)
-  - [output](#output)
-    - [installed_scripts](#installed_scripts)</blockquote>
+  - [installed_scripts](#installed_scripts)</blockquote>
 
 ## Requirements
 
@@ -30,7 +29,25 @@ Handles the download, execution and cleanup of (shell-)scripts on the host
 |------|---------|
 | <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
 
-## Inputs
+
+## Resources
+<blockquote>
+
+#### `script_cleanup` (_ssh_resource_)
+Defined in file: `main.tf#56`
+</blockquote>
+<blockquote>
+
+#### `script_download` (_ssh_resource_)
+Defined in file: `main.tf#19`
+</blockquote>
+<blockquote>
+
+#### `script_execute` (_ssh_resource_)
+Defined in file: `main.tf#39`
+</blockquote>
+
+## Variables
 <blockquote>
 
 ### `ssh` (**Required**)
@@ -41,7 +58,7 @@ SSH configuration for remote connection
 
   **Type**:
   ```hcl
-    object({
+  object({
     host    = string
     user    = string
     id_file = optional(string, "~/.ssh/id_rsa")
@@ -61,7 +78,7 @@ Configuration for script management including shared directory and script items
 
   **Type**:
   ```hcl
-    object({
+  object({
     directory = optional(string, "scripts")
     items = list(object({
       name           = string
@@ -74,7 +91,7 @@ Configuration for script management including shared directory and script items
   ```
   **Default**:
   ```json
-    {
+  {
   "directory": "scripts",
   "items": []
 }
@@ -84,25 +101,8 @@ Configuration for script management including shared directory and script items
 </details>
 </blockquote>
 
+
 ## Outputs
-### `resource`
-<blockquote>
-
-#### `script_cleanup` (_ssh_resource_)
-Defined in file: `main.tf#56`
-</blockquote>
-<blockquote>
-
-#### `script_download` (_ssh_resource_)
-Defined in file: `main.tf#19`
-</blockquote>
-<blockquote>
-
-#### `script_execute` (_ssh_resource_)
-Defined in file: `main.tf#39`
-</blockquote>
-
-### `output`
 <blockquote>
 
 #### `installed_scripts`

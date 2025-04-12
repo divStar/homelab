@@ -7,16 +7,14 @@ Handles the setup of `sealed-secrets`.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Inputs](#inputs)
+- [Resources](#resources)
+  - [sealed_secrets](#sealed_secrets-helm_release) (*helm_release*)
+- [Variables](#variables)
   - [chart_version](#chart_version-required) (**Required**)
   - [name](#name-optional) (*Optional*)
   - [namespace](#namespace-optional) (*Optional*)
   - [timeout](#timeout-optional) (*Optional*)
-  - [values](#values-optional) (*Optional*)
-- [Outputs](#outputs)
-  - [resource](#resource)
-    - [sealed_secrets](#sealed_secrets-helm_release) (*helm_release*)
-  - [output](#output)</blockquote>
+  - [values](#values-optional) (*Optional*)</blockquote>
 
 ## Requirements
 
@@ -30,7 +28,15 @@ Handles the setup of `sealed-secrets`.
 |------|---------|
 | <a name="provider_helm.deploying"></a> [helm.deploying](#provider\_helm.deploying) | >= 2.17.0 |
 
-## Inputs
+
+## Resources
+<blockquote>
+
+#### `sealed_secrets` (_helm_release_)
+Defined in file: `main.tf#7`
+</blockquote>
+
+## Variables
 <blockquote>
 
 ### `chart_version` (**Required**)
@@ -41,7 +47,7 @@ Helm Chart version to install
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   Defined in file: `variables.tf#1`
 
@@ -57,11 +63,11 @@ Name of the Helm release
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "sealed-secrets-release"
+  "sealed-secrets-release"
   ```
   Defined in file: `variables.tf#6`
 
@@ -77,11 +83,11 @@ Kubernetes namespace to install into
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "sealed-secrets"
+  "sealed-secrets"
   ```
   Defined in file: `variables.tf#13`
 
@@ -97,11 +103,11 @@ Time in seconds to wait for the Helm Chart to be installed
 
   **Type**:
   ```hcl
-    number
+  number
   ```
   **Default**:
   ```json
-    120
+  120
   ```
   Defined in file: `variables.tf#20`
 
@@ -117,23 +123,13 @@ Additional values to pass to the helm chart (in YAML format)
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    ""
+  ""
   ```
   Defined in file: `variables.tf#27`
 
 </details>
 </blockquote>
-
-## Outputs
-### `resource`
-<blockquote>
-
-#### `sealed_secrets` (_helm_release_)
-Defined in file: `main.tf#7`
-</blockquote>
-
-### `output`

@@ -7,21 +7,20 @@ Handles appending of SSH keys to the authorized\_keys file of a given user.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Inputs](#inputs)
+- [Resources](#resources)
+  - [add_key](#add_key-ssh_resource) (*ssh_resource*)
+- [Variables](#variables)
   - [repo_name](#repo_name-required) (**Required**)
   - [ssh](#ssh-required) (**Required**)
   - [ssh_key_file](#ssh_key_file-required) (**Required**)
   - [target_user](#target_user-required) (**Required**)
   - [git_access_mode](#git_access_mode-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [resource](#resource)
-    - [add_key](#add_key-ssh_resource) (*ssh_resource*)
-  - [output](#output)
-    - [access_mode](#access_mode)
-    - [authorized_keys_path](#authorized_keys_path)
-    - [key_permissions](#key_permissions)
-    - [key_with_restrictions](#key_with_restrictions)
-    - [ssh_key_file_used](#ssh_key_file_used)</blockquote>
+  - [access_mode](#access_mode)
+  - [authorized_keys_path](#authorized_keys_path)
+  - [key_permissions](#key_permissions)
+  - [key_with_restrictions](#key_with_restrictions)
+  - [ssh_key_file_used](#ssh_key_file_used)</blockquote>
 
 ## Requirements
 
@@ -35,7 +34,15 @@ Handles appending of SSH keys to the authorized\_keys file of a given user.
 |------|---------|
 | <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
 
-## Inputs
+
+## Resources
+<blockquote>
+
+#### `add_key` (_ssh_resource_)
+Defined in file: `main.tf#27`
+</blockquote>
+
+## Variables
 <blockquote>
 
 ### `repo_name` (**Required**)
@@ -46,7 +53,7 @@ Name of the symbolic link to the actual gitops git repository
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   Defined in file: `variables.tf#24`
 
@@ -62,7 +69,7 @@ SSH configuration for remote connection
 
   **Type**:
   ```hcl
-    object({
+  object({
     host    = string
     user    = string
     id_file = optional(string, "~/.ssh/id_rsa")
@@ -82,7 +89,7 @@ Path to SSH public key file to add to authorized_keys (e.g. ~/.ssh/id_rsa.pub)
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   Defined in file: `variables.tf#14`
 
@@ -98,7 +105,7 @@ Username to add SSH key for
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   Defined in file: `variables.tf#19`
 
@@ -114,26 +121,19 @@ Git access mode: 'read-only' or 'read-write'
 
   **Type**:
   ```hcl
-    string
+  string
   ```
   **Default**:
   ```json
-    "read-write"
+  "read-write"
   ```
   Defined in file: `variables.tf#29`
 
 </details>
 </blockquote>
 
+
 ## Outputs
-### `resource`
-<blockquote>
-
-#### `add_key` (_ssh_resource_)
-Defined in file: `main.tf#27`
-</blockquote>
-
-### `output`
 <blockquote>
 
 #### `access_mode`

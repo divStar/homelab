@@ -10,23 +10,22 @@ the host.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Inputs](#inputs)
+- [Resources](#resources)
+  - [backup_existing_certs](#backup_existing_certs-ssh_resource) (*ssh_resource*)
+  - [install_pve_cert](#install_pve_cert-ssh_resource) (*ssh_resource*)
+  - [proxmox_ca_cert](#proxmox_ca_cert-ssh_resource) (*ssh_resource*)
+  - [proxmox_ca_key](#proxmox_ca_key-ssh_resource) (*ssh_resource*)
+  - [backup_timestamp](#backup_timestamp-time_static) (*time_static*)
+  - [pve_ssl_cert_request](#pve_ssl_cert_request-tls_cert_request) (*tls_cert_request*)
+  - [pve_ssl_cert](#pve_ssl_cert-tls_locally_signed_cert) (*tls_locally_signed_cert*)
+  - [pve_ssl_key](#pve_ssl_key-tls_private_key) (*tls_private_key*)
+- [Variables](#variables)
   - [proxmox_host](#proxmox_host-required) (**Required**)
   - [ssh](#ssh-required) (**Required**)
   - [proxmox_domain_cert](#proxmox_domain_cert-optional) (*Optional*)
   - [proxmox_root_ca](#proxmox_root_ca-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [resource](#resource)
-    - [backup_existing_certs](#backup_existing_certs-ssh_resource) (*ssh_resource*)
-    - [install_pve_cert](#install_pve_cert-ssh_resource) (*ssh_resource*)
-    - [proxmox_ca_cert](#proxmox_ca_cert-ssh_resource) (*ssh_resource*)
-    - [proxmox_ca_key](#proxmox_ca_key-ssh_resource) (*ssh_resource*)
-    - [backup_timestamp](#backup_timestamp-time_static) (*time_static*)
-    - [pve_ssl_cert_request](#pve_ssl_cert_request-tls_cert_request) (*tls_cert_request*)
-    - [pve_ssl_cert](#pve_ssl_cert-tls_locally_signed_cert) (*tls_locally_signed_cert*)
-    - [pve_ssl_key](#pve_ssl_key-tls_private_key) (*tls_private_key*)
-  - [output](#output)
-    - [certificate_info](#certificate_info)</blockquote>
+  - [certificate_info](#certificate_info)</blockquote>
 
 ## Requirements
 
@@ -44,133 +43,8 @@ the host.
 | <a name="provider_time"></a> [time](#provider\_time) | >= 0.13.0 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | >= 4.0.6 |
 
-## Inputs
-<blockquote>
 
-### `proxmox_host` (**Required**)
-Name of the target Proxmox host
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-    string
-  ```
-  Defined in file: `variables.tf#14`
-
-</details>
-</blockquote>
-<blockquote>
-
-### `ssh` (**Required**)
-SSH configuration for remote connection
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-    object({
-    host    = string
-    user    = string
-    id_file = optional(string, "~/.ssh/id_rsa")
-  })
-  ```
-  Defined in file: `variables.tf#1`
-
-</details>
-</blockquote>
-<blockquote>
-
-### `proxmox_domain_cert` (*Optional*)
-Proxmox certificate details
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-    object({
-    subject = object({
-      common_name         = string
-      organization        = string
-      organizational_unit = string
-      country             = string
-      locality            = string
-      province            = string
-    })
-    private_key = object({
-      algorithm = string
-      rsa_bits  = number
-    })
-    dns_names             = list(string)
-    ip_addresses          = list(string)
-    validity_period_hours = number
-  })
-  ```
-  **Default**:
-  ```json
-    {
-  "dns_names": [
-    "localhost",
-    "sanctum",
-    "sanctum.local",
-    "sanctum.my.world",
-    "sanctum.fritz.box"
-  ],
-  "ip_addresses": [
-    "127.0.0.1",
-    "192.168.178.27"
-  ],
-  "private_key": {
-    "algorithm": "RSA",
-    "rsa_bits": 2048
-  },
-  "subject": {
-    "common_name": "sanctum.my.world",
-    "country": "DE",
-    "locality": "Home Lab",
-    "organization": "Proxmox Virtual Environment",
-    "organizational_unit": "PVE Cluster Node",
-    "province": "Private Network"
-  },
-  "validity_period_hours": 78840
-}
-  ```
-  Defined in file: `variables.tf#32`
-
-</details>
-</blockquote>
-<blockquote>
-
-### `proxmox_root_ca` (*Optional*)
-Proxmox root CA certificate and key to use
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-    object({
-    pve_root_cert = string
-    pve_root_key  = string
-  })
-  ```
-  **Default**:
-  ```json
-    {
-  "pve_root_cert": "/etc/pve/pve-root-ca.pem",
-  "pve_root_key": "/etc/pve/priv/pve-root-ca.key"
-}
-  ```
-  Defined in file: `variables.tf#19`
-
-</details>
-</blockquote>
-
-## Outputs
-### `resource`
+## Resources
 <blockquote>
 
 #### `backup_existing_certs` (_ssh_resource_)
@@ -212,7 +86,133 @@ Defined in file: `main.tf#72`
 Defined in file: `main.tf#49`
 </blockquote>
 
-### `output`
+## Variables
+<blockquote>
+
+### `proxmox_host` (**Required**)
+Name of the target Proxmox host
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  Defined in file: `variables.tf#14`
+
+</details>
+</blockquote>
+<blockquote>
+
+### `ssh` (**Required**)
+SSH configuration for remote connection
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  object({
+    host    = string
+    user    = string
+    id_file = optional(string, "~/.ssh/id_rsa")
+  })
+  ```
+  Defined in file: `variables.tf#1`
+
+</details>
+</blockquote>
+<blockquote>
+
+### `proxmox_domain_cert` (*Optional*)
+Proxmox certificate details
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  object({
+    subject = object({
+      common_name         = string
+      organization        = string
+      organizational_unit = string
+      country             = string
+      locality            = string
+      province            = string
+    })
+    private_key = object({
+      algorithm = string
+      rsa_bits  = number
+    })
+    dns_names             = list(string)
+    ip_addresses          = list(string)
+    validity_period_hours = number
+  })
+  ```
+  **Default**:
+  ```json
+  {
+  "dns_names": [
+    "localhost",
+    "sanctum",
+    "sanctum.local",
+    "sanctum.my.world",
+    "sanctum.fritz.box"
+  ],
+  "ip_addresses": [
+    "127.0.0.1",
+    "192.168.178.27"
+  ],
+  "private_key": {
+    "algorithm": "RSA",
+    "rsa_bits": 2048
+  },
+  "subject": {
+    "common_name": "sanctum.my.world",
+    "country": "DE",
+    "locality": "Home Lab",
+    "organization": "Proxmox Virtual Environment",
+    "organizational_unit": "PVE Cluster Node",
+    "province": "Private Network"
+  },
+  "validity_period_hours": 78840
+}
+  ```
+  Defined in file: `variables.tf#32`
+
+</details>
+</blockquote>
+<blockquote>
+
+### `proxmox_root_ca` (*Optional*)
+Proxmox root CA certificate and key to use
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  object({
+    pve_root_cert = string
+    pve_root_key  = string
+  })
+  ```
+  **Default**:
+  ```json
+  {
+  "pve_root_cert": "/etc/pve/pve-root-ca.pem",
+  "pve_root_key": "/etc/pve/priv/pve-root-ca.key"
+}
+  ```
+  Defined in file: `variables.tf#19`
+
+</details>
+</blockquote>
+
+
+## Outputs
 <blockquote>
 
 #### `certificate_info`

@@ -4,7 +4,7 @@ terraform {
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"
-      version = ">= 0.69.0"
+      version = ">= 0.75.0"
     }
     ssh = {
       source  = "loafoe/ssh"
@@ -14,9 +14,11 @@ terraform {
 }
 
 provider "proxmox" {
-  endpoint  = var.proxmox.endpoint
-  insecure  = var.proxmox.insecure
-  api_token = var.proxmox.api_token
+  endpoint = var.proxmox.endpoint
+  insecure = var.proxmox.insecure
+  # use root@pam because of bind-mounts
+  username = "root@pam"
+  password = var.proxmox.root_password
 
   ssh {
     username    = var.proxmox.ssh_user

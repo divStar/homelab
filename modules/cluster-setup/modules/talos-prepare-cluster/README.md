@@ -7,16 +7,15 @@ Creates the Talos machine secrets and the Talos client configuration.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Inputs](#inputs)
+- [Resources](#resources)
+  - [this](#this-talos_machine_secrets) (*talos_machine_secrets*)
+- [Variables](#variables)
   - [cluster](#cluster-required) (**Required**)
   - [nodes](#nodes-required) (**Required**)
 - [Outputs](#outputs)
-  - [resource](#resource)
-    - [this](#this-talos_machine_secrets) (*talos_machine_secrets*)
-  - [output](#output)
-    - [client_configuration](#client_configuration)
-    - [machine_secrets](#machine_secrets)
-    - [talos_config](#talos_config)</blockquote>
+  - [client_configuration](#client_configuration)
+  - [machine_secrets](#machine_secrets)
+  - [talos_config](#talos_config)</blockquote>
 
 ## Requirements
 
@@ -30,7 +29,15 @@ Creates the Talos machine secrets and the Talos client configuration.
 |------|---------|
 | <a name="provider_talos"></a> [talos](#provider\_talos) | >= 0.7.0 |
 
-## Inputs
+
+## Resources
+<blockquote>
+
+#### `this` (_talos_machine_secrets_)
+Defined in file: `main.tf#7`
+</blockquote>
+
+## Variables
 <blockquote>
 
 ### `cluster` (**Required**)
@@ -41,7 +48,7 @@ Cluster configuration
 
   **Type**:
   ```hcl
-    object({
+  object({
     name          = string
     talos_version = string
   })
@@ -60,7 +67,7 @@ Configuration for cluster nodes
 
   **Type**:
   ```hcl
-    list(object({
+  list(object({
     machine_type = string
     ip           = string
   }))
@@ -70,15 +77,8 @@ Configuration for cluster nodes
 </details>
 </blockquote>
 
+
 ## Outputs
-### `resource`
-<blockquote>
-
-#### `this` (_talos_machine_secrets_)
-Defined in file: `main.tf#7`
-</blockquote>
-
-### `output`
 <blockquote>
 
 #### `client_configuration`

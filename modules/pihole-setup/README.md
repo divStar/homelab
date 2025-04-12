@@ -60,29 +60,37 @@ This module sets up PiHole in an Alpine LXC container using the provided informa
 
 ### `setup_certificate`
 Domain certificate setup
-
-| | |
-|:--- |:--- |
-| Module location | `../common/modules/domain-cert-setup`
-| In file | `main.tf#31`
-<td colspan="2">
-
-[`README.md`](../common/modules/domain-cert-setup/README.md) _(experimental)_
-</td>
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>../common/modules/domain-cert-setup</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L31"><code>main.tf#L31</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="../common/modules/domain-cert-setup/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 ### `setup_container`
 Alpine LXC container setup
-
-| | |
-|:--- |:--- |
-| Module location | `../common/modules/alpine-setup`
-| In file | `main.tf#12`
-<td colspan="2">
-
-[`README.md`](../common/modules/alpine-setup/README.md) _(experimental)_
-</td>
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>../common/modules/alpine-setup</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L12"><code>main.tf#L12</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="../common/modules/alpine-setup/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
 </blockquote>
 
 
@@ -90,22 +98,62 @@ Alpine LXC container setup
 <blockquote>
 
 #### `admin_password` (_random_password_)
-In file: `main.tf#46`
+Create a random password for the PiHole admin web UI
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>random (hashicorp/random)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L46"><code>main.tf#L46</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `configure` (_ssh_resource_)
-In file: `main.tf#53`
+Configure PiHole
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L53"><code>main.tf#L53</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `install` (_ssh_resource_)
-In file: `main.tf#73`
+Install PiHole
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L73"><code>main.tf#L73</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `install_cert` (_ssh_resource_)
-In file: `main.tf#117`
+Install certificate
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L117"><code>main.tf#L117</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 
 ## Variables
@@ -129,7 +177,7 @@ Proxmox host configuration
     ssh_key       = string
   })
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -149,7 +197,7 @@ PiHole Administrator password
   ```json
   null
   ```
-  In file: `variables.tf#186`
+  In file: <a href="./variables.tf#L186"><code>variables.tf#L186</code></a>
 
 </details>
 </blockquote>
@@ -169,7 +217,7 @@ PiHole bridge
   ```json
   "vmbr0"
   ```
-  In file: `variables.tf#114`
+  In file: <a href="./variables.tf#L114"><code>variables.tf#L114</code></a>
 
 </details>
 </blockquote>
@@ -189,7 +237,7 @@ PiHole datastore ID
   ```json
   "/storage-pool/lxc-data"
   ```
-  In file: `variables.tf#72`
+  In file: <a href="./variables.tf#L72"><code>variables.tf#L72</code></a>
 
 </details>
 </blockquote>
@@ -209,7 +257,7 @@ Description of the container
   ```json
   "Alpine Linux based LXC container with PiHole"
   ```
-  In file: `variables.tf#15`
+  In file: <a href="./variables.tf#L15"><code>variables.tf#L15</code></a>
 
 </details>
 </blockquote>
@@ -236,7 +284,7 @@ DNS names for the certificate
   "pihole.fritz.box"
 ]
   ```
-  In file: `variables.tf#164`
+  In file: <a href="./variables.tf#L164"><code>variables.tf#L164</code></a>
 
 </details>
 </blockquote>
@@ -256,7 +304,7 @@ PiHole gateway
   ```json
   "192.168.178.1"
   ```
-  In file: `variables.tf#100`
+  In file: <a href="./variables.tf#L100"><code>variables.tf#L100</code></a>
 
 </details>
 </blockquote>
@@ -276,7 +324,7 @@ PiHole host name
   ```json
   "pihole"
   ```
-  In file: `variables.tf#58`
+  In file: <a href="./variables.tf#L58"><code>variables.tf#L58</code></a>
 
 </details>
 </blockquote>
@@ -296,7 +344,7 @@ PiHole imagestore ID
   ```json
   "images-host"
   ```
-  In file: `variables.tf#65`
+  In file: <a href="./variables.tf#L65"><code>variables.tf#L65</code></a>
 
 </details>
 </blockquote>
@@ -316,7 +364,7 @@ Initialize certificate as new (also needed for renewal)
   ```json
   false
   ```
-  In file: `variables.tf#141`
+  In file: <a href="./variables.tf#L141"><code>variables.tf#L141</code></a>
 
 </details>
 </blockquote>
@@ -336,7 +384,7 @@ Initialize a new stock configuration
   ```json
   false
   ```
-  In file: `variables.tf#179`
+  In file: <a href="./variables.tf#L179"><code>variables.tf#L179</code></a>
 
 </details>
 </blockquote>
@@ -356,7 +404,7 @@ PiHole IP address
   ```json
   "192.168.178.150"
   ```
-  In file: `variables.tf#93`
+  In file: <a href="./variables.tf#L93"><code>variables.tf#L93</code></a>
 
 </details>
 </blockquote>
@@ -380,7 +428,7 @@ IP addresses for the certificate
   "192.168.178.150"
 ]
   ```
-  In file: `variables.tf#171`
+  In file: <a href="./variables.tf#L171"><code>variables.tf#L171</code></a>
 
 </details>
 </blockquote>
@@ -400,7 +448,7 @@ PiHole MAC address
   ```json
   "3C:77:71:89:24:58"
   ```
-  In file: `variables.tf#107`
+  In file: <a href="./variables.tf#L107"><code>variables.tf#L107</code></a>
 
 </details>
 </blockquote>
@@ -432,7 +480,7 @@ List of mount points for the container
   }
 ]
   ```
-  In file: `variables.tf#121`
+  In file: <a href="./variables.tf#L121"><code>variables.tf#L121</code></a>
 
 </details>
 </blockquote>
@@ -452,7 +500,7 @@ PiHole network interface name
   ```json
   "eth0"
   ```
-  In file: `variables.tf#86`
+  In file: <a href="./variables.tf#L86"><code>variables.tf#L86</code></a>
 
 </details>
 </blockquote>
@@ -495,7 +543,7 @@ List of packages to install on the container
   "build-base"
 ]
   ```
-  In file: `variables.tf#22`
+  In file: <a href="./variables.tf#L22"><code>variables.tf#L22</code></a>
 
 </details>
 </blockquote>
@@ -521,7 +569,7 @@ Subject information for the certificate
   "organization": "Home Network"
 }
   ```
-  In file: `variables.tf#148`
+  In file: <a href="./variables.tf#L148"><code>variables.tf#L148</code></a>
 
 </details>
 </blockquote>
@@ -544,7 +592,7 @@ Tags
   "alpine"
 ]
   ```
-  In file: `variables.tf#51`
+  In file: <a href="./variables.tf#L51"><code>variables.tf#L51</code></a>
 
 </details>
 </blockquote>
@@ -564,7 +612,7 @@ PiHole VM ID
   ```json
   701
   ```
-  In file: `variables.tf#79`
+  In file: <a href="./variables.tf#L79"><code>variables.tf#L79</code></a>
 
 </details>
 </blockquote>
@@ -576,26 +624,26 @@ PiHole VM ID
 #### `admin_password`
 Password for Pi-hole admin interface
 
-In file: `outputs.tf#16`
+In file: <a href="./outputs.tf#L16"><code>outputs.tf#L16</code></a>
 </blockquote>
 <blockquote>
 
 #### `admin_url`
 PiHole admin web UI URL
 
-In file: `outputs.tf#23`
+In file: <a href="./outputs.tf#L23"><code>outputs.tf#L23</code></a>
 </blockquote>
 <blockquote>
 
 #### `root_password`
 Root password
 
-In file: `outputs.tf#2`
+In file: <a href="./outputs.tf#L2"><code>outputs.tf#L2</code></a>
 </blockquote>
 <blockquote>
 
 #### `ssh_private_key`
 Private SSH key
 
-In file: `outputs.tf#9`
+In file: <a href="./outputs.tf#L9"><code>outputs.tf#L9</code></a>
 </blockquote>

@@ -33,7 +33,17 @@ Handles the setup of `sealed-secrets`.
 <blockquote>
 
 #### `sealed_secrets` (_helm_release_)
-In file: `main.tf#7`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>helm (hashicorp/helm)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L7"><code>main.tf#L7</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 
 ## Variables
@@ -49,7 +59,7 @@ Helm Chart version to install
   ```hcl
   string
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -69,7 +79,7 @@ Name of the Helm release
   ```json
   "sealed-secrets-release"
   ```
-  In file: `variables.tf#6`
+  In file: <a href="./variables.tf#L6"><code>variables.tf#L6</code></a>
 
 </details>
 </blockquote>
@@ -89,7 +99,7 @@ Kubernetes namespace to install into
   ```json
   "sealed-secrets"
   ```
-  In file: `variables.tf#13`
+  In file: <a href="./variables.tf#L13"><code>variables.tf#L13</code></a>
 
 </details>
 </blockquote>
@@ -109,7 +119,7 @@ Time in seconds to wait for the Helm Chart to be installed
   ```json
   120
   ```
-  In file: `variables.tf#20`
+  In file: <a href="./variables.tf#L20"><code>variables.tf#L20</code></a>
 
 </details>
 </blockquote>
@@ -129,7 +139,7 @@ Additional values to pass to the helm chart (in YAML format)
   ```json
   ""
   ```
-  In file: `variables.tf#27`
+  In file: <a href="./variables.tf#L27"><code>variables.tf#L27</code></a>
 
 </details>
 </blockquote>

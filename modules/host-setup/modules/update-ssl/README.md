@@ -48,42 +48,122 @@ the host.
 <blockquote>
 
 #### `backup_existing_certs` (_ssh_resource_)
-In file: `main.tf#87`
+Back up existing certificates
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L87"><code>main.tf#L87</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `install_pve_cert` (_ssh_resource_)
-In file: `main.tf#101`
+Install the new certificate and key on the Proxmox server
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L101"><code>main.tf#L101</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `proxmox_ca_cert` (_ssh_resource_)
-In file: `main.tf#23`
+Fetch Proxmox CA public certificate
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L23"><code>main.tf#L23</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `proxmox_ca_key` (_ssh_resource_)
-In file: `main.tf#36`
+Fetch Proxmox CA key
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L36"><code>main.tf#L36</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `backup_timestamp` (_time_static_)
-In file: `main.tf#20`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>time (hashicorp/time)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L20"><code>main.tf#L20</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `pve_ssl_cert_request` (_tls_cert_request_)
-In file: `main.tf#55`
+Create certificate request
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>tls (hashicorp/tls)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L55"><code>main.tf#L55</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `pve_ssl_cert` (_tls_locally_signed_cert_)
-In file: `main.tf#72`
+Sign the certificate with the CA
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>tls (hashicorp/tls)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L72"><code>main.tf#L72</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `pve_ssl_key` (_tls_private_key_)
-In file: `main.tf#49`
+Generate private key for the SSL certificate
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>tls (hashicorp/tls)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L49"><code>main.tf#L49</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 
 ## Variables
@@ -99,7 +179,7 @@ Name of the target Proxmox host
   ```hcl
   string
   ```
-  In file: `variables.tf#14`
+  In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
 </blockquote>
@@ -119,7 +199,7 @@ SSH configuration for remote connection
     id_file = optional(string, "~/.ssh/id_rsa")
   })
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -180,7 +260,7 @@ Proxmox certificate details
   "validity_period_hours": 78840
 }
   ```
-  In file: `variables.tf#32`
+  In file: <a href="./variables.tf#L32"><code>variables.tf#L32</code></a>
 
 </details>
 </blockquote>
@@ -206,7 +286,7 @@ Proxmox root CA certificate and key to use
   "pve_root_key": "/etc/pve/priv/pve-root-ca.key"
 }
   ```
-  In file: `variables.tf#19`
+  In file: <a href="./variables.tf#L19"><code>variables.tf#L19</code></a>
 
 </details>
 </blockquote>
@@ -218,5 +298,5 @@ Proxmox root CA certificate and key to use
 #### `certificate_info`
 pve-ssl Certificate information
 
-In file: `outputs.tf#1`
+In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
 </blockquote>

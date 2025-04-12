@@ -40,12 +40,32 @@ Awaits the Talos cluster to become ready and running.
 <blockquote>
 
 #### `this` (_talos_cluster_kubeconfig_)
-In file: `main.tf#44`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>talos (siderolabs/talos)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L44"><code>main.tf#L44</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `this` (_talos_machine_bootstrap_)
-In file: `main.tf#12`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>talos (siderolabs/talos)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L12"><code>main.tf#L12</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 
 ## Variables
@@ -65,7 +85,7 @@ Cluster configuration
     endpoint      = string
   })
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -85,7 +105,7 @@ Configuration for cluster nodes
     ip           = string
   }))
   ```
-  In file: `variables.tf#41`
+  In file: <a href="./variables.tf#L41"><code>variables.tf#L41</code></a>
 
 </details>
 </blockquote>
@@ -101,7 +121,7 @@ Talos cluster client configuration
   ```hcl
   map(any)
   ```
-  In file: `variables.tf#15`
+  In file: <a href="./variables.tf#L15"><code>variables.tf#L15</code></a>
 
 </details>
 </blockquote>
@@ -117,7 +137,7 @@ Talos cluster machine configuration
   ```hcl
   any
   ```
-  In file: `variables.tf#10`
+  In file: <a href="./variables.tf#L10"><code>variables.tf#L10</code></a>
 
 </details>
 </blockquote>
@@ -137,7 +157,7 @@ Cluster bootstrap timeout
   ```json
   "5m"
   ```
-  In file: `variables.tf#20`
+  In file: <a href="./variables.tf#L20"><code>variables.tf#L20</code></a>
 
 </details>
 </blockquote>
@@ -157,7 +177,7 @@ Cluster health-check timeout
   ```json
   "10m"
   ```
-  In file: `variables.tf#27`
+  In file: <a href="./variables.tf#L27"><code>variables.tf#L27</code></a>
 
 </details>
 </blockquote>
@@ -177,7 +197,7 @@ Cluster kubeconfig creation timeout
   ```json
   "1m"
   ```
-  In file: `variables.tf#34`
+  In file: <a href="./variables.tf#L34"><code>variables.tf#L34</code></a>
 
 </details>
 </blockquote>
@@ -189,12 +209,12 @@ Cluster kubeconfig creation timeout
 #### `kube_config`
 Talos cluster kubeconfig
 
-In file: `outputs.tf#6`
+In file: <a href="./outputs.tf#L6"><code>outputs.tf#L6</code></a>
 </blockquote>
 <blockquote>
 
 #### `machine_config`
 Talos machine configurations
 
-In file: `outputs.tf#1`
+In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
 </blockquote>

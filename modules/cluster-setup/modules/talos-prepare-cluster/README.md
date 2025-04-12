@@ -34,7 +34,17 @@ Creates the Talos machine secrets and the Talos client configuration.
 <blockquote>
 
 #### `this` (_talos_machine_secrets_)
-In file: `main.tf#7`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>talos (siderolabs/talos)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L7"><code>main.tf#L7</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 
 ## Variables
@@ -53,7 +63,7 @@ Cluster configuration
     talos_version = string
   })
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -72,7 +82,7 @@ Configuration for cluster nodes
     ip           = string
   }))
   ```
-  In file: `variables.tf#9`
+  In file: <a href="./variables.tf#L9"><code>variables.tf#L9</code></a>
 
 </details>
 </blockquote>
@@ -84,19 +94,19 @@ Configuration for cluster nodes
 #### `client_configuration`
 Client configuration for Talos cluster
 
-In file: `outputs.tf#7`
+In file: <a href="./outputs.tf#L7"><code>outputs.tf#L7</code></a>
 </blockquote>
 <blockquote>
 
 #### `machine_secrets`
 Machine secrets for Talos cluster
 
-In file: `outputs.tf#1`
+In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
 </blockquote>
 <blockquote>
 
 #### `talos_config`
 Talos configuration file
 
-In file: `outputs.tf#13`
+In file: <a href="./outputs.tf#L13"><code>outputs.tf#L13</code></a>
 </blockquote>

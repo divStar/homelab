@@ -35,17 +35,47 @@ the creation and activation of the no-subscription repositories.
 <blockquote>
 
 #### `add_no_sub_repository` (_ssh_resource_)
-In file: `main.tf#19`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L19"><code>main.tf#L19</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `remove_no_sub_repository` (_ssh_resource_)
-In file: `main.tf#49`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L49"><code>main.tf#L49</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `update_all_repositories` (_ssh_resource_)
-In file: `main.tf#35`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L35"><code>main.tf#L35</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 
 ## Variables
@@ -65,7 +95,7 @@ SSH configuration for remote connection
     id_file = optional(string, "~/.ssh/id_rsa")
   })
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -91,7 +121,7 @@ Whether to use no-subscription repository instead of enterprise repository or no
   "enabled": true
 }
   ```
-  In file: `variables.tf#14`
+  In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
 </blockquote>
@@ -103,5 +133,5 @@ Whether to use no-subscription repository instead of enterprise repository or no
 #### `no_subscription`
 States, whether a no-subscription repository was used (and some further details)
 
-In file: `outputs.tf#1`
+In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
 </blockquote>

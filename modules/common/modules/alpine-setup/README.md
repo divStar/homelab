@@ -57,32 +57,92 @@ other Alpine packages (if specified; `bash` is installed by default).
 <blockquote>
 
 #### `container` (_proxmox_virtual_environment_container_)
-In file: `main.tf#33`
+Create Alpine LXC container
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>proxmox (bpg/proxmox)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L33"><code>main.tf#L33</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `template` (_proxmox_virtual_environment_download_file_)
-In file: `main.tf#10`
+Downloads the `alpine` image.
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>proxmox (bpg/proxmox)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L10"><code>main.tf#L10</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `root_password` (_random_password_)
-In file: `main.tf#26`
+Generate a random password for the container
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>random (hashicorp/random)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L26"><code>main.tf#L26</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `install_openssh` (_ssh_resource_)
-In file: `main.tf#117`
+Install OpenSSH into the Alpine LXC container
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L117"><code>main.tf#L117</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `install_packages` (_ssh_resource_)
-In file: `main.tf#153`
+Install necessary Alpine packages
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L153"><code>main.tf#L153</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `ssh_key` (_tls_private_key_)
-In file: `main.tf#20`
+Generate SSH key for the container
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>tls (hashicorp/tls)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L20"><code>main.tf#L20</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 
 ## Variables
@@ -98,7 +158,7 @@ Network interface gateway
   ```hcl
   string
   ```
-  In file: `variables.tf#29`
+  In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
 
 </details>
 </blockquote>
@@ -114,7 +174,7 @@ Container host name
   ```hcl
   string
   ```
-  In file: `variables.tf#11`
+  In file: <a href="./variables.tf#L11"><code>variables.tf#L11</code></a>
 
 </details>
 </blockquote>
@@ -130,7 +190,7 @@ Network interface IP address
   ```hcl
   string
   ```
-  In file: `variables.tf#23`
+  In file: <a href="./variables.tf#L23"><code>variables.tf#L23</code></a>
 
 </details>
 </blockquote>
@@ -146,7 +206,7 @@ Network interface MAC address
   ```hcl
   string
   ```
-  In file: `variables.tf#35`
+  In file: <a href="./variables.tf#L35"><code>variables.tf#L35</code></a>
 
 </details>
 </blockquote>
@@ -167,7 +227,7 @@ Proxmox host configuration
     ssh_key  = string
   })
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -183,7 +243,7 @@ VM (Container) ID
   ```hcl
   number
   ```
-  In file: `variables.tf#17`
+  In file: <a href="./variables.tf#L17"><code>variables.tf#L17</code></a>
 
 </details>
 </blockquote>
@@ -211,7 +271,7 @@ Alpine image configuration
   "url": "http://download.proxmox.com/images/system/alpine-3.21-default_20241217_amd64.tar.xz"
 }
   ```
-  In file: `variables.tf#41`
+  In file: <a href="./variables.tf#L41"><code>variables.tf#L41</code></a>
 
 </details>
 </blockquote>
@@ -231,7 +291,7 @@ Network interface bridge
   ```json
   "vmbr0"
   ```
-  In file: `variables.tf#106`
+  In file: <a href="./variables.tf#L106"><code>variables.tf#L106</code></a>
 
 </details>
 </blockquote>
@@ -251,7 +311,7 @@ Description of the container
   ```json
   "Alpine Linux based LXC container"
   ```
-  In file: `variables.tf#73`
+  In file: <a href="./variables.tf#L73"><code>variables.tf#L73</code></a>
 
 </details>
 </blockquote>
@@ -271,7 +331,7 @@ DataStore ID for the Alpine template
   ```json
   "images-host"
   ```
-  In file: `variables.tf#85`
+  In file: <a href="./variables.tf#L85"><code>variables.tf#L85</code></a>
 
 </details>
 </blockquote>
@@ -294,7 +354,7 @@ List of mount points for the container
   ```json
   []
   ```
-  In file: `variables.tf#63`
+  In file: <a href="./variables.tf#L63"><code>variables.tf#L63</code></a>
 
 </details>
 </blockquote>
@@ -314,7 +374,7 @@ Network interface name
   ```json
   "eth0"
   ```
-  In file: `variables.tf#99`
+  In file: <a href="./variables.tf#L99"><code>variables.tf#L99</code></a>
 
 </details>
 </blockquote>
@@ -336,7 +396,7 @@ List of packages to install on the container
   "bash"
 ]
   ```
-  In file: `variables.tf#56`
+  In file: <a href="./variables.tf#L56"><code>variables.tf#L56</code></a>
 
 </details>
 </blockquote>
@@ -356,7 +416,7 @@ Subnet mask in CIDR notation
   ```json
   24
   ```
-  In file: `variables.tf#92`
+  In file: <a href="./variables.tf#L92"><code>variables.tf#L92</code></a>
 
 </details>
 </blockquote>
@@ -379,7 +439,7 @@ Tags
   "alpine"
 ]
   ```
-  In file: `variables.tf#79`
+  In file: <a href="./variables.tf#L79"><code>variables.tf#L79</code></a>
 
 </details>
 </blockquote>
@@ -391,12 +451,12 @@ Tags
 #### `root_password`
 Root password
 
-In file: `outputs.tf#2`
+In file: <a href="./outputs.tf#L2"><code>outputs.tf#L2</code></a>
 </blockquote>
 <blockquote>
 
 #### `ssh_private_key`
 Private SSH key
 
-In file: `outputs.tf#9`
+In file: <a href="./outputs.tf#L9"><code>outputs.tf#L9</code></a>
 </blockquote>

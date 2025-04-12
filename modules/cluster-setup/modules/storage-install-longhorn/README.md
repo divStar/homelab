@@ -39,12 +39,32 @@ Handles the setup of `longhorn` (storage solution for PV/PVCs).
 <blockquote>
 
 #### `longhorn` (_helm_release_)
-In file: `main.tf#15`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>helm (hashicorp/helm)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L15"><code>main.tf#L15</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `longhorn_namespace` (_kubectl_manifest_)
-In file: `main.tf#7`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>kubectl (gavinbunney/kubectl)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L7"><code>main.tf#L7</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 
 ## Variables
@@ -60,7 +80,7 @@ CA certificate issuer (for Certificate resource managed by cert-manager)
   ```hcl
   string
   ```
-  In file: `variables.tf#11`
+  In file: <a href="./variables.tf#L11"><code>variables.tf#L11</code></a>
 
 </details>
 </blockquote>
@@ -76,7 +96,7 @@ Helm Chart version to install
   ```hcl
   string
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -92,7 +112,7 @@ Amount of nodes (usually worker nodes only); will be used for Longhorn replicaCo
   ```hcl
   number
   ```
-  In file: `variables.tf#6`
+  In file: <a href="./variables.tf#L6"><code>variables.tf#L6</code></a>
 
 </details>
 </blockquote>
@@ -112,7 +132,7 @@ Name of the Helm release
   ```json
   "longhorn-release"
   ```
-  In file: `variables.tf#16`
+  In file: <a href="./variables.tf#L16"><code>variables.tf#L16</code></a>
 
 </details>
 </blockquote>
@@ -132,7 +152,7 @@ Kubernetes namespace to install into
   ```json
   "longhorn-system"
   ```
-  In file: `variables.tf#23`
+  In file: <a href="./variables.tf#L23"><code>variables.tf#L23</code></a>
 
 </details>
 </blockquote>
@@ -152,7 +172,7 @@ Host to expose the longhorn UI on, e.g. longhorn.my.domain
   ```json
   "longhorn.my.world"
   ```
-  In file: `variables.tf#44`
+  In file: <a href="./variables.tf#L44"><code>variables.tf#L44</code></a>
 
 </details>
 </blockquote>
@@ -172,7 +192,7 @@ Time in seconds to wait for the Helm Chart to be installed
   ```json
   120
   ```
-  In file: `variables.tf#30`
+  In file: <a href="./variables.tf#L30"><code>variables.tf#L30</code></a>
 
 </details>
 </blockquote>
@@ -192,7 +212,7 @@ Additional values to pass to the helm chart (in YAML format)
   ```json
   ""
   ```
-  In file: `variables.tf#37`
+  In file: <a href="./variables.tf#L37"><code>variables.tf#L37</code></a>
 
 </details>
 </blockquote>

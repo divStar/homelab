@@ -54,29 +54,37 @@ This module sets up LLDAP in an Alpine LXC container using the provided informat
 
 ### `setup_certificate`
 Domain certificate setup
-
-| | |
-|:--- |:--- |
-| Module location | `../common/modules/domain-cert-setup`
-| In file | `main.tf#26`
-<td colspan="2">
-
-[`README.md`](../common/modules/domain-cert-setup/README.md) _(experimental)_
-</td>
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>../common/modules/domain-cert-setup</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L26"><code>main.tf#L26</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="../common/modules/domain-cert-setup/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 ### `setup_container`
 Alpine LXC container setup
-
-| | |
-|:--- |:--- |
-| Module location | `../common/modules/alpine-setup`
-| In file | `main.tf#8`
-<td colspan="2">
-
-[`README.md`](../common/modules/alpine-setup/README.md) _(experimental)_
-</td>
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>../common/modules/alpine-setup</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L8"><code>main.tf#L8</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="../common/modules/alpine-setup/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
 </blockquote>
 
 
@@ -84,17 +92,47 @@ Alpine LXC container setup
 <blockquote>
 
 #### `configure` (_ssh_resource_)
-In file: `main.tf#68`
+Configure LLDAP
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L68"><code>main.tf#L68</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `install` (_ssh_resource_)
-In file: `main.tf#94`
+Install LLDAP
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L94"><code>main.tf#L94</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `install_cert` (_ssh_resource_)
-In file: `main.tf#41`
+Install the generated certificate
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L41"><code>main.tf#L41</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 
 ## Variables
@@ -118,7 +156,7 @@ Proxmox host configuration
     ssh_key       = string
   })
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -138,7 +176,7 @@ LLDAP bridge
   ```json
   "vmbr0"
   ```
-  In file: `variables.tf#85`
+  In file: <a href="./variables.tf#L85"><code>variables.tf#L85</code></a>
 
 </details>
 </blockquote>
@@ -158,7 +196,7 @@ LLDAP datastore ID
   ```json
   "/storage-pool/lxc-data"
   ```
-  In file: `variables.tf#43`
+  In file: <a href="./variables.tf#L43"><code>variables.tf#L43</code></a>
 
 </details>
 </blockquote>
@@ -178,7 +216,7 @@ Description of the container
   ```json
   "Alpine Linux based LXC container with LLDAP"
   ```
-  In file: `variables.tf#15`
+  In file: <a href="./variables.tf#L15"><code>variables.tf#L15</code></a>
 
 </details>
 </blockquote>
@@ -204,7 +242,7 @@ DNS names for the certificate
   "lldap.fritz.box"
 ]
   ```
-  In file: `variables.tf#129`
+  In file: <a href="./variables.tf#L129"><code>variables.tf#L129</code></a>
 
 </details>
 </blockquote>
@@ -224,7 +262,7 @@ LLDAP gateway
   ```json
   "192.168.178.1"
   ```
-  In file: `variables.tf#71`
+  In file: <a href="./variables.tf#L71"><code>variables.tf#L71</code></a>
 
 </details>
 </blockquote>
@@ -244,7 +282,7 @@ LLDAP host name
   ```json
   "lldap"
   ```
-  In file: `variables.tf#29`
+  In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
 
 </details>
 </blockquote>
@@ -264,7 +302,7 @@ LLDAP imagestore ID
   ```json
   "images-host"
   ```
-  In file: `variables.tf#36`
+  In file: <a href="./variables.tf#L36"><code>variables.tf#L36</code></a>
 
 </details>
 </blockquote>
@@ -284,7 +322,7 @@ Initialize certificate as new (also needed for renewal)
   ```json
   false
   ```
-  In file: `variables.tf#106`
+  In file: <a href="./variables.tf#L106"><code>variables.tf#L106</code></a>
 
 </details>
 </blockquote>
@@ -304,7 +342,7 @@ Initialize a new stock configuration
   ```json
   false
   ```
-  In file: `variables.tf#144`
+  In file: <a href="./variables.tf#L144"><code>variables.tf#L144</code></a>
 
 </details>
 </blockquote>
@@ -324,7 +362,7 @@ LLDAP IP address
   ```json
   "192.168.178.155"
   ```
-  In file: `variables.tf#64`
+  In file: <a href="./variables.tf#L64"><code>variables.tf#L64</code></a>
 
 </details>
 </blockquote>
@@ -348,7 +386,7 @@ IP addresses for the certificate
   "192.168.178.155"
 ]
   ```
-  In file: `variables.tf#136`
+  In file: <a href="./variables.tf#L136"><code>variables.tf#L136</code></a>
 
 </details>
 </blockquote>
@@ -368,7 +406,7 @@ LLDAP MAC address
   ```json
   "E8:31:0E:A5:D8:4C"
   ```
-  In file: `variables.tf#78`
+  In file: <a href="./variables.tf#L78"><code>variables.tf#L78</code></a>
 
 </details>
 </blockquote>
@@ -396,7 +434,7 @@ List of mount points for the container
   }
 ]
   ```
-  In file: `variables.tf#92`
+  In file: <a href="./variables.tf#L92"><code>variables.tf#L92</code></a>
 
 </details>
 </blockquote>
@@ -416,7 +454,7 @@ LLDAP network interface name
   ```json
   "eth0"
   ```
-  In file: `variables.tf#57`
+  In file: <a href="./variables.tf#L57"><code>variables.tf#L57</code></a>
 
 </details>
 </blockquote>
@@ -442,7 +480,7 @@ Subject information for the certificate
   "organization": "Home Network"
 }
   ```
-  In file: `variables.tf#113`
+  In file: <a href="./variables.tf#L113"><code>variables.tf#L113</code></a>
 
 </details>
 </blockquote>
@@ -465,7 +503,7 @@ Tags
   "alpine"
 ]
   ```
-  In file: `variables.tf#22`
+  In file: <a href="./variables.tf#L22"><code>variables.tf#L22</code></a>
 
 </details>
 </blockquote>
@@ -485,7 +523,7 @@ LLDAP VM ID
   ```json
   700
   ```
-  In file: `variables.tf#50`
+  In file: <a href="./variables.tf#L50"><code>variables.tf#L50</code></a>
 
 </details>
 </blockquote>
@@ -497,12 +535,12 @@ LLDAP VM ID
 #### `root_password`
 Root password
 
-In file: `outputs.tf#2`
+In file: <a href="./outputs.tf#L2"><code>outputs.tf#L2</code></a>
 </blockquote>
 <blockquote>
 
 #### `ssh_private_key`
 Private SSH key
 
-In file: `outputs.tf#9`
+In file: <a href="./outputs.tf#L9"><code>outputs.tf#L9</code></a>
 </blockquote>

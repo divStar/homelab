@@ -61,17 +61,47 @@ Creates a Talos VM with a given ISO, type and other settings.
 <blockquote>
 
 #### `cilium_patch` (_local_file_)
-In file: `cilium.tf#30`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>local (hashicorp/local)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./cilium.tf#L30"><code>cilium.tf#L30</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `this` (_proxmox_virtual_environment_vm_)
-In file: `vms.tf#1`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>proxmox (bpg/proxmox)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./vms.tf#L1"><code>vms.tf#L1</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `this` (_talos_machine_configuration_apply_)
-In file: `main.tf#28`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>talos (siderolabs/talos)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L28"><code>main.tf#L28</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 
 ## Variables
@@ -87,7 +117,7 @@ Cilium version
   ```hcl
   string
   ```
-  In file: `variables.tf#122`
+  In file: <a href="./variables.tf#L122"><code>variables.tf#L122</code></a>
 
 </details>
 </blockquote>
@@ -109,7 +139,7 @@ Cluster configuration
     lb_cidr       = string
   })
   ```
-  In file: `variables.tf#14`
+  In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
 </blockquote>
@@ -125,7 +155,7 @@ Number of CPUs for the node
   ```hcl
   number
   ```
-  In file: `variables.tf#101`
+  In file: <a href="./variables.tf#L101"><code>variables.tf#L101</code></a>
 
 </details>
 </blockquote>
@@ -141,7 +171,7 @@ Host node for the cluster
   ```hcl
   string
   ```
-  In file: `variables.tf#54`
+  In file: <a href="./variables.tf#L54"><code>variables.tf#L54</code></a>
 
 </details>
 </blockquote>
@@ -157,7 +187,7 @@ IP address of the node
   ```hcl
   string
   ```
-  In file: `variables.tf#76`
+  In file: <a href="./variables.tf#L76"><code>variables.tf#L76</code></a>
 
 </details>
 </blockquote>
@@ -173,7 +203,7 @@ The path to the Talos node ISO, that is supposed to be used
   ```hcl
   any
   ```
-  In file: `variables.tf#111`
+  In file: <a href="./variables.tf#L111"><code>variables.tf#L111</code></a>
 
 </details>
 </blockquote>
@@ -189,7 +219,7 @@ MAC address of the node
   ```hcl
   string
   ```
-  In file: `variables.tf#86`
+  In file: <a href="./variables.tf#L86"><code>variables.tf#L86</code></a>
 
 </details>
 </blockquote>
@@ -205,7 +235,7 @@ Type of machine (controlplane or worker)
   ```hcl
   string
   ```
-  In file: `variables.tf#59`
+  In file: <a href="./variables.tf#L59"><code>variables.tf#L59</code></a>
 
 </details>
 </blockquote>
@@ -221,7 +251,7 @@ Name of the cluster node
   ```hcl
   string
   ```
-  In file: `variables.tf#49`
+  In file: <a href="./variables.tf#L49"><code>variables.tf#L49</code></a>
 
 </details>
 </blockquote>
@@ -237,7 +267,7 @@ Dedicated RAM for the node
   ```hcl
   number
   ```
-  In file: `variables.tf#106`
+  In file: <a href="./variables.tf#L106"><code>variables.tf#L106</code></a>
 
 </details>
 </blockquote>
@@ -253,7 +283,7 @@ VM ID of the node
   ```hcl
   number
   ```
-  In file: `variables.tf#96`
+  In file: <a href="./variables.tf#L96"><code>variables.tf#L96</code></a>
 
 </details>
 </blockquote>
@@ -277,7 +307,7 @@ Proxmox host configuration
     ssh_key   = string
   })
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -293,7 +323,7 @@ Talos cluster client configuration
   ```hcl
   any
   ```
-  In file: `variables.tf#30`
+  In file: <a href="./variables.tf#L30"><code>variables.tf#L30</code></a>
 
 </details>
 </blockquote>
@@ -309,7 +339,7 @@ Talos cluster machine configuration
   ```hcl
   any
   ```
-  In file: `variables.tf#25`
+  In file: <a href="./variables.tf#L25"><code>variables.tf#L25</code></a>
 
 </details>
 </blockquote>
@@ -329,7 +359,7 @@ Name of the Cilium Helm Chart to use
   ```json
   "cilium"
   ```
-  In file: `variables.tf#148`
+  In file: <a href="./variables.tf#L148"><code>variables.tf#L148</code></a>
 
 </details>
 </blockquote>
@@ -349,7 +379,7 @@ Name of the Cilium Helm release
   ```json
   "cilium"
   ```
-  In file: `variables.tf#127`
+  In file: <a href="./variables.tf#L127"><code>variables.tf#L127</code></a>
 
 </details>
 </blockquote>
@@ -369,7 +399,7 @@ Namespace to install Cilium into
   ```json
   "cilium"
   ```
-  In file: `variables.tf#134`
+  In file: <a href="./variables.tf#L134"><code>variables.tf#L134</code></a>
 
 </details>
 </blockquote>
@@ -389,7 +419,7 @@ URL of the Cilium Helm repository to use
   ```json
   "https://helm.cilium.io"
   ```
-  In file: `variables.tf#141`
+  In file: <a href="./variables.tf#L141"><code>variables.tf#L141</code></a>
 
 </details>
 </blockquote>
@@ -409,7 +439,7 @@ Cilium Helm template creation timeout
   ```json
   60
   ```
-  In file: `variables.tf#155`
+  In file: <a href="./variables.tf#L155"><code>variables.tf#L155</code></a>
 
 </details>
 </blockquote>
@@ -429,7 +459,7 @@ Network bridge to use for this node
   ```json
   "vmbr0"
   ```
-  In file: `variables.tf#69`
+  In file: <a href="./variables.tf#L69"><code>variables.tf#L69</code></a>
 
 </details>
 </blockquote>
@@ -449,7 +479,7 @@ Datastore ID for the node
   ```json
   "local"
   ```
-  In file: `variables.tf#115`
+  In file: <a href="./variables.tf#L115"><code>variables.tf#L115</code></a>
 
 </details>
 </blockquote>
@@ -469,7 +499,7 @@ Description to set for the given node
   ```json
   ""
   ```
-  In file: `variables.tf#35`
+  In file: <a href="./variables.tf#L35"><code>variables.tf#L35</code></a>
 
 </details>
 </blockquote>
@@ -489,7 +519,7 @@ Tags to set for the given node
   ```json
   []
   ```
-  In file: `variables.tf#42`
+  In file: <a href="./variables.tf#L42"><code>variables.tf#L42</code></a>
 
 </details>
 </blockquote>
@@ -509,7 +539,7 @@ Target version of Kubernetes the template is built for
   ```json
   "1.32"
   ```
-  In file: `variables.tf#162`
+  In file: <a href="./variables.tf#L162"><code>variables.tf#L162</code></a>
 
 </details>
 </blockquote>

@@ -54,113 +54,145 @@ No providers.
 
 ### `copy_configs`
 Handles the copying of configuration files to the host.
-
-| | |
-|:--- |:--- |
-| Module location | `./modules/copy-configs`
-| In file | `main.tf#17`
-<td colspan="2">
-
-[`README.md`](./modules/copy-configs/README.md) _(experimental)_
-</td>
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/copy-configs</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L17"><code>main.tf#L17</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/copy-configs/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 ### `gitops_user`
 Handles the creation and deletion of a dedicated user git+ssh access (gitops) as well as setting and restoring owner / group of the original gitops repository. <blockquote> **Note:** in order to make use of the gitops git repository and user, public SSH keys of users/applications, who need access, have to be introduced into the `/home/<user, e.g. gitops>/.ssh/authorized_keys` file.<br> You can use the `authorized-keys-appender` script for this. </blockquote>
-
-| | |
-|:--- |:--- |
-| Module location | `./modules/gitops-user`
-| In file | `main.tf#80`
-<td colspan="2">
-
-[`README.md`](./modules/gitops-user/README.md) _(experimental)_
-</td>
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/gitops-user</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L80"><code>main.tf#L80</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/gitops-user/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 ### `packages`
 Handles the installation and removal of packages on the host <blockquote> **Note:** `ssh_resource` and CLI is used, because `apt-get install` and `apt-get remove` are not yet supported by Proxmox API. </blockquote>
-
-| | |
-|:--- |:--- |
-| Module location | `./modules/packages`
-| In file | `main.tf#38`
-<td colspan="2">
-
-[`README.md`](./modules/packages/README.md) _(experimental)_
-</td>
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/packages</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L38"><code>main.tf#L38</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/packages/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 ### `repositories`
 Handles the deactivation of the enterprise repositories and the creation and activation of the no-subscription repositories.
-
-| | |
-|:--- |:--- |
-| Module location | `./modules/repositories`
-| In file | `main.tf#26`
-<td colspan="2">
-
-[`README.md`](./modules/repositories/README.md) _(experimental)_
-</td>
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/repositories</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L26"><code>main.tf#L26</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/repositories/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 ### `scripts`
 Handles the download, execution and cleanup of (shell-)scripts on the host
-
-| | |
-|:--- |:--- |
-| Module location | `./modules/scripts`
-| In file | `main.tf#48`
-<td colspan="2">
-
-[`README.md`](./modules/scripts/README.md) _(experimental)_
-</td>
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/scripts</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L48"><code>main.tf#L48</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/scripts/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 ### `storage`
 Handles the import and export of ZFS pools as well as directories.
-
-| | |
-|:--- |:--- |
-| Module location | `./modules/storage`
-| In file | `main.tf#58`
-<td colspan="2">
-
-[`README.md`](./modules/storage/README.md) _(experimental)_
-</td>
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/storage</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L58"><code>main.tf#L58</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/storage/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 ### `terraform_user`
 Handles the creation and deletion of a dedicated user with a custom role and API token for the Terraform provisioner on the host.
-
-| | |
-|:--- |:--- |
-| Module location | `./modules/terraform-user`
-| In file | `main.tf#9`
-<td colspan="2">
-
-[`README.md`](./modules/terraform-user/README.md) _(experimental)_
-</td>
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/terraform-user</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L9"><code>main.tf#L9</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/terraform-user/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 ### `update_ssl`
 
-
-| | |
-|:--- |:--- |
-| Module location | `./modules/update-ssl`
-| In file | `main.tf#90`
-<td colspan="2">
-
-[`README.md`](./modules/update-ssl/README.md) _(experimental)_
-</td>
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/update-ssl</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L90"><code>main.tf#L90</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/update-ssl/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
 </blockquote>
 
 
@@ -184,7 +216,7 @@ Configuration files to copy to the host
     group       = optional(string)
   }))
   ```
-  In file: `variables.tf#26`
+  In file: <a href="./variables.tf#L26"><code>variables.tf#L26</code></a>
 
 </details>
 </blockquote>
@@ -204,7 +236,7 @@ Proxmox host configuration
     port = number
   })
   ```
-  In file: `variables.tf#14`
+  In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
 </blockquote>
@@ -224,7 +256,7 @@ SSH configuration for remote connection
     id_file = optional(string, "~/.ssh/id_rsa")
   })
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -246,7 +278,7 @@ Configuration of the storage (pools and directories) to import
     content_types = optional(list(string))
   }))
   ```
-  In file: `variables.tf#156`
+  In file: <a href="./variables.tf#L156"><code>variables.tf#L156</code></a>
 
 </details>
 </blockquote>
@@ -271,7 +303,7 @@ Configuration of GitOps user.
   ```json
   {}
   ```
-  In file: `variables.tf#134`
+  In file: <a href="./variables.tf#L134"><code>variables.tf#L134</code></a>
 
 </details>
 </blockquote>
@@ -297,7 +329,7 @@ Whether to use no-subscription repository instead of enterprise repository or no
   "enabled": true
 }
   ```
-  In file: `variables.tf#196`
+  In file: <a href="./variables.tf#L196"><code>variables.tf#L196</code></a>
 
 </details>
 </blockquote>
@@ -320,7 +352,7 @@ Original owner of the source repository (before, e.g. root:root)
   ```json
   {}
   ```
-  In file: `variables.tf#146`
+  In file: <a href="./variables.tf#L146"><code>variables.tf#L146</code></a>
 
 </details>
 </blockquote>
@@ -340,7 +372,7 @@ List of packages to install via apt-get
   ```json
   []
   ```
-  In file: `variables.tf#42`
+  In file: <a href="./variables.tf#L42"><code>variables.tf#L42</code></a>
 
 </details>
 </blockquote>
@@ -372,7 +404,7 @@ Configuration for script management including shared directory and script items
   "items": []
 }
   ```
-  In file: `variables.tf#49`
+  In file: <a href="./variables.tf#L49"><code>variables.tf#L49</code></a>
 
 </details>
 </blockquote>
@@ -426,7 +458,7 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
   "token": {}
 }
   ```
-  In file: `variables.tf#85`
+  In file: <a href="./variables.tf#L85"><code>variables.tf#L85</code></a>
 
 </details>
 </blockquote>
@@ -438,61 +470,61 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
 #### `certificate_info`
 pve-ssl Certificate information
 
-In file: `outputs.tf#43`
+In file: <a href="./outputs.tf#L43"><code>outputs.tf#L43</code></a>
 </blockquote>
 <blockquote>
 
 #### `configuration_files`
 Configuration files copied to host
 
-In file: `outputs.tf#1`
+In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
 </blockquote>
 <blockquote>
 
 #### `installed_packages`
 The packages, that have been installed/removed
 
-In file: `outputs.tf#11`
+In file: <a href="./outputs.tf#L11"><code>outputs.tf#L11</code></a>
 </blockquote>
 <blockquote>
 
 #### `installed_scripts`
 The scripts, that have been installed/removed
 
-In file: `outputs.tf#16`
+In file: <a href="./outputs.tf#L16"><code>outputs.tf#L16</code></a>
 </blockquote>
 <blockquote>
 
 #### `no_subscription`
 States, whether a no-subscription repository was used (and some further details)
 
-In file: `outputs.tf#6`
+In file: <a href="./outputs.tf#L6"><code>outputs.tf#L6</code></a>
 </blockquote>
 <blockquote>
 
 #### `pve-user`
 The user and role created on the Proxmox host
 
-In file: `outputs.tf#21`
+In file: <a href="./outputs.tf#L21"><code>outputs.tf#L21</code></a>
 </blockquote>
 <blockquote>
 
 #### `storage_pools`
 List of storage pools that were imported and added to Proxmox
 
-In file: `outputs.tf#33`
+In file: <a href="./outputs.tf#L33"><code>outputs.tf#L33</code></a>
 </blockquote>
 <blockquote>
 
 #### `storage_pools_directories`
 List of directories/datasets that were configured in Proxmox
 
-In file: `outputs.tf#38`
+In file: <a href="./outputs.tf#L38"><code>outputs.tf#L38</code></a>
 </blockquote>
 <blockquote>
 
 #### `token`
 The API token created on the Proxmox host
 
-In file: `outputs.tf#27`
+In file: <a href="./outputs.tf#L27"><code>outputs.tf#L27</code></a>
 </blockquote>

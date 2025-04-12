@@ -39,32 +39,92 @@ and API token for the Terraform provisioner on the host.
 <blockquote>
 
 #### `assign_role` (_ssh_resource_)
-In file: `main.tf#46`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L46"><code>main.tf#L46</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `create_api_token` (_ssh_resource_)
-In file: `main.tf#60`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L60"><code>main.tf#L60</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `create_role` (_ssh_resource_)
-In file: `main.tf#33`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L33"><code>main.tf#L33</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `create_user` (_ssh_resource_)
-In file: `main.tf#20`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L20"><code>main.tf#L20</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `delete_role` (_ssh_resource_)
-In file: `main.tf#74`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L74"><code>main.tf#L74</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `delete_user` (_ssh_resource_)
-In file: `main.tf#87`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L87"><code>main.tf#L87</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 
 ## Variables
@@ -84,7 +144,7 @@ SSH configuration for remote connection
     id_file = optional(string, "~/.ssh/id_rsa")
   })
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -138,7 +198,7 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
   "token": {}
 }
   ```
-  In file: `variables.tf#14`
+  In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
 </blockquote>
@@ -150,12 +210,12 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
 #### `pve-user`
 The user and role created on the Proxmox host
 
-In file: `outputs.tf#1`
+In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
 </blockquote>
 <blockquote>
 
 #### `token`
 The API token created on the Proxmox host
 
-In file: `outputs.tf#11`
+In file: <a href="./outputs.tf#L11"><code>outputs.tf#L11</code></a>
 </blockquote>

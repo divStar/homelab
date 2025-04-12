@@ -54,15 +54,19 @@ content: |-
 
   ### `{{ .Name }}`
   {{ .Description.Raw }}
-
-  | | |
-  |:--- |:--- |
-  | Module location | `{{ .Source }}`
-  | In file | `{{ .Position.Filename }}#{{ .Position.Line }}`
-  <td colspan="2">
-  
-  [`README.md`]({{ .Source }}/README.md) _(experimental)_
-  </td>
+    <table>
+      <tr>
+        <td>Module location</td>
+        <td><code>{{ .Source }}</code></td>
+      </tr>
+      <tr>
+        <td>In file</td>
+        <td><a href="./{{ .Position.Filename }}#L{{ .Position.Line }}"><code>{{ .Position.Filename }}#L{{ .Position.Line }}</code></a></td>
+      </tr>
+      <tr>
+        <td colspan="2"><a href="{{ .Source }}/README.md">README.md</a> <em>(experimental)</em></td>
+      </tr>
+    </table>
   </blockquote>
     {{- end }}
   {{- end }}
@@ -75,7 +79,17 @@ content: |-
   <blockquote>
 
   #### `{{ $specs._1 }}` (_{{ $specs._0 }}_)
-  In file: `{{ .Position.Filename }}#{{ .Position.Line }}`
+  {{ .Description.Raw }}
+    <table>
+      <tr>
+        <td>Provider</td>
+        <td><code>{{ .ProviderName }} ({{ .ProviderSource }})</code></td>
+      </tr>
+      <tr>
+        <td>In file</td>
+        <td><a href="./{{ .Position.Filename }}#L{{ .Position.Line }}"><code>{{ .Position.Filename }}#L{{ .Position.Line }}</code></a></td>
+      </tr>
+    </table>
   </blockquote>
       {{- end -}}
     {{- end }}
@@ -101,7 +115,7 @@ content: |-
     {{ .GetValue }}
     ```
     {{- end }}
-    In file: `{{ .Position.Filename }}#{{ .Position.Line }}`
+    In file: <a href="./{{ .Position.Filename }}#L{{ .Position.Line }}"><code>{{ .Position.Filename }}#L{{ .Position.Line }}</code></a>
 
   </details>
   </blockquote>
@@ -115,7 +129,7 @@ content: |-
   #### `{{ .Name }}`
   {{ .Description.Raw }}
 
-  In file: `{{ .Position.Filename }}#{{ .Position.Line }}`
+  In file: <a href="./{{ .Position.Filename }}#L{{ .Position.Line }}"><code>{{ .Position.Filename }}#L{{ .Position.Line }}</code></a>
   </blockquote>
     {{- end -}}
   {{- end -}} 

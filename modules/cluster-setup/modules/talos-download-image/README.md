@@ -43,12 +43,32 @@ architecture, platform and schematics.
 <blockquote>
 
 #### `this` (_proxmox_virtual_environment_download_file_)
-In file: `main.tf#19`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>proxmox (bpg/proxmox)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L19"><code>main.tf#L19</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `this` (_talos_image_factory_schematic_)
-In file: `main.tf#15`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>talos (siderolabs/talos)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L15"><code>main.tf#L15</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 
 ## Variables
@@ -72,7 +92,7 @@ Proxmox host configuration
     ssh_key   = string # not used in talos_image
   })
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -88,7 +108,7 @@ Talos version to use
   ```hcl
   string
   ```
-  In file: `variables.tf#14`
+  In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
 </blockquote>
@@ -108,7 +128,7 @@ Architecture to use (amd64 or arm64)
   ```json
   "amd64"
   ```
-  In file: `variables.tf#40`
+  In file: <a href="./variables.tf#L40"><code>variables.tf#L40</code></a>
 
 </details>
 </blockquote>
@@ -128,7 +148,7 @@ URL of the Talos image factory
   ```json
   "https://factory.talos.dev"
   ```
-  In file: `variables.tf#26`
+  In file: <a href="./variables.tf#L26"><code>variables.tf#L26</code></a>
 
 </details>
 </blockquote>
@@ -148,7 +168,7 @@ Platform to use (e.g. metal, nocloud, aws, etc., see https://registry.terraform.
   ```json
   "nocloud"
   ```
-  In file: `variables.tf#33`
+  In file: <a href="./variables.tf#L33"><code>variables.tf#L33</code></a>
 
 </details>
 </blockquote>
@@ -168,7 +188,7 @@ Schematic configuration as YAML string
   ```json
   "schematic/default.yaml"
   ```
-  In file: `variables.tf#19`
+  In file: <a href="./variables.tf#L19"><code>variables.tf#L19</code></a>
 
 </details>
 </blockquote>
@@ -180,26 +200,26 @@ Schematic configuration as YAML string
 #### `downloaded_iso_file_name`
 The filename on the local node
 
-In file: `outputs.tf#11`
+In file: <a href="./outputs.tf#L11"><code>outputs.tf#L11</code></a>
 </blockquote>
 <blockquote>
 
 #### `downloaded_iso_id`
 The full ID on the local node
 
-In file: `outputs.tf#16`
+In file: <a href="./outputs.tf#L16"><code>outputs.tf#L16</code></a>
 </blockquote>
 <blockquote>
 
 #### `installer`
 The installer URL without http/https
 
-In file: `outputs.tf#6`
+In file: <a href="./outputs.tf#L6"><code>outputs.tf#L6</code></a>
 </blockquote>
 <blockquote>
 
 #### `schematic_id`
 The calculated ID of the schematic, that's being used
 
-In file: `outputs.tf#1`
+In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
 </blockquote>

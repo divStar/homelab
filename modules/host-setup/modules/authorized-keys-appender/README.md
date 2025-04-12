@@ -39,7 +39,17 @@ Handles appending of SSH keys to the authorized\_keys file of a given user.
 <blockquote>
 
 #### `add_key` (_ssh_resource_)
-In file: `main.tf#27`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L27"><code>main.tf#L27</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 
 ## Variables
@@ -55,7 +65,7 @@ Name of the symbolic link to the actual gitops git repository
   ```hcl
   string
   ```
-  In file: `variables.tf#24`
+  In file: <a href="./variables.tf#L24"><code>variables.tf#L24</code></a>
 
 </details>
 </blockquote>
@@ -75,7 +85,7 @@ SSH configuration for remote connection
     id_file = optional(string, "~/.ssh/id_rsa")
   })
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -91,7 +101,7 @@ Path to SSH public key file to add to authorized_keys (e.g. ~/.ssh/id_rsa.pub)
   ```hcl
   string
   ```
-  In file: `variables.tf#14`
+  In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
 </blockquote>
@@ -107,7 +117,7 @@ Username to add SSH key for
   ```hcl
   string
   ```
-  In file: `variables.tf#19`
+  In file: <a href="./variables.tf#L19"><code>variables.tf#L19</code></a>
 
 </details>
 </blockquote>
@@ -127,7 +137,7 @@ Git access mode: 'read-only' or 'read-write'
   ```json
   "read-write"
   ```
-  In file: `variables.tf#29`
+  In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
 
 </details>
 </blockquote>
@@ -139,33 +149,33 @@ Git access mode: 'read-only' or 'read-write'
 #### `access_mode`
 Applied access mode (read-only or read-write) for the SSH key
 
-In file: `outputs.tf#6`
+In file: <a href="./outputs.tf#L6"><code>outputs.tf#L6</code></a>
 </blockquote>
 <blockquote>
 
 #### `authorized_keys_path`
 Path to the authorized_keys file where the key was added
 
-In file: `outputs.tf#1`
+In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
 </blockquote>
 <blockquote>
 
 #### `key_permissions`
 Summary of permissions applied to this key
 
-In file: `outputs.tf#22`
+In file: <a href="./outputs.tf#L22"><code>outputs.tf#L22</code></a>
 </blockquote>
 <blockquote>
 
 #### `key_with_restrictions`
 Complete authorized_keys entry including all restrictions
 
-In file: `outputs.tf#16`
+In file: <a href="./outputs.tf#L16"><code>outputs.tf#L16</code></a>
 </blockquote>
 <blockquote>
 
 #### `ssh_key_file_used`
 Path to the SSH public key file that was used
 
-In file: `outputs.tf#11`
+In file: <a href="./outputs.tf#L11"><code>outputs.tf#L11</code></a>
 </blockquote>

@@ -36,12 +36,32 @@ and `apt-get remove` are not yet supported by Proxmox API.
 <blockquote>
 
 #### `package_install` (_ssh_resource_)
-In file: `main.tf#21`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L21"><code>main.tf#L21</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `package_remove` (_ssh_resource_)
-In file: `main.tf#32`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L32"><code>main.tf#L32</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 
 ## Variables
@@ -61,7 +81,7 @@ SSH configuration for remote connection
     id_file = optional(string, "~/.ssh/id_rsa")
   })
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -81,7 +101,7 @@ List of packages to install via apt-get
   ```json
   []
   ```
-  In file: `variables.tf#14`
+  In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
 </blockquote>
@@ -93,5 +113,5 @@ List of packages to install via apt-get
 #### `installed_packages`
 The packages, that have been installed/removed
 
-In file: `outputs.tf#1`
+In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
 </blockquote>

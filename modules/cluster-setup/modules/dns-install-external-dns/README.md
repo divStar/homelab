@@ -40,22 +40,62 @@ Handles the setup of `external-dns`.
 <blockquote>
 
 #### `external_dns` (_helm_release_)
-In file: `main.tf#40`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>helm (hashicorp/helm)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L40"><code>main.tf#L40</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `external_dns_namespace` (_kubectl_manifest_)
-In file: `main.tf#17`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>kubectl (gavinbunney/kubectl)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L17"><code>main.tf#L17</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `install_pihole_secret` (_kubectl_manifest_)
-In file: `main.tf#33`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>kubectl (gavinbunney/kubectl)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L33"><code>main.tf#L33</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `pihole_secret` (_sealedsecret_sealedsecret_)
-In file: `main.tf#26`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>sealedsecret (jifwin/sealedsecret)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L26"><code>main.tf#L26</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 
 ## Variables
@@ -71,7 +111,7 @@ Helm Chart version to install
   ```hcl
   string
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -91,7 +131,7 @@ Name of the Helm release
   ```json
   "external-dns-release"
   ```
-  In file: `variables.tf#6`
+  In file: <a href="./variables.tf#L6"><code>variables.tf#L6</code></a>
 
 </details>
 </blockquote>
@@ -111,7 +151,7 @@ Kubernetes namespace to install into
   ```json
   "external-dns"
   ```
-  In file: `variables.tf#13`
+  In file: <a href="./variables.tf#L13"><code>variables.tf#L13</code></a>
 
 </details>
 </blockquote>
@@ -131,7 +171,7 @@ Time in seconds to wait for the Helm Chart to be installed
   ```json
   120
   ```
-  In file: `variables.tf#20`
+  In file: <a href="./variables.tf#L20"><code>variables.tf#L20</code></a>
 
 </details>
 </blockquote>
@@ -151,7 +191,7 @@ Additional values to pass to the helm chart (in YAML format)
   ```json
   ""
   ```
-  In file: `variables.tf#27`
+  In file: <a href="./variables.tf#L27"><code>variables.tf#L27</code></a>
 
 </details>
 </blockquote>

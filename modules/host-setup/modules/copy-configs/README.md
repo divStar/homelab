@@ -33,12 +33,32 @@ Handles the copying of configuration files to the host.
 <blockquote>
 
 #### `copy_configuration_files` (_ssh_resource_)
-In file: `main.tf#15`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L15"><code>main.tf#L15</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `remove_configuration_files` (_ssh_resource_)
-In file: `main.tf#33`
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L33"><code>main.tf#L33</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 
 ## Variables
@@ -60,7 +80,7 @@ Configuration files to copy to the host
     group       = optional(string)
   }))
   ```
-  In file: `variables.tf#14`
+  In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
 </blockquote>
@@ -80,7 +100,7 @@ SSH configuration for remote connection
     id_file = optional(string, "~/.ssh/id_rsa")
   })
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -92,5 +112,5 @@ SSH configuration for remote connection
 #### `configuration_files`
 Configuration files copied to host
 
-In file: `outputs.tf#1`
+In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
 </blockquote>

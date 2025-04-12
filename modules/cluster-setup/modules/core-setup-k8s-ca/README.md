@@ -53,42 +53,122 @@ In particular:
 <blockquote>
 
 #### `install_cluster_issuer` (_kubectl_manifest_)
-In file: `main.tf#98`
+Install the ClusterIssuer resource
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>kubectl (gavinbunney/kubectl)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L98"><code>main.tf#L98</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `install_sealed_k8s_ca_tls` (_kubectl_manifest_)
-In file: `main.tf#91`
+Install the sealed-secret
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>kubectl (gavinbunney/kubectl)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L91"><code>main.tf#L91</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `k8s_ca` (_sealedsecret_sealedsecret_)
-In file: `main.tf#80`
+Create sealed-secret of the intermediate Kubernetes CA certificate
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>sealedsecret (jifwin/sealedsecret)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L80"><code>main.tf#L80</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `proxmox_ca_cert` (_ssh_resource_)
-In file: `main.tf#22`
+Fetch public CA certificate
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L22"><code>main.tf#L22</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `proxmox_ca_key` (_ssh_resource_)
-In file: `main.tf#33`
+Fetch CA key
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L33"><code>main.tf#L33</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `k8s_ca` (_tls_cert_request_)
-In file: `main.tf#50`
+Define the intermediate Kubernetes cluster certificate using the private key
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>tls (hashicorp/tls)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L50"><code>main.tf#L50</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `k8s_ca` (_tls_locally_signed_cert_)
-In file: `main.tf#64`
+Locally sign the intermediate Kubernetes cluster certificate
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>tls (hashicorp/tls)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L64"><code>main.tf#L64</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 <blockquote>
 
 #### `k8s_ca` (_tls_private_key_)
-In file: `main.tf#44`
+Define private key for the intermediate Kubernetes cluster certificate
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>tls (hashicorp/tls)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L44"><code>main.tf#L44</code></a></td>
+    </tr>
+  </table>
 </blockquote>
 
 ## Variables
@@ -108,7 +188,7 @@ Proxmox SSH connection details
     ssh_key  = string
   })
   ```
-  In file: `variables.tf#1`
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -124,7 +204,7 @@ Namespace to deploy the secret and - by extension - the sealed secret to
   ```hcl
   string
   ```
-  In file: `variables.tf#65`
+  In file: <a href="./variables.tf#L65"><code>variables.tf#L65</code></a>
 
 </details>
 </blockquote>
@@ -172,7 +252,7 @@ Intermediate Kubernetes CA used as ClusterIssuer
   "validity_period_hours": 78840
 }
   ```
-  In file: `variables.tf#23`
+  In file: <a href="./variables.tf#L23"><code>variables.tf#L23</code></a>
 
 </details>
 </blockquote>
@@ -198,7 +278,7 @@ Proxmox root CA certificate and key to use for the intermediate k8s certificate
   "pve_root_key": "/etc/pve/priv/pve-root-ca.key"
 }
   ```
-  In file: `variables.tf#10`
+  In file: <a href="./variables.tf#L10"><code>variables.tf#L10</code></a>
 
 </details>
 </blockquote>
@@ -218,7 +298,7 @@ Name of the secret and - by extension - the sealed secret
   ```json
   "k8s-ca-secret"
   ```
-  In file: `variables.tf#58`
+  In file: <a href="./variables.tf#L58"><code>variables.tf#L58</code></a>
 
 </details>
 </blockquote>
@@ -230,19 +310,19 @@ Name of the secret and - by extension - the sealed secret
 #### `k8s_ca_issuer`
 Name of the ClusterIssuer resource
 
-In file: `outputs.tf#1`
+In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
 </blockquote>
 <blockquote>
 
 #### `k8s_ca_secret_name`
 Name of the secret ClusterIssuer resource is referring to
 
-In file: `outputs.tf#6`
+In file: <a href="./outputs.tf#L6"><code>outputs.tf#L6</code></a>
 </blockquote>
 <blockquote>
 
 #### `k8s_sealed_secret_yaml`
 YAML string (not file) containing the /sealed/ secret of the intermediate Kubernetes CA certificate
 
-In file: `outputs.tf#11`
+In file: <a href="./outputs.tf#L11"><code>outputs.tf#L11</code></a>
 </blockquote>

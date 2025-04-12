@@ -34,17 +34,17 @@ Handles the download, execution and cleanup of (shell-)scripts on the host
 <blockquote>
 
 #### `script_cleanup` (_ssh_resource_)
-Defined in file: `main.tf#56`
+In file: `main.tf#56`
 </blockquote>
 <blockquote>
 
 #### `script_download` (_ssh_resource_)
-Defined in file: `main.tf#19`
+In file: `main.tf#19`
 </blockquote>
 <blockquote>
 
 #### `script_execute` (_ssh_resource_)
-Defined in file: `main.tf#39`
+In file: `main.tf#39`
 </blockquote>
 
 ## Variables
@@ -64,7 +64,7 @@ SSH configuration for remote connection
     id_file = optional(string, "~/.ssh/id_rsa")
   })
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -96,7 +96,7 @@ Configuration for script management including shared directory and script items
   "items": []
 }
   ```
-  Defined in file: `variables.tf#14`
+  In file: `variables.tf#14`
 
 </details>
 </blockquote>
@@ -108,5 +108,5 @@ Configuration for script management including shared directory and script items
 #### `installed_scripts`
 The scripts, that have been installed/removed
 
-Defined in file: `outputs.tf#1`
+In file: `outputs.tf#1`
 </blockquote>

@@ -40,12 +40,12 @@ Awaits the Talos cluster to become ready and running.
 <blockquote>
 
 #### `this` (_talos_cluster_kubeconfig_)
-Defined in file: `main.tf#44`
+In file: `main.tf#44`
 </blockquote>
 <blockquote>
 
 #### `this` (_talos_machine_bootstrap_)
-Defined in file: `main.tf#12`
+In file: `main.tf#12`
 </blockquote>
 
 ## Variables
@@ -65,7 +65,7 @@ Cluster configuration
     endpoint      = string
   })
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -85,7 +85,7 @@ Configuration for cluster nodes
     ip           = string
   }))
   ```
-  Defined in file: `variables.tf#41`
+  In file: `variables.tf#41`
 
 </details>
 </blockquote>
@@ -101,7 +101,7 @@ Talos cluster client configuration
   ```hcl
   map(any)
   ```
-  Defined in file: `variables.tf#15`
+  In file: `variables.tf#15`
 
 </details>
 </blockquote>
@@ -117,7 +117,7 @@ Talos cluster machine configuration
   ```hcl
   any
   ```
-  Defined in file: `variables.tf#10`
+  In file: `variables.tf#10`
 
 </details>
 </blockquote>
@@ -137,7 +137,7 @@ Cluster bootstrap timeout
   ```json
   "5m"
   ```
-  Defined in file: `variables.tf#20`
+  In file: `variables.tf#20`
 
 </details>
 </blockquote>
@@ -157,7 +157,7 @@ Cluster health-check timeout
   ```json
   "10m"
   ```
-  Defined in file: `variables.tf#27`
+  In file: `variables.tf#27`
 
 </details>
 </blockquote>
@@ -177,7 +177,7 @@ Cluster kubeconfig creation timeout
   ```json
   "1m"
   ```
-  Defined in file: `variables.tf#34`
+  In file: `variables.tf#34`
 
 </details>
 </blockquote>
@@ -189,12 +189,12 @@ Cluster kubeconfig creation timeout
 #### `kube_config`
 Talos cluster kubeconfig
 
-Defined in file: `outputs.tf#6`
+In file: `outputs.tf#6`
 </blockquote>
 <blockquote>
 
 #### `machine_config`
 Talos machine configurations
 
-Defined in file: `outputs.tf#1`
+In file: `outputs.tf#1`
 </blockquote>

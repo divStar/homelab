@@ -36,12 +36,12 @@ and `apt-get remove` are not yet supported by Proxmox API.
 <blockquote>
 
 #### `package_install` (_ssh_resource_)
-Defined in file: `main.tf#21`
+In file: `main.tf#21`
 </blockquote>
 <blockquote>
 
 #### `package_remove` (_ssh_resource_)
-Defined in file: `main.tf#32`
+In file: `main.tf#32`
 </blockquote>
 
 ## Variables
@@ -61,7 +61,7 @@ SSH configuration for remote connection
     id_file = optional(string, "~/.ssh/id_rsa")
   })
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -81,7 +81,7 @@ List of packages to install via apt-get
   ```json
   []
   ```
-  Defined in file: `variables.tf#14`
+  In file: `variables.tf#14`
 
 </details>
 </blockquote>
@@ -93,5 +93,5 @@ List of packages to install via apt-get
 #### `installed_packages`
 The packages, that have been installed/removed
 
-Defined in file: `outputs.tf#1`
+In file: `outputs.tf#1`
 </blockquote>

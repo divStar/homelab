@@ -33,12 +33,12 @@ Handles the copying of configuration files to the host.
 <blockquote>
 
 #### `copy_configuration_files` (_ssh_resource_)
-Defined in file: `main.tf#15`
+In file: `main.tf#15`
 </blockquote>
 <blockquote>
 
 #### `remove_configuration_files` (_ssh_resource_)
-Defined in file: `main.tf#33`
+In file: `main.tf#33`
 </blockquote>
 
 ## Variables
@@ -60,7 +60,7 @@ Configuration files to copy to the host
     group       = optional(string)
   }))
   ```
-  Defined in file: `variables.tf#14`
+  In file: `variables.tf#14`
 
 </details>
 </blockquote>
@@ -80,7 +80,7 @@ SSH configuration for remote connection
     id_file = optional(string, "~/.ssh/id_rsa")
   })
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -92,5 +92,5 @@ SSH configuration for remote connection
 #### `configuration_files`
 Configuration files copied to host
 
-Defined in file: `outputs.tf#1`
+In file: `outputs.tf#1`
 </blockquote>

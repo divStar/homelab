@@ -58,7 +58,11 @@ Handles the copying of configuration files to the host.
 | | |
 |:--- |:--- |
 | Module location | `./modules/copy-configs`
-| Called in file | `main.tf#17`
+| In file | `main.tf#17`
+<td colspan="2">
+
+[`README.md`](./modules/copy-configs/README.md) _(experimental)_
+</td>
 </blockquote>
 <blockquote>
 
@@ -68,7 +72,11 @@ Handles the creation and deletion of a dedicated user git+ssh access (gitops) as
 | | |
 |:--- |:--- |
 | Module location | `./modules/gitops-user`
-| Called in file | `main.tf#80`
+| In file | `main.tf#80`
+<td colspan="2">
+
+[`README.md`](./modules/gitops-user/README.md) _(experimental)_
+</td>
 </blockquote>
 <blockquote>
 
@@ -78,7 +86,11 @@ Handles the installation and removal of packages on the host <blockquote> **Note
 | | |
 |:--- |:--- |
 | Module location | `./modules/packages`
-| Called in file | `main.tf#38`
+| In file | `main.tf#38`
+<td colspan="2">
+
+[`README.md`](./modules/packages/README.md) _(experimental)_
+</td>
 </blockquote>
 <blockquote>
 
@@ -88,7 +100,11 @@ Handles the deactivation of the enterprise repositories and the creation and act
 | | |
 |:--- |:--- |
 | Module location | `./modules/repositories`
-| Called in file | `main.tf#26`
+| In file | `main.tf#26`
+<td colspan="2">
+
+[`README.md`](./modules/repositories/README.md) _(experimental)_
+</td>
 </blockquote>
 <blockquote>
 
@@ -98,7 +114,11 @@ Handles the download, execution and cleanup of (shell-)scripts on the host
 | | |
 |:--- |:--- |
 | Module location | `./modules/scripts`
-| Called in file | `main.tf#48`
+| In file | `main.tf#48`
+<td colspan="2">
+
+[`README.md`](./modules/scripts/README.md) _(experimental)_
+</td>
 </blockquote>
 <blockquote>
 
@@ -108,7 +128,11 @@ Handles the import and export of ZFS pools as well as directories.
 | | |
 |:--- |:--- |
 | Module location | `./modules/storage`
-| Called in file | `main.tf#58`
+| In file | `main.tf#58`
+<td colspan="2">
+
+[`README.md`](./modules/storage/README.md) _(experimental)_
+</td>
 </blockquote>
 <blockquote>
 
@@ -118,7 +142,11 @@ Handles the creation and deletion of a dedicated user with a custom role and API
 | | |
 |:--- |:--- |
 | Module location | `./modules/terraform-user`
-| Called in file | `main.tf#9`
+| In file | `main.tf#9`
+<td colspan="2">
+
+[`README.md`](./modules/terraform-user/README.md) _(experimental)_
+</td>
 </blockquote>
 <blockquote>
 
@@ -128,7 +156,11 @@ Handles the creation and deletion of a dedicated user with a custom role and API
 | | |
 |:--- |:--- |
 | Module location | `./modules/update-ssl`
-| Called in file | `main.tf#90`
+| In file | `main.tf#90`
+<td colspan="2">
+
+[`README.md`](./modules/update-ssl/README.md) _(experimental)_
+</td>
 </blockquote>
 
 
@@ -152,7 +184,7 @@ Configuration files to copy to the host
     group       = optional(string)
   }))
   ```
-  Defined in file: `variables.tf#26`
+  In file: `variables.tf#26`
 
 </details>
 </blockquote>
@@ -172,7 +204,7 @@ Proxmox host configuration
     port = number
   })
   ```
-  Defined in file: `variables.tf#14`
+  In file: `variables.tf#14`
 
 </details>
 </blockquote>
@@ -192,7 +224,7 @@ SSH configuration for remote connection
     id_file = optional(string, "~/.ssh/id_rsa")
   })
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -214,7 +246,7 @@ Configuration of the storage (pools and directories) to import
     content_types = optional(list(string))
   }))
   ```
-  Defined in file: `variables.tf#156`
+  In file: `variables.tf#156`
 
 </details>
 </blockquote>
@@ -239,7 +271,7 @@ Configuration of GitOps user.
   ```json
   {}
   ```
-  Defined in file: `variables.tf#134`
+  In file: `variables.tf#134`
 
 </details>
 </blockquote>
@@ -265,7 +297,7 @@ Whether to use no-subscription repository instead of enterprise repository or no
   "enabled": true
 }
   ```
-  Defined in file: `variables.tf#196`
+  In file: `variables.tf#196`
 
 </details>
 </blockquote>
@@ -288,7 +320,7 @@ Original owner of the source repository (before, e.g. root:root)
   ```json
   {}
   ```
-  Defined in file: `variables.tf#146`
+  In file: `variables.tf#146`
 
 </details>
 </blockquote>
@@ -308,7 +340,7 @@ List of packages to install via apt-get
   ```json
   []
   ```
-  Defined in file: `variables.tf#42`
+  In file: `variables.tf#42`
 
 </details>
 </blockquote>
@@ -340,7 +372,7 @@ Configuration for script management including shared directory and script items
   "items": []
 }
   ```
-  Defined in file: `variables.tf#49`
+  In file: `variables.tf#49`
 
 </details>
 </blockquote>
@@ -394,7 +426,7 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
   "token": {}
 }
   ```
-  Defined in file: `variables.tf#85`
+  In file: `variables.tf#85`
 
 </details>
 </blockquote>
@@ -406,61 +438,61 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
 #### `certificate_info`
 pve-ssl Certificate information
 
-Defined in file: `outputs.tf#43`
+In file: `outputs.tf#43`
 </blockquote>
 <blockquote>
 
 #### `configuration_files`
 Configuration files copied to host
 
-Defined in file: `outputs.tf#1`
+In file: `outputs.tf#1`
 </blockquote>
 <blockquote>
 
 #### `installed_packages`
 The packages, that have been installed/removed
 
-Defined in file: `outputs.tf#11`
+In file: `outputs.tf#11`
 </blockquote>
 <blockquote>
 
 #### `installed_scripts`
 The scripts, that have been installed/removed
 
-Defined in file: `outputs.tf#16`
+In file: `outputs.tf#16`
 </blockquote>
 <blockquote>
 
 #### `no_subscription`
 States, whether a no-subscription repository was used (and some further details)
 
-Defined in file: `outputs.tf#6`
+In file: `outputs.tf#6`
 </blockquote>
 <blockquote>
 
 #### `pve-user`
 The user and role created on the Proxmox host
 
-Defined in file: `outputs.tf#21`
+In file: `outputs.tf#21`
 </blockquote>
 <blockquote>
 
 #### `storage_pools`
 List of storage pools that were imported and added to Proxmox
 
-Defined in file: `outputs.tf#33`
+In file: `outputs.tf#33`
 </blockquote>
 <blockquote>
 
 #### `storage_pools_directories`
 List of directories/datasets that were configured in Proxmox
 
-Defined in file: `outputs.tf#38`
+In file: `outputs.tf#38`
 </blockquote>
 <blockquote>
 
 #### `token`
 The API token created on the Proxmox host
 
-Defined in file: `outputs.tf#27`
+In file: `outputs.tf#27`
 </blockquote>

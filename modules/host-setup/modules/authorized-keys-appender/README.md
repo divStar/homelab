@@ -39,7 +39,7 @@ Handles appending of SSH keys to the authorized\_keys file of a given user.
 <blockquote>
 
 #### `add_key` (_ssh_resource_)
-Defined in file: `main.tf#27`
+In file: `main.tf#27`
 </blockquote>
 
 ## Variables
@@ -55,7 +55,7 @@ Name of the symbolic link to the actual gitops git repository
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#24`
+  In file: `variables.tf#24`
 
 </details>
 </blockquote>
@@ -75,7 +75,7 @@ SSH configuration for remote connection
     id_file = optional(string, "~/.ssh/id_rsa")
   })
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -91,7 +91,7 @@ Path to SSH public key file to add to authorized_keys (e.g. ~/.ssh/id_rsa.pub)
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#14`
+  In file: `variables.tf#14`
 
 </details>
 </blockquote>
@@ -107,7 +107,7 @@ Username to add SSH key for
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#19`
+  In file: `variables.tf#19`
 
 </details>
 </blockquote>
@@ -127,7 +127,7 @@ Git access mode: 'read-only' or 'read-write'
   ```json
   "read-write"
   ```
-  Defined in file: `variables.tf#29`
+  In file: `variables.tf#29`
 
 </details>
 </blockquote>
@@ -139,33 +139,33 @@ Git access mode: 'read-only' or 'read-write'
 #### `access_mode`
 Applied access mode (read-only or read-write) for the SSH key
 
-Defined in file: `outputs.tf#6`
+In file: `outputs.tf#6`
 </blockquote>
 <blockquote>
 
 #### `authorized_keys_path`
 Path to the authorized_keys file where the key was added
 
-Defined in file: `outputs.tf#1`
+In file: `outputs.tf#1`
 </blockquote>
 <blockquote>
 
 #### `key_permissions`
 Summary of permissions applied to this key
 
-Defined in file: `outputs.tf#22`
+In file: `outputs.tf#22`
 </blockquote>
 <blockquote>
 
 #### `key_with_restrictions`
 Complete authorized_keys entry including all restrictions
 
-Defined in file: `outputs.tf#16`
+In file: `outputs.tf#16`
 </blockquote>
 <blockquote>
 
 #### `ssh_key_file_used`
 Path to the SSH public key file that was used
 
-Defined in file: `outputs.tf#11`
+In file: `outputs.tf#11`
 </blockquote>

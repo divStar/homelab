@@ -39,32 +39,32 @@ and API token for the Terraform provisioner on the host.
 <blockquote>
 
 #### `assign_role` (_ssh_resource_)
-Defined in file: `main.tf#46`
+In file: `main.tf#46`
 </blockquote>
 <blockquote>
 
 #### `create_api_token` (_ssh_resource_)
-Defined in file: `main.tf#60`
+In file: `main.tf#60`
 </blockquote>
 <blockquote>
 
 #### `create_role` (_ssh_resource_)
-Defined in file: `main.tf#33`
+In file: `main.tf#33`
 </blockquote>
 <blockquote>
 
 #### `create_user` (_ssh_resource_)
-Defined in file: `main.tf#20`
+In file: `main.tf#20`
 </blockquote>
 <blockquote>
 
 #### `delete_role` (_ssh_resource_)
-Defined in file: `main.tf#74`
+In file: `main.tf#74`
 </blockquote>
 <blockquote>
 
 #### `delete_user` (_ssh_resource_)
-Defined in file: `main.tf#87`
+In file: `main.tf#87`
 </blockquote>
 
 ## Variables
@@ -84,7 +84,7 @@ SSH configuration for remote connection
     id_file = optional(string, "~/.ssh/id_rsa")
   })
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -138,7 +138,7 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
   "token": {}
 }
   ```
-  Defined in file: `variables.tf#14`
+  In file: `variables.tf#14`
 
 </details>
 </blockquote>
@@ -150,12 +150,12 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
 #### `pve-user`
 The user and role created on the Proxmox host
 
-Defined in file: `outputs.tf#1`
+In file: `outputs.tf#1`
 </blockquote>
 <blockquote>
 
 #### `token`
 The API token created on the Proxmox host
 
-Defined in file: `outputs.tf#11`
+In file: `outputs.tf#11`
 </blockquote>

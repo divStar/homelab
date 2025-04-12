@@ -33,7 +33,7 @@ Handles the setup of `cert-manager`.
 <blockquote>
 
 #### `cert_manager` (_helm_release_)
-Defined in file: `main.tf#7`
+In file: `main.tf#7`
 </blockquote>
 
 ## Variables
@@ -49,7 +49,7 @@ Helm Chart version to install
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -69,7 +69,7 @@ Name of the Helm release
   ```json
   "cert-manager-release"
   ```
-  Defined in file: `variables.tf#6`
+  In file: `variables.tf#6`
 
 </details>
 </blockquote>
@@ -89,7 +89,7 @@ Kubernetes namespace to install into
   ```json
   "cert-manager"
   ```
-  Defined in file: `variables.tf#13`
+  In file: `variables.tf#13`
 
 </details>
 </blockquote>
@@ -109,7 +109,7 @@ Time in seconds to wait for the Helm Chart to be installed
   ```json
   120
   ```
-  Defined in file: `variables.tf#20`
+  In file: `variables.tf#20`
 
 </details>
 </blockquote>
@@ -129,7 +129,7 @@ Additional values to pass to the helm chart (in YAML format)
   ```json
   ""
   ```
-  Defined in file: `variables.tf#27`
+  In file: `variables.tf#27`
 
 </details>
 </blockquote>

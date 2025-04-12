@@ -34,7 +34,7 @@ Creates the Talos machine secrets and the Talos client configuration.
 <blockquote>
 
 #### `this` (_talos_machine_secrets_)
-Defined in file: `main.tf#7`
+In file: `main.tf#7`
 </blockquote>
 
 ## Variables
@@ -53,7 +53,7 @@ Cluster configuration
     talos_version = string
   })
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -72,7 +72,7 @@ Configuration for cluster nodes
     ip           = string
   }))
   ```
-  Defined in file: `variables.tf#9`
+  In file: `variables.tf#9`
 
 </details>
 </blockquote>
@@ -84,19 +84,19 @@ Configuration for cluster nodes
 #### `client_configuration`
 Client configuration for Talos cluster
 
-Defined in file: `outputs.tf#7`
+In file: `outputs.tf#7`
 </blockquote>
 <blockquote>
 
 #### `machine_secrets`
 Machine secrets for Talos cluster
 
-Defined in file: `outputs.tf#1`
+In file: `outputs.tf#1`
 </blockquote>
 <blockquote>
 
 #### `talos_config`
 Talos configuration file
 
-Defined in file: `outputs.tf#13`
+In file: `outputs.tf#13`
 </blockquote>

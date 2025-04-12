@@ -61,17 +61,17 @@ Creates a Talos VM with a given ISO, type and other settings.
 <blockquote>
 
 #### `cilium_patch` (_local_file_)
-Defined in file: `cilium.tf#30`
+In file: `cilium.tf#30`
 </blockquote>
 <blockquote>
 
 #### `this` (_proxmox_virtual_environment_vm_)
-Defined in file: `vms.tf#1`
+In file: `vms.tf#1`
 </blockquote>
 <blockquote>
 
 #### `this` (_talos_machine_configuration_apply_)
-Defined in file: `main.tf#28`
+In file: `main.tf#28`
 </blockquote>
 
 ## Variables
@@ -87,7 +87,7 @@ Cilium version
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#122`
+  In file: `variables.tf#122`
 
 </details>
 </blockquote>
@@ -109,7 +109,7 @@ Cluster configuration
     lb_cidr       = string
   })
   ```
-  Defined in file: `variables.tf#14`
+  In file: `variables.tf#14`
 
 </details>
 </blockquote>
@@ -125,7 +125,7 @@ Number of CPUs for the node
   ```hcl
   number
   ```
-  Defined in file: `variables.tf#101`
+  In file: `variables.tf#101`
 
 </details>
 </blockquote>
@@ -141,7 +141,7 @@ Host node for the cluster
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#54`
+  In file: `variables.tf#54`
 
 </details>
 </blockquote>
@@ -157,7 +157,7 @@ IP address of the node
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#76`
+  In file: `variables.tf#76`
 
 </details>
 </blockquote>
@@ -173,7 +173,7 @@ The path to the Talos node ISO, that is supposed to be used
   ```hcl
   any
   ```
-  Defined in file: `variables.tf#111`
+  In file: `variables.tf#111`
 
 </details>
 </blockquote>
@@ -189,7 +189,7 @@ MAC address of the node
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#86`
+  In file: `variables.tf#86`
 
 </details>
 </blockquote>
@@ -205,7 +205,7 @@ Type of machine (controlplane or worker)
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#59`
+  In file: `variables.tf#59`
 
 </details>
 </blockquote>
@@ -221,7 +221,7 @@ Name of the cluster node
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#49`
+  In file: `variables.tf#49`
 
 </details>
 </blockquote>
@@ -237,7 +237,7 @@ Dedicated RAM for the node
   ```hcl
   number
   ```
-  Defined in file: `variables.tf#106`
+  In file: `variables.tf#106`
 
 </details>
 </blockquote>
@@ -253,7 +253,7 @@ VM ID of the node
   ```hcl
   number
   ```
-  Defined in file: `variables.tf#96`
+  In file: `variables.tf#96`
 
 </details>
 </blockquote>
@@ -277,7 +277,7 @@ Proxmox host configuration
     ssh_key   = string
   })
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -293,7 +293,7 @@ Talos cluster client configuration
   ```hcl
   any
   ```
-  Defined in file: `variables.tf#30`
+  In file: `variables.tf#30`
 
 </details>
 </blockquote>
@@ -309,7 +309,7 @@ Talos cluster machine configuration
   ```hcl
   any
   ```
-  Defined in file: `variables.tf#25`
+  In file: `variables.tf#25`
 
 </details>
 </blockquote>
@@ -329,7 +329,7 @@ Name of the Cilium Helm Chart to use
   ```json
   "cilium"
   ```
-  Defined in file: `variables.tf#148`
+  In file: `variables.tf#148`
 
 </details>
 </blockquote>
@@ -349,7 +349,7 @@ Name of the Cilium Helm release
   ```json
   "cilium"
   ```
-  Defined in file: `variables.tf#127`
+  In file: `variables.tf#127`
 
 </details>
 </blockquote>
@@ -369,7 +369,7 @@ Namespace to install Cilium into
   ```json
   "cilium"
   ```
-  Defined in file: `variables.tf#134`
+  In file: `variables.tf#134`
 
 </details>
 </blockquote>
@@ -389,7 +389,7 @@ URL of the Cilium Helm repository to use
   ```json
   "https://helm.cilium.io"
   ```
-  Defined in file: `variables.tf#141`
+  In file: `variables.tf#141`
 
 </details>
 </blockquote>
@@ -409,7 +409,7 @@ Cilium Helm template creation timeout
   ```json
   60
   ```
-  Defined in file: `variables.tf#155`
+  In file: `variables.tf#155`
 
 </details>
 </blockquote>
@@ -429,7 +429,7 @@ Network bridge to use for this node
   ```json
   "vmbr0"
   ```
-  Defined in file: `variables.tf#69`
+  In file: `variables.tf#69`
 
 </details>
 </blockquote>
@@ -449,7 +449,7 @@ Datastore ID for the node
   ```json
   "local"
   ```
-  Defined in file: `variables.tf#115`
+  In file: `variables.tf#115`
 
 </details>
 </blockquote>
@@ -469,7 +469,7 @@ Description to set for the given node
   ```json
   ""
   ```
-  Defined in file: `variables.tf#35`
+  In file: `variables.tf#35`
 
 </details>
 </blockquote>
@@ -489,7 +489,7 @@ Tags to set for the given node
   ```json
   []
   ```
-  Defined in file: `variables.tf#42`
+  In file: `variables.tf#42`
 
 </details>
 </blockquote>
@@ -509,7 +509,7 @@ Target version of Kubernetes the template is built for
   ```json
   "1.32"
   ```
-  Defined in file: `variables.tf#162`
+  In file: `variables.tf#162`
 
 </details>
 </blockquote>

@@ -40,22 +40,22 @@ Handles the setup of `external-dns`.
 <blockquote>
 
 #### `external_dns` (_helm_release_)
-Defined in file: `main.tf#40`
+In file: `main.tf#40`
 </blockquote>
 <blockquote>
 
 #### `external_dns_namespace` (_kubectl_manifest_)
-Defined in file: `main.tf#17`
+In file: `main.tf#17`
 </blockquote>
 <blockquote>
 
 #### `install_pihole_secret` (_kubectl_manifest_)
-Defined in file: `main.tf#33`
+In file: `main.tf#33`
 </blockquote>
 <blockquote>
 
 #### `pihole_secret` (_sealedsecret_sealedsecret_)
-Defined in file: `main.tf#26`
+In file: `main.tf#26`
 </blockquote>
 
 ## Variables
@@ -71,7 +71,7 @@ Helm Chart version to install
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -91,7 +91,7 @@ Name of the Helm release
   ```json
   "external-dns-release"
   ```
-  Defined in file: `variables.tf#6`
+  In file: `variables.tf#6`
 
 </details>
 </blockquote>
@@ -111,7 +111,7 @@ Kubernetes namespace to install into
   ```json
   "external-dns"
   ```
-  Defined in file: `variables.tf#13`
+  In file: `variables.tf#13`
 
 </details>
 </blockquote>
@@ -131,7 +131,7 @@ Time in seconds to wait for the Helm Chart to be installed
   ```json
   120
   ```
-  Defined in file: `variables.tf#20`
+  In file: `variables.tf#20`
 
 </details>
 </blockquote>
@@ -151,7 +151,7 @@ Additional values to pass to the helm chart (in YAML format)
   ```json
   ""
   ```
-  Defined in file: `variables.tf#27`
+  In file: `variables.tf#27`
 
 </details>
 </blockquote>

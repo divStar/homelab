@@ -35,17 +35,17 @@ the creation and activation of the no-subscription repositories.
 <blockquote>
 
 #### `add_no_sub_repository` (_ssh_resource_)
-Defined in file: `main.tf#19`
+In file: `main.tf#19`
 </blockquote>
 <blockquote>
 
 #### `remove_no_sub_repository` (_ssh_resource_)
-Defined in file: `main.tf#49`
+In file: `main.tf#49`
 </blockquote>
 <blockquote>
 
 #### `update_all_repositories` (_ssh_resource_)
-Defined in file: `main.tf#35`
+In file: `main.tf#35`
 </blockquote>
 
 ## Variables
@@ -65,7 +65,7 @@ SSH configuration for remote connection
     id_file = optional(string, "~/.ssh/id_rsa")
   })
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -91,7 +91,7 @@ Whether to use no-subscription repository instead of enterprise repository or no
   "enabled": true
 }
   ```
-  Defined in file: `variables.tf#14`
+  In file: `variables.tf#14`
 
 </details>
 </blockquote>
@@ -103,5 +103,5 @@ Whether to use no-subscription repository instead of enterprise repository or no
 #### `no_subscription`
 States, whether a no-subscription repository was used (and some further details)
 
-Defined in file: `outputs.tf#1`
+In file: `outputs.tf#1`
 </blockquote>

@@ -30,7 +30,7 @@ Exposes the Hubble UI from Cilium CNI.
 <blockquote>
 
 #### `longhorn_namespace` (_kubectl_manifest_)
-Defined in file: `main.tf#7`
+In file: `main.tf#7`
 </blockquote>
 
 ## Variables
@@ -46,7 +46,7 @@ CA certificate issuer (for Certificate resource managed by cert-manager)
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -66,7 +66,7 @@ Host to expose the hubble UI on, e.g. hubble.my.domain
   ```json
   "hubble.my.world"
   ```
-  Defined in file: `variables.tf#6`
+  In file: `variables.tf#6`
 
 </details>
 </blockquote>

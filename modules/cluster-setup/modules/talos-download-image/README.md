@@ -43,12 +43,12 @@ architecture, platform and schematics.
 <blockquote>
 
 #### `this` (_proxmox_virtual_environment_download_file_)
-Defined in file: `main.tf#19`
+In file: `main.tf#19`
 </blockquote>
 <blockquote>
 
 #### `this` (_talos_image_factory_schematic_)
-Defined in file: `main.tf#15`
+In file: `main.tf#15`
 </blockquote>
 
 ## Variables
@@ -72,7 +72,7 @@ Proxmox host configuration
     ssh_key   = string # not used in talos_image
   })
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -88,7 +88,7 @@ Talos version to use
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#14`
+  In file: `variables.tf#14`
 
 </details>
 </blockquote>
@@ -108,7 +108,7 @@ Architecture to use (amd64 or arm64)
   ```json
   "amd64"
   ```
-  Defined in file: `variables.tf#40`
+  In file: `variables.tf#40`
 
 </details>
 </blockquote>
@@ -128,7 +128,7 @@ URL of the Talos image factory
   ```json
   "https://factory.talos.dev"
   ```
-  Defined in file: `variables.tf#26`
+  In file: `variables.tf#26`
 
 </details>
 </blockquote>
@@ -148,7 +148,7 @@ Platform to use (e.g. metal, nocloud, aws, etc., see https://registry.terraform.
   ```json
   "nocloud"
   ```
-  Defined in file: `variables.tf#33`
+  In file: `variables.tf#33`
 
 </details>
 </blockquote>
@@ -168,7 +168,7 @@ Schematic configuration as YAML string
   ```json
   "schematic/default.yaml"
   ```
-  Defined in file: `variables.tf#19`
+  In file: `variables.tf#19`
 
 </details>
 </blockquote>
@@ -180,26 +180,26 @@ Schematic configuration as YAML string
 #### `downloaded_iso_file_name`
 The filename on the local node
 
-Defined in file: `outputs.tf#11`
+In file: `outputs.tf#11`
 </blockquote>
 <blockquote>
 
 #### `downloaded_iso_id`
 The full ID on the local node
 
-Defined in file: `outputs.tf#16`
+In file: `outputs.tf#16`
 </blockquote>
 <blockquote>
 
 #### `installer`
 The installer URL without http/https
 
-Defined in file: `outputs.tf#6`
+In file: `outputs.tf#6`
 </blockquote>
 <blockquote>
 
 #### `schematic_id`
 The calculated ID of the schematic, that's being used
 
-Defined in file: `outputs.tf#1`
+In file: `outputs.tf#1`
 </blockquote>

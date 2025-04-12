@@ -40,22 +40,22 @@ Handles the import and export of ZFS pools as well as directories.
 <blockquote>
 
 #### `add_directory_storage` (_restapi_object_)
-Defined in file: `main.tf#71`
+In file: `main.tf#71`
 </blockquote>
 <blockquote>
 
 #### `add_pool_storage` (_restapi_object_)
-Defined in file: `main.tf#53`
+In file: `main.tf#53`
 </blockquote>
 <blockquote>
 
 #### `export_zfs_pools` (_ssh_resource_)
-Defined in file: `main.tf#39`
+In file: `main.tf#39`
 </blockquote>
 <blockquote>
 
 #### `import_zfs_pools` (_ssh_resource_)
-Defined in file: `main.tf#26`
+In file: `main.tf#26`
 </blockquote>
 
 ## Variables
@@ -75,7 +75,7 @@ Proxmox host configuration
     port = number
   })
   ```
-  Defined in file: `variables.tf#14`
+  In file: `variables.tf#14`
 
 </details>
 </blockquote>
@@ -95,7 +95,7 @@ SSH configuration for remote connection
     id_file = optional(string, "~/.ssh/id_rsa")
   })
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -117,7 +117,7 @@ Configuration of the storage (pools and directories) to import
     content_types = optional(list(string))
   }))
   ```
-  Defined in file: `variables.tf#26`
+  In file: `variables.tf#26`
 
 </details>
 </blockquote>
@@ -133,7 +133,7 @@ API token for the terraform user on the Proxmox host
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#66`
+  In file: `variables.tf#66`
 
 </details>
 </blockquote>
@@ -145,12 +145,12 @@ API token for the terraform user on the Proxmox host
 #### `storage_pools`
 List of storage pools that were imported and added to Proxmox
 
-Defined in file: `outputs.tf#1`
+In file: `outputs.tf#1`
 </blockquote>
 <blockquote>
 
 #### `storage_pools_directories`
 List of directories/datasets that were configured in Proxmox
 
-Defined in file: `outputs.tf#11`
+In file: `outputs.tf#11`
 </blockquote>

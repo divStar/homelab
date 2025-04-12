@@ -53,42 +53,42 @@ In particular:
 <blockquote>
 
 #### `install_cluster_issuer` (_kubectl_manifest_)
-Defined in file: `main.tf#98`
+In file: `main.tf#98`
 </blockquote>
 <blockquote>
 
 #### `install_sealed_k8s_ca_tls` (_kubectl_manifest_)
-Defined in file: `main.tf#91`
+In file: `main.tf#91`
 </blockquote>
 <blockquote>
 
 #### `k8s_ca` (_sealedsecret_sealedsecret_)
-Defined in file: `main.tf#80`
+In file: `main.tf#80`
 </blockquote>
 <blockquote>
 
 #### `proxmox_ca_cert` (_ssh_resource_)
-Defined in file: `main.tf#22`
+In file: `main.tf#22`
 </blockquote>
 <blockquote>
 
 #### `proxmox_ca_key` (_ssh_resource_)
-Defined in file: `main.tf#33`
+In file: `main.tf#33`
 </blockquote>
 <blockquote>
 
 #### `k8s_ca` (_tls_cert_request_)
-Defined in file: `main.tf#50`
+In file: `main.tf#50`
 </blockquote>
 <blockquote>
 
 #### `k8s_ca` (_tls_locally_signed_cert_)
-Defined in file: `main.tf#64`
+In file: `main.tf#64`
 </blockquote>
 <blockquote>
 
 #### `k8s_ca` (_tls_private_key_)
-Defined in file: `main.tf#44`
+In file: `main.tf#44`
 </blockquote>
 
 ## Variables
@@ -108,7 +108,7 @@ Proxmox SSH connection details
     ssh_key  = string
   })
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -124,7 +124,7 @@ Namespace to deploy the secret and - by extension - the sealed secret to
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#65`
+  In file: `variables.tf#65`
 
 </details>
 </blockquote>
@@ -172,7 +172,7 @@ Intermediate Kubernetes CA used as ClusterIssuer
   "validity_period_hours": 78840
 }
   ```
-  Defined in file: `variables.tf#23`
+  In file: `variables.tf#23`
 
 </details>
 </blockquote>
@@ -198,7 +198,7 @@ Proxmox root CA certificate and key to use for the intermediate k8s certificate
   "pve_root_key": "/etc/pve/priv/pve-root-ca.key"
 }
   ```
-  Defined in file: `variables.tf#10`
+  In file: `variables.tf#10`
 
 </details>
 </blockquote>
@@ -218,7 +218,7 @@ Name of the secret and - by extension - the sealed secret
   ```json
   "k8s-ca-secret"
   ```
-  Defined in file: `variables.tf#58`
+  In file: `variables.tf#58`
 
 </details>
 </blockquote>
@@ -230,19 +230,19 @@ Name of the secret and - by extension - the sealed secret
 #### `k8s_ca_issuer`
 Name of the ClusterIssuer resource
 
-Defined in file: `outputs.tf#1`
+In file: `outputs.tf#1`
 </blockquote>
 <blockquote>
 
 #### `k8s_ca_secret_name`
 Name of the secret ClusterIssuer resource is referring to
 
-Defined in file: `outputs.tf#6`
+In file: `outputs.tf#6`
 </blockquote>
 <blockquote>
 
 #### `k8s_sealed_secret_yaml`
 YAML string (not file) containing the /sealed/ secret of the intermediate Kubernetes CA certificate
 
-Defined in file: `outputs.tf#11`
+In file: `outputs.tf#11`
 </blockquote>

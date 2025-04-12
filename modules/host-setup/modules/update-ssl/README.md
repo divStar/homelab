@@ -48,42 +48,42 @@ the host.
 <blockquote>
 
 #### `backup_existing_certs` (_ssh_resource_)
-Defined in file: `main.tf#87`
+In file: `main.tf#87`
 </blockquote>
 <blockquote>
 
 #### `install_pve_cert` (_ssh_resource_)
-Defined in file: `main.tf#101`
+In file: `main.tf#101`
 </blockquote>
 <blockquote>
 
 #### `proxmox_ca_cert` (_ssh_resource_)
-Defined in file: `main.tf#23`
+In file: `main.tf#23`
 </blockquote>
 <blockquote>
 
 #### `proxmox_ca_key` (_ssh_resource_)
-Defined in file: `main.tf#36`
+In file: `main.tf#36`
 </blockquote>
 <blockquote>
 
 #### `backup_timestamp` (_time_static_)
-Defined in file: `main.tf#20`
+In file: `main.tf#20`
 </blockquote>
 <blockquote>
 
 #### `pve_ssl_cert_request` (_tls_cert_request_)
-Defined in file: `main.tf#55`
+In file: `main.tf#55`
 </blockquote>
 <blockquote>
 
 #### `pve_ssl_cert` (_tls_locally_signed_cert_)
-Defined in file: `main.tf#72`
+In file: `main.tf#72`
 </blockquote>
 <blockquote>
 
 #### `pve_ssl_key` (_tls_private_key_)
-Defined in file: `main.tf#49`
+In file: `main.tf#49`
 </blockquote>
 
 ## Variables
@@ -99,7 +99,7 @@ Name of the target Proxmox host
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#14`
+  In file: `variables.tf#14`
 
 </details>
 </blockquote>
@@ -119,7 +119,7 @@ SSH configuration for remote connection
     id_file = optional(string, "~/.ssh/id_rsa")
   })
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -180,7 +180,7 @@ Proxmox certificate details
   "validity_period_hours": 78840
 }
   ```
-  Defined in file: `variables.tf#32`
+  In file: `variables.tf#32`
 
 </details>
 </blockquote>
@@ -206,7 +206,7 @@ Proxmox root CA certificate and key to use
   "pve_root_key": "/etc/pve/priv/pve-root-ca.key"
 }
   ```
-  Defined in file: `variables.tf#19`
+  In file: `variables.tf#19`
 
 </details>
 </blockquote>
@@ -218,5 +218,5 @@ Proxmox root CA certificate and key to use
 #### `certificate_info`
 pve-ssl Certificate information
 
-Defined in file: `outputs.tf#1`
+In file: `outputs.tf#1`
 </blockquote>

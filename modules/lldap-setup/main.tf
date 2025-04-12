@@ -1,5 +1,5 @@
 module "setup_container" {
-  source = "../common/alpine-setup"
+  source = "../common/modules/alpine-setup"
 
   proxmox = {
     host     = var.proxmox.host
@@ -17,7 +17,7 @@ module "setup_container" {
 
 module "setup_certificate" {
   count  = var.init_certificate ? 1 : 0
-  source = "../common/domain-cert-setup"
+  source = "../common/modules/domain-cert-setup"
 
   proxmox = {
     host     = var.proxmox.host

@@ -5,32 +5,29 @@
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Modules](#modules) _(nested and adjacent)_
-  - [setup_certificate](#setup_certificate)
-  - [setup_container](#setup_container)
 - [Resources](#resources)
-  - [install_cert](#install_cert-ssh_resource) (*ssh_resource*)
-  - [install_lldap](#install_lldap-ssh_resource) (*ssh_resource*)
-  - [preconfigure_lldap](#preconfigure_lldap-ssh_resource) (*ssh_resource*)
+  - [container](#container-proxmox_virtual_environment_container) (*proxmox_virtual_environment_container*)
+  - [template](#template-proxmox_virtual_environment_download_file) (*proxmox_virtual_environment_download_file*)
+  - [root_password](#root_password-random_password) (*random_password*)
+  - [install_openssh](#install_openssh-ssh_resource) (*ssh_resource*)
+  - [install_packages](#install_packages-ssh_resource) (*ssh_resource*)
+  - [ssh_key](#ssh_key-tls_private_key) (*tls_private_key*)
 - [Variables](#variables)
+  - [gateway](#gateway-required) (**Required**)
+  - [hostname](#hostname-required) (**Required**)
+  - [ip](#ip-required) (**Required**)
+  - [mac_address](#mac_address-required) (**Required**)
   - [proxmox](#proxmox-required) (**Required**)
+  - [vm_id](#vm_id-required) (**Required**)
+  - [alpine_image](#alpine_image-optional) (*Optional*)
   - [bridge](#bridge-optional) (*Optional*)
-  - [datastore_id](#datastore_id-optional) (*Optional*)
   - [description](#description-optional) (*Optional*)
-  - [dns_names](#dns_names-optional) (*Optional*)
-  - [gateway](#gateway-optional) (*Optional*)
-  - [hostname](#hostname-optional) (*Optional*)
   - [imagestore_id](#imagestore_id-optional) (*Optional*)
-  - [init_certificate](#init_certificate-optional) (*Optional*)
-  - [init_configuration](#init_configuration-optional) (*Optional*)
-  - [ip](#ip-optional) (*Optional*)
-  - [ip_addresses](#ip_addresses-optional) (*Optional*)
-  - [mac_address](#mac_address-optional) (*Optional*)
   - [mount_points](#mount_points-optional) (*Optional*)
   - [ni_name](#ni_name-optional) (*Optional*)
-  - [subject](#subject-optional) (*Optional*)
+  - [packages](#packages-optional) (*Optional*)
+  - [subnet_mask](#subnet_mask-optional) (*Optional*)
   - [tags](#tags-optional) (*Optional*)
-  - [vm_id](#vm_id-optional) (*Optional*)
 - [Outputs](#outputs)
   - [root_password](#root_password)
   - [ssh_private_key](#ssh_private_key)</blockquote>
@@ -46,56 +43,109 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
-## Modules
-<blockquote>
-
-### `setup_certificate`
-
-
-| | |
-|:--- |:--- |
-| Module location | `../common/modules/domain-cert-setup`
-| In file | `main.tf#18`
-<td colspan="2">
-
-[`README.md`](../common/modules/domain-cert-setup/README.md) _(experimental)_
-</td>
-</blockquote>
-<blockquote>
-
-### `setup_container`
-
-
-| | |
-|:--- |:--- |
-| Module location | `../common/modules/alpine-setup`
-| In file | `main.tf#1`
-<td colspan="2">
-
-[`README.md`](../common/modules/alpine-setup/README.md) _(experimental)_
-</td>
-</blockquote>
+| <a name="provider_proxmox"></a> [proxmox](#provider\_proxmox) | >= 0.75.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | n/a |
 
 
 ## Resources
 <blockquote>
 
-#### `install_cert` (_ssh_resource_)
-In file: `main.tf#32`
+#### `container` (_proxmox_virtual_environment_container_)
+In file: `main.tf#25`
 </blockquote>
 <blockquote>
 
-#### `install_lldap` (_ssh_resource_)
-In file: `main.tf#85`
+#### `template` (_proxmox_virtual_environment_download_file_)
+In file: `main.tf#2`
 </blockquote>
 <blockquote>
 
-#### `preconfigure_lldap` (_ssh_resource_)
-In file: `main.tf#59`
+#### `root_password` (_random_password_)
+In file: `main.tf#18`
+</blockquote>
+<blockquote>
+
+#### `install_openssh` (_ssh_resource_)
+In file: `main.tf#109`
+</blockquote>
+<blockquote>
+
+#### `install_packages` (_ssh_resource_)
+In file: `main.tf#145`
+</blockquote>
+<blockquote>
+
+#### `ssh_key` (_tls_private_key_)
+In file: `main.tf#12`
 </blockquote>
 
 ## Variables
+<blockquote>
+
+### `gateway` (**Required**)
+Network interface gateway
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  In file: `variables.tf#29`
+
+</details>
+</blockquote>
+<blockquote>
+
+### `hostname` (**Required**)
+Container host name
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  In file: `variables.tf#11`
+
+</details>
+</blockquote>
+<blockquote>
+
+### `ip` (**Required**)
+Network interface IP address
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  In file: `variables.tf#23`
+
+</details>
+</blockquote>
+<blockquote>
+
+### `mac_address` (**Required**)
+Network interface MAC address
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  In file: `variables.tf#35`
+
+</details>
+</blockquote>
 <blockquote>
 
 ### `proxmox` (**Required**)
@@ -107,13 +157,10 @@ Proxmox host configuration
   **Type**:
   ```hcl
   object({
-    name          = string
-    host          = string
-    endpoint      = string
-    insecure      = bool
-    root_password = string
-    ssh_user      = string
-    ssh_key       = string
+    name     = string
+    host     = string
+    ssh_user = string
+    ssh_key  = string
   })
   ```
   In file: `variables.tf#1`
@@ -122,8 +169,52 @@ Proxmox host configuration
 </blockquote>
 <blockquote>
 
+### `vm_id` (**Required**)
+VM (Container) ID
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  number
+  ```
+  In file: `variables.tf#17`
+
+</details>
+</blockquote>
+<blockquote>
+
+### `alpine_image` (*Optional*)
+Alpine image configuration
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  object({
+    url                = string
+    checksum           = string
+    checksum_algorithm = string
+  })
+  ```
+  **Default**:
+  ```json
+  {
+  "checksum": "211ac75f4b66494e78a6e72acc206b8ac490e0d174a778ae5be2970b0a1a57a8dddea8fc5880886a3794b8bb787fe93297a1cad3aee75d07623d8443ea9062e4",
+  "checksum_algorithm": "sha512",
+  "url": "http://download.proxmox.com/images/system/alpine-3.21-default_20241217_amd64.tar.xz"
+}
+  ```
+  In file: `variables.tf#41`
+
+</details>
+</blockquote>
+<blockquote>
+
 ### `bridge` (*Optional*)
-LLDAP bridge
+Network interface bridge
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -136,27 +227,7 @@ LLDAP bridge
   ```json
   "vmbr0"
   ```
-  In file: `variables.tf#85`
-
-</details>
-</blockquote>
-<blockquote>
-
-### `datastore_id` (*Optional*)
-LLDAP datastore ID
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "/storage-pool/lxc-data"
-  ```
-  In file: `variables.tf#43`
+  In file: `variables.tf#106`
 
 </details>
 </blockquote>
@@ -174,82 +245,16 @@ Description of the container
   ```
   **Default**:
   ```json
-  "Alpine Linux based LXC container with LLDAP"
+  "Alpine Linux based LXC container"
   ```
-  In file: `variables.tf#15`
-
-</details>
-</blockquote>
-<blockquote>
-
-### `dns_names` (*Optional*)
-DNS names for the certificate
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  list(string)
-  ```
-  **Default**:
-  ```json
-  [
-  "localhost",
-  "lldap",
-  "lldap.local",
-  "lldap.my.world",
-  "lldap.fritz.box"
-]
-  ```
-  In file: `variables.tf#129`
-
-</details>
-</blockquote>
-<blockquote>
-
-### `gateway` (*Optional*)
-LLDAP gateway
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "192.168.178.1"
-  ```
-  In file: `variables.tf#71`
-
-</details>
-</blockquote>
-<blockquote>
-
-### `hostname` (*Optional*)
-LLDAP host name
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "lldap"
-  ```
-  In file: `variables.tf#29`
+  In file: `variables.tf#73`
 
 </details>
 </blockquote>
 <blockquote>
 
 ### `imagestore_id` (*Optional*)
-LLDAP imagestore ID
+DataStore ID for the Alpine template
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -262,111 +267,7 @@ LLDAP imagestore ID
   ```json
   "images-host"
   ```
-  In file: `variables.tf#36`
-
-</details>
-</blockquote>
-<blockquote>
-
-### `init_certificate` (*Optional*)
-Initialize certificate as new (also needed for renewal)
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  bool
-  ```
-  **Default**:
-  ```json
-  false
-  ```
-  In file: `variables.tf#106`
-
-</details>
-</blockquote>
-<blockquote>
-
-### `init_configuration` (*Optional*)
-Initialize a new stock configuration
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  bool
-  ```
-  **Default**:
-  ```json
-  false
-  ```
-  In file: `variables.tf#144`
-
-</details>
-</blockquote>
-<blockquote>
-
-### `ip` (*Optional*)
-LLDAP IP address
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "192.168.178.155"
-  ```
-  In file: `variables.tf#64`
-
-</details>
-</blockquote>
-<blockquote>
-
-### `ip_addresses` (*Optional*)
-IP addresses for the certificate
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  list(string)
-  ```
-  **Default**:
-  ```json
-  [
-  "127.0.0.1",
-  "::1",
-  "192.168.178.155"
-]
-  ```
-  In file: `variables.tf#136`
-
-</details>
-</blockquote>
-<blockquote>
-
-### `mac_address` (*Optional*)
-LLDAP MAC address
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "E8:31:0E:A5:D8:4C"
-  ```
-  In file: `variables.tf#78`
+  In file: `variables.tf#85`
 
 </details>
 </blockquote>
@@ -387,21 +288,16 @@ List of mount points for the container
   ```
   **Default**:
   ```json
-  [
-  {
-    "path": "/data",
-    "volume": "/storage-pool/lxc-data/lldap-data"
-  }
-]
+  []
   ```
-  In file: `variables.tf#92`
+  In file: `variables.tf#63`
 
 </details>
 </blockquote>
 <blockquote>
 
 ### `ni_name` (*Optional*)
-LLDAP network interface name
+Network interface name
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -414,33 +310,49 @@ LLDAP network interface name
   ```json
   "eth0"
   ```
-  In file: `variables.tf#57`
+  In file: `variables.tf#99`
 
 </details>
 </blockquote>
 <blockquote>
 
-### `subject` (*Optional*)
-Subject information for the certificate
+### `packages` (*Optional*)
+List of packages to install on the container
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
 
   **Type**:
   ```hcl
-  object({
-    common_name  = string
-    organization = string
-  })
+  list(string)
   ```
   **Default**:
   ```json
-  {
-  "common_name": "lldap.my.world",
-  "organization": "Home Network"
-}
+  [
+  "bash"
+]
   ```
-  In file: `variables.tf#113`
+  In file: `variables.tf#56`
+
+</details>
+</blockquote>
+<blockquote>
+
+### `subnet_mask` (*Optional*)
+Subnet mask in CIDR notation
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  number
+  ```
+  **Default**:
+  ```json
+  24
+  ```
+  In file: `variables.tf#92`
 
 </details>
 </blockquote>
@@ -463,27 +375,7 @@ Tags
   "alpine"
 ]
   ```
-  In file: `variables.tf#22`
-
-</details>
-</blockquote>
-<blockquote>
-
-### `vm_id` (*Optional*)
-LLDAP VM ID
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  number
-  ```
-  **Default**:
-  ```json
-  700
-  ```
-  In file: `variables.tf#50`
+  In file: `variables.tf#79`
 
 </details>
 </blockquote>

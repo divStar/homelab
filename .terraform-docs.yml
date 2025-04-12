@@ -58,7 +58,11 @@ content: |-
   | | |
   |:--- |:--- |
   | Module location | `{{ .Source }}`
-  | Called in file | `{{ .Position.Filename }}#{{ .Position.Line }}`
+  | In file | `{{ .Position.Filename }}#{{ .Position.Line }}`
+  <td colspan="2">
+  
+  [`README.md`]({{ .Source }}/README.md) _(experimental)_
+  </td>
   </blockquote>
     {{- end }}
   {{- end }}
@@ -71,7 +75,7 @@ content: |-
   <blockquote>
 
   #### `{{ $specs._1 }}` (_{{ $specs._0 }}_)
-  Defined in file: `{{ .Position.Filename }}#{{ .Position.Line }}`
+  In file: `{{ .Position.Filename }}#{{ .Position.Line }}`
   </blockquote>
       {{- end -}}
     {{- end }}
@@ -97,7 +101,7 @@ content: |-
     {{ .GetValue }}
     ```
     {{- end }}
-    Defined in file: `{{ .Position.Filename }}#{{ .Position.Line }}`
+    In file: `{{ .Position.Filename }}#{{ .Position.Line }}`
 
   </details>
   </blockquote>
@@ -111,7 +115,7 @@ content: |-
   #### `{{ .Name }}`
   {{ .Description.Raw }}
 
-  Defined in file: `{{ .Position.Filename }}#{{ .Position.Line }}`
+  In file: `{{ .Position.Filename }}#{{ .Position.Line }}`
   </blockquote>
     {{- end -}}
   {{- end -}} 

@@ -69,7 +69,11 @@ Awaits the Talos cluster to become ready and available. <p>This module returns o
 | | |
 |:--- |:--- |
 | Module location | `./modules/talos-await-cluster`
-| Called in file | `main.tf#80`
+| In file | `main.tf#80`
+<td colspan="2">
+
+[`README.md`](./modules/talos-await-cluster/README.md) _(experimental)_
+</td>
 </blockquote>
 <blockquote>
 
@@ -79,7 +83,11 @@ Creates the given Talos VMs, uses `for_each` on the list of nodes.
 | | |
 |:--- |:--- |
 | Module location | `./modules/talos-create-vm`
-| Called in file | `main.tf#47`
+| In file | `main.tf#47`
+<td colspan="2">
+
+[`README.md`](./modules/talos-create-vm/README.md) _(experimental)_
+</td>
 </blockquote>
 <blockquote>
 
@@ -89,7 +97,11 @@ Downloads the calculated Talos images specified in the `nodes` configurations.
 | | |
 |:--- |:--- |
 | Module location | `./modules/talos-download-image`
-| Called in file | `main.tf#16`
+| In file | `main.tf#16`
+<td colspan="2">
+
+[`README.md`](./modules/talos-download-image/README.md) _(experimental)_
+</td>
 </blockquote>
 <blockquote>
 
@@ -99,7 +111,11 @@ Exposes the [Cilium Hubble UI](https://docs.cilium.io/en/stable/observability/hu
 | | |
 |:--- |:--- |
 | Module location | `./modules/monitoring-expose-hubble-ui`
-| Called in file | `main.tf#176`
+| In file | `main.tf#176`
+<td colspan="2">
+
+[`README.md`](./modules/monitoring-expose-hubble-ui/README.md) _(experimental)_
+</td>
 </blockquote>
 <blockquote>
 
@@ -109,7 +125,11 @@ Installs [`cert-manager`](https://github.com/cert-manager/cert-manager), which m
 | | |
 |:--- |:--- |
 | Module location | `./modules/core-install-cert-manager`
-| Called in file | `main.tf#101`
+| In file | `main.tf#101`
+<td colspan="2">
+
+[`README.md`](./modules/core-install-cert-manager/README.md) _(experimental)_
+</td>
 </blockquote>
 <blockquote>
 
@@ -119,7 +139,11 @@ Installs [`external-dns`](https://github.com/kubernetes-sigs/external-dns), whic
 | | |
 |:--- |:--- |
 | Module location | `./modules/dns-install-external-dns`
-| Called in file | `main.tf#148`
+| In file | `main.tf#148`
+<td colspan="2">
+
+[`README.md`](./modules/dns-install-external-dns/README.md) _(experimental)_
+</td>
 </blockquote>
 <blockquote>
 
@@ -129,7 +153,11 @@ Installs [`longhorn`](https://longhorn.io/), which allows to manage distributed 
 | | |
 |:--- |:--- |
 | Module location | `./modules/storage-install-longhorn`
-| Called in file | `main.tf#161`
+| In file | `main.tf#161`
+<td colspan="2">
+
+[`README.md`](./modules/storage-install-longhorn/README.md) _(experimental)_
+</td>
 </blockquote>
 <blockquote>
 
@@ -139,7 +167,11 @@ Installs [`sealed-secrets`](https://github.com/bitnami-labs/sealed-secrets), whi
 | | |
 |:--- |:--- |
 | Module location | `./modules/core-install-sealed-secrets`
-| Called in file | `main.tf#115`
+| In file | `main.tf#115`
+<td colspan="2">
+
+[`README.md`](./modules/core-install-sealed-secrets/README.md) _(experimental)_
+</td>
 </blockquote>
 <blockquote>
 
@@ -149,7 +181,11 @@ Prepares the cluster creation by generating the **Talos machine secrets** and cr
 | | |
 |:--- |:--- |
 | Module location | `./modules/talos-prepare-cluster`
-| Called in file | `main.tf#31`
+| In file | `main.tf#31`
+<td colspan="2">
+
+[`README.md`](./modules/talos-prepare-cluster/README.md) _(experimental)_
+</td>
 </blockquote>
 <blockquote>
 
@@ -159,7 +195,11 @@ Issues an **intermediate Kubernetes __CA__ certificate** using [`cert-manager`](
 | | |
 |:--- |:--- |
 | Module location | `./modules/core-setup-k8s-ca`
-| Called in file | `main.tf#130`
+| In file | `main.tf#130`
+<td colspan="2">
+
+[`README.md`](./modules/core-setup-k8s-ca/README.md) _(experimental)_
+</td>
 </blockquote>
 
 
@@ -167,22 +207,22 @@ Issues an **intermediate Kubernetes __CA__ certificate** using [`cert-manager`](
 <blockquote>
 
 #### `k8s_sealed_secret` (_local_file_)
-Defined in file: `outputs.tf#20`
+In file: `outputs.tf#20`
 </blockquote>
 <blockquote>
 
 #### `kube_config` (_local_file_)
-Defined in file: `outputs.tf#14`
+In file: `outputs.tf#14`
 </blockquote>
 <blockquote>
 
 #### `machine_configs` (_local_file_)
-Defined in file: `outputs.tf#7`
+In file: `outputs.tf#7`
 </blockquote>
 <blockquote>
 
 #### `talos_config` (_local_file_)
-Defined in file: `outputs.tf#1`
+In file: `outputs.tf#1`
 </blockquote>
 
 ## Variables
@@ -205,7 +245,7 @@ Cluster configuration
     talos_factory_url = optional(string, "https://factory.talos.dev/")
   })
   ```
-  Defined in file: `variables.tf#15`
+  In file: `variables.tf#15`
 
 </details>
 </blockquote>
@@ -238,7 +278,7 @@ Configuration for cluster nodes
     datastore_id  = optional(string)
   }))
   ```
-  Defined in file: `variables.tf#103`
+  In file: `variables.tf#103`
 
 </details>
 </blockquote>
@@ -263,7 +303,7 @@ Proxmox host configuration
     ssh_key   = string
   })
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -283,7 +323,7 @@ Namespace where the cert-manager will be installed to
   ```json
   "cert-manager"
   ```
-  Defined in file: `variables.tf#175`
+  In file: `variables.tf#175`
 
 </details>
 </blockquote>
@@ -303,7 +343,7 @@ Version of the cert-manager Helm Chart to install
   ```json
   "1.17.1"
   ```
-  Defined in file: `variables.tf#168`
+  In file: `variables.tf#168`
 
 </details>
 </blockquote>
@@ -323,7 +363,7 @@ Cilium version
   ```json
   "1.17.1"
   ```
-  Defined in file: `variables.tf#154`
+  In file: `variables.tf#154`
 
 </details>
 </blockquote>
@@ -343,7 +383,7 @@ Version of the external-dns Helm Chart to install
   ```json
   "8.7.5"
   ```
-  Defined in file: `variables.tf#182`
+  In file: `variables.tf#182`
 
 </details>
 </blockquote>
@@ -391,7 +431,7 @@ Intermediate Kubernetes CA used as ClusterIssuer
   "validity_period_hours": 78840
 }
   ```
-  Defined in file: `variables.tf#40`
+  In file: `variables.tf#40`
 
 </details>
 </blockquote>
@@ -411,7 +451,7 @@ File name and path for the generated sealed secret of the intermediate Kubernete
   ```json
   "output/k8s_sealed_secret_ca.yaml"
   ```
-  Defined in file: `variables.tf#96`
+  In file: `variables.tf#96`
 
 </details>
 </blockquote>
@@ -431,7 +471,7 @@ File name and path for the generated kube-config
   ```json
   "output/kube-config.yaml"
   ```
-  Defined in file: `variables.tf#75`
+  In file: `variables.tf#75`
 
 </details>
 </blockquote>
@@ -451,7 +491,7 @@ Version of the Longhorn Helm Chart to install
   ```json
   "1.8.0"
   ```
-  Defined in file: `variables.tf#161`
+  In file: `variables.tf#161`
 
 </details>
 </blockquote>
@@ -477,7 +517,7 @@ Proxmox root CA certificate and key to use for the intermediate k8s certificate
   "pve_root_key": "/etc/pve/priv/pve-root-ca.key"
 }
   ```
-  Defined in file: `variables.tf#27`
+  In file: `variables.tf#27`
 
 </details>
 </blockquote>
@@ -497,7 +537,7 @@ Name of the sealed-secrets controller
   ```json
   "sealed-secrets-release"
   ```
-  Defined in file: `variables.tf#203`
+  In file: `variables.tf#203`
 
 </details>
 </blockquote>
@@ -517,7 +557,7 @@ Namespace where the sealed-secrets operator will be installed to
   ```json
   "sealed-secrets"
   ```
-  Defined in file: `variables.tf#196`
+  In file: `variables.tf#196`
 
 </details>
 </blockquote>
@@ -537,7 +577,7 @@ Version of the sealed-secrets Helm Chart to install
   ```json
   "2.17.1"
   ```
-  Defined in file: `variables.tf#189`
+  In file: `variables.tf#189`
 
 </details>
 </blockquote>
@@ -557,7 +597,7 @@ File name and path for the generated talos-config
   ```json
   "output/talos-config.yaml"
   ```
-  Defined in file: `variables.tf#82`
+  In file: `variables.tf#82`
 
 </details>
 </blockquote>
@@ -577,7 +617,7 @@ File name and path for the generated talos-machine-config; use <node-name> in th
   ```json
   "output/talos-machine-config-<node-name>.yaml"
   ```
-  Defined in file: `variables.tf#89`
+  In file: `variables.tf#89`
 
 </details>
 </blockquote>
@@ -589,12 +629,12 @@ File name and path for the generated talos-machine-config; use <node-name> in th
 #### `kube_config`
 String containing the `kube-config.yaml`
 
-Defined in file: `outputs.tf#32`
+In file: `outputs.tf#32`
 </blockquote>
 <blockquote>
 
 #### `talos_config`
 String containing the `talos-config.yaml`
 
-Defined in file: `outputs.tf#26`
+In file: `outputs.tf#26`
 </blockquote>

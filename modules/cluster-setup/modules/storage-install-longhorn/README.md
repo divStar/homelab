@@ -39,12 +39,12 @@ Handles the setup of `longhorn` (storage solution for PV/PVCs).
 <blockquote>
 
 #### `longhorn` (_helm_release_)
-Defined in file: `main.tf#15`
+In file: `main.tf#15`
 </blockquote>
 <blockquote>
 
 #### `longhorn_namespace` (_kubectl_manifest_)
-Defined in file: `main.tf#7`
+In file: `main.tf#7`
 </blockquote>
 
 ## Variables
@@ -60,7 +60,7 @@ CA certificate issuer (for Certificate resource managed by cert-manager)
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#11`
+  In file: `variables.tf#11`
 
 </details>
 </blockquote>
@@ -76,7 +76,7 @@ Helm Chart version to install
   ```hcl
   string
   ```
-  Defined in file: `variables.tf#1`
+  In file: `variables.tf#1`
 
 </details>
 </blockquote>
@@ -92,7 +92,7 @@ Amount of nodes (usually worker nodes only); will be used for Longhorn replicaCo
   ```hcl
   number
   ```
-  Defined in file: `variables.tf#6`
+  In file: `variables.tf#6`
 
 </details>
 </blockquote>
@@ -112,7 +112,7 @@ Name of the Helm release
   ```json
   "longhorn-release"
   ```
-  Defined in file: `variables.tf#16`
+  In file: `variables.tf#16`
 
 </details>
 </blockquote>
@@ -132,7 +132,7 @@ Kubernetes namespace to install into
   ```json
   "longhorn-system"
   ```
-  Defined in file: `variables.tf#23`
+  In file: `variables.tf#23`
 
 </details>
 </blockquote>
@@ -152,7 +152,7 @@ Host to expose the longhorn UI on, e.g. longhorn.my.domain
   ```json
   "longhorn.my.world"
   ```
-  Defined in file: `variables.tf#44`
+  In file: `variables.tf#44`
 
 </details>
 </blockquote>
@@ -172,7 +172,7 @@ Time in seconds to wait for the Helm Chart to be installed
   ```json
   120
   ```
-  Defined in file: `variables.tf#30`
+  In file: `variables.tf#30`
 
 </details>
 </blockquote>
@@ -192,7 +192,7 @@ Additional values to pass to the helm chart (in YAML format)
   ```json
   ""
   ```
-  Defined in file: `variables.tf#37`
+  In file: `variables.tf#37`
 
 </details>
 </blockquote>

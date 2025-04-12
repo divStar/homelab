@@ -1,4 +1,7 @@
+# Domain certificate setup
 
+This module generates a domain certificate using the provided information.<br>
+Note: it does _not_ output any files.
 ## Contents
 
 <blockquote>
@@ -44,27 +47,27 @@
 <blockquote>
 
 #### `proxmox_ca_cert` (_ssh_resource_)
-In file: `main.tf#2`
+In file: `main.tf#9`
 </blockquote>
 <blockquote>
 
 #### `proxmox_ca_key` (_ssh_resource_)
-In file: `main.tf#15`
+In file: `main.tf#22`
 </blockquote>
 <blockquote>
 
 #### `cert_request` (_tls_cert_request_)
-In file: `main.tf#34`
+In file: `main.tf#41`
 </blockquote>
 <blockquote>
 
 #### `cert` (_tls_locally_signed_cert_)
-In file: `main.tf#47`
+In file: `main.tf#54`
 </blockquote>
 <blockquote>
 
 #### `key` (_tls_private_key_)
-In file: `main.tf#28`
+In file: `main.tf#35`
 </blockquote>
 
 ## Variables

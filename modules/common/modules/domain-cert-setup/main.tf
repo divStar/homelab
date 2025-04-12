@@ -1,3 +1,10 @@
+/**
+ * # Domain certificate setup
+ *
+ * This module generates a domain certificate using the provided information.<br>
+ * Note: it does _not_ output any files. 
+ */
+
 # Fetch Proxmox CA public certificate
 resource "ssh_resource" "proxmox_ca_cert" {
   host        = var.proxmox.host

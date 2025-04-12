@@ -1,7 +1,14 @@
+/**
+ * # PiHole Setup
+ *
+ * This module sets up PiHole in an Alpine LXC container using the provided information.
+ */
+
 locals {
   admin_password = var.admin_password != null ? var.admin_password : random_password.admin_password.result
 }
 
+# Alpine LXC container setup
 module "setup_container" {
   source = "../common/modules/alpine-setup"
 
@@ -20,6 +27,7 @@ module "setup_container" {
   packages     = var.packages
 }
 
+# Domain certificate setup
 module "setup_certificate" {
   count  = var.init_certificate ? 1 : 0
   source = "../common/modules/domain-cert-setup"
@@ -41,8 +49,8 @@ resource "random_password" "admin_password" {
   override_special = "_%@"
 }
 
-# Pre-configure PiHole
-resource "ssh_resource" "preconfigure_pihole" {
+# Configure PiHole
+resource "ssh_resource" "configure" {
   depends_on = [module.setup_container]
   count      = var.init_configuration ? 1 : 0
 
@@ -62,8 +70,8 @@ resource "ssh_resource" "preconfigure_pihole" {
 }
 
 # Install PiHole
-resource "ssh_resource" "install_pihole" {
-  depends_on = [module.setup_container,ssh_resource.preconfigure_pihole]
+resource "ssh_resource" "install" {
+  depends_on = [module.setup_container,ssh_resource.configure]
 
   when = "create"
 
@@ -107,7 +115,7 @@ resource "ssh_resource" "install_pihole" {
 
 # Install certificate
 resource "ssh_resource" "install_cert" {
-  depends_on = [ssh_resource.install_pihole]
+  depends_on = [ssh_resource.install]
   count      = var.init_certificate ? 1 : 0
 
   when = "create"

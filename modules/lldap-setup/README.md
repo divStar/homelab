@@ -1,4 +1,6 @@
+# LLDAP Setup
 
+This module sets up LLDAP in an Alpine LXC container using the provided information.
 ## Contents
 
 <blockquote>
@@ -9,9 +11,9 @@
   - [setup_certificate](#setup_certificate)
   - [setup_container](#setup_container)
 - [Resources](#resources)
+  - [configure](#configure-ssh_resource) (*ssh_resource*)
+  - [install](#install-ssh_resource) (*ssh_resource*)
   - [install_cert](#install_cert-ssh_resource) (*ssh_resource*)
-  - [install_lldap](#install_lldap-ssh_resource) (*ssh_resource*)
-  - [preconfigure_lldap](#preconfigure_lldap-ssh_resource) (*ssh_resource*)
 - [Variables](#variables)
   - [proxmox](#proxmox-required) (**Required**)
   - [bridge](#bridge-optional) (*Optional*)
@@ -51,12 +53,12 @@
 <blockquote>
 
 ### `setup_certificate`
-
+Domain certificate setup
 
 | | |
 |:--- |:--- |
 | Module location | `../common/modules/domain-cert-setup`
-| In file | `main.tf#18`
+| In file | `main.tf#26`
 <td colspan="2">
 
 [`README.md`](../common/modules/domain-cert-setup/README.md) _(experimental)_
@@ -65,12 +67,12 @@
 <blockquote>
 
 ### `setup_container`
-
+Alpine LXC container setup
 
 | | |
 |:--- |:--- |
 | Module location | `../common/modules/alpine-setup`
-| In file | `main.tf#1`
+| In file | `main.tf#8`
 <td colspan="2">
 
 [`README.md`](../common/modules/alpine-setup/README.md) _(experimental)_
@@ -81,18 +83,18 @@
 ## Resources
 <blockquote>
 
+#### `configure` (_ssh_resource_)
+In file: `main.tf#68`
+</blockquote>
+<blockquote>
+
+#### `install` (_ssh_resource_)
+In file: `main.tf#94`
+</blockquote>
+<blockquote>
+
 #### `install_cert` (_ssh_resource_)
-In file: `main.tf#32`
-</blockquote>
-<blockquote>
-
-#### `install_lldap` (_ssh_resource_)
-In file: `main.tf#85`
-</blockquote>
-<blockquote>
-
-#### `preconfigure_lldap` (_ssh_resource_)
-In file: `main.tf#59`
+In file: `main.tf#41`
 </blockquote>
 
 ## Variables

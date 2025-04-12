@@ -1,3 +1,10 @@
+/**
+ * # LLDAP Setup
+ *
+ * This module sets up LLDAP in an Alpine LXC container using the provided information.
+ */
+
+# Alpine LXC container setup
 module "setup_container" {
   source = "../common/modules/alpine-setup"
 
@@ -15,6 +22,7 @@ module "setup_container" {
   mount_points = var.mount_points
 }
 
+# Domain certificate setup
 module "setup_certificate" {
   count  = var.init_certificate ? 1 : 0
   source = "../common/modules/domain-cert-setup"
@@ -29,6 +37,7 @@ module "setup_certificate" {
   dns_names    = var.dns_names
 }
 
+# Install the generated certificate
 resource "ssh_resource" "install_cert" {
   depends_on = [module.setup_container, module.setup_certificate]
   count      = var.init_certificate ? 1 : 0
@@ -55,8 +64,8 @@ resource "ssh_resource" "install_cert" {
   }
 }
 
-# Pre-configure LLDAP
-resource "ssh_resource" "preconfigure_lldap" {
+# Configure LLDAP
+resource "ssh_resource" "configure" {
   depends_on = [module.setup_container]
   count      = var.init_configuration ? 1 : 0
 
@@ -82,7 +91,7 @@ resource "ssh_resource" "preconfigure_lldap" {
 }
 
 # Install LLDAP
-resource "ssh_resource" "install_lldap" {
+resource "ssh_resource" "install" {
   depends_on = [ssh_resource.install_cert]
 
   when = "create"

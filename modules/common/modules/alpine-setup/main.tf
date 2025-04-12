@@ -1,3 +1,11 @@
+/**
+ * # Alpine LXC container setup
+ *
+ * This module creates an Alpine LXC container on the Proxmox host,
+ * generates a `root_password` and a `ssh_key`, installs `openssh` as well as
+ * other Alpine packages (if specified; `bash` is installed by default).
+ */
+
 # Downloads the `alpine` image.
 resource "proxmox_virtual_environment_download_file" "template" {
   content_type       = "vztmpl"

@@ -1,4 +1,6 @@
+# PiHole Setup
 
+This module sets up PiHole in an Alpine LXC container using the provided information.
 ## Contents
 
 <blockquote>
@@ -10,9 +12,9 @@
   - [setup_container](#setup_container)
 - [Resources](#resources)
   - [admin_password](#admin_password-random_password) (*random_password*)
+  - [configure](#configure-ssh_resource) (*ssh_resource*)
+  - [install](#install-ssh_resource) (*ssh_resource*)
   - [install_cert](#install_cert-ssh_resource) (*ssh_resource*)
-  - [install_pihole](#install_pihole-ssh_resource) (*ssh_resource*)
-  - [preconfigure_pihole](#preconfigure_pihole-ssh_resource) (*ssh_resource*)
 - [Variables](#variables)
   - [proxmox](#proxmox-required) (**Required**)
   - [admin_password](#admin_password-optional) (*Optional*)
@@ -57,12 +59,12 @@
 <blockquote>
 
 ### `setup_certificate`
-
+Domain certificate setup
 
 | | |
 |:--- |:--- |
 | Module location | `../common/modules/domain-cert-setup`
-| In file | `main.tf#23`
+| In file | `main.tf#31`
 <td colspan="2">
 
 [`README.md`](../common/modules/domain-cert-setup/README.md) _(experimental)_
@@ -71,12 +73,12 @@
 <blockquote>
 
 ### `setup_container`
-
+Alpine LXC container setup
 
 | | |
 |:--- |:--- |
 | Module location | `../common/modules/alpine-setup`
-| In file | `main.tf#5`
+| In file | `main.tf#12`
 <td colspan="2">
 
 [`README.md`](../common/modules/alpine-setup/README.md) _(experimental)_
@@ -88,22 +90,22 @@
 <blockquote>
 
 #### `admin_password` (_random_password_)
-In file: `main.tf#38`
+In file: `main.tf#46`
+</blockquote>
+<blockquote>
+
+#### `configure` (_ssh_resource_)
+In file: `main.tf#53`
+</blockquote>
+<blockquote>
+
+#### `install` (_ssh_resource_)
+In file: `main.tf#73`
 </blockquote>
 <blockquote>
 
 #### `install_cert` (_ssh_resource_)
-In file: `main.tf#109`
-</blockquote>
-<blockquote>
-
-#### `install_pihole` (_ssh_resource_)
-In file: `main.tf#65`
-</blockquote>
-<blockquote>
-
-#### `preconfigure_pihole` (_ssh_resource_)
-In file: `main.tf#45`
+In file: `main.tf#117`
 </blockquote>
 
 ## Variables

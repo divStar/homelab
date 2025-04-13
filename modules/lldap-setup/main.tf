@@ -24,6 +24,7 @@ module "setup_container" {
   ni_subnet_mask = var.ni_subnet_mask
   ni_name        = var.ni_name
   ni_bridge      = var.ni_bridge
+  startup_order  = var.startup_order
 }
 
 # Domain certificate setup
@@ -48,7 +49,7 @@ resource "ssh_resource" "install_cert" {
 
   when = "create"
 
-  host        = var.ip
+  host        = var.ni_ip
   user        = "root"
   private_key = module.setup_container.ssh_private_key
 
@@ -75,7 +76,7 @@ resource "ssh_resource" "configure" {
 
   when = "create"
 
-  host        = var.ip
+  host        = var.ni_ip
   user        = "root"
   private_key = module.setup_container.ssh_private_key
 
@@ -100,7 +101,7 @@ resource "ssh_resource" "install" {
 
   when = "create"
 
-  host        = var.ip
+  host        = var.ni_ip
   user        = "root"
   private_key = module.setup_container.ssh_private_key
 

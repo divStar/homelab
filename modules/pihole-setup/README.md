@@ -33,6 +33,7 @@ This module sets up PiHole in an Alpine LXC container using the provided informa
   - [ni_name](#ni_name-optional) (*Optional*)
   - [ni_subnet_mask](#ni_subnet_mask-optional) (*Optional*)
   - [packages](#packages-optional) (*Optional*)
+  - [startup_order](#startup_order-optional) (*Optional*)
   - [subject](#subject-optional) (*Optional*)
   - [tags](#tags-optional) (*Optional*)
   - [vm_id](#vm_id-optional) (*Optional*)
@@ -67,7 +68,7 @@ Domain certificate setup
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L35"><code>main.tf#L35</code></a></td>
+      <td><a href="./main.tf#L36"><code>main.tf#L36</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/domain-cert-setup/README.md">README.md</a> <em>(experimental)</em></td>
@@ -106,7 +107,7 @@ Create a random password for the PiHole admin web UI
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L50"><code>main.tf#L50</code></a></td>
+      <td><a href="./main.tf#L51"><code>main.tf#L51</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -121,7 +122,7 @@ Configure PiHole
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L57"><code>main.tf#L57</code></a></td>
+      <td><a href="./main.tf#L58"><code>main.tf#L58</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -136,7 +137,7 @@ Install PiHole
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L77"><code>main.tf#L77</code></a></td>
+      <td><a href="./main.tf#L78"><code>main.tf#L78</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -151,7 +152,7 @@ Install certificate
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L121"><code>main.tf#L121</code></a></td>
+      <td><a href="./main.tf#L122"><code>main.tf#L122</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -197,7 +198,7 @@ PiHole Administrator password
   ```json
   null
   ```
-  In file: <a href="./variables.tf#L184"><code>variables.tf#L184</code></a>
+  In file: <a href="./variables.tf#L191"><code>variables.tf#L191</code></a>
 
 </details>
 </blockquote>
@@ -244,7 +245,7 @@ DNS names for the certificate
   "pihole.fritz.box"
 ]
   ```
-  In file: <a href="./variables.tf#L162"><code>variables.tf#L162</code></a>
+  In file: <a href="./variables.tf#L169"><code>variables.tf#L169</code></a>
 
 </details>
 </blockquote>
@@ -304,7 +305,7 @@ Initialize certificate as new (also needed for renewal)
   ```json
   false
   ```
-  In file: <a href="./variables.tf#L142"><code>variables.tf#L142</code></a>
+  In file: <a href="./variables.tf#L149"><code>variables.tf#L149</code></a>
 
 </details>
 </blockquote>
@@ -324,7 +325,7 @@ Initialize a new stock configuration
   ```json
   false
   ```
-  In file: <a href="./variables.tf#L177"><code>variables.tf#L177</code></a>
+  In file: <a href="./variables.tf#L184"><code>variables.tf#L184</code></a>
 
 </details>
 </blockquote>
@@ -348,7 +349,7 @@ IP addresses for the certificate
   "192.168.178.150"
 ]
   ```
-  In file: <a href="./variables.tf#L169"><code>variables.tf#L169</code></a>
+  In file: <a href="./variables.tf#L176"><code>variables.tf#L176</code></a>
 
 </details>
 </blockquote>
@@ -400,7 +401,7 @@ Network interface bridge
   ```json
   "vmbr0"
   ```
-  In file: <a href="./variables.tf#L134"><code>variables.tf#L134</code></a>
+  In file: <a href="./variables.tf#L141"><code>variables.tf#L141</code></a>
 
 </details>
 </blockquote>
@@ -420,7 +421,7 @@ Network interface gateway
   ```json
   "192.168.178.1"
   ```
-  In file: <a href="./variables.tf#L106"><code>variables.tf#L106</code></a>
+  In file: <a href="./variables.tf#L113"><code>variables.tf#L113</code></a>
 
 </details>
 </blockquote>
@@ -440,7 +441,7 @@ Network interface IP address
   ```json
   "192.168.178.150"
   ```
-  In file: <a href="./variables.tf#L99"><code>variables.tf#L99</code></a>
+  In file: <a href="./variables.tf#L106"><code>variables.tf#L106</code></a>
 
 </details>
 </blockquote>
@@ -460,7 +461,7 @@ Network interface MAC address
   ```json
   "3C:77:71:89:24:58"
   ```
-  In file: <a href="./variables.tf#L113"><code>variables.tf#L113</code></a>
+  In file: <a href="./variables.tf#L120"><code>variables.tf#L120</code></a>
 
 </details>
 </blockquote>
@@ -480,7 +481,7 @@ Network interface name
   ```json
   "eth0"
   ```
-  In file: <a href="./variables.tf#L127"><code>variables.tf#L127</code></a>
+  In file: <a href="./variables.tf#L134"><code>variables.tf#L134</code></a>
 
 </details>
 </blockquote>
@@ -500,7 +501,7 @@ Network interface subnet mask in CIDR notation
   ```json
   24
   ```
-  In file: <a href="./variables.tf#L120"><code>variables.tf#L120</code></a>
+  In file: <a href="./variables.tf#L127"><code>variables.tf#L127</code></a>
 
 </details>
 </blockquote>
@@ -549,6 +550,26 @@ List of packages to install on the container
 </blockquote>
 <blockquote>
 
+### `startup_order` (*Optional*)
+Container startup order; shutdowns happen in reverse order
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  number
+  ```
+  **Default**:
+  ```json
+  1
+  ```
+  In file: <a href="./variables.tf#L98"><code>variables.tf#L98</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
 ### `subject` (*Optional*)
 Subject information for the certificate
 
@@ -569,7 +590,7 @@ Subject information for the certificate
   "organization": "Home Network"
 }
   ```
-  In file: <a href="./variables.tf#L149"><code>variables.tf#L149</code></a>
+  In file: <a href="./variables.tf#L156"><code>variables.tf#L156</code></a>
 
 </details>
 </blockquote>
@@ -610,7 +631,7 @@ PiHole VM ID
   ```
   **Default**:
   ```json
-  701
+  700
   ```
   In file: <a href="./variables.tf#L15"><code>variables.tf#L15</code></a>
 

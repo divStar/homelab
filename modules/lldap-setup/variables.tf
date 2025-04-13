@@ -15,7 +15,7 @@ variable "proxmox" {
 variable "vm_id" {
   description = "LLDAP VM ID"
   type        = number
-  default     = 700
+  default     = 701
   nullable    = false
 }
 
@@ -57,6 +57,13 @@ variable "imagestore_id" {
   description = "LLDAP imagestore ID"
   type        = string
   default     = "images-host"
+  nullable    = false
+}
+
+variable "startup_order" {
+  description = "Container startup order; shutdowns happen in reverse order"
+  type        = number
+  default     = 1
   nullable    = false
 }
 

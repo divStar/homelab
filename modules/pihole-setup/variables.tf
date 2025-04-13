@@ -15,7 +15,7 @@ variable "proxmox" {
 variable "vm_id" {
   description = "PiHole VM ID"
   type        = number
-  default     = 701
+  default     = 700
   nullable    = false
 }
 
@@ -92,6 +92,13 @@ variable "imagestore_id" {
   description = "PiHole imagestore ID"
   type        = string
   default     = "images-host"
+  nullable    = false
+}
+
+variable "startup_order" {
+  description = "Container startup order; shutdowns happen in reverse order"
+  type        = number
+  default     = 1
   nullable    = false
 }
 

@@ -22,5 +22,5 @@ output "admin_password" {
 # PiHole admin web UI URL
 output "admin_url" {
   description = "PiHole admin web UI URL"
-  value       = "http://${var.ip}/admin"
+  value       = "http://${var.ni_ip}/admin"
 }

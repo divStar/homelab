@@ -17,20 +17,27 @@ other Alpine packages (if specified; `bash` is installed by default).
   - [install_packages](#install_packages-ssh_resource) (*ssh_resource*)
   - [ssh_key](#ssh_key-tls_private_key) (*tls_private_key*)
 - [Variables](#variables)
-  - [gateway](#gateway-required) (**Required**)
   - [hostname](#hostname-required) (**Required**)
-  - [ip](#ip-required) (**Required**)
-  - [mac_address](#mac_address-required) (**Required**)
+  - [ni_gateway](#ni_gateway-required) (**Required**)
+  - [ni_ip](#ni_ip-required) (**Required**)
+  - [ni_mac_address](#ni_mac_address-required) (**Required**)
   - [proxmox](#proxmox-required) (**Required**)
   - [vm_id](#vm_id-required) (**Required**)
   - [alpine_image](#alpine_image-optional) (*Optional*)
-  - [bridge](#bridge-optional) (*Optional*)
+  - [cpu_cores](#cpu_cores-optional) (*Optional*)
+  - [cpu_units](#cpu_units-optional) (*Optional*)
   - [description](#description-optional) (*Optional*)
+  - [disk_size](#disk_size-optional) (*Optional*)
   - [imagestore_id](#imagestore_id-optional) (*Optional*)
+  - [memory_dedicated](#memory_dedicated-optional) (*Optional*)
   - [mount_points](#mount_points-optional) (*Optional*)
+  - [ni_bridge](#ni_bridge-optional) (*Optional*)
   - [ni_name](#ni_name-optional) (*Optional*)
+  - [ni_subnet_mask](#ni_subnet_mask-optional) (*Optional*)
   - [packages](#packages-optional) (*Optional*)
-  - [subnet_mask](#subnet_mask-optional) (*Optional*)
+  - [startup_down_delay](#startup_down_delay-optional) (*Optional*)
+  - [startup_order](#startup_order-optional) (*Optional*)
+  - [startup_up_delay](#startup_up_delay-optional) (*Optional*)
   - [tags](#tags-optional) (*Optional*)
 - [Outputs](#outputs)
   - [root_password](#root_password)
@@ -47,10 +54,10 @@ other Alpine packages (if specified; `bash` is installed by default).
 
 | Name | Version |
 |------|---------|
-| <a name="provider_proxmox"></a> [proxmox](#provider\_proxmox) | >= 0.75.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | n/a |
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
-| <a name="provider_tls"></a> [tls](#provider\_tls) | n/a |
+| <a name="provider_proxmox"></a> [proxmox](#provider\_proxmox) | 0.75.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.7.1 |
+| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.6 |
 
 
 ## Resources
@@ -148,22 +155,6 @@ Generate SSH key for the container
 ## Variables
 <blockquote>
 
-### `gateway` (**Required**)
-Network interface gateway
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
 ### `hostname` (**Required**)
 Container host name
 
@@ -174,13 +165,29 @@ Container host name
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L11"><code>variables.tf#L11</code></a>
+  In file: <a href="./variables.tf#L18"><code>variables.tf#L18</code></a>
 
 </details>
 </blockquote>
 <blockquote>
 
-### `ip` (**Required**)
+### `ni_gateway` (**Required**)
+Network interface gateway
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  In file: <a href="./variables.tf#L132"><code>variables.tf#L132</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `ni_ip` (**Required**)
 Network interface IP address
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -190,13 +197,13 @@ Network interface IP address
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L23"><code>variables.tf#L23</code></a>
+  In file: <a href="./variables.tf#L126"><code>variables.tf#L126</code></a>
 
 </details>
 </blockquote>
 <blockquote>
 
-### `mac_address` (**Required**)
+### `ni_mac_address` (**Required**)
 Network interface MAC address
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -206,7 +213,7 @@ Network interface MAC address
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L35"><code>variables.tf#L35</code></a>
+  In file: <a href="./variables.tf#L138"><code>variables.tf#L138</code></a>
 
 </details>
 </blockquote>
@@ -227,14 +234,14 @@ Proxmox host configuration
     ssh_key  = string
   })
   ```
-  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
+  In file: <a href="./variables.tf#L2"><code>variables.tf#L2</code></a>
 
 </details>
 </blockquote>
 <blockquote>
 
 ### `vm_id` (**Required**)
-VM (Container) ID
+Container (VM)ID
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -243,7 +250,7 @@ VM (Container) ID
   ```hcl
   number
   ```
-  In file: <a href="./variables.tf#L17"><code>variables.tf#L17</code></a>
+  In file: <a href="./variables.tf#L12"><code>variables.tf#L12</code></a>
 
 </details>
 </blockquote>
@@ -271,27 +278,47 @@ Alpine image configuration
   "url": "http://download.proxmox.com/images/system/alpine-3.21-default_20241217_amd64.tar.xz"
 }
   ```
-  In file: <a href="./variables.tf#L41"><code>variables.tf#L41</code></a>
+  In file: <a href="./variables.tf#L36"><code>variables.tf#L36</code></a>
 
 </details>
 </blockquote>
 <blockquote>
 
-### `bridge` (*Optional*)
-Network interface bridge
+### `cpu_cores` (*Optional*)
+Amount of CPU (v)cores; SMT/HT cores count as cores.
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
 
   **Type**:
   ```hcl
-  string
+  number
   ```
   **Default**:
   ```json
-  "vmbr0"
+  1
   ```
-  In file: <a href="./variables.tf#L106"><code>variables.tf#L106</code></a>
+  In file: <a href="./variables.tf#L69"><code>variables.tf#L69</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `cpu_units` (*Optional*)
+CPU scheduler priority relative to other containers; higher values mean more CPU time when under contention.
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  number
+  ```
+  **Default**:
+  ```json
+  100
+  ```
+  In file: <a href="./variables.tf#L76"><code>variables.tf#L76</code></a>
 
 </details>
 </blockquote>
@@ -311,7 +338,27 @@ Description of the container
   ```json
   "Alpine Linux based LXC container"
   ```
-  In file: <a href="./variables.tf#L73"><code>variables.tf#L73</code></a>
+  In file: <a href="./variables.tf#L24"><code>variables.tf#L24</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `disk_size` (*Optional*)
+Size of the main container disk (in gigabytes)
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  number
+  ```
+  **Default**:
+  ```json
+  1
+  ```
+  In file: <a href="./variables.tf#L97"><code>variables.tf#L97</code></a>
 
 </details>
 </blockquote>
@@ -331,7 +378,27 @@ DataStore ID for the Alpine template
   ```json
   "images-host"
   ```
-  In file: <a href="./variables.tf#L85"><code>variables.tf#L85</code></a>
+  In file: <a href="./variables.tf#L90"><code>variables.tf#L90</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `memory_dedicated` (*Optional*)
+RAM (in megabytes) dedicated to this container.
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  number
+  ```
+  **Default**:
+  ```json
+  1024
+  ```
+  In file: <a href="./variables.tf#L83"><code>variables.tf#L83</code></a>
 
 </details>
 </blockquote>
@@ -354,7 +421,27 @@ List of mount points for the container
   ```json
   []
   ```
-  In file: <a href="./variables.tf#L63"><code>variables.tf#L63</code></a>
+  In file: <a href="./variables.tf#L58"><code>variables.tf#L58</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `ni_bridge` (*Optional*)
+Network interface bridge
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  **Default**:
+  ```json
+  "vmbr0"
+  ```
+  In file: <a href="./variables.tf#L158"><code>variables.tf#L158</code></a>
 
 </details>
 </blockquote>
@@ -374,7 +461,27 @@ Network interface name
   ```json
   "eth0"
   ```
-  In file: <a href="./variables.tf#L99"><code>variables.tf#L99</code></a>
+  In file: <a href="./variables.tf#L151"><code>variables.tf#L151</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `ni_subnet_mask` (*Optional*)
+Network interface subnet mask in CIDR notation
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  number
+  ```
+  **Default**:
+  ```json
+  24
+  ```
+  In file: <a href="./variables.tf#L144"><code>variables.tf#L144</code></a>
 
 </details>
 </blockquote>
@@ -396,14 +503,14 @@ List of packages to install on the container
   "bash"
 ]
   ```
-  In file: <a href="./variables.tf#L56"><code>variables.tf#L56</code></a>
+  In file: <a href="./variables.tf#L51"><code>variables.tf#L51</code></a>
 
 </details>
 </blockquote>
 <blockquote>
 
-### `subnet_mask` (*Optional*)
-Subnet mask in CIDR notation
+### `startup_down_delay` (*Optional*)
+Delay (in seconds) before next container is shutdown
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -414,9 +521,49 @@ Subnet mask in CIDR notation
   ```
   **Default**:
   ```json
-  24
+  20
   ```
-  In file: <a href="./variables.tf#L92"><code>variables.tf#L92</code></a>
+  In file: <a href="./variables.tf#L118"><code>variables.tf#L118</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `startup_order` (*Optional*)
+Container startup order; shutdowns happen in reverse order
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  number
+  ```
+  **Default**:
+  ```json
+  1
+  ```
+  In file: <a href="./variables.tf#L104"><code>variables.tf#L104</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `startup_up_delay` (*Optional*)
+Delay (in seconds) before next container is started
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  number
+  ```
+  **Default**:
+  ```json
+  20
+  ```
+  In file: <a href="./variables.tf#L111"><code>variables.tf#L111</code></a>
 
 </details>
 </blockquote>
@@ -439,7 +586,7 @@ Tags
   "alpine"
 ]
   ```
-  In file: <a href="./variables.tf#L79"><code>variables.tf#L79</code></a>
+  In file: <a href="./variables.tf#L30"><code>variables.tf#L30</code></a>
 
 </details>
 </blockquote>

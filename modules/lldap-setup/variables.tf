@@ -1,3 +1,4 @@
+# General container configuration
 variable "proxmox" {
   description = "Proxmox host configuration"
   type = object({
@@ -11,7 +12,20 @@ variable "proxmox" {
   })
 }
 
-### Conainer related variables
+variable "vm_id" {
+  description = "LLDAP VM ID"
+  type        = number
+  default     = 700
+  nullable    = false
+}
+
+variable "hostname" {
+  description = "LLDAP host name"
+  type        = string
+  default     = "lldap"
+  nullable    = false
+}
+
 variable "description" {
   description = "Description of the container"
   type        = string
@@ -23,69 +37,6 @@ variable "tags" {
   description = "Tags"
   type        = list(string)
   default     = ["lxc", "alpine"]
-  nullable    = false
-}
-
-variable "hostname" {
-  description = "LLDAP host name"
-  type        = string
-  default     = "lldap"
-  nullable    = false
-}
-
-variable "imagestore_id" {
-  description = "LLDAP imagestore ID"
-  type        = string
-  default     = "images-host"
-  nullable    = false
-}
-
-variable "datastore_id" {
-  description = "LLDAP datastore ID"
-  type        = string
-  default     = "/storage-pool/lxc-data"
-  nullable    = false
-}
-
-variable "vm_id" {
-  description = "LLDAP VM ID"
-  type        = number
-  default     = 700
-  nullable    = false
-}
-
-variable "ni_name" {
-  description = "LLDAP network interface name"
-  type        = string
-  default     = "eth0"
-  nullable    = false
-}
-
-variable "ip" {
-  description = "LLDAP IP address"
-  type        = string
-  default     = "192.168.178.155"
-  nullable    = false
-}
-
-variable "gateway" {
-  description = "LLDAP gateway"
-  type        = string
-  default     = "192.168.178.1"
-  nullable    = false
-}
-
-variable "mac_address" {
-  description = "LLDAP MAC address"
-  type        = string
-  default     = "E8:31:0E:A5:D8:4C"
-  nullable    = false
-}
-
-variable "bridge" {
-  description = "LLDAP bridge"
-  type        = string
-  default     = "vmbr0"
   nullable    = false
 }
 
@@ -102,7 +53,57 @@ variable "mount_points" {
   nullable = false
 }
 
-### Certificate related variables
+variable "imagestore_id" {
+  description = "LLDAP imagestore ID"
+  type        = string
+  default     = "images-host"
+  nullable    = false
+}
+
+# Network interface configuration
+variable "ni_ip" {
+  description = "Network interface IP address"
+  type        = string
+  default     = "192.168.178.155"
+  nullable    = false
+}
+
+variable "ni_gateway" {
+  description = "Network interface gateway"
+  type        = string
+  default     = "192.168.178.1"
+  nullable    = false
+}
+
+variable "ni_mac_address" {
+  description = "Network interface MAC address"
+  type        = string
+  default     = "E8:31:0E:A5:D8:4C"
+  nullable    = false
+}
+
+variable "ni_subnet_mask" {
+  description = "Network interface subnet mask in CIDR notation"
+  type        = number
+  default     = 24
+  nullable    = false
+}
+
+variable "ni_name" {
+  description = "Network interface name"
+  type        = string
+  default     = "eth0"
+  nullable    = false
+}
+
+variable "ni_bridge" {
+  description = "Network interface bridge"
+  type        = string
+  default     = "vmbr0"
+  nullable    = false
+}
+
+# Certificate configuration
 variable "init_certificate" {
   description = "Initialize certificate as new (also needed for renewal)"
   type        = bool
@@ -112,17 +113,14 @@ variable "init_certificate" {
 
 variable "subject" {
   description = "Subject information for the certificate"
-
   type = object({
     common_name  = string
     organization = string
   })
-
   default = {
     common_name  = "lldap.my.world"
     organization = "Home Network"
   }
-
   nullable = false
 }
 
@@ -140,7 +138,7 @@ variable "ip_addresses" {
   nullable    = false
 }
 
-### Application setup
+# Application configuration
 variable "init_configuration" {
   description = "Initialize a new stock configuration"
   type        = bool

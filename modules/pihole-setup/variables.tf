@@ -1,3 +1,4 @@
+# General container configuration
 variable "proxmox" {
   description = "Proxmox host configuration"
   type = object({
@@ -11,11 +12,31 @@ variable "proxmox" {
   })
 }
 
-### Conainer related variables
+variable "vm_id" {
+  description = "PiHole VM ID"
+  type        = number
+  default     = 701
+  nullable    = false
+}
+
+variable "hostname" {
+  description = "PiHole host name"
+  type        = string
+  default     = "pihole"
+  nullable    = false
+}
+
 variable "description" {
   description = "Description of the container"
   type        = string
   default     = "Alpine Linux based LXC container with PiHole"
+  nullable    = false
+}
+
+variable "tags" {
+  description = "Tags"
+  type        = list(string)
+  default     = ["lxc", "alpine"]
   nullable    = false
 }
 
@@ -48,76 +69,6 @@ variable "packages" {
   ]
 }
 
-variable "tags" {
-  description = "Tags"
-  type        = list(string)
-  default     = ["lxc", "alpine"]
-  nullable    = false
-}
-
-variable "hostname" {
-  description = "PiHole host name"
-  type        = string
-  default     = "pihole"
-  nullable    = false
-}
-
-variable "imagestore_id" {
-  description = "PiHole imagestore ID"
-  type        = string
-  default     = "images-host"
-  nullable    = false
-}
-
-variable "datastore_id" {
-  description = "PiHole datastore ID"
-  type        = string
-  default     = "/storage-pool/lxc-data"
-  nullable    = false
-}
-
-variable "vm_id" {
-  description = "PiHole VM ID"
-  type        = number
-  default     = 701
-  nullable    = false
-}
-
-variable "ni_name" {
-  description = "PiHole network interface name"
-  type        = string
-  default     = "eth0"
-  nullable    = false
-}
-
-variable "ip" {
-  description = "PiHole IP address"
-  type        = string
-  default     = "192.168.178.150"
-  nullable    = false
-}
-
-variable "gateway" {
-  description = "PiHole gateway"
-  type        = string
-  default     = "192.168.178.1"
-  nullable    = false
-}
-
-variable "mac_address" {
-  description = "PiHole MAC address"
-  type        = string
-  default     = "3C:77:71:89:24:58"
-  nullable    = false
-}
-
-variable "bridge" {
-  description = "PiHole bridge"
-  type        = string
-  default     = "vmbr0"
-  nullable    = false
-}
-
 variable "mount_points" {
   description = "List of mount points for the container"
   type = list(object({
@@ -137,7 +88,57 @@ variable "mount_points" {
   nullable = false
 }
 
-### Certificate related variables
+variable "imagestore_id" {
+  description = "PiHole imagestore ID"
+  type        = string
+  default     = "images-host"
+  nullable    = false
+}
+
+# Network interface configuration
+variable "ni_ip" {
+  description = "Network interface IP address"
+  type        = string
+  default     = "192.168.178.150"
+  nullable    = false
+}
+
+variable "ni_gateway" {
+  description = "Network interface gateway"
+  type        = string
+  default     = "192.168.178.1"
+  nullable    = false
+}
+
+variable "ni_mac_address" {
+  description = "Network interface MAC address"
+  type        = string
+  default     = "3C:77:71:89:24:58"
+  nullable    = false
+}
+
+variable "ni_subnet_mask" {
+  description = "Network interface subnet mask in CIDR notation"
+  type        = number
+  default     = 24
+  nullable    = false
+}
+
+variable "ni_name" {
+  description = "Network interface name"
+  type        = string
+  default     = "eth0"
+  nullable    = false
+}
+
+variable "ni_bridge" {
+  description = "Network interface bridge"
+  type        = string
+  default     = "vmbr0"
+  nullable    = false
+}
+
+# Certificate configuration
 variable "init_certificate" {
   description = "Initialize certificate as new (also needed for renewal)"
   type        = bool
@@ -147,17 +148,14 @@ variable "init_certificate" {
 
 variable "subject" {
   description = "Subject information for the certificate"
-
   type = object({
     common_name  = string
     organization = string
   })
-
   default = {
     common_name  = "pihole.my.world"
     organization = "Home Network"
   }
-
   nullable = false
 }
 
@@ -175,7 +173,7 @@ variable "ip_addresses" {
   nullable    = false
 }
 
-### Application setup
+# Application configuration
 variable "init_configuration" {
   description = "Initialize a new stock configuration"
   type        = bool

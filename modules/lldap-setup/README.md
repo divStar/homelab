@@ -16,20 +16,20 @@ This module sets up LLDAP in an Alpine LXC container using the provided informat
   - [install_cert](#install_cert-ssh_resource) (*ssh_resource*)
 - [Variables](#variables)
   - [proxmox](#proxmox-required) (**Required**)
-  - [bridge](#bridge-optional) (*Optional*)
-  - [datastore_id](#datastore_id-optional) (*Optional*)
   - [description](#description-optional) (*Optional*)
   - [dns_names](#dns_names-optional) (*Optional*)
-  - [gateway](#gateway-optional) (*Optional*)
   - [hostname](#hostname-optional) (*Optional*)
   - [imagestore_id](#imagestore_id-optional) (*Optional*)
   - [init_certificate](#init_certificate-optional) (*Optional*)
   - [init_configuration](#init_configuration-optional) (*Optional*)
-  - [ip](#ip-optional) (*Optional*)
   - [ip_addresses](#ip_addresses-optional) (*Optional*)
-  - [mac_address](#mac_address-optional) (*Optional*)
   - [mount_points](#mount_points-optional) (*Optional*)
+  - [ni_bridge](#ni_bridge-optional) (*Optional*)
+  - [ni_gateway](#ni_gateway-optional) (*Optional*)
+  - [ni_ip](#ni_ip-optional) (*Optional*)
+  - [ni_mac_address](#ni_mac_address-optional) (*Optional*)
   - [ni_name](#ni_name-optional) (*Optional*)
+  - [ni_subnet_mask](#ni_subnet_mask-optional) (*Optional*)
   - [subject](#subject-optional) (*Optional*)
   - [tags](#tags-optional) (*Optional*)
   - [vm_id](#vm_id-optional) (*Optional*)
@@ -61,7 +61,7 @@ Domain certificate setup
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L26"><code>main.tf#L26</code></a></td>
+      <td><a href="./main.tf#L30"><code>main.tf#L30</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/domain-cert-setup/README.md">README.md</a> <em>(experimental)</em></td>
@@ -100,7 +100,7 @@ Configure LLDAP
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L68"><code>main.tf#L68</code></a></td>
+      <td><a href="./main.tf#L72"><code>main.tf#L72</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -115,7 +115,7 @@ Install LLDAP
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L94"><code>main.tf#L94</code></a></td>
+      <td><a href="./main.tf#L98"><code>main.tf#L98</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -130,7 +130,7 @@ Install the generated certificate
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L41"><code>main.tf#L41</code></a></td>
+      <td><a href="./main.tf#L45"><code>main.tf#L45</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -156,47 +156,7 @@ Proxmox host configuration
     ssh_key       = string
   })
   ```
-  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
-### `bridge` (*Optional*)
-LLDAP bridge
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "vmbr0"
-  ```
-  In file: <a href="./variables.tf#L85"><code>variables.tf#L85</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
-### `datastore_id` (*Optional*)
-LLDAP datastore ID
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "/storage-pool/lxc-data"
-  ```
-  In file: <a href="./variables.tf#L43"><code>variables.tf#L43</code></a>
+  In file: <a href="./variables.tf#L2"><code>variables.tf#L2</code></a>
 
 </details>
 </blockquote>
@@ -216,7 +176,7 @@ Description of the container
   ```json
   "Alpine Linux based LXC container with LLDAP"
   ```
-  In file: <a href="./variables.tf#L15"><code>variables.tf#L15</code></a>
+  In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
 
 </details>
 </blockquote>
@@ -242,27 +202,7 @@ DNS names for the certificate
   "lldap.fritz.box"
 ]
   ```
-  In file: <a href="./variables.tf#L129"><code>variables.tf#L129</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
-### `gateway` (*Optional*)
-LLDAP gateway
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "192.168.178.1"
-  ```
-  In file: <a href="./variables.tf#L71"><code>variables.tf#L71</code></a>
+  In file: <a href="./variables.tf#L127"><code>variables.tf#L127</code></a>
 
 </details>
 </blockquote>
@@ -282,7 +222,7 @@ LLDAP host name
   ```json
   "lldap"
   ```
-  In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
+  In file: <a href="./variables.tf#L22"><code>variables.tf#L22</code></a>
 
 </details>
 </blockquote>
@@ -302,7 +242,7 @@ LLDAP imagestore ID
   ```json
   "images-host"
   ```
-  In file: <a href="./variables.tf#L36"><code>variables.tf#L36</code></a>
+  In file: <a href="./variables.tf#L56"><code>variables.tf#L56</code></a>
 
 </details>
 </blockquote>
@@ -322,7 +262,7 @@ Initialize certificate as new (also needed for renewal)
   ```json
   false
   ```
-  In file: <a href="./variables.tf#L106"><code>variables.tf#L106</code></a>
+  In file: <a href="./variables.tf#L107"><code>variables.tf#L107</code></a>
 
 </details>
 </blockquote>
@@ -342,27 +282,7 @@ Initialize a new stock configuration
   ```json
   false
   ```
-  In file: <a href="./variables.tf#L144"><code>variables.tf#L144</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
-### `ip` (*Optional*)
-LLDAP IP address
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "192.168.178.155"
-  ```
-  In file: <a href="./variables.tf#L64"><code>variables.tf#L64</code></a>
+  In file: <a href="./variables.tf#L142"><code>variables.tf#L142</code></a>
 
 </details>
 </blockquote>
@@ -386,27 +306,7 @@ IP addresses for the certificate
   "192.168.178.155"
 ]
   ```
-  In file: <a href="./variables.tf#L136"><code>variables.tf#L136</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
-### `mac_address` (*Optional*)
-LLDAP MAC address
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "E8:31:0E:A5:D8:4C"
-  ```
-  In file: <a href="./variables.tf#L78"><code>variables.tf#L78</code></a>
+  In file: <a href="./variables.tf#L134"><code>variables.tf#L134</code></a>
 
 </details>
 </blockquote>
@@ -434,14 +334,94 @@ List of mount points for the container
   }
 ]
   ```
-  In file: <a href="./variables.tf#L92"><code>variables.tf#L92</code></a>
+  In file: <a href="./variables.tf#L43"><code>variables.tf#L43</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `ni_bridge` (*Optional*)
+Network interface bridge
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  **Default**:
+  ```json
+  "vmbr0"
+  ```
+  In file: <a href="./variables.tf#L99"><code>variables.tf#L99</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `ni_gateway` (*Optional*)
+Network interface gateway
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  **Default**:
+  ```json
+  "192.168.178.1"
+  ```
+  In file: <a href="./variables.tf#L71"><code>variables.tf#L71</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `ni_ip` (*Optional*)
+Network interface IP address
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  **Default**:
+  ```json
+  "192.168.178.155"
+  ```
+  In file: <a href="./variables.tf#L64"><code>variables.tf#L64</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `ni_mac_address` (*Optional*)
+Network interface MAC address
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  **Default**:
+  ```json
+  "E8:31:0E:A5:D8:4C"
+  ```
+  In file: <a href="./variables.tf#L78"><code>variables.tf#L78</code></a>
 
 </details>
 </blockquote>
 <blockquote>
 
 ### `ni_name` (*Optional*)
-LLDAP network interface name
+Network interface name
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -454,7 +434,27 @@ LLDAP network interface name
   ```json
   "eth0"
   ```
-  In file: <a href="./variables.tf#L57"><code>variables.tf#L57</code></a>
+  In file: <a href="./variables.tf#L92"><code>variables.tf#L92</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `ni_subnet_mask` (*Optional*)
+Network interface subnet mask in CIDR notation
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  number
+  ```
+  **Default**:
+  ```json
+  24
+  ```
+  In file: <a href="./variables.tf#L85"><code>variables.tf#L85</code></a>
 
 </details>
 </blockquote>
@@ -480,7 +480,7 @@ Subject information for the certificate
   "organization": "Home Network"
 }
   ```
-  In file: <a href="./variables.tf#L113"><code>variables.tf#L113</code></a>
+  In file: <a href="./variables.tf#L114"><code>variables.tf#L114</code></a>
 
 </details>
 </blockquote>
@@ -503,7 +503,7 @@ Tags
   "alpine"
 ]
   ```
-  In file: <a href="./variables.tf#L22"><code>variables.tf#L22</code></a>
+  In file: <a href="./variables.tf#L36"><code>variables.tf#L36</code></a>
 
 </details>
 </blockquote>
@@ -523,7 +523,7 @@ LLDAP VM ID
   ```json
   700
   ```
-  In file: <a href="./variables.tf#L50"><code>variables.tf#L50</code></a>
+  In file: <a href="./variables.tf#L15"><code>variables.tf#L15</code></a>
 
 </details>
 </blockquote>

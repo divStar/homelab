@@ -47,8 +47,8 @@ resource "proxmox_virtual_environment_container" "container" {
     # Network configuration
     ip_config {
       ipv4 {
-        address = "${var.ip}/${var.subnet_mask}"
-        gateway = var.gateway
+        address = "${var.ni_ip}/${var.ni_subnet_mask}"
+        gateway = var.ni_gateway
       }
     }
 
@@ -64,8 +64,8 @@ resource "proxmox_virtual_environment_container" "container" {
   # Network interface
   network_interface {
     name        = var.ni_name
-    bridge      = var.bridge
-    mac_address = var.mac_address
+    bridge      = var.ni_bridge
+    mac_address = var.ni_mac_address
   }
 
   # Operating system - using Alpine template
@@ -76,20 +76,20 @@ resource "proxmox_virtual_environment_container" "container" {
 
   # CPU configuration
   cpu {
-    cores = 1
-    units = 1024
+    cores = var.cpu_cores
+    units = var.cpu_units
   }
 
   # Memory configuration
   memory {
-    dedicated = 1024
+    dedicated = var.memory_dedicated
     swap      = 0
   }
 
   # Disk configuration (default)
   disk {
     datastore_id = var.imagestore_id
-    size         = 2
+    size         = var.disk_size
   }
 
   # Dynamic mount points, passed into this script via variable
@@ -103,9 +103,9 @@ resource "proxmox_virtual_environment_container" "container" {
 
   # Basic startup configuration
   startup {
-    order      = 1
-    up_delay   = 20
-    down_delay = 20
+    order      = var.startup_order
+    up_delay   = var.startup_up_delay
+    down_delay = var.startup_down_delay
   }
 
   features {
@@ -155,7 +155,7 @@ resource "ssh_resource" "install_packages" {
 
   when = "create"
 
-  host        = var.ip
+  host        = var.ni_ip
   user        = "root"
   private_key = tls_private_key.ssh_key.private_key_pem
 

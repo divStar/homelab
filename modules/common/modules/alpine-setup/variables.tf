@@ -1,3 +1,4 @@
+# General container configuration
 variable "proxmox" {
   description = "Proxmox host configuration"
   type = object({
@@ -8,34 +9,28 @@ variable "proxmox" {
   })
 }
 
+variable "vm_id" {
+  description = "Container (VM)ID"
+  type        = number
+  nullable    = false
+}
+
 variable "hostname" {
   description = "Container host name"
   type        = string
   nullable    = false
 }
 
-variable "vm_id" {
-  description = "VM (Container) ID"
-  type        = number
-  nullable    = false
+variable "description" {
+  description = "Description of the container"
+  type        = string
+  default     = "Alpine Linux based LXC container"
 }
 
-variable "ip" {
-  description = "Network interface IP address"
-  type        = string
-  nullable    = false
-}
-
-variable "gateway" {
-  description = "Network interface gateway"
-  type        = string
-  nullable    = false
-}
-
-variable "mac_address" {
-  description = "Network interface MAC address"
-  type        = string
-  nullable    = false
+variable "tags" {
+  description = "Tags"
+  type        = list(string)
+  default     = ["lxc", "alpine"]
 }
 
 variable "alpine_image" {
@@ -70,16 +65,26 @@ variable "mount_points" {
   nullable = false
 }
 
-variable "description" {
-  description = "Description of the container"
-  type        = string
-  default     = "Alpine Linux based LXC container"
+# Resources configuration
+variable "cpu_cores" {
+  description = "Amount of CPU (v)cores; SMT/HT cores count as cores."
+  type        = number
+  default     = 1
+  nullable    = false
 }
 
-variable "tags" {
-  description = "Tags"
-  type        = list(string)
-  default     = ["lxc", "alpine"]
+variable "cpu_units" {
+  description = "CPU scheduler priority relative to other containers; higher values mean more CPU time when under contention."
+  type        = number
+  default     = 100
+  nullable    = false
+}
+
+variable "memory_dedicated" {
+  description = "RAM (in megabytes) dedicated to this container."
+  type        = number
+  default     = 1024
+  nullable    = false
 }
 
 variable "imagestore_id" {
@@ -89,8 +94,55 @@ variable "imagestore_id" {
   nullable    = false
 }
 
-variable "subnet_mask" {
-  description = "Subnet mask in CIDR notation"
+variable "disk_size" {
+  description = "Size of the main container disk (in gigabytes)"
+  type        = number
+  default     = 1
+  nullable    = false
+}
+
+variable "startup_order" {
+  description = "Container startup order; shutdowns happen in reverse order"
+  type        = number
+  default     = 1
+  nullable    = false
+}
+
+variable "startup_up_delay" {
+  description = "Delay (in seconds) before next container is started"
+  type        = number
+  default     = 20
+  nullable    = false
+}
+
+variable "startup_down_delay" {
+  description = "Delay (in seconds) before next container is shutdown"
+  type        = number
+  default     = 20
+  nullable    = false
+}
+
+# Network interface configuration
+variable "ni_ip" {
+  description = "Network interface IP address"
+  type        = string
+  nullable    = false
+}
+
+variable "ni_gateway" {
+  description = "Network interface gateway"
+  type        = string
+  nullable    = false
+}
+
+variable "ni_mac_address" {
+  description = "Network interface MAC address"
+  type        = string
+  nullable    = false
+}
+
+variable "ni_subnet_mask" {
+  description = "Network interface subnet mask in CIDR notation"
   type        = number
   default     = 24
   nullable    = false
@@ -103,7 +155,7 @@ variable "ni_name" {
   nullable    = false
 }
 
-variable "bridge" {
+variable "ni_bridge" {
   description = "Network interface bridge"
   type        = string
   default     = "vmbr0"

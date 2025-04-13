@@ -18,13 +18,17 @@ module "setup_container" {
     ssh_user = var.proxmox.ssh_user
     ssh_key  = var.proxmox.ssh_key
   }
-  vm_id        = var.vm_id
-  ip           = var.ip
-  hostname     = var.hostname
-  mac_address  = var.mac_address
-  gateway      = var.gateway
-  mount_points = var.mount_points
-  packages     = var.packages
+  vm_id          = var.vm_id
+  hostname       = var.hostname
+  packages       = var.packages
+  mount_points   = var.mount_points
+  imagestore_id  = var.imagestore_id
+  ni_ip          = var.ni_ip
+  ni_gateway     = var.ni_gateway
+  ni_mac_address = var.ni_mac_address
+  ni_subnet_mask = var.ni_subnet_mask
+  ni_name        = var.ni_name
+  ni_bridge      = var.ni_bridge
 }
 
 # Domain certificate setup
@@ -71,7 +75,7 @@ resource "ssh_resource" "configure" {
 
 # Install PiHole
 resource "ssh_resource" "install" {
-  depends_on = [module.setup_container,ssh_resource.configure]
+  depends_on = [module.setup_container, ssh_resource.configure]
 
   when = "create"
 

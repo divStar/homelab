@@ -6,13 +6,6 @@
  * domain(s) and IP(s) anew and copying of it back onto
  * the host. 
  */
-# Proxmox Certificate Management with Terraform
-# Uses loafoe/ssh provider to interact with the Proxmox host
-# and tls provider to generate certificates
-# Proxmox Certificate Management with Terraform
-# Uses loafoe/ssh provider to interact with the Proxmox host
-# and tls provider to generate certificates
-# Get current date for backup filenames
 locals {
   timestamp = formatdate("YYYYMMDD", time_static.backup_timestamp.rfc3339)
 }
@@ -25,7 +18,7 @@ resource "ssh_resource" "proxmox_ca_cert" {
   user        = var.ssh.user
   private_key = file(var.ssh.id_file)
 
-  when = "create"
+  # when = "create"
 
   commands = [
     "cat ${var.proxmox_root_ca.pve_root_cert}"
@@ -38,7 +31,7 @@ resource "ssh_resource" "proxmox_ca_key" {
   user        = var.ssh.user
   private_key = file(var.ssh.id_file)
 
-  when = "create"
+  # when = "create"
 
   commands = [
     "cat ${var.proxmox_root_ca.pve_root_key}"
@@ -89,7 +82,7 @@ resource "ssh_resource" "backup_existing_certs" {
   user        = var.ssh.user
   private_key = file(var.ssh.id_file)
 
-  when = "create"
+  # when = "create"
 
   commands = [
     "cp /etc/pve/nodes/${var.proxmox_host}/pve-ssl.pem /etc/pve/nodes/${var.proxmox_host}/pve-ssl.pem.backup.${local.timestamp} || true",
@@ -105,7 +98,7 @@ resource "ssh_resource" "install_pve_cert" {
   user        = var.ssh.user
   private_key = file(var.ssh.id_file)
 
-  when = "create"
+  # when = "create"
 
   # Install the private key
   file {

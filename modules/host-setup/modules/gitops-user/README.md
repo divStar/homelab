@@ -1,6 +1,6 @@
 # GitOps user
 
-Handles the creation and deletion of a dedicated user git+ssh access (gitops)
+Handles the creation and deletion of a dedicated user with git+ssh access (gitops)
 as well as setting and restoring owner / group of the original gitops repository.
 ## Contents
 

@@ -59,7 +59,7 @@ resource "ssh_resource" "configure" {
   depends_on = [module.setup_container]
   count      = var.init_configuration ? 1 : 0
 
-  when = "create"
+  # when = "create"
 
   host        = var.ni_ip
   user        = "root"
@@ -78,7 +78,7 @@ resource "ssh_resource" "configure" {
 resource "ssh_resource" "install" {
   depends_on = [module.setup_container, ssh_resource.configure]
 
-  when = "create"
+  # when = "create"
 
   host        = var.ni_ip
   user        = "root"
@@ -123,7 +123,7 @@ resource "ssh_resource" "install_cert" {
   depends_on = [ssh_resource.install]
   count      = var.init_certificate ? 1 : 0
 
-  when = "create"
+  # when = "create"
 
   host        = var.ni_ip
   user        = "root"

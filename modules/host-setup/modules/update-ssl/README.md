@@ -56,7 +56,7 @@ Back up existing certificates
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L87"><code>main.tf#L87</code></a></td>
+      <td><a href="./main.tf#L80"><code>main.tf#L80</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -71,7 +71,7 @@ Install the new certificate and key on the Proxmox server
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L101"><code>main.tf#L101</code></a></td>
+      <td><a href="./main.tf#L94"><code>main.tf#L94</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -86,7 +86,7 @@ Fetch Proxmox CA public certificate
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L23"><code>main.tf#L23</code></a></td>
+      <td><a href="./main.tf#L16"><code>main.tf#L16</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -101,7 +101,7 @@ Fetch Proxmox CA key
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L36"><code>main.tf#L36</code></a></td>
+      <td><a href="./main.tf#L29"><code>main.tf#L29</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -116,7 +116,7 @@ Fetch Proxmox CA key
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L20"><code>main.tf#L20</code></a></td>
+      <td><a href="./main.tf#L13"><code>main.tf#L13</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -131,7 +131,7 @@ Create certificate request
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L55"><code>main.tf#L55</code></a></td>
+      <td><a href="./main.tf#L48"><code>main.tf#L48</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -146,7 +146,7 @@ Sign the certificate with the CA
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L72"><code>main.tf#L72</code></a></td>
+      <td><a href="./main.tf#L65"><code>main.tf#L65</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -161,7 +161,7 @@ Generate private key for the SSL certificate
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L49"><code>main.tf#L49</code></a></td>
+      <td><a href="./main.tf#L42"><code>main.tf#L42</code></a></td>
     </tr>
   </table>
 </blockquote>

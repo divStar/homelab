@@ -153,6 +153,26 @@ variable "org_source_repo_owner" {
   default = {}
 }
 
+variable "share_user" {
+  description = "Configuration of GitOps user."
+
+  type = object({
+    user  = string
+    group = string
+    uid   = number
+    gid   = number
+  })
+
+  default = {
+    user  = "share-user"
+    group = "share-users"
+    uid   = 1400
+    gid   = 1400
+  }
+
+  nullable = false
+}
+
 variable "storage" {
   description = "Configuration of the storage (pools and directories) to import"
   # @field type[*].name           name / ID of the storage pool or directory

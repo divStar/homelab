@@ -29,7 +29,7 @@ resource "ssh_resource" "add_key" {
   user        = local.ssh.user
   private_key = local.ssh.private_key
 
-  when = "create"
+  # when = "create"
 
   commands = [
     # Append the SSH key to authorized_keys with access mode restrictions

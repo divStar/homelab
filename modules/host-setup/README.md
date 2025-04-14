@@ -13,8 +13,10 @@ This module and its sub-modules setup the Proxmox host.
   - [packages](#packages)
   - [repositories](#repositories)
   - [scripts](#scripts)
+  - [share_user](#share_user)
   - [storage](#storage)
   - [terraform_user](#terraform_user)
+  - [trust_proxmox_ca](#trust_proxmox_ca)
   - [update_ssl](#update_ssl)
 - [Variables](#variables)
   - [configuration_files](#configuration_files-required) (**Required**)
@@ -26,6 +28,7 @@ This module and its sub-modules setup the Proxmox host.
   - [org_source_repo_owner](#org_source_repo_owner-optional) (*Optional*)
   - [packages](#packages-optional) (*Optional*)
   - [scripts](#scripts-optional) (*Optional*)
+  - [share_user](#share_user-optional) (*Optional*)
   - [terraform_user](#terraform_user-optional) (*Optional*)
 - [Outputs](#outputs)
   - [certificate_info](#certificate_info)
@@ -142,6 +145,24 @@ Handles the download, execution and cleanup of (shell-)scripts on the host
 </blockquote>
 <blockquote>
 
+### `share_user`
+
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/share-user</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L104"><code>main.tf#L104</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/share-user/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
+</blockquote>
+<blockquote>
+
 ### `storage`
 Handles the import and export of ZFS pools as well as directories.
   <table>
@@ -178,6 +199,24 @@ Handles the creation and deletion of a dedicated user with a custom role and API
 </blockquote>
 <blockquote>
 
+### `trust_proxmox_ca`
+
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/trust-proxmox-ca</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L90"><code>main.tf#L90</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/trust-proxmox-ca/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
+</blockquote>
+<blockquote>
+
 ### `update_ssl`
 
   <table>
@@ -187,7 +226,7 @@ Handles the creation and deletion of a dedicated user with a custom role and API
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L90"><code>main.tf#L90</code></a></td>
+      <td><a href="./main.tf#L97"><code>main.tf#L97</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/update-ssl/README.md">README.md</a> <em>(experimental)</em></td>
@@ -278,7 +317,7 @@ Configuration of the storage (pools and directories) to import
     content_types = optional(list(string))
   }))
   ```
-  In file: <a href="./variables.tf#L156"><code>variables.tf#L156</code></a>
+  In file: <a href="./variables.tf#L176"><code>variables.tf#L176</code></a>
 
 </details>
 </blockquote>
@@ -329,7 +368,7 @@ Whether to use no-subscription repository instead of enterprise repository or no
   "enabled": true
 }
   ```
-  In file: <a href="./variables.tf#L196"><code>variables.tf#L196</code></a>
+  In file: <a href="./variables.tf#L216"><code>variables.tf#L216</code></a>
 
 </details>
 </blockquote>
@@ -405,6 +444,36 @@ Configuration for script management including shared directory and script items
 }
   ```
   In file: <a href="./variables.tf#L49"><code>variables.tf#L49</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `share_user` (*Optional*)
+Configuration of GitOps user.
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  object({
+    user  = string
+    group = string
+    uid   = number
+    gid   = number
+  })
+  ```
+  **Default**:
+  ```json
+  {
+  "gid": 1400,
+  "group": "share-users",
+  "uid": 1400,
+  "user": "share-user"
+}
+  ```
+  In file: <a href="./variables.tf#L156"><code>variables.tf#L156</code></a>
 
 </details>
 </blockquote>

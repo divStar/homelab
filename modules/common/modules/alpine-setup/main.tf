@@ -117,7 +117,7 @@ resource "proxmox_virtual_environment_container" "container" {
 resource "ssh_resource" "install_openssh" {
   depends_on = [proxmox_virtual_environment_container.container]
 
-  when = "create"
+  # when = "create"
 
   # Note: we are connecting to the Proxmox host here rather than the LXC container;
   # this is necessary, because we have to install `openssh` via `pct` from the host.
@@ -153,7 +153,7 @@ resource "ssh_resource" "install_openssh" {
 resource "ssh_resource" "install_packages" {
   depends_on = [ssh_resource.install_openssh]
 
-  when = "create"
+  # when = "create"
 
   host        = var.ni_ip
   user        = "root"

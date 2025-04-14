@@ -11,7 +11,7 @@ resource "ssh_resource" "proxmox_ca_cert" {
   user        = var.proxmox.ssh_user
   private_key = file(var.proxmox.ssh_key)
 
-  when = "create"
+  # when = "create"
 
   commands = [
     "cat ${var.proxmox_root_ca.pve_root_cert}"
@@ -24,7 +24,7 @@ resource "ssh_resource" "proxmox_ca_key" {
   user        = var.proxmox.ssh_user
   private_key = file(var.proxmox.ssh_key)
 
-  when = "create"
+  # when = "create"
 
   commands = [
     "cat ${var.proxmox_root_ca.pve_root_key}"

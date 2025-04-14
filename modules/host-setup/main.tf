@@ -9,16 +9,16 @@
 module "terraform_user" {
   source = "./modules/terraform-user"
 
-  ssh            = local.ssh
-  terraform_user = local.terraform_user
+  ssh            = var.ssh
+  terraform_user = var.terraform_user
 }
 
 # Handles the copying of configuration files to the host.
 module "copy_configs" {
   source = "./modules/copy-configs"
 
-  ssh                 = local.ssh
-  configuration_files = local.configuration_files
+  ssh                 = var.ssh
+  configuration_files = var.configuration_files
 }
 
 # Handles the deactivation of the enterprise repositories and
@@ -26,8 +26,8 @@ module "copy_configs" {
 module "repositories" {
   source = "./modules/repositories"
 
-  ssh             = local.ssh
-  no_subscription = local.no_subscription
+  ssh             = var.ssh
+  no_subscription = var.no_subscription
 }
 
 # Handles the installation and removal of packages on the host
@@ -40,8 +40,8 @@ module "packages" {
 
   depends_on = [module.repositories]
 
-  ssh      = local.ssh
-  packages = local.packages
+  ssh      = var.ssh
+  packages = var.packages
 }
 
 # Handles the download, execution and cleanup of (shell-)scripts on the host
@@ -50,8 +50,8 @@ module "scripts" {
 
   depends_on = [module.terraform_user]
 
-  ssh     = local.ssh
-  scripts = local.scripts
+  ssh     = var.ssh
+  scripts = var.scripts
 }
 
 # Handles the import and export of ZFS pools as well as directories.
@@ -64,10 +64,10 @@ module "storage" {
     restapi = restapi
   }
 
-  ssh     = local.ssh
-  proxmox = local.proxmox
-  storage = local.storage
-  token   = local.token
+  ssh     = var.ssh
+  proxmox = var.proxmox
+  storage = var.storage
+  token   = module.terraform_user.token
 }
 
 # Handles the creation and deletion of a dedicated user git+ssh access (gitops)
@@ -82,14 +82,28 @@ module "gitops_user" {
 
   depends_on = [module.storage]
 
-  ssh                   = local.ssh
-  gitops_user           = local.gitops_user
-  org_source_repo_owner = local.org_source_repo_owner
+  ssh                   = var.ssh
+  gitops_user           = var.gitops_user
+  org_source_repo_owner = var.org_source_repo_owner
+}
+
+module "trust_proxmox_ca" {
+  source = "./modules/trust-proxmox-ca"
+
+  ssh          = var.ssh
+  proxmox_host = var.proxmox.name
 }
 
 module "update_ssl" {
   source = "./modules/update-ssl"
 
-  ssh          = local.ssh
+  ssh          = var.ssh
   proxmox_host = var.proxmox.name
+}
+
+module "share_user" {
+  source = "./modules/share-user"
+
+  ssh        = var.ssh
+  share_user = var.share_user
 }

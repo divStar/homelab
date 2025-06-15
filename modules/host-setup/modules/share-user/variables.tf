@@ -8,7 +8,7 @@ variable "ssh" {
 }
 
 variable "share_user" {
-  description = "Configuration of GitOps user."
+  description = "Configuration of share user."
 
   type = object({
     user  = string
@@ -20,8 +20,8 @@ variable "share_user" {
   default = {
     user  = "share-user"
     group = "share-users"
-    uid   = 1400
-    gid   = 1400
+    uid   = 1000
+    gid   = 1000
   }
 
   nullable = false

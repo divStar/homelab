@@ -1,7 +1,7 @@
-# Share user
+# Directory mappings
 
-Handles the creation and deletion of a dedicated `share-user:share-users` (UID:GID),
-who will own the media and other data files in the ZFS pool `storage-pool`.
+Handles the directory mappings of particular resources (e.g. file shares).
+These mapped directories can then be used e.g. using `virtiofs` "pass-through" to VMs.
 ## Contents
 
 <blockquote>
@@ -9,14 +9,14 @@ who will own the media and other data files in the ZFS pool `storage-pool`.
 - [Requirements](#requirements)
 - [Providers](#providers)
 - [Resources](#resources)
-  - [add_share_user](#add_share_user-ssh_resource) (*ssh_resource*)
-  - [remove_share_user](#remove_share_user-ssh_resource) (*ssh_resource*)
+  - [directory_mappings](#directory_mappings-ssh_resource) (*ssh_resource*)
+  - [remove_directory_mappings](#remove_directory_mappings-ssh_resource) (*ssh_resource*)
 - [Variables](#variables)
+  - [proxmox_node_name](#proxmox_node_name-required) (**Required**)
   - [ssh](#ssh-required) (**Required**)
-  - [share_user](#share_user-optional) (*Optional*)
+  - [directory_mappings](#directory_mappings-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [group](#group)
-  - [user](#user)</blockquote>
+  - [directory_mappings](#directory_mappings)</blockquote>
 
 ## Requirements
 
@@ -34,8 +34,8 @@ who will own the media and other data files in the ZFS pool `storage-pool`.
 ## Resources
 <blockquote>
 
-#### `add_share_user` (_ssh_resource_)
-Create user and set up repository
+#### `directory_mappings` (_ssh_resource_)
+
   <table>
     <tr>
       <td>Provider</td>
@@ -43,14 +43,14 @@ Create user and set up repository
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L17"><code>main.tf#L17</code></a></td>
+      <td><a href="./main.tf#L16"><code>main.tf#L16</code></a></td>
     </tr>
   </table>
 </blockquote>
 <blockquote>
 
-#### `remove_share_user` (_ssh_resource_)
-Cleanup on destroy
+#### `remove_directory_mappings` (_ssh_resource_)
+
   <table>
     <tr>
       <td>Provider</td>
@@ -64,6 +64,22 @@ Cleanup on destroy
 </blockquote>
 
 ## Variables
+<blockquote>
+
+### `proxmox_node_name` (**Required**)
+Proxmox node name
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
+
+</details>
+</blockquote>
 <blockquote>
 
 ### `ssh` (**Required**)
@@ -80,37 +96,31 @@ SSH configuration for remote connection
     id_file = optional(string, "~/.ssh/id_rsa")
   })
   ```
-  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
+  In file: <a href="./variables.tf#L6"><code>variables.tf#L6</code></a>
 
 </details>
 </blockquote>
 <blockquote>
 
-### `share_user` (*Optional*)
-Configuration of share user.
+### `directory_mappings` (*Optional*)
+Directory mappings for the Proxmox node
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
 
   **Type**:
   ```hcl
-  object({
-    user  = string
-    group = string
-    uid   = number
-    gid   = number
-  })
+  list(object({
+    id      = string
+    path    = string
+    comment = optional(string, "")
+  }))
   ```
   **Default**:
   ```json
-  {
-  "gid": 1000,
-  "group": "share-users",
-  "uid": 1000,
-  "user": "share-user"
-}
+  []
   ```
-  In file: <a href="./variables.tf#L10"><code>variables.tf#L10</code></a>
+  In file: <a href="./variables.tf#L19"><code>variables.tf#L19</code></a>
 
 </details>
 </blockquote>
@@ -119,15 +129,8 @@ Configuration of share user.
 ## Outputs
 <blockquote>
 
-#### `group`
-Group of the share user
-
-In file: <a href="./outputs.tf#L6"><code>outputs.tf#L6</code></a>
-</blockquote>
-<blockquote>
-
-#### `user`
-Name of the share user
+#### `directory_mappings`
+Directory mappings created
 
 In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
 </blockquote>

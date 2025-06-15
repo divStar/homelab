@@ -11,11 +11,6 @@ variable "ssh" {
   })
 }
 
-variable "proxmox_host" {
-  description = "Name of the target Proxmox host"
-  type        = string
-}
-
 variable "pve_root_ca_pem_source" {
   description = "Proxmox public root CA certificate source"
   type        = string

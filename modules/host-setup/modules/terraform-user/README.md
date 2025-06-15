@@ -19,8 +19,8 @@ and API token for the Terraform provisioner on the host.
   - [ssh](#ssh-required) (**Required**)
   - [terraform_user](#terraform_user-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [pve-user](#pve-user)
-  - [token](#token)</blockquote>
+  - [token](#token)
+  - [user](#user)</blockquote>
 
 ## Requirements
 
@@ -182,7 +182,9 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
         "Datastore.Audit",
         "SDN.Use",
         "Sys.Audit",
-        "Sys.Modify"
+        "Sys.Modify",
+        "Mapping.Use",
+        "Mapping.Modify"
       ])
     })
     token = object({
@@ -207,15 +209,15 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
 ## Outputs
 <blockquote>
 
-#### `pve-user`
-The user and role created on the Proxmox host
-
-In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
-</blockquote>
-<blockquote>
-
 #### `token`
 The API token created on the Proxmox host
 
 In file: <a href="./outputs.tf#L11"><code>outputs.tf#L11</code></a>
+</blockquote>
+<blockquote>
+
+#### `user`
+The user and role created on the Proxmox host
+
+In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
 </blockquote>

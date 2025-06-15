@@ -16,7 +16,6 @@ via LDAPS while also verifying the self-signed certificate.
   - [restart_pveproxy](#restart_pveproxy-ssh_resource) (*ssh_resource*)
   - [uninstall_proxmox_ca](#uninstall_proxmox_ca-ssh_resource) (*ssh_resource*)
 - [Variables](#variables)
-  - [proxmox_host](#proxmox_host-required) (**Required**)
   - [ssh](#ssh-required) (**Required**)
   - [pve_root_ca_pem_source](#pve_root_ca_pem_source-optional) (*Optional*)
   - [pve_root_ca_pem_target](#pve_root_ca_pem_target-optional) (*Optional*)
@@ -85,22 +84,6 @@ Fetch Proxmox CA public certificate
 ## Variables
 <blockquote>
 
-### `proxmox_host` (**Required**)
-Name of the target Proxmox host
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
 ### `ssh` (**Required**)
 SSH configuration for remote connection
 
@@ -135,7 +118,7 @@ Proxmox public root CA certificate source
   ```json
   "/etc/pve/pve-root-ca.pem"
   ```
-  In file: <a href="./variables.tf#L19"><code>variables.tf#L19</code></a>
+  In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
 </blockquote>
@@ -155,7 +138,7 @@ Proxmox public root CA certificate target
   ```json
   "/usr/local/share/ca-certificates/pve-root-ca.crt"
   ```
-  In file: <a href="./variables.tf#L26"><code>variables.tf#L26</code></a>
+  In file: <a href="./variables.tf#L21"><code>variables.tf#L21</code></a>
 
 </details>
 </blockquote>
@@ -175,7 +158,7 @@ Flag, specifying whether to restart the `pveproxy` service (`default = true`) or
   ```json
   true
   ```
-  In file: <a href="./variables.tf#L33"><code>variables.tf#L33</code></a>
+  In file: <a href="./variables.tf#L28"><code>variables.tf#L28</code></a>
 
 </details>
 </blockquote>

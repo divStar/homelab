@@ -3,9 +3,9 @@ output "configuration_files" {
   value       = module.copy_configs.configuration_files
 }
 
-output "no_subscription" {
-  description = "States, whether a no-subscription repository was used (and some further details)"
-  value       = module.repositories.no_subscription
+output "directory_mappings" {
+  description = "List of directories mapped for further use in Proxmox"
+  value       = module.directory_mappings.directory_mappings
 }
 
 output "installed_packages" {
@@ -18,29 +18,30 @@ output "installed_scripts" {
   value       = module.scripts.installed_scripts
 }
 
-output "pve-user" {
-  description = "The user and role created on the Proxmox host"
-  value       = module.terraform_user.pve-user
-  sensitive   = true
+output "no_subscription" {
+  description = "States, whether a no-subscription repository was used (and some further details)"
+  value       = module.repositories.no_subscription
 }
 
-output "token" {
-  description = "The API token created on the Proxmox host"
-  value       = module.terraform_user.token
-  sensitive   = true
+output "share_user" {
+  description = "The user to manage file shares on the Proxmox host storage"
+  value = {
+    user  = module.share_user.user
+    group = module.share_user.group
+  }
+  sensitive = true
 }
 
 output "storage_pools" {
   description = "List of storage pools that were imported and added to Proxmox"
-  value       = module.storage.storage_pools
+  value       = module.zfs_storage.storage_pools
 }
 
-output "storage_pools_directories" {
-  description = "List of directories/datasets that were configured in Proxmox"
-  value       = module.storage.storage_pools_directories
-}
-
-output "certificate_info" {
-  description = "pve-ssl Certificate information"
-  value       = module.update_ssl.certificate_info
+output "terraform_user" {
+  description = "The user and role created to manage the Proxmox host via Terraform/OpenTofu"
+  value = {
+    user  = module.terraform_user.user
+    token = module.terraform_user.token
+  }
+  sensitive = true
 }

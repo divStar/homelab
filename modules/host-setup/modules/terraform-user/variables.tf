@@ -37,7 +37,9 @@ variable "terraform_user" {
         "Datastore.Audit",
         "SDN.Use",
         "Sys.Audit",
-        "Sys.Modify"
+        "Sys.Modify",
+        "Mapping.Use",
+        "Mapping.Modify"
       ])
     })
     token = object({

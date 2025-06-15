@@ -1,7 +1,6 @@
-# Share user
+# Storage Management
 
-Handles the creation and deletion of a dedicated `share-user:share-users` (UID:GID),
-who will own the media and other data files in the ZFS pool `storage-pool`.
+Handles the import and export of ZFS pools as well as directories.
 ## Contents
 
 <blockquote>
@@ -9,14 +8,13 @@ who will own the media and other data files in the ZFS pool `storage-pool`.
 - [Requirements](#requirements)
 - [Providers](#providers)
 - [Resources](#resources)
-  - [add_share_user](#add_share_user-ssh_resource) (*ssh_resource*)
-  - [remove_share_user](#remove_share_user-ssh_resource) (*ssh_resource*)
+  - [export_zfs_pools](#export_zfs_pools-ssh_resource) (*ssh_resource*)
+  - [import_zfs_pools](#import_zfs_pools-ssh_resource) (*ssh_resource*)
 - [Variables](#variables)
   - [ssh](#ssh-required) (**Required**)
-  - [share_user](#share_user-optional) (*Optional*)
+  - [storage_pools](#storage_pools-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [group](#group)
-  - [user](#user)</blockquote>
+  - [storage_pools](#storage_pools)</blockquote>
 
 ## Requirements
 
@@ -34,8 +32,8 @@ who will own the media and other data files in the ZFS pool `storage-pool`.
 ## Resources
 <blockquote>
 
-#### `add_share_user` (_ssh_resource_)
-Create user and set up repository
+#### `export_zfs_pools` (_ssh_resource_)
+Export ZFS pools
   <table>
     <tr>
       <td>Provider</td>
@@ -43,14 +41,14 @@ Create user and set up repository
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L17"><code>main.tf#L17</code></a></td>
+      <td><a href="./main.tf#L29"><code>main.tf#L29</code></a></td>
     </tr>
   </table>
 </blockquote>
 <blockquote>
 
-#### `remove_share_user` (_ssh_resource_)
-Cleanup on destroy
+#### `import_zfs_pools` (_ssh_resource_)
+Import ZFS pools
   <table>
     <tr>
       <td>Provider</td>
@@ -58,7 +56,7 @@ Cleanup on destroy
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L33"><code>main.tf#L33</code></a></td>
+      <td><a href="./main.tf#L16"><code>main.tf#L16</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -86,31 +84,21 @@ SSH configuration for remote connection
 </blockquote>
 <blockquote>
 
-### `share_user` (*Optional*)
-Configuration of share user.
+### `storage_pools` (*Optional*)
+Configuration of the storage (pools and directories) to import
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
 
   **Type**:
   ```hcl
-  object({
-    user  = string
-    group = string
-    uid   = number
-    gid   = number
-  })
+  list(string)
   ```
   **Default**:
   ```json
-  {
-  "gid": 1000,
-  "group": "share-users",
-  "uid": 1000,
-  "user": "share-user"
-}
+  []
   ```
-  In file: <a href="./variables.tf#L10"><code>variables.tf#L10</code></a>
+  In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
 </blockquote>
@@ -119,15 +107,8 @@ Configuration of share user.
 ## Outputs
 <blockquote>
 
-#### `group`
-Group of the share user
-
-In file: <a href="./outputs.tf#L6"><code>outputs.tf#L6</code></a>
-</blockquote>
-<blockquote>
-
-#### `user`
-Name of the share user
+#### `storage_pools`
+List of storage pools that were imported
 
 In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
 </blockquote>

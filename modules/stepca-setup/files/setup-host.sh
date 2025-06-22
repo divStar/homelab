@@ -184,6 +184,9 @@ setup_acme() {
     
     # Order certificates
     log "Ordering ACME certificates..."
+    # Note: sometimes the order process will fail saying the CSR was unacceptable (badCSR).
+    # This is very likely due to IP addresses in the domain list and the following bug: https://bugzilla.proxmox.com/show_bug.cgi?id=4687
+    # TODO: remove this comment once the mentioned bug is fixed.
     if ! pvesh create "/nodes/${PROXMOX_NODE_NAME}/certificates/acme/certificate" --force true; then
         error_exit "Failed to order ACME certificates"
     fi

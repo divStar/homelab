@@ -500,7 +500,9 @@ List of packages to install on the container
   **Default**:
   ```json
   [
-  "bash"
+  "bash",
+  "curl",
+  "ca-certificates"
 ]
   ```
   In file: <a href="./variables.tf#L51"><code>variables.tf#L51</code></a>

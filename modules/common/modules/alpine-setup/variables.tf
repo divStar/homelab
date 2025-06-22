@@ -51,7 +51,7 @@ variable "alpine_image" {
 variable "packages" {
   description = "List of packages to install on the container"
   type        = list(string)
-  default     = ["bash"]
+  default     = ["bash", "curl", "ca-certificates"]
   nullable    = false
 }
 

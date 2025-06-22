@@ -133,7 +133,7 @@ resource "ssh_resource" "install_openssh" {
         echo "OpenSSH is already installed on container ${var.vm_id}"
       else
         echo "Installing OpenSSH on container ${var.vm_id}..."
-        pct exec ${var.vm_id} -- apk update
+        pct exec ${var.vm_id} -- apk update && apk upgrade
         pct exec ${var.vm_id} -- apk add openssh
         pct exec ${var.vm_id} -- rc-update add sshd default
         pct exec ${var.vm_id} -- /etc/init.d/sshd start

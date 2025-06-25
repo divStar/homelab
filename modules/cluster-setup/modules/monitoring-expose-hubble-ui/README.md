@@ -8,7 +8,7 @@ Exposes the Hubble UI from Cilium CNI.
 - [Requirements](#requirements)
 - [Providers](#providers)
 - [Resources](#resources)
-  - [longhorn_namespace](#longhorn_namespace-kubectl_manifest) (*kubectl_manifest*)
+  - [cilium_namespace](#cilium_namespace-kubectl_manifest) (*kubectl_manifest*)
 - [Variables](#variables)
   - [ca_issuer](#ca_issuer-required) (**Required**)
   - [service_host](#service_host-optional) (*Optional*)</blockquote>
@@ -18,18 +18,17 @@ Exposes the Hubble UI from Cilium CNI.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | >= 1.19.0 |
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | >= 1.19.0 |
+| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | n/a |
 
 
 ## Resources
 <blockquote>
 
-#### `longhorn_namespace` (_kubectl_manifest_)
+#### `cilium_namespace` (_kubectl_manifest_)
 
   <table>
     <tr>

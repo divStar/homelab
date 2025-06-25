@@ -6,10 +6,11 @@
  */
 
 data "talos_image_factory_urls" "this" {
-  talos_version = var.talos_version
+  talos_version = var.talos_linux_version
   architecture  = var.arch
   platform      = var.platform
-  schematic_id  = talos_image_factory_schematic.this.id
+
+  schematic_id = talos_image_factory_schematic.this.id
 }
 
 resource "talos_image_factory_schematic" "this" {
@@ -26,7 +27,7 @@ resource "proxmox_virtual_environment_download_file" "this" {
   url                     = replace(data.talos_image_factory_urls.this.urls.disk_image, ".xz", ".gz") # Modify URL to get raw.gz
 
   file_name = format("talos-%s-%s-%s-%s.img",
-    var.talos_version,
+    var.talos_linux_version,
     var.arch,
     var.platform,
     talos_image_factory_schematic.this.id

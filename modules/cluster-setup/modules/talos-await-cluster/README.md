@@ -14,6 +14,7 @@ Awaits the Talos cluster to become ready and running.
   - [cluster](#cluster-required) (**Required**)
   - [nodes](#nodes-required) (**Required**)
   - [talos_client_configuration](#talos_client_configuration-required) (**Required**)
+  - [talos_linux_version](#talos_linux_version-required) (**Required**)
   - [talos_machine_secrets](#talos_machine_secrets-required) (**Required**)
   - [bootstrap_timeout](#bootstrap_timeout-optional) (*Optional*)
   - [health_check_timeout](#health_check_timeout-optional) (*Optional*)
@@ -27,13 +28,11 @@ Awaits the Talos cluster to become ready and running.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) | >= 0.69.0 |
-| <a name="requirement_talos"></a> [talos](#requirement\_talos) | >= 0.7.0 |
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_talos"></a> [talos](#provider\_talos) | >= 0.7.0 |
+| <a name="provider_talos"></a> [talos](#provider\_talos) | n/a |
 
 
 ## Resources
@@ -80,12 +79,11 @@ Cluster configuration
   **Type**:
   ```hcl
   object({
-    name          = string
-    talos_version = string
-    endpoint      = string
+    name     = string
+    endpoint = string
   })
   ```
-  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
+  In file: <a href="./variables.tf#L7"><code>variables.tf#L7</code></a>
 
 </details>
 </blockquote>
@@ -105,7 +103,7 @@ Configuration for cluster nodes
     ip           = string
   }))
   ```
-  In file: <a href="./variables.tf#L41"><code>variables.tf#L41</code></a>
+  In file: <a href="./variables.tf#L46"><code>variables.tf#L46</code></a>
 
 </details>
 </blockquote>
@@ -121,7 +119,23 @@ Talos cluster client configuration
   ```hcl
   map(any)
   ```
-  In file: <a href="./variables.tf#L15"><code>variables.tf#L15</code></a>
+  In file: <a href="./variables.tf#L20"><code>variables.tf#L20</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `talos_linux_version` (**Required**)
+Version of Talos (Linux/Kubernetes) to install
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote>
@@ -137,7 +151,7 @@ Talos cluster machine configuration
   ```hcl
   any
   ```
-  In file: <a href="./variables.tf#L10"><code>variables.tf#L10</code></a>
+  In file: <a href="./variables.tf#L15"><code>variables.tf#L15</code></a>
 
 </details>
 </blockquote>
@@ -157,7 +171,7 @@ Cluster bootstrap timeout
   ```json
   "5m"
   ```
-  In file: <a href="./variables.tf#L20"><code>variables.tf#L20</code></a>
+  In file: <a href="./variables.tf#L25"><code>variables.tf#L25</code></a>
 
 </details>
 </blockquote>
@@ -177,7 +191,7 @@ Cluster health-check timeout
   ```json
   "10m"
   ```
-  In file: <a href="./variables.tf#L27"><code>variables.tf#L27</code></a>
+  In file: <a href="./variables.tf#L32"><code>variables.tf#L32</code></a>
 
 </details>
 </blockquote>
@@ -197,7 +211,7 @@ Cluster kubeconfig creation timeout
   ```json
   "1m"
   ```
-  In file: <a href="./variables.tf#L34"><code>variables.tf#L34</code></a>
+  In file: <a href="./variables.tf#L39"><code>variables.tf#L39</code></a>
 
 </details>
 </blockquote>

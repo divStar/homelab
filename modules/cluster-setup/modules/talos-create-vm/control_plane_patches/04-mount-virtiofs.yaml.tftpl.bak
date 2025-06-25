@@ -1,0 +1,35 @@
+machine:
+  pods:
+    - apiVersion: v1
+      kind: Pod
+      metadata:
+        name: virtiofs-mounter
+        namespace: kube-system
+      spec:
+        hostNetwork: true
+        hostPID: true
+        containers:
+        - name: alpine-mounter
+          image: alpine:latest
+          securityContext:
+            privileged: true
+          command:
+            - /bin/sh
+            - -c
+            - |
+              # Install util-linux for proper mount with namespace support
+              apk add --no-cache util-linux
+              
+              # Iterate over all supplied virtiofs mappings and mount them to the host (`-N1`)
+              %{~ for vfs_mapping in vfs_mappings ~}
+              mkdir -p /host/var/mnt/${vfs_mapping}
+              mount -t virtiofs -N1 ${vfs_mapping} /host/var/mnt/${vfs_mapping}
+              %{~ endfor ~}
+          volumeMounts:
+          - name: host-root
+            mountPath: /host
+        volumes:
+        - name: host-root
+          hostPath:
+            path: /
+        restartPolicy: Always

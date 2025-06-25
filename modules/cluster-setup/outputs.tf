@@ -17,12 +17,6 @@ resource "local_file" "kube_config" {
   file_permission = "0600"
 }
 
-resource "local_file" "k8s_sealed_secret" {
-  content         = module.setup_k8s_ca.k8s_sealed_secret_yaml
-  filename        = var.k8s_sealed_secret_ca_file
-  file_permission = "0600"
-}
-
 output "talos_config" {
   description = "String containing the `talos-config.yaml`"
   value       = module.prepare_talos_cluster.talos_config

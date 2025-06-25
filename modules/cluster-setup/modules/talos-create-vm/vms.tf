@@ -42,22 +42,28 @@ resource "proxmox_virtual_environment_vm" "this" {
     serial       = "boot"
   }
 
-  dynamic "disk" {
-    for_each = var.node_machine_type == "worker" ? [1] : []
-    content {
-      datastore_id = var.node_datastore_id
-      interface    = "scsi1"
-      iothread     = true
-      cache        = "writethrough"
-      discard      = "on"
-      ssd          = true
-      file_format  = "raw"
-      size         = 32
-      serial       = "storage"
-    }
+  disk {
+    datastore_id = var.node_datastore_id
+    interface    = "scsi1"
+    iothread     = true
+    cache        = "writethrough"
+    discard      = "on"
+    ssd          = true
+    file_format  = "raw"
+    size         = 64
+    serial       = "storage"
   }
 
   boot_order = ["scsi0"]
+
+  dynamic "virtiofs" {
+    for_each = var.node_vfs_mappings
+    content {
+      mapping   = virtiofs.value
+      cache     = "never"
+      direct_io = true
+    }
+  }
 
   operating_system {
     type = "l26" # Linux Kernel 2.6 - 6.X.

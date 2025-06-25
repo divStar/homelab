@@ -65,3 +65,7 @@ terraform.rc
 
 # Ignore test-ssh-key as I use it sometimes
 test-ssh-key
+secret_fingerprint
+
+# Pulumi
+.pulumi-passphrase

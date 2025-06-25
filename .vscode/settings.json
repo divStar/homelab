@@ -5,5 +5,6 @@
         "**/.hg": true,
         "**/terraform.tfstate*": true,
         "**/.DS_Store": true
-    }
+    },
+    "git.ignoreLimitWarning": true
 }

@@ -1,0 +1,38 @@
+machine:
+    pods:
+        - apiVersion: v1
+          kind: Pod
+          metadata:
+            name: media-mounter
+            namespace: kube-system
+          spec:
+            containers:
+                - command:
+                    - sh
+                    - -c
+                    - |
+                      exec > /host/var/log/alpine-staticpod.log 2>&1
+                      echo "Update APK..."
+                      apk update
+                      echo "Install mount..."
+                      apk add --no-cache mount
+                      echo "Mounting virtiofs..."
+                      # Iterate over all supplied virtiofs mappings and mount them to the host (`-N1`)
+                      %{~ for vfs_mapping in vfs_mappings ~}
+                      mkdir -p /host/var/mnt/${vfs_mapping}
+                      mount -N1 -t virtiofs ${vfs_mapping} /var/mnt/${vfs_mapping}
+                      %{~ endfor ~}
+                  image: alpine:latest
+                  name: mounter
+                  securityContext:
+                    privileged: true
+                  volumeMounts:
+                    - mountPath: /host
+                      name: host-root
+            hostNetwork: true
+            hostPID: true
+            restartPolicy: Never
+            volumes:
+                - hostPath:
+                    path: /
+                  name: host-root

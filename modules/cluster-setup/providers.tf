@@ -4,15 +4,15 @@ terraform {
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"
-      version = ">= 0.69.0"
+      version = ">= 0.78.2"
     }
     talos = {
       source  = "siderolabs/talos"
-      version = ">= 0.7.0"
+      version = ">= 0.8.1"
     }
     helm = {
       source  = "hashicorp/helm"
-      version = ">= 2.17.0"
+      version = ">= 3.0.1"
     }
     kubectl = {
       source  = "gavinbunney/kubectl"
@@ -43,13 +43,13 @@ provider "talos" {
 provider "helm" {
   alias = "templating"
 
-  kubernetes {}
+  kubernetes = {}
 }
 
 provider "helm" {
   alias = "deploying"
 
-  kubernetes {
+  kubernetes = {
     host                   = module.await_talos_cluster.kube_config.kubernetes_client_configuration.host
     client_certificate     = base64decode(module.await_talos_cluster.kube_config.kubernetes_client_configuration.client_certificate)
     client_key             = base64decode(module.await_talos_cluster.kube_config.kubernetes_client_configuration.client_key)

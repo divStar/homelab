@@ -20,10 +20,10 @@ module "download_talos_images" {
 
   for_each = { for idx, node in var.nodes : node.name => node }
 
-  talos_version = each.value.talos_version
-  schematic     = each.value.schematic
-  platform      = each.value.platform
-  arch          = each.value.arch
+  talos_linux_version = var.talos_linux_version
+  schematic           = each.value.schematic
+  platform            = each.value.platform
+  arch                = each.value.arch
 }
 
 # Prepares the cluster creation by generating the **Talos machine secrets**
@@ -32,10 +32,8 @@ module "prepare_talos_cluster" {
   source     = "./modules/talos-prepare-cluster"
   depends_on = [module.download_talos_images]
 
-  cluster = {
-    name          = var.cluster.name
-    talos_version = var.cluster.talos_version
-  }
+  cluster_name        = var.cluster.name
+  talos_linux_version = var.talos_linux_version
 
   nodes = [for node in var.nodes : {
     ip           = node.ip
@@ -56,6 +54,8 @@ module "create_talos_vms" {
   cluster                    = var.cluster
   talos_machine_secrets      = module.prepare_talos_cluster.machine_secrets
   talos_client_configuration = module.prepare_talos_cluster.client_configuration
+  talos_linux_version        = var.talos_linux_version
+  target_kube_version        = var.target_kube_version
   cilium_version             = var.cilium_version
 
   for_each = { for idx, node in local.nodes_with_iso : node.name => node }
@@ -73,6 +73,7 @@ module "create_talos_vms" {
   node_ram          = each.value.ram
   node_iso          = each.value.iso
   node_datastore_id = each.value.datastore_id
+  node_vfs_mappings = each.value.vfs_mappings
 }
 
 # Awaits the Talos cluster to become ready and available.
@@ -82,10 +83,10 @@ module "await_talos_cluster" {
   depends_on = [module.create_talos_vms]
 
   cluster = {
-    name          = var.cluster.name
-    talos_version = var.cluster.talos_version
-    endpoint      = var.cluster.endpoint
+    name     = var.cluster.name
+    endpoint = var.cluster.endpoint
   }
+  talos_linux_version        = var.talos_linux_version
   talos_machine_secrets      = module.prepare_talos_cluster.machine_secrets
   talos_client_configuration = module.prepare_talos_cluster.client_configuration
 
@@ -131,15 +132,9 @@ module "setup_k8s_ca" {
   source     = "./modules/core-setup-k8s-ca"
   depends_on = [module.install_sealed_secrets]
 
-  proxmox = {
-    host     = var.proxmox.host
-    ssh_user = var.proxmox.ssh_user
-    ssh_key  = var.proxmox.ssh_key
-  }
-
-  proxmox_root_ca  = var.proxmox_root_ca
-  k8s_ca           = var.k8s_ca
-  secret_namespace = var.cert_manager_namespace
+  secret_namespace          = var.cert_manager_namespace
+  acme_contact              = var.acme_contact
+  acme_server_directory_url = var.acme_server_directory_url
 }
 
 # Installs [`external-dns`](https://github.com/kubernetes-sigs/external-dns),
@@ -156,19 +151,15 @@ module "install_external_dns" {
   chart_version = var.external_dns_version
 }
 
-# Installs [`longhorn`](https://longhorn.io/), which allows to manage distributed
-# storage of `PersistentVolume` and `PersistentVolumeClaims`.
-module "install_longhorn" {
-  source     = "./modules/storage-install-longhorn"
-  depends_on = [module.install_external_dns]
+module "install_local_path_provisioner" {
+  source     = "./modules/storage-local-path-provisioner"
+  depends_on = [module.setup_k8s_ca]
 
   providers = {
     helm.deploying = helm.deploying
   }
 
-  chart_version = var.longhorn_version
-  nodes_count   = length([for node in var.nodes : true if node.machine_type == "worker"])
-  ca_issuer     = module.setup_k8s_ca.k8s_ca_issuer
+  chart_version = var.local_path_provisioner_version
 }
 
 # Exposes the [Cilium Hubble UI](https://docs.cilium.io/en/stable/observability/hubble/hubble-ui/),
@@ -177,5 +168,5 @@ module "expose_hubble_ui" {
   source     = "./modules/monitoring-expose-hubble-ui"
   depends_on = [module.install_external_dns]
 
-  ca_issuer = module.setup_k8s_ca.k8s_ca_issuer
+  ca_issuer = module.setup_k8s_ca.k8s_ca_issuer_name
 }

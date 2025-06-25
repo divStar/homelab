@@ -1,9 +1,14 @@
+variable "talos_linux_version" {
+  description = "Version of Talos (Linux/Kubernetes) to install"
+  type        = string
+  nullable    = false
+}
+
 variable "cluster" {
   description = "Cluster configuration"
   type = object({
-    name          = string
-    talos_version = string
-    endpoint      = string
+    name     = string
+    endpoint = string
   })
 }
 

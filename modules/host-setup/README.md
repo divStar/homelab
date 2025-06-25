@@ -295,7 +295,7 @@ Directory mappings for the Proxmox node
   ```json
   []
   ```
-  In file: <a href="./variables.tf#L196"><code>variables.tf#L196</code></a>
+  In file: <a href="./variables.tf#L198"><code>variables.tf#L198</code></a>
 
 </details>
 </blockquote>
@@ -320,7 +320,7 @@ Configuration of GitOps user.
   ```json
   {}
   ```
-  In file: <a href="./variables.tf#L127"><code>variables.tf#L127</code></a>
+  In file: <a href="./variables.tf#L129"><code>variables.tf#L129</code></a>
 
 </details>
 </blockquote>
@@ -346,7 +346,7 @@ Whether to use no-subscription repository instead of enterprise repository or no
   "enabled": true
 }
   ```
-  In file: <a href="./variables.tf#L169"><code>variables.tf#L169</code></a>
+  In file: <a href="./variables.tf#L171"><code>variables.tf#L171</code></a>
 
 </details>
 </blockquote>
@@ -369,7 +369,7 @@ Original owner of the source repository (before, e.g. root:root)
   ```json
   {}
   ```
-  In file: <a href="./variables.tf#L139"><code>variables.tf#L139</code></a>
+  In file: <a href="./variables.tf#L141"><code>variables.tf#L141</code></a>
 
 </details>
 </blockquote>
@@ -451,7 +451,7 @@ Configuration of GitOps user.
   "user": "share-user"
 }
   ```
-  In file: <a href="./variables.tf#L149"><code>variables.tf#L149</code></a>
+  In file: <a href="./variables.tf#L151"><code>variables.tf#L151</code></a>
 
 </details>
 </blockquote>
@@ -471,7 +471,7 @@ Configuration of the storage (pools and directories) to import
   ```json
   []
   ```
-  In file: <a href="./variables.tf#L190"><code>variables.tf#L190</code></a>
+  In file: <a href="./variables.tf#L192"><code>variables.tf#L192</code></a>
 
 </details>
 </blockquote>
@@ -509,7 +509,9 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
         "Datastore.Audit",
         "SDN.Use",
         "Sys.Audit",
-        "Sys.Modify"
+        "Sys.Modify",
+        "Mapping.Use",
+        "Mapping.Modify"
       ])
     })
     token = object({

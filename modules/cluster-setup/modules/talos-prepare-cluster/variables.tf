@@ -1,9 +1,13 @@
-variable "cluster" {
+variable "cluster_name" {
   description = "Cluster configuration"
-  type = object({
-    name          = string
-    talos_version = string
-  })
+  type        = string
+  nullable    = false
+}
+
+variable "talos_linux_version" {
+  description = "Version of Talos (Linux/Kubernetes) to install"
+  type        = string
+  nullable    = false
 }
 
 variable "nodes" {

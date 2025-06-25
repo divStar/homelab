@@ -11,6 +11,7 @@ Creates a Talos VM with a given ISO, type and other settings.
 - [Providers](#providers)
 - [Resources](#resources)
   - [cilium_patch](#cilium_patch-local_file) (*local_file*)
+  - [virtiofs_patch](#virtiofs_patch-local_file) (*local_file*)
   - [this](#this-proxmox_virtual_environment_vm) (*proxmox_virtual_environment_vm*)
   - [this](#this-talos_machine_configuration_apply) (*talos_machine_configuration_apply*)
 - [Variables](#variables)
@@ -24,10 +25,13 @@ Creates a Talos VM with a given ISO, type and other settings.
   - [node_machine_type](#node_machine_type-required) (**Required**)
   - [node_name](#node_name-required) (**Required**)
   - [node_ram](#node_ram-required) (**Required**)
+  - [node_vfs_mappings](#node_vfs_mappings-required) (**Required**)
   - [node_vm_id](#node_vm_id-required) (**Required**)
   - [proxmox](#proxmox-required) (**Required**)
   - [talos_client_configuration](#talos_client_configuration-required) (**Required**)
+  - [talos_linux_version](#talos_linux_version-required) (**Required**)
   - [talos_machine_secrets](#talos_machine_secrets-required) (**Required**)
+  - [target_kube_version](#target_kube_version-required) (**Required**)
   - [cilium_chart](#cilium_chart-optional) (*Optional*)
   - [cilium_name](#cilium_name-optional) (*Optional*)
   - [cilium_namespace](#cilium_namespace-optional) (*Optional*)
@@ -36,22 +40,18 @@ Creates a Talos VM with a given ISO, type and other settings.
   - [node_bridge](#node_bridge-optional) (*Optional*)
   - [node_datastore_id](#node_datastore_id-optional) (*Optional*)
   - [node_description](#node_description-optional) (*Optional*)
-  - [node_tags](#node_tags-optional) (*Optional*)
-  - [target_kube_version](#target_kube_version-optional) (*Optional*)</blockquote>
+  - [node_tags](#node_tags-optional) (*Optional*)</blockquote>
 
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.17.0 |
-| <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) | >= 0.69.0 |
-| <a name="requirement_talos"></a> [talos](#requirement\_talos) | >= 0.7.0 |
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_helm.templating"></a> [helm.templating](#provider\_helm.templating) | >= 2.17.0 |
+| <a name="provider_helm.templating"></a> [helm.templating](#provider\_helm.templating) | n/a |
 | <a name="provider_local"></a> [local](#provider\_local) | n/a |
 | <a name="provider_proxmox"></a> [proxmox](#provider\_proxmox) | 0.68.1 |
 | <a name="provider_talos"></a> [talos](#provider\_talos) | 0.6.1 |
@@ -70,6 +70,21 @@ Creates a Talos VM with a given ISO, type and other settings.
     <tr>
       <td>In file</td>
       <td><a href="./cilium.tf#L30"><code>cilium.tf#L30</code></a></td>
+    </tr>
+  </table>
+</blockquote>
+<blockquote>
+
+#### `virtiofs_patch` (_local_file_)
+
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>local (hashicorp/local)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./virtiofs_mount.tf#L7"><code>virtiofs_mount.tf#L7</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -117,7 +132,7 @@ Cilium version
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L122"><code>variables.tf#L122</code></a>
+  In file: <a href="./variables.tf#L127"><code>variables.tf#L127</code></a>
 
 </details>
 </blockquote>
@@ -132,11 +147,10 @@ Cluster configuration
   **Type**:
   ```hcl
   object({
-    name          = string
-    gateway       = string
-    talos_version = string
-    endpoint      = string
-    lb_cidr       = string
+    name     = string
+    gateway  = string
+    endpoint = string
+    lb_cidr  = string
   })
   ```
   In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
@@ -155,7 +169,7 @@ Number of CPUs for the node
   ```hcl
   number
   ```
-  In file: <a href="./variables.tf#L101"><code>variables.tf#L101</code></a>
+  In file: <a href="./variables.tf#L100"><code>variables.tf#L100</code></a>
 
 </details>
 </blockquote>
@@ -171,7 +185,7 @@ Host node for the cluster
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L54"><code>variables.tf#L54</code></a>
+  In file: <a href="./variables.tf#L53"><code>variables.tf#L53</code></a>
 
 </details>
 </blockquote>
@@ -187,7 +201,7 @@ IP address of the node
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L76"><code>variables.tf#L76</code></a>
+  In file: <a href="./variables.tf#L75"><code>variables.tf#L75</code></a>
 
 </details>
 </blockquote>
@@ -203,7 +217,7 @@ The path to the Talos node ISO, that is supposed to be used
   ```hcl
   any
   ```
-  In file: <a href="./variables.tf#L111"><code>variables.tf#L111</code></a>
+  In file: <a href="./variables.tf#L110"><code>variables.tf#L110</code></a>
 
 </details>
 </blockquote>
@@ -219,7 +233,7 @@ MAC address of the node
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L86"><code>variables.tf#L86</code></a>
+  In file: <a href="./variables.tf#L85"><code>variables.tf#L85</code></a>
 
 </details>
 </blockquote>
@@ -235,7 +249,7 @@ Type of machine (controlplane or worker)
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L59"><code>variables.tf#L59</code></a>
+  In file: <a href="./variables.tf#L58"><code>variables.tf#L58</code></a>
 
 </details>
 </blockquote>
@@ -251,7 +265,7 @@ Name of the cluster node
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L49"><code>variables.tf#L49</code></a>
+  In file: <a href="./variables.tf#L48"><code>variables.tf#L48</code></a>
 
 </details>
 </blockquote>
@@ -267,7 +281,23 @@ Dedicated RAM for the node
   ```hcl
   number
   ```
-  In file: <a href="./variables.tf#L106"><code>variables.tf#L106</code></a>
+  In file: <a href="./variables.tf#L105"><code>variables.tf#L105</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `node_vfs_mappings` (**Required**)
+List of VirtioFS mapping names to attach to all VMs
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  list(string)
+  ```
+  In file: <a href="./variables.tf#L114"><code>variables.tf#L114</code></a>
 
 </details>
 </blockquote>
@@ -283,7 +313,7 @@ VM ID of the node
   ```hcl
   number
   ```
-  In file: <a href="./variables.tf#L96"><code>variables.tf#L96</code></a>
+  In file: <a href="./variables.tf#L95"><code>variables.tf#L95</code></a>
 
 </details>
 </blockquote>
@@ -323,7 +353,23 @@ Talos cluster client configuration
   ```hcl
   any
   ```
-  In file: <a href="./variables.tf#L30"><code>variables.tf#L30</code></a>
+  In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `talos_linux_version` (**Required**)
+Version of Talos (Linux/Kubernetes) to install
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  In file: <a href="./variables.tf#L167"><code>variables.tf#L167</code></a>
 
 </details>
 </blockquote>
@@ -339,7 +385,23 @@ Talos cluster machine configuration
   ```hcl
   any
   ```
-  In file: <a href="./variables.tf#L25"><code>variables.tf#L25</code></a>
+  In file: <a href="./variables.tf#L24"><code>variables.tf#L24</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `target_kube_version` (**Required**)
+Target version of Kubernetes the template is built for
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  In file: <a href="./variables.tf#L173"><code>variables.tf#L173</code></a>
 
 </details>
 </blockquote>
@@ -359,7 +421,7 @@ Name of the Cilium Helm Chart to use
   ```json
   "cilium"
   ```
-  In file: <a href="./variables.tf#L148"><code>variables.tf#L148</code></a>
+  In file: <a href="./variables.tf#L153"><code>variables.tf#L153</code></a>
 
 </details>
 </blockquote>
@@ -379,7 +441,7 @@ Name of the Cilium Helm release
   ```json
   "cilium"
   ```
-  In file: <a href="./variables.tf#L127"><code>variables.tf#L127</code></a>
+  In file: <a href="./variables.tf#L132"><code>variables.tf#L132</code></a>
 
 </details>
 </blockquote>
@@ -399,7 +461,7 @@ Namespace to install Cilium into
   ```json
   "cilium"
   ```
-  In file: <a href="./variables.tf#L134"><code>variables.tf#L134</code></a>
+  In file: <a href="./variables.tf#L139"><code>variables.tf#L139</code></a>
 
 </details>
 </blockquote>
@@ -419,7 +481,7 @@ URL of the Cilium Helm repository to use
   ```json
   "https://helm.cilium.io"
   ```
-  In file: <a href="./variables.tf#L141"><code>variables.tf#L141</code></a>
+  In file: <a href="./variables.tf#L146"><code>variables.tf#L146</code></a>
 
 </details>
 </blockquote>
@@ -439,7 +501,7 @@ Cilium Helm template creation timeout
   ```json
   60
   ```
-  In file: <a href="./variables.tf#L155"><code>variables.tf#L155</code></a>
+  In file: <a href="./variables.tf#L160"><code>variables.tf#L160</code></a>
 
 </details>
 </blockquote>
@@ -459,7 +521,7 @@ Network bridge to use for this node
   ```json
   "vmbr0"
   ```
-  In file: <a href="./variables.tf#L69"><code>variables.tf#L69</code></a>
+  In file: <a href="./variables.tf#L68"><code>variables.tf#L68</code></a>
 
 </details>
 </blockquote>
@@ -479,7 +541,7 @@ Datastore ID for the node
   ```json
   "local"
   ```
-  In file: <a href="./variables.tf#L115"><code>variables.tf#L115</code></a>
+  In file: <a href="./variables.tf#L120"><code>variables.tf#L120</code></a>
 
 </details>
 </blockquote>
@@ -499,7 +561,7 @@ Description to set for the given node
   ```json
   ""
   ```
-  In file: <a href="./variables.tf#L35"><code>variables.tf#L35</code></a>
+  In file: <a href="./variables.tf#L34"><code>variables.tf#L34</code></a>
 
 </details>
 </blockquote>
@@ -519,27 +581,7 @@ Tags to set for the given node
   ```json
   []
   ```
-  In file: <a href="./variables.tf#L42"><code>variables.tf#L42</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
-### `target_kube_version` (*Optional*)
-Target version of Kubernetes the template is built for
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "1.32"
-  ```
-  In file: <a href="./variables.tf#L162"><code>variables.tf#L162</code></a>
+  In file: <a href="./variables.tf#L41"><code>variables.tf#L41</code></a>
 
 </details>
 </blockquote>

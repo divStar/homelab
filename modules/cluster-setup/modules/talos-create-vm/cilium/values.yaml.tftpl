@@ -23,6 +23,7 @@ ipam:
 
 operator:
   rollOutPods: true
+  replicas: 1
   resources:
     limits:
       cpu: 500m
@@ -63,7 +64,8 @@ externalIPs:
 
 loadBalancer:
   # https://docs.cilium.io/en/stable/network/kubernetes/kubeproxy-free/#maglev-consistent-hashing
-  algorithm: maglev
+  algorithm: maglev # use if you have multiple nodes
+  #algorithm: round_robin # probably best for single-cluster nodes?
 
 gatewayAPI:
   enabled: true

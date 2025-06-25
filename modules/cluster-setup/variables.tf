@@ -1,3 +1,47 @@
+# Versions
+variable "talos_linux_version" {
+  description = "Version of Talos (Linux/Kubernetes) to install"
+  type        = string
+  nullable    = false
+}
+
+variable "target_kube_version" {
+  description = "Target version of Kubernetes the template is built for"
+  type        = string
+  nullable    = false
+}
+
+variable "cilium_version" {
+  description = "Cilium version"
+  type        = string
+  nullable    = false
+}
+
+variable "cert_manager_version" {
+  description = "Version of the cert-manager Helm Chart to install"
+  type        = string
+  nullable    = false
+}
+
+variable "external_dns_version" {
+  description = "Version of the external-dns Helm Chart to install"
+  type        = string
+  nullable    = false
+}
+
+variable "sealed_secrets_version" {
+  description = "Version of the sealed-secrets Helm Chart to install"
+  type        = string
+  nullable    = false
+}
+
+variable "local_path_provisioner_version" {
+  description = "Version of the local_path_provisioner Helm Chart to install"
+  type        = string
+  nullable    = false
+}
+
+# Common settings
 variable "proxmox" {
   description = "Proxmox host configuration"
   type = object({
@@ -16,7 +60,6 @@ variable "cluster" {
   description = "Cluster configuration"
   type = object({
     name              = string
-    talos_version     = string
     gateway           = string
     endpoint          = string
     lb_cidr           = string
@@ -24,101 +67,25 @@ variable "cluster" {
   })
 }
 
-variable "proxmox_root_ca" {
-  description = "Proxmox root CA certificate and key to use for the intermediate k8s certificate"
-  type = object({
-    pve_root_cert = string
-    pve_root_key  = string
-  })
-  default = {
-    pve_root_cert = "/etc/pve/pve-root-ca.pem"
-    pve_root_key  = "/etc/pve/priv/pve-root-ca.key"
-  }
-  nullable = false
-}
-
-variable "k8s_ca" {
-  description = "Intermediate Kubernetes CA used as ClusterIssuer"
-  type = object({
-    subject = object({
-      common_name         = string
-      organization        = string
-      organizational_unit = string
-      country             = string
-      locality            = string
-      province            = string
-    })
-    private_key = object({
-      algorithm = string
-      rsa_bits  = number
-    })
-    validity_period_hours = number
-  })
-  default = {
-    subject = {
-      common_name         = "Proxmox VE Kubernetes Intermediate CA"
-      organization        = "PVE Cluster Manager CA"
-      organizational_unit = "Kubernetes"
-      country             = "DE"
-      locality            = "Home Lab"
-      province            = "Private Network"
-    }
-    private_key = {
-      algorithm = "RSA"
-      rsa_bits  = 4096
-    }
-    validity_period_hours = 78840 # 9 years
-  }
-  nullable = false
-}
-
-variable "kube_config_file" {
-  description = "File name and path for the generated kube-config"
-  type        = string
-  default     = "output/kube-config.yaml"
-  nullable    = false
-}
-
-variable "talos_config_file" {
-  description = "File name and path for the generated talos-config"
-  type        = string
-  default     = "output/talos-config.yaml"
-  nullable    = false
-}
-
-variable "talos_machine_config_file" {
-  description = "File name and path for the generated talos-machine-config; use <node-name> in the file name to replace with node name"
-  type        = string
-  default     = "output/talos-machine-config-<node-name>.yaml"
-  nullable    = false
-}
-
-variable "k8s_sealed_secret_ca_file" {
-  description = "File name and path for the generated sealed secret of the intermediate Kubernetes CA certificate"
-  type        = string
-  default     = "output/k8s_sealed_secret_ca.yaml"
-  nullable    = false
-}
-
 variable "nodes" {
   description = "Configuration for cluster nodes"
   type = list(object({
-    talos_version = string
-    schematic     = optional(string)
-    platform      = optional(string)
-    arch          = optional(string)
-    name          = string
-    description   = optional(string)
-    tags          = optional(list(string))
-    host          = string
-    machine_type  = string
-    bridge        = optional(string)
-    ip            = string
-    mac_address   = string
-    vm_id         = number
-    cpu           = number
-    ram           = number
-    datastore_id  = optional(string)
+    schematic    = optional(string)
+    platform     = optional(string)
+    arch         = optional(string)
+    name         = string
+    description  = optional(string)
+    tags         = optional(list(string))
+    host         = string
+    machine_type = string
+    bridge       = optional(string)
+    ip           = string
+    mac_address  = string
+    vm_id        = number
+    cpu          = number
+    ram          = number
+    datastore_id = optional(string)
+    vfs_mappings = optional(list(string), [])
   }))
 
   validation {
@@ -151,45 +118,55 @@ variable "nodes" {
   }
 }
 
-variable "cilium_version" {
-  description = "Cilium version"
+# Output files
+variable "kube_config_file" {
+  description = "File name and path for the generated kube-config"
   type        = string
-  default     = "1.17.1"
+  default     = "output/kube-config.yaml"
   nullable    = false
 }
 
-variable "longhorn_version" {
-  description = "Version of the Longhorn Helm Chart to install"
+variable "talos_config_file" {
+  description = "File name and path for the generated talos-config"
   type        = string
-  default     = "1.8.0"
+  default     = "output/talos-config.yaml"
   nullable    = false
 }
 
-variable "cert_manager_version" {
-  description = "Version of the cert-manager Helm Chart to install"
+variable "talos_machine_config_file" {
+  description = "File name and path for the generated talos-machine-config; use <node-name> in the file name to replace with node name"
   type        = string
-  default     = "1.17.1"
+  default     = "output/talos-machine-config-<node-name>.yaml"
   nullable    = false
 }
 
+variable "k8s_sealed_secret_ca_file" {
+  description = "File name and path for the generated sealed secret of the intermediate Kubernetes CA certificate"
+  type        = string
+  default     = "output/k8s_sealed_secret_ca.yaml"
+  nullable    = false
+}
+
+# ACME configuration
+variable "acme_server_directory_url" {
+  description = "ACME server directory URL"
+  type        = string
+  default     = "https://192.168.178.155/acme/step-ca-acme/directory"
+  nullable    = false
+}
+
+variable "acme_contact" {
+  description = "E-Mail address of the ACME account"
+  type        = string
+  default     = "admin@my.world"
+  nullable    = false
+}
+
+# Misc configuration
 variable "cert_manager_namespace" {
   description = "Namespace where the cert-manager will be installed to"
   type        = string
   default     = "cert-manager"
-  nullable    = false
-}
-
-variable "external_dns_version" {
-  description = "Version of the external-dns Helm Chart to install"
-  type        = string
-  default     = "8.7.5"
-  nullable    = false
-}
-
-variable "sealed_secrets_version" {
-  description = "Version of the sealed-secrets Helm Chart to install"
-  type        = string
-  default     = "2.17.1"
   nullable    = false
 }
 

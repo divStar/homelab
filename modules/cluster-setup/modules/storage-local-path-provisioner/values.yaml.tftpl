@@ -1,0 +1,28 @@
+# Local Path Provisioner configuration
+image:
+  repository: rancher/local-path-provisioner
+  tag: v0.0.31
+
+# Storage class configuration
+storageClass:
+  create: true
+  defaultClass: ${default_storage_class}
+  name: local-path
+  reclaimPolicy: Delete
+  volumeBindingMode: WaitForFirstConsumer
+
+# Node path configuration for Talos
+nodePath: ${storage_path}
+
+# Helper image for filesystem operations
+helperImage:
+  repository: busybox
+  tag: latest
+
+resources:
+  requests:
+    memory: 32Mi
+    cpu: 10m
+  limits:
+    memory: 128Mi
+    cpu: 100m

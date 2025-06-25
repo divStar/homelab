@@ -11,9 +11,10 @@ variable "proxmox" {
   })
 }
 
-variable "talos_version" {
-  description = "Talos version to use"
+variable "talos_linux_version" {
+  description = "Version of Talos (Linux/Kubernetes) to install"
   type        = string
+  nullable    = false
 }
 
 variable "schematic" {

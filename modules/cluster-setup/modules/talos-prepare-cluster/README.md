@@ -10,8 +10,9 @@ Creates the Talos machine secrets and the Talos client configuration.
 - [Resources](#resources)
   - [this](#this-talos_machine_secrets) (*talos_machine_secrets*)
 - [Variables](#variables)
-  - [cluster](#cluster-required) (**Required**)
+  - [cluster_name](#cluster_name-required) (**Required**)
   - [nodes](#nodes-required) (**Required**)
+  - [talos_linux_version](#talos_linux_version-required) (**Required**)
 - [Outputs](#outputs)
   - [client_configuration](#client_configuration)
   - [machine_secrets](#machine_secrets)
@@ -22,12 +23,11 @@ Creates the Talos machine secrets and the Talos client configuration.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_talos"></a> [talos](#requirement\_talos) | >= 0.7.0 |
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_talos"></a> [talos](#provider\_talos) | >= 0.7.0 |
+| <a name="provider_talos"></a> [talos](#provider\_talos) | n/a |
 
 
 ## Resources
@@ -50,7 +50,7 @@ Creates the Talos machine secrets and the Talos client configuration.
 ## Variables
 <blockquote>
 
-### `cluster` (**Required**)
+### `cluster_name` (**Required**)
 Cluster configuration
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -58,10 +58,7 @@ Cluster configuration
 
   **Type**:
   ```hcl
-  object({
-    name          = string
-    talos_version = string
-  })
+  string
   ```
   In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
@@ -82,7 +79,23 @@ Configuration for cluster nodes
     ip           = string
   }))
   ```
-  In file: <a href="./variables.tf#L9"><code>variables.tf#L9</code></a>
+  In file: <a href="./variables.tf#L13"><code>variables.tf#L13</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `talos_linux_version` (**Required**)
+Version of Talos (Linux/Kubernetes) to install
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  In file: <a href="./variables.tf#L7"><code>variables.tf#L7</code></a>
 
 </details>
 </blockquote>

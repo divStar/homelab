@@ -21,12 +21,11 @@ Handles the setup of `sealed-secrets`.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.17.0 |
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_helm.deploying"></a> [helm.deploying](#provider\_helm.deploying) | >= 2.17.0 |
+| <a name="provider_helm.deploying"></a> [helm.deploying](#provider\_helm.deploying) | n/a |
 
 
 ## Resources

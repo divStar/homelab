@@ -17,7 +17,7 @@ data "talos_machine_configuration" "this" {
 
   cluster_name     = var.cluster.name
   cluster_endpoint = "https://${var.cluster.endpoint}:6443"
-  talos_version    = var.cluster.talos_version
+  talos_version    = var.talos_linux_version
   machine_type     = var.node_machine_type
   machine_secrets  = var.talos_machine_secrets
   config_patches = [

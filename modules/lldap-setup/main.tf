@@ -16,6 +16,7 @@ module "setup_container" {
   }
   vm_id          = var.vm_id
   hostname       = var.hostname
+  description    = var.description
   mount_points   = var.mount_points
   imagestore_id  = var.imagestore_id
   ni_ip          = var.ni_ip

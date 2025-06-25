@@ -1,82 +1,46 @@
+talos_linux_version = "1.10.4"
+target_kube_version = "1.32"
+
+cilium_version                 = "1.17.5"
+cert_manager_version           = "1.18.1"
+external_dns_version           = "8.8.6"
+sealed_secrets_version         = "2.17.3"
+local_path_provisioner_version = "0.0.32"
+
 proxmox = {
-  # Proxmox host name
   name      = "sanctum"
-  # Proxmox host IP
-  host      = "<proxmox-ip>"
-  # Proxmox host URL
-  endpoint  = "https://<proxmox-ip>:<proxmox-ui-port>"
-  # whether to use SSL/TLS or not, needs proper certificates
+  host      = "192.168.178.25"
+  endpoint  = "https://192.168.178.25:8006"
   insecure  = true
-  # Proxmox API token consisting of terraform user and token
-  api_token = "<proxmox-terraform-user>@<proxmox-user-realm>!<proxmox-terraform-user>=<proxmox-terraform-user-token-value>"
-  # SSH user on Proxmox (for operations the Proxmox API does not support)
-  ssh_user  = "<ssh-user>"
-  # SSH key filename
+  api_token = "user@realm!token-id=token-value"
+  username  = "root"
+  ssh_user  = "root"
   ssh_key   = "~/.ssh/id_rsa"
+  iso_store = "local"
 }
 
 cluster = {
-  # Cluster name
   name          = "talos"
-  # Cluster version
-  talos_version = "1.9.4"
-  # Cluster gateway
   gateway       = "192.168.178.1"
-  # Cluster endpoint
   endpoint      = "192.168.178.110"
-  # Cluster load-balancer CIDR
   lb_cidr       = "192.168.178.223/31"
-  # (optional) Talos image factory URL, default is set to `https://factory.talos.dev`
-  # factory_url   = "https://factory.talos.dev"
 }
 
 nodes = [
+  # Note: you can have more nodes if you want - even on different hosts, but I have not tried this
   {
-    # Version of Talos to use, see https://factory.talos.dev/?target=cloud
-    talos_version = "1.9.4"
-    # (optional) Schematic description (NOT the ID), see ./modules/cluster-setup/modules/talos_image_download/schematic/default.yaml
-    # schematic   = "./modules/cluster-setup/modules/talos_image_download/schematic/default.yaml"
-    # (optional) Platform type, see https://registry.terraform.io/providers/siderolabs/talos/latest/docs/data-sources/image_factory_urls#platform-4
-    # platform    = "nocloud"
-    # (optional) Architecture, see https://registry.terraform.io/providers/siderolabs/talos/latest/docs/data-sources/image_factory_urls#architecture-4
-    # arch        = "amd64"
-    # Talos node host name
     name          = "talos-ctrl-00"
-    # (optional) VM description (Proxmox GUI)
     description   = "Talos Control Plane"
-    # (optional) VM tags (Proxmox GUI)
-    tags          = ["k8s", "control-plane"]
-    # Proxmox host node name
+    tags          = ["vm", "talos", "k8s", "controlplane"]
     host          = "sanctum"
-    # Talos node type, "controlplane" or "worker", see `variables.tf#nodes.machine_type` validation
     machine_type  = "controlplane"
-    # (optional) Bridge to use, default is `vmbr0`
-    # bridge      = "vmbr0"
-    # VM IP address / Talos node IP
     ip            = "192.168.178.110"
-    # VM MAC address
     mac_address   = "BC:24:11:2E:C8:00"
-    # ID of the VM
     vm_id         = 810
-    # Amount of dedicated CPU cores
-    cpu           = 4
-    # Amount of dedicated RAM
-    ram           = 8192
-    # (optional) Data store where the cloud-init volume is stored, default is "local"
-    datastore_id = "images-host"
-  },
-  {
-    talos_version = "1.9.4"
-    description   = "Talos Worker"
-    tags          = ["k8s", "worker"]
-    name          = "talos-work-00"
-    host          = "sanctum"
-    machine_type  = "worker"
-    ip            = "192.168.178.120"
-    mac_address   = "BC:24:11:2E:A8:00"
-    vm_id         = 820
-    cpu           = 4
+    cpu           = 8
     ram           = 16384
-    datastore_id  = "images-host"
+    datastore_id  = "local"
+    # Virtiofs Mappings; need static pod to mount them
+    vfs_mappings  = ["music-storage", "pictures-storage"]
   }
 ]

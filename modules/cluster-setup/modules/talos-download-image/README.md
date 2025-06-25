@@ -13,7 +13,7 @@ architecture, platform and schematics.
   - [this](#this-talos_image_factory_schematic) (*talos_image_factory_schematic*)
 - [Variables](#variables)
   - [proxmox](#proxmox-required) (**Required**)
-  - [talos_version](#talos_version-required) (**Required**)
+  - [talos_linux_version](#talos_linux_version-required) (**Required**)
   - [arch](#arch-optional) (*Optional*)
   - [factory_url](#factory_url-optional) (*Optional*)
   - [platform](#platform-optional) (*Optional*)
@@ -29,8 +29,6 @@ architecture, platform and schematics.
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) | >= 0.69.0 |
-| <a name="requirement_talos"></a> [talos](#requirement\_talos) | >= 0.7.0 |
 ## Providers
 
 | Name | Version |
@@ -51,7 +49,7 @@ architecture, platform and schematics.
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L19"><code>main.tf#L19</code></a></td>
+      <td><a href="./main.tf#L20"><code>main.tf#L20</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -66,7 +64,7 @@ architecture, platform and schematics.
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L15"><code>main.tf#L15</code></a></td>
+      <td><a href="./main.tf#L16"><code>main.tf#L16</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -98,8 +96,8 @@ Proxmox host configuration
 </blockquote>
 <blockquote>
 
-### `talos_version` (**Required**)
-Talos version to use
+### `talos_linux_version` (**Required**)
+Version of Talos (Linux/Kubernetes) to install
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -128,7 +126,7 @@ Architecture to use (amd64 or arm64)
   ```json
   "amd64"
   ```
-  In file: <a href="./variables.tf#L40"><code>variables.tf#L40</code></a>
+  In file: <a href="./variables.tf#L41"><code>variables.tf#L41</code></a>
 
 </details>
 </blockquote>
@@ -148,7 +146,7 @@ URL of the Talos image factory
   ```json
   "https://factory.talos.dev"
   ```
-  In file: <a href="./variables.tf#L26"><code>variables.tf#L26</code></a>
+  In file: <a href="./variables.tf#L27"><code>variables.tf#L27</code></a>
 
 </details>
 </blockquote>
@@ -168,7 +166,7 @@ Platform to use (e.g. metal, nocloud, aws, etc., see https://registry.terraform.
   ```json
   "nocloud"
   ```
-  In file: <a href="./variables.tf#L33"><code>variables.tf#L33</code></a>
+  In file: <a href="./variables.tf#L34"><code>variables.tf#L34</code></a>
 
 </details>
 </blockquote>
@@ -188,7 +186,7 @@ Schematic configuration as YAML string
   ```json
   "schematic/default.yaml"
   ```
-  In file: <a href="./variables.tf#L19"><code>variables.tf#L19</code></a>
+  In file: <a href="./variables.tf#L20"><code>variables.tf#L20</code></a>
 
 </details>
 </blockquote>

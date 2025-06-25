@@ -1,6 +1,6 @@
-# Install `longhorn`
+# Install `local-path-provisioner`
 
-Handles the setup of `longhorn` (storage solution for PV/PVCs).
+Handles the setup of `local-path-provisioner` for local storage provisioning.
 ## Contents
 
 <blockquote>
@@ -8,15 +8,14 @@ Handles the setup of `longhorn` (storage solution for PV/PVCs).
 - [Requirements](#requirements)
 - [Providers](#providers)
 - [Resources](#resources)
-  - [longhorn](#longhorn-helm_release) (*helm_release*)
-  - [longhorn_namespace](#longhorn_namespace-kubectl_manifest) (*kubectl_manifest*)
+  - [local_path_provisioner](#local_path_provisioner-helm_release) (*helm_release*)
+  - [local_path_provisioner_namespace](#local_path_provisioner_namespace-kubectl_manifest) (*kubectl_manifest*)
 - [Variables](#variables)
-  - [ca_issuer](#ca_issuer-required) (**Required**)
   - [chart_version](#chart_version-required) (**Required**)
-  - [nodes_count](#nodes_count-required) (**Required**)
+  - [default_storage_class](#default_storage_class-optional) (*Optional*)
   - [name](#name-optional) (*Optional*)
   - [namespace](#namespace-optional) (*Optional*)
-  - [service_host](#service_host-optional) (*Optional*)
+  - [storage_path](#storage_path-optional) (*Optional*)
   - [timeout](#timeout-optional) (*Optional*)
   - [values](#values-optional) (*Optional*)</blockquote>
 
@@ -25,20 +24,18 @@ Handles the setup of `longhorn` (storage solution for PV/PVCs).
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.17.0 |
-| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | >= 1.19.0 |
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_helm.deploying"></a> [helm.deploying](#provider\_helm.deploying) | >= 2.17.0 |
-| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | >= 1.19.0 |
+| <a name="provider_helm.deploying"></a> [helm.deploying](#provider\_helm.deploying) | n/a |
+| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | n/a |
 
 
 ## Resources
 <blockquote>
 
-#### `longhorn` (_helm_release_)
+#### `local_path_provisioner` (_helm_release_)
 
   <table>
     <tr>
@@ -53,7 +50,7 @@ Handles the setup of `longhorn` (storage solution for PV/PVCs).
 </blockquote>
 <blockquote>
 
-#### `longhorn_namespace` (_kubectl_manifest_)
+#### `local_path_provisioner_namespace` (_kubectl_manifest_)
 
   <table>
     <tr>
@@ -68,22 +65,6 @@ Handles the setup of `longhorn` (storage solution for PV/PVCs).
 </blockquote>
 
 ## Variables
-<blockquote>
-
-### `ca_issuer` (**Required**)
-CA certificate issuer (for Certificate resource managed by cert-manager)
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  In file: <a href="./variables.tf#L11"><code>variables.tf#L11</code></a>
-
-</details>
-</blockquote>
 <blockquote>
 
 ### `chart_version` (**Required**)
@@ -102,17 +83,21 @@ Helm Chart version to install
 </blockquote>
 <blockquote>
 
-### `nodes_count` (**Required**)
-Amount of nodes (usually worker nodes only); will be used for Longhorn replicaCount properties
+### `default_storage_class` (*Optional*)
+Whether to set this as the default StorageClass
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
 
   **Type**:
   ```hcl
-  number
+  bool
   ```
-  In file: <a href="./variables.tf#L6"><code>variables.tf#L6</code></a>
+  **Default**:
+  ```json
+  true
+  ```
+  In file: <a href="./variables.tf#L34"><code>variables.tf#L34</code></a>
 
 </details>
 </blockquote>
@@ -130,9 +115,9 @@ Name of the Helm release
   ```
   **Default**:
   ```json
-  "longhorn-release"
+  "local-path-provisioner"
   ```
-  In file: <a href="./variables.tf#L16"><code>variables.tf#L16</code></a>
+  In file: <a href="./variables.tf#L6"><code>variables.tf#L6</code></a>
 
 </details>
 </blockquote>
@@ -150,16 +135,16 @@ Kubernetes namespace to install into
   ```
   **Default**:
   ```json
-  "longhorn-system"
+  "local-path-storage"
   ```
-  In file: <a href="./variables.tf#L23"><code>variables.tf#L23</code></a>
+  In file: <a href="./variables.tf#L13"><code>variables.tf#L13</code></a>
 
 </details>
 </blockquote>
 <blockquote>
 
-### `service_host` (*Optional*)
-Host to expose the longhorn UI on, e.g. longhorn.my.domain
+### `storage_path` (*Optional*)
+Host path for local storage provisioning (Talos uses /var/mnt/local-path-provisioner)
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -170,9 +155,9 @@ Host to expose the longhorn UI on, e.g. longhorn.my.domain
   ```
   **Default**:
   ```json
-  "longhorn.my.world"
+  "/var/mnt/local-path-provisioner"
   ```
-  In file: <a href="./variables.tf#L44"><code>variables.tf#L44</code></a>
+  In file: <a href="./variables.tf#L27"><code>variables.tf#L27</code></a>
 
 </details>
 </blockquote>
@@ -192,7 +177,7 @@ Time in seconds to wait for the Helm Chart to be installed
   ```json
   120
   ```
-  In file: <a href="./variables.tf#L30"><code>variables.tf#L30</code></a>
+  In file: <a href="./variables.tf#L20"><code>variables.tf#L20</code></a>
 
 </details>
 </blockquote>
@@ -212,7 +197,7 @@ Additional values to pass to the helm chart (in YAML format)
   ```json
   ""
   ```
-  In file: <a href="./variables.tf#L37"><code>variables.tf#L37</code></a>
+  In file: <a href="./variables.tf#L41"><code>variables.tf#L41</code></a>
 
 </details>
 </blockquote>

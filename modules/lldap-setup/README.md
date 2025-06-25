@@ -62,7 +62,7 @@ Domain certificate setup
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L31"><code>main.tf#L31</code></a></td>
+      <td><a href="./main.tf#L32"><code>main.tf#L32</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/domain-cert-setup/README.md">README.md</a> <em>(experimental)</em></td>
@@ -101,7 +101,7 @@ Configure LLDAP
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L73"><code>main.tf#L73</code></a></td>
+      <td><a href="./main.tf#L74"><code>main.tf#L74</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -116,7 +116,7 @@ Install LLDAP
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L99"><code>main.tf#L99</code></a></td>
+      <td><a href="./main.tf#L100"><code>main.tf#L100</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -131,7 +131,7 @@ Install the generated certificate
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L46"><code>main.tf#L46</code></a></td>
+      <td><a href="./main.tf#L47"><code>main.tf#L47</code></a></td>
     </tr>
   </table>
 </blockquote>

@@ -14,11 +14,10 @@ variable "proxmox" {
 variable "cluster" {
   description = "Cluster configuration"
   type = object({
-    name          = string
-    gateway       = string
-    talos_version = string
-    endpoint      = string
-    lb_cidr       = string
+    name     = string
+    gateway  = string
+    endpoint = string
+    lb_cidr  = string
   })
 }
 
@@ -112,6 +111,12 @@ variable "node_iso" {
   description = "The path to the Talos node ISO, that is supposed to be used"
 }
 
+variable "node_vfs_mappings" {
+  description = "List of VirtioFS mapping names to attach to all VMs"
+  type        = list(string)
+  nullable    = false
+}
+
 variable "node_datastore_id" {
   description = "Datastore ID for the node"
   type        = string
@@ -159,9 +164,14 @@ variable "cilium_timeout" {
   nullable    = false
 }
 
+variable "talos_linux_version" {
+  description = "Version of Talos (Linux/Kubernetes) to install"
+  type        = string
+  nullable    = false
+}
+
 variable "target_kube_version" {
   description = "Target version of Kubernetes the template is built for"
   type        = string
-  default     = "1.32"
   nullable    = false
 }

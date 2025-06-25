@@ -35,7 +35,7 @@ if [ $DRY_RUN -eq 1 ]; then
 else
     ssh root@${PROXMOX_HOST} << 'EOF'
         # Stop VMs if they're running
-        for VMID in 810 820; do
+        for VMID in 810; do
             if qm status $VMID | grep -q "status: running"; then
                 echo "Stopping VM $VMID..."
                 qm stop $VMID

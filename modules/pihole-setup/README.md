@@ -68,7 +68,7 @@ Domain certificate setup
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L36"><code>main.tf#L36</code></a></td>
+      <td><a href="./main.tf#L37"><code>main.tf#L37</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/domain-cert-setup/README.md">README.md</a> <em>(experimental)</em></td>
@@ -107,7 +107,7 @@ Create a random password for the PiHole admin web UI
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L51"><code>main.tf#L51</code></a></td>
+      <td><a href="./main.tf#L52"><code>main.tf#L52</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -122,7 +122,7 @@ Configure PiHole
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L58"><code>main.tf#L58</code></a></td>
+      <td><a href="./main.tf#L59"><code>main.tf#L59</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -137,7 +137,7 @@ Install PiHole
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L78"><code>main.tf#L78</code></a></td>
+      <td><a href="./main.tf#L79"><code>main.tf#L79</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -152,7 +152,7 @@ Install certificate
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L122"><code>main.tf#L122</code></a></td>
+      <td><a href="./main.tf#L123"><code>main.tf#L123</code></a></td>
     </tr>
   </table>
 </blockquote>

@@ -1,7 +1,7 @@
 locals {
-  cilium_patch_file   = "01-install-cilium.yaml"
-  patch_file          = "${path.module}/${local.control_plane_patches_dir}/${local.cilium_patch_file}"
-  patch_template_file = "${local.patch_file}.tftpl"
+  cilium_patch_filename          = "01-install-cilium.yaml"
+  cilium_patch_full_filename     = "${path.module}/${local.control_plane_patches_dir}/${local.cilium_patch_filename}"
+  cilium_patch_full_filename_tpl = "${local.cilium_patch_full_filename}.tftpl"
 
   cilium_values_template_file = "values.yaml.tftpl"
   values_template_file        = "${path.module}/cilium/${local.cilium_values_template_file}"
@@ -32,8 +32,8 @@ resource "local_file" "cilium_patch" {
 
   depends_on = [data.helm_template.cilium]
 
-  filename = local.patch_file
-  content = templatefile(local.patch_template_file, {
+  filename = local.cilium_patch_full_filename
+  content = templatefile(local.cilium_patch_full_filename_tpl, {
     cilium_namespace         = var.cilium_namespace
     cilium_manifest          = data.helm_template.cilium[0].manifest
     cilium_loadbalancer_cidr = var.cluster.lb_cidr

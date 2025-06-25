@@ -1,0 +1,11 @@
+# user-volume-patch.yaml
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local-path-provisioner
+provisioning:
+  diskSelector:
+    match: system_disk == false
+  minSize: 64GB
+  maxSize: 64GB  # Adjust based on your disk size
+filesystem:
+  type: ext4

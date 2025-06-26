@@ -1,2 +1,2 @@
 # Ignore generated patches
-01-install-cilium.yaml
+*.yaml

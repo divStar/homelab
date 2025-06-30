@@ -1,6 +1,6 @@
-# LLDAP Setup
+# Step-CA Setup
 
-This module sets up LLDAP in an Alpine LXC container using the provided information.
+This module sets up Step-CA in an Alpine LXC container using the provided information.
 ## Contents
 
 <blockquote>
@@ -9,21 +9,20 @@ This module sets up LLDAP in an Alpine LXC container using the provided informat
 - [Providers](#providers)
 - [Execution story](#execution-story)
 - [Modules](#modules) _(nested and adjacent)_
-  - [setup_certificate](#setup_certificate)
   - [setup_container](#setup_container)
 - [Resources](#resources)
-  - _ssh_resource_.[configure](#ssh_resourceconfigure)
-  - _ssh_resource_.[install](#ssh_resourceinstall)
-  - _ssh_resource_.[install_cert](#ssh_resourceinstall_cert)
+  - _ssh_resource_.[configure_container](#ssh_resourceconfigure_container)
+  - _ssh_resource_.[configure_host](#ssh_resourceconfigure_host)
+  - _ssh_resource_.[revert_host](#ssh_resourcerevert_host)
 - [Variables](#variables)
   - [proxmox](#proxmox-required) (**Required**)
+  - [acme_contact](#acme_contact-optional) (*Optional*)
+  - [acme_name](#acme_name-optional) (*Optional*)
+  - [acme_proxmox_domains](#acme_proxmox_domains-optional) (*Optional*)
   - [description](#description-optional) (*Optional*)
-  - [dns_names](#dns_names-optional) (*Optional*)
+  - [fingerprint_file](#fingerprint_file-optional) (*Optional*)
   - [hostname](#hostname-optional) (*Optional*)
   - [imagestore_id](#imagestore_id-optional) (*Optional*)
-  - [init_certificate](#init_certificate-optional) (*Optional*)
-  - [init_configuration](#init_configuration-optional) (*Optional*)
-  - [ip_addresses](#ip_addresses-optional) (*Optional*)
   - [mount_points](#mount_points-optional) (*Optional*)
   - [ni_bridge](#ni_bridge-optional) (*Optional*)
   - [ni_gateway](#ni_gateway-optional) (*Optional*)
@@ -31,8 +30,8 @@ This module sets up LLDAP in an Alpine LXC container using the provided informat
   - [ni_mac_address](#ni_mac_address-optional) (*Optional*)
   - [ni_name](#ni_name-optional) (*Optional*)
   - [ni_subnet_mask](#ni_subnet_mask-optional) (*Optional*)
+  - [skip_host_configuration](#skip_host_configuration-optional) (*Optional*)
   - [startup_order](#startup_order-optional) (*Optional*)
-  - [subject](#subject-optional) (*Optional*)
   - [tags](#tags-optional) (*Optional*)
   - [vm_id](#vm_id-optional) (*Optional*)
 - [Outputs](#outputs)
@@ -45,7 +44,7 @@ This module sets up LLDAP in an Alpine LXC container using the provided informat
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) | >= 0.75.0 |
+| <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) | >= 0.78.1 |
 | <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
 
 ## Providers
@@ -58,9 +57,9 @@ This module sets up LLDAP in an Alpine LXC container using the provided informat
 
 Order in which Terraform will create resources (and likely destroy them in reverse order):
 ```
-├── ssh_resource.configure
-├── ssh_resource.install_cert
-├── ssh_resource.install
+├── ssh_resource.configure_container
+├── ssh_resource.configure_host
+├── ssh_resource.revert_host
 ├── module.setup_container
 │   ├── module.setup_container.random_password.root_password
 │   ├── module.setup_container.tls_private_key.ssh_key
@@ -68,33 +67,9 @@ Order in which Terraform will create resources (and likely destroy them in rever
 │   ├── module.setup_container.proxmox_virtual_environment_container.container
 │   ├── module.setup_container.ssh_resource.install_openssh
 │   ├── module.setup_container.ssh_resource.install_packages
-├── module.setup_certificate
-│   ├── module.setup_certificate.ssh_resource.proxmox_ca_cert
-│   ├── module.setup_certificate.ssh_resource.proxmox_ca_key
-│   ├── module.setup_certificate.tls_private_key.key
-│   ├── module.setup_certificate.tls_cert_request.cert_request
-│   ├── module.setup_certificate.tls_locally_signed_cert.cert
 ```
 
 ## Modules
-<blockquote>
-
-### `setup_certificate`
-Domain certificate setup
-  <table>
-    <tr>
-      <td>Module location</td>
-      <td><code>../common/modules/domain-cert-setup</code></td>
-    </tr>
-    <tr>
-      <td>In file</td>
-      <td><a href="./main.tf#L32"><code>main.tf#L32</code></a></td>
-    </tr>
-    <tr>
-      <td colspan="2"><a href="../common/modules/domain-cert-setup/README.md">README.md</a> <em>(experimental)</em></td>
-    </tr>
-  </table>
-</blockquote>
 <blockquote>
 
 ### `setup_container`
@@ -102,14 +77,14 @@ Alpine LXC container setup
   <table>
     <tr>
       <td>Module location</td>
-      <td><code>../common/modules/alpine-setup</code></td>
+      <td><code>../common/modules/alpine</code></td>
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L8"><code>main.tf#L8</code></a></td>
+      <td><a href="./main.tf#L14"><code>main.tf#L14</code></a></td>
     </tr>
     <tr>
-      <td colspan="2"><a href="../common/modules/alpine-setup/README.md">README.md</a> <em>(experimental)</em></td>
+      <td colspan="2"><a href="../common/modules/alpine/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
 </blockquote>
@@ -118,8 +93,8 @@ Alpine LXC container setup
 ## Resources
 <blockquote>
 
-#### _ssh_resource_.`configure`
-Configure LLDAP
+#### _ssh_resource_.`configure_container`
+Configure Step-CA
   <table>
     <tr>
       <td>Provider</td>
@@ -127,14 +102,14 @@ Configure LLDAP
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L74"><code>main.tf#L74</code></a></td>
+      <td><a href="./main.tf#L38"><code>main.tf#L38</code></a></td>
     </tr>
   </table>
 </blockquote>
 <blockquote>
 
-#### _ssh_resource_.`install`
-Install LLDAP
+#### _ssh_resource_.`configure_host`
+Configure ACME domain and order certificates
   <table>
     <tr>
       <td>Provider</td>
@@ -142,14 +117,14 @@ Install LLDAP
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L100"><code>main.tf#L100</code></a></td>
+      <td><a href="./main.tf#L68"><code>main.tf#L68</code></a></td>
     </tr>
   </table>
 </blockquote>
 <blockquote>
 
-#### _ssh_resource_.`install_cert`
-Install the generated certificate
+#### _ssh_resource_.`revert_host`
+ACME Cleanup on destroy
   <table>
     <tr>
       <td>Provider</td>
@@ -157,7 +132,7 @@ Install the generated certificate
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L47"><code>main.tf#L47</code></a></td>
+      <td><a href="./main.tf#L108"><code>main.tf#L108</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -189,6 +164,69 @@ Proxmox host configuration
 </blockquote>
 <blockquote>
 
+### `acme_contact` (*Optional*)
+E-Mail address of the ACME account in Proxmox
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  **Default**:
+  ```json
+  "admin@my.world"
+  ```
+  In file: <a href="./variables.tf#L116"><code>variables.tf#L116</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `acme_name` (*Optional*)
+ACME account name
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  **Default**:
+  ```json
+  "step-ca-acme"
+  ```
+  In file: <a href="./variables.tf#L123"><code>variables.tf#L123</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `acme_proxmox_domains` (*Optional*)
+Proxmox ACME domains to order certificates for
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  list(string)
+  ```
+  **Default**:
+  ```json
+  [
+  "sanctum.my.world",
+  "sanctum.fritz.box"
+]
+  ```
+  In file: <a href="./variables.tf#L130"><code>variables.tf#L130</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
 ### `description` (*Optional*)
 Description of the container
 
@@ -201,7 +239,7 @@ Description of the container
   ```
   **Default**:
   ```json
-  "Alpine Linux based LXC container with LLDAP"
+  "Alpine Linux based LXC container with Step-CA"
   ```
   In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
 
@@ -209,34 +247,8 @@ Description of the container
 </blockquote>
 <blockquote>
 
-### `dns_names` (*Optional*)
-DNS names for the certificate
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  list(string)
-  ```
-  **Default**:
-  ```json
-  [
-  "localhost",
-  "lldap",
-  "lldap.local",
-  "lldap.my.world",
-  "lldap.fritz.box"
-]
-  ```
-  In file: <a href="./variables.tf#L134"><code>variables.tf#L134</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
-### `hostname` (*Optional*)
-LLDAP host name
+### `fingerprint_file` (*Optional*)
+File containing the fingerprint
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -247,7 +259,27 @@ LLDAP host name
   ```
   **Default**:
   ```json
-  "lldap"
+  ""
+  ```
+  In file: <a href="./variables.tf#L138"><code>variables.tf#L138</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `hostname` (*Optional*)
+Step-CA host name
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  **Default**:
+  ```json
+  "step-ca"
   ```
   In file: <a href="./variables.tf#L22"><code>variables.tf#L22</code></a>
 
@@ -256,7 +288,7 @@ LLDAP host name
 <blockquote>
 
 ### `imagestore_id` (*Optional*)
-LLDAP imagestore ID
+Step-CA imagestore ID
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -267,73 +299,9 @@ LLDAP imagestore ID
   ```
   **Default**:
   ```json
-  "images-host"
+  "proxmox-resources"
   ```
-  In file: <a href="./variables.tf#L56"><code>variables.tf#L56</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
-### `init_certificate` (*Optional*)
-Initialize certificate as new (also needed for renewal)
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  bool
-  ```
-  **Default**:
-  ```json
-  false
-  ```
-  In file: <a href="./variables.tf#L114"><code>variables.tf#L114</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
-### `init_configuration` (*Optional*)
-Initialize a new stock configuration
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  bool
-  ```
-  **Default**:
-  ```json
-  false
-  ```
-  In file: <a href="./variables.tf#L149"><code>variables.tf#L149</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
-### `ip_addresses` (*Optional*)
-IP addresses for the certificate
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  list(string)
-  ```
-  **Default**:
-  ```json
-  [
-  "127.0.0.1",
-  "::1",
-  "192.168.178.155"
-]
-  ```
-  In file: <a href="./variables.tf#L141"><code>variables.tf#L141</code></a>
+  In file: <a href="./variables.tf#L58"><code>variables.tf#L58</code></a>
 
 </details>
 </blockquote>
@@ -356,8 +324,8 @@ List of mount points for the container
   ```json
   [
   {
-    "path": "/data",
-    "volume": "/storage-pool/lxc-data/lldap-data"
+    "path": "/etc/step-ca",
+    "volume": "/mnt/storage/service-configs/step-ca/step-lxc"
   }
 ]
   ```
@@ -381,7 +349,7 @@ Network interface bridge
   ```json
   "vmbr0"
   ```
-  In file: <a href="./variables.tf#L106"><code>variables.tf#L106</code></a>
+  In file: <a href="./variables.tf#L108"><code>variables.tf#L108</code></a>
 
 </details>
 </blockquote>
@@ -401,7 +369,7 @@ Network interface gateway
   ```json
   "192.168.178.1"
   ```
-  In file: <a href="./variables.tf#L78"><code>variables.tf#L78</code></a>
+  In file: <a href="./variables.tf#L80"><code>variables.tf#L80</code></a>
 
 </details>
 </blockquote>
@@ -421,7 +389,7 @@ Network interface IP address
   ```json
   "192.168.178.155"
   ```
-  In file: <a href="./variables.tf#L71"><code>variables.tf#L71</code></a>
+  In file: <a href="./variables.tf#L73"><code>variables.tf#L73</code></a>
 
 </details>
 </blockquote>
@@ -441,7 +409,7 @@ Network interface MAC address
   ```json
   "E8:31:0E:A5:D8:4C"
   ```
-  In file: <a href="./variables.tf#L85"><code>variables.tf#L85</code></a>
+  In file: <a href="./variables.tf#L87"><code>variables.tf#L87</code></a>
 
 </details>
 </blockquote>
@@ -461,7 +429,7 @@ Network interface name
   ```json
   "eth0"
   ```
-  In file: <a href="./variables.tf#L99"><code>variables.tf#L99</code></a>
+  In file: <a href="./variables.tf#L101"><code>variables.tf#L101</code></a>
 
 </details>
 </blockquote>
@@ -481,7 +449,27 @@ Network interface subnet mask in CIDR notation
   ```json
   24
   ```
-  In file: <a href="./variables.tf#L92"><code>variables.tf#L92</code></a>
+  In file: <a href="./variables.tf#L94"><code>variables.tf#L94</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `skip_host_configuration` (*Optional*)
+Controls whether the Proxmox host will be configured with ACME or not
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  bool
+  ```
+  **Default**:
+  ```json
+  false
+  ```
+  In file: <a href="./variables.tf#L145"><code>variables.tf#L145</code></a>
 
 </details>
 </blockquote>
@@ -501,33 +489,7 @@ Container startup order; shutdowns happen in reverse order
   ```json
   1
   ```
-  In file: <a href="./variables.tf#L63"><code>variables.tf#L63</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
-### `subject` (*Optional*)
-Subject information for the certificate
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  object({
-    common_name  = string
-    organization = string
-  })
-  ```
-  **Default**:
-  ```json
-  {
-  "common_name": "lldap.my.world",
-  "organization": "Home Network"
-}
-  ```
-  In file: <a href="./variables.tf#L121"><code>variables.tf#L121</code></a>
+  In file: <a href="./variables.tf#L65"><code>variables.tf#L65</code></a>
 
 </details>
 </blockquote>
@@ -546,8 +508,8 @@ Tags
   **Default**:
   ```json
   [
-  "lxc",
-  "alpine"
+  "alpine",
+  "lxc"
 ]
   ```
   In file: <a href="./variables.tf#L36"><code>variables.tf#L36</code></a>
@@ -557,7 +519,7 @@ Tags
 <blockquote>
 
 ### `vm_id` (*Optional*)
-LLDAP VM ID
+Step-CA VM ID
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>

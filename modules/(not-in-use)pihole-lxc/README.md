@@ -9,7 +9,6 @@ This module sets up PiHole in an Alpine LXC container using the provided informa
 - [Providers](#providers)
 - [Execution story](#execution-story)
 - [Modules](#modules) _(nested and adjacent)_
-  - [setup_certificate](#setup_certificate)
   - [setup_container](#setup_container)
 - [Resources](#resources)
   - _random_password_.[admin_password](#random_passwordadmin_password)
@@ -80,37 +79,19 @@ Order in which Terraform will create resources (and likely destroy them in rever
 ## Modules
 <blockquote>
 
-### `setup_certificate`
-Domain certificate setup
-  <table>
-    <tr>
-      <td>Module location</td>
-      <td><code>../common/modules/domain-cert-setup</code></td>
-    </tr>
-    <tr>
-      <td>In file</td>
-      <td><a href="./main.tf#L37"><code>main.tf#L37</code></a></td>
-    </tr>
-    <tr>
-      <td colspan="2"><a href="../common/modules/domain-cert-setup/README.md">README.md</a> <em>(experimental)</em></td>
-    </tr>
-  </table>
-</blockquote>
-<blockquote>
-
 ### `setup_container`
 Alpine LXC container setup
   <table>
     <tr>
       <td>Module location</td>
-      <td><code>../common/modules/alpine-setup</code></td>
+      <td><code>../common/modules/alpine</code></td>
     </tr>
     <tr>
       <td>In file</td>
       <td><a href="./main.tf#L12"><code>main.tf#L12</code></a></td>
     </tr>
     <tr>
-      <td colspan="2"><a href="../common/modules/alpine-setup/README.md">README.md</a> <em>(experimental)</em></td>
+      <td colspan="2"><a href="../common/modules/alpine/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
 </blockquote>
@@ -128,7 +109,7 @@ Create a random password for the PiHole admin web UI
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L52"><code>main.tf#L52</code></a></td>
+      <td><a href="./main.tf#L37"><code>main.tf#L37</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -143,7 +124,7 @@ Configure PiHole
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L59"><code>main.tf#L59</code></a></td>
+      <td><a href="./main.tf#L44"><code>main.tf#L44</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -158,7 +139,7 @@ Install PiHole
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L79"><code>main.tf#L79</code></a></td>
+      <td><a href="./main.tf#L64"><code>main.tf#L64</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -173,7 +154,7 @@ Install certificate
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L123"><code>main.tf#L123</code></a></td>
+      <td><a href="./main.tf#L108"><code>main.tf#L108</code></a></td>
     </tr>
   </table>
 </blockquote>

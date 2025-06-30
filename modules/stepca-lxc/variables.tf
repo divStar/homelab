@@ -36,7 +36,7 @@ variable "description" {
 variable "tags" {
   description = "Tags"
   type        = list(string)
-  default     = ["lxc", "alpine"]
+  default     = ["alpine", "lxc"]
   nullable    = false
 }
 
@@ -130,7 +130,7 @@ variable "acme_name" {
 variable "acme_proxmox_domains" {
   description = "Proxmox ACME domains to order certificates for"
   type        = list(string)
-  default     = ["192.168.178.25", "sanctum.my.world", "sanctum.fritz.box"]
+  default     = ["sanctum.my.world", "sanctum.fritz.box"]
   nullable    = false
 }
 

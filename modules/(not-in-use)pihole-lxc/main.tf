@@ -10,7 +10,7 @@ locals {
 
 # Alpine LXC container setup
 module "setup_container" {
-  source = "../common/modules/alpine-setup"
+  source = "../common/modules/alpine"
 
   proxmox = {
     host     = var.proxmox.host
@@ -31,21 +31,6 @@ module "setup_container" {
   ni_name        = var.ni_name
   ni_bridge      = var.ni_bridge
   startup_order  = var.startup_order
-}
-
-# Domain certificate setup
-module "setup_certificate" {
-  count  = var.init_certificate ? 1 : 0
-  source = "../common/modules/domain-cert-setup"
-
-  proxmox = {
-    host     = var.proxmox.host
-    ssh_user = var.proxmox.ssh_user
-    ssh_key  = var.proxmox.ssh_key
-  }
-  subject      = var.subject
-  ip_addresses = var.ip_addresses
-  dns_names    = var.dns_names
 }
 
 # Create a random password for the PiHole admin web UI
@@ -132,9 +117,10 @@ resource "ssh_resource" "install_cert" {
 
   file {
     content     = <<-EOT
-      ${module.setup_certificate[0].key_pem}
+      ###### NEEDS TO BE CHANGED TO STEP-CA ACME IF PIHOLE IS USED
+      module.setup_certificate[0].key_pem
 
-      ${module.setup_certificate[0].cert_pem}
+      module.setup_certificate[0].cert_pem
     EOT
     destination = "/etc/pihole/tls.pem"
     permissions = "0600"

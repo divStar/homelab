@@ -4,14 +4,15 @@
  * This module sets up Step-CA in an Alpine LXC container using the provided information.
  */
 locals {
-  timestamp            = "+%Y-%m-%d-%H-%M-%S"
-  setup_host_script    = "setup-host.sh"
-  teardown_host_script = "teardown-host.sh"
+  timestamp             = "+%Y-%m-%d-%H-%M-%S"
+  setup_host_script     = "setup-host.sh"
+  teardown_host_script  = "teardown-host.sh"
+  upgrade_alpine_script = "upgrade-alpine.sh"
 }
 
 # Alpine LXC container setup
 module "setup_container" {
-  source = "../common/modules/alpine-setup"
+  source = "../common/modules/alpine"
 
   proxmox = {
     host     = var.proxmox.host
@@ -42,6 +43,12 @@ resource "ssh_resource" "configure_container" {
   host        = var.ni_ip
   user        = "root"
   private_key = module.setup_container.ssh_private_key
+
+  file {
+    source      = "${path.module}/files/${local.upgrade_alpine_script}"
+    destination = "/tmp/${local.upgrade_alpine_script}"
+    permissions = "0755"
+  }
 
   commands = [
     <<-EOT
@@ -94,7 +101,7 @@ resource "ssh_resource" "configure_host" {
     EOT
   ]
 
-  timeout = "1m"
+  timeout = "2m"
 }
 
 # ACME Cleanup on destroy

@@ -6,7 +6,7 @@
 
 # Alpine LXC container setup
 module "setup_container" {
-  source = "../common/modules/alpine-setup"
+  source = "../common/modules/alpine"
 
   proxmox = {
     host     = var.proxmox.host
@@ -28,24 +28,9 @@ module "setup_container" {
   startup_order  = var.startup_order
 }
 
-# Domain certificate setup
-module "setup_certificate" {
-  count  = var.init_certificate ? 1 : 0
-  source = "../common/modules/domain-cert-setup"
-
-  proxmox = {
-    host     = var.proxmox.host
-    ssh_user = var.proxmox.ssh_user
-    ssh_key  = var.proxmox.ssh_key
-  }
-  subject      = var.subject
-  ip_addresses = var.ip_addresses
-  dns_names    = var.dns_names
-}
-
 # Install the generated certificate
 resource "ssh_resource" "install_cert" {
-  depends_on = [module.setup_container, module.setup_certificate]
+  depends_on = [module.setup_container]
   count      = var.init_certificate ? 1 : 0
 
   # when = "create"
@@ -55,15 +40,18 @@ resource "ssh_resource" "install_cert" {
   private_key = module.setup_container.ssh_private_key
 
   file {
-    content     = module.setup_certificate[0].key_pem
+    content     = <<-EOT
+      ###### NEEDS TO BE CHANGED TO STEP-CA ACME IF LLDAP IS USED
+      module.setup_certificate[0].key_pem
+    EOT
     destination = "/data/key.pem"
     permissions = "0644"
   }
 
   file {
     content     = <<-EOT
-      ${module.setup_certificate[0].cert_pem}
-      ${module.setup_certificate[0].ca_cert_pem}
+      ###### NEEDS TO BE CHANGED TO STEP-CA ACME IF LLDAP IS USED
+      module.setup_certificate[0].cert_pem
     EOT
     destination = "/data/cert.pem"
     permissions = "0644"

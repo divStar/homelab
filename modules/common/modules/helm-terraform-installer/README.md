@@ -1,18 +1,22 @@
-# Install given Helm chart and additional resources if need be.
+# Common Helm installer module
 
-Handles installing a generic Helm Chart using `helm_release`,
+Handles installing a Helm Chart using `helm_release`,
 supports custom resources during pre- and post-install.
+
+> [!NOTE]
+> the CRDs *have to be present* when installing custom resources.
 ## Contents
 
 <blockquote>
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [this](#this-helm_release) (*helm_release*)
-  - [namespace](#namespace-kubectl_manifest) (*kubectl_manifest*)
-  - [post_install](#post_install-kubectl_manifest) (*kubectl_manifest*)
-  - [pre_install](#pre_install-kubectl_manifest) (*kubectl_manifest*)
+  - _helm_release_.[this](#helm_releasethis)
+  - _kubectl_manifest_.[namespace](#kubectl_manifestnamespace)
+  - _kubectl_manifest_.[post_install](#kubectl_manifestpost_install)
+  - _kubectl_manifest_.[pre_install](#kubectl_manifestpre_install)
 - [Variables](#variables)
   - [chart_name](#chart_name-required) (**Required**)
   - [chart_repo](#chart_repo-required) (**Required**)
@@ -23,25 +27,39 @@ supports custom resources during pre- and post-install.
   - [chart_values](#chart_values-optional) (*Optional*)
   - [is_privileged_namespace](#is_privileged_namespace-optional) (*Optional*)
   - [post_install_resources](#post_install_resources-optional) (*Optional*)
-  - [pre_install_resources](#pre_install_resources-optional) (*Optional*)</blockquote>
+  - [pre_install_resources](#pre_install_resources-optional) (*Optional*)
+</blockquote>
 
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_helm.deploying"></a> [helm.deploying](#provider\_helm.deploying) | n/a |
-| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | n/a |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.0.2 |
+| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | 1.19.0 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── kubectl_manifest.namespace
+├── kubectl_manifest.pre_install
+├── helm_release.this
+├── kubectl_manifest.post_install
+```
+
+
 
 
 ## Resources
 <blockquote>
 
-#### `this` (_helm_release_)
+#### _helm_release_.`this`
 
   <table>
     <tr>
@@ -50,13 +68,13 @@ supports custom resources during pre- and post-install.
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L26"><code>main.tf#L26</code></a></td>
+      <td><a href="./main.tf#L29"><code>main.tf#L29</code></a></td>
     </tr>
   </table>
 </blockquote>
 <blockquote>
 
-#### `namespace` (_kubectl_manifest_)
+#### _kubectl_manifest_.`namespace`
 
   <table>
     <tr>
@@ -65,13 +83,13 @@ supports custom resources during pre- and post-install.
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L7"><code>main.tf#L7</code></a></td>
+      <td><a href="./main.tf#L10"><code>main.tf#L10</code></a></td>
     </tr>
   </table>
 </blockquote>
 <blockquote>
 
-#### `post_install` (_kubectl_manifest_)
+#### _kubectl_manifest_.`post_install`
 
   <table>
     <tr>
@@ -80,13 +98,13 @@ supports custom resources during pre- and post-install.
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L52"><code>main.tf#L52</code></a></td>
+      <td><a href="./main.tf#L54"><code>main.tf#L54</code></a></td>
     </tr>
   </table>
 </blockquote>
 <blockquote>
 
-#### `pre_install` (_kubectl_manifest_)
+#### _kubectl_manifest_.`pre_install`
 
   <table>
     <tr>
@@ -95,7 +113,7 @@ supports custom resources during pre- and post-install.
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L16"><code>main.tf#L16</code></a></td>
+      <td><a href="./main.tf#L19"><code>main.tf#L19</code></a></td>
     </tr>
   </table>
 </blockquote>

@@ -1,8 +1,11 @@
 /**
- * # Install given Helm chart and additional resources if need be.
+ * # Common Helm installer module
  *
- * Handles installing a generic Helm Chart using `helm_release`,
+ * Handles installing a Helm Chart using `helm_release`,
  * supports custom resources during pre- and post-install.
+ *
+ * > [!NOTE]
+ * > the CRDs *have to be present* when installing custom resources.
  */
 resource "kubectl_manifest" "namespace" {
   yaml_body = templatefile("${path.module}/namespace.yaml.tftpl", {
@@ -24,7 +27,6 @@ resource "kubectl_manifest" "pre_install" {
 }
 
 resource "helm_release" "this" {
-  provider   = helm.deploying
   depends_on = [kubectl_manifest.pre_install]
 
   name      = var.release_name

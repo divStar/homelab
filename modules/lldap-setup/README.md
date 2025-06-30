@@ -7,13 +7,14 @@ This module sets up LLDAP in an Alpine LXC container using the provided informat
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Modules](#modules) _(nested and adjacent)_
   - [setup_certificate](#setup_certificate)
   - [setup_container](#setup_container)
 - [Resources](#resources)
-  - [configure](#configure-ssh_resource) (*ssh_resource*)
-  - [install](#install-ssh_resource) (*ssh_resource*)
-  - [install_cert](#install_cert-ssh_resource) (*ssh_resource*)
+  - _ssh_resource_.[configure](#ssh_resourceconfigure)
+  - _ssh_resource_.[install](#ssh_resourceinstall)
+  - _ssh_resource_.[install_cert](#ssh_resourceinstall_cert)
 - [Variables](#variables)
   - [proxmox](#proxmox-required) (**Required**)
   - [description](#description-optional) (*Optional*)
@@ -36,7 +37,8 @@ This module sets up LLDAP in an Alpine LXC container using the provided informat
   - [vm_id](#vm_id-optional) (*Optional*)
 - [Outputs](#outputs)
   - [root_password](#root_password)
-  - [ssh_private_key](#ssh_private_key)</blockquote>
+  - [ssh_private_key](#ssh_private_key)
+</blockquote>
 
 ## Requirements
 
@@ -45,11 +47,35 @@ This module sets up LLDAP in an Alpine LXC container using the provided informat
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) | >= 0.75.0 |
 | <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── ssh_resource.configure
+├── ssh_resource.install_cert
+├── ssh_resource.install
+├── module.setup_container
+│   ├── module.setup_container.random_password.root_password
+│   ├── module.setup_container.tls_private_key.ssh_key
+│   ├── module.setup_container.proxmox_virtual_environment_download_file.template
+│   ├── module.setup_container.proxmox_virtual_environment_container.container
+│   ├── module.setup_container.ssh_resource.install_openssh
+│   ├── module.setup_container.ssh_resource.install_packages
+├── module.setup_certificate
+│   ├── module.setup_certificate.ssh_resource.proxmox_ca_cert
+│   ├── module.setup_certificate.ssh_resource.proxmox_ca_key
+│   ├── module.setup_certificate.tls_private_key.key
+│   ├── module.setup_certificate.tls_cert_request.cert_request
+│   ├── module.setup_certificate.tls_locally_signed_cert.cert
+```
+
 ## Modules
 <blockquote>
 
@@ -92,7 +118,7 @@ Alpine LXC container setup
 ## Resources
 <blockquote>
 
-#### `configure` (_ssh_resource_)
+#### _ssh_resource_.`configure`
 Configure LLDAP
   <table>
     <tr>
@@ -107,7 +133,7 @@ Configure LLDAP
 </blockquote>
 <blockquote>
 
-#### `install` (_ssh_resource_)
+#### _ssh_resource_.`install`
 Install LLDAP
   <table>
     <tr>
@@ -122,7 +148,7 @@ Install LLDAP
 </blockquote>
 <blockquote>
 
-#### `install_cert` (_ssh_resource_)
+#### _ssh_resource_.`install_cert`
 Install the generated certificate
   <table>
     <tr>

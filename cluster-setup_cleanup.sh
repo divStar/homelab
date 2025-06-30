@@ -1,9 +1,10 @@
 #!/bin/bash
 
 function print_usage() {
-    echo "Usage: $0 PROXMOX_HOST [--dry-run]"
+    echo "Usage: $0 PROXMOX_HOST [--dry-run] [--tf-path PATH]"
     echo "  PROXMOX_HOST    : Hostname/IP of your Proxmox server"
     echo "  --dry-run       : Optional. Show what would be done without making changes"
+    echo "  --tf-path PATH  : Optional. Path to Terraform files (default: current directory)"
     exit 1
 }
 
@@ -15,12 +16,32 @@ fi
 PROXMOX_HOST="$1"
 shift  # Remove first argument, leaving any remaining flags
 
-# Check for dry run flag
+# Initialize variables
 DRY_RUN=0
-if [[ "$1" == "--dry-run" ]]; then
-    DRY_RUN=1
-    echo "Running in DRY RUN mode - no changes will be made"
-fi
+TF_PATH="."
+
+# Parse remaining arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --dry-run)
+            DRY_RUN=1
+            echo "Running in DRY RUN mode - no changes will be made"
+            shift
+            ;;
+        --tf-path)
+            if [[ -z "$2" ]] || [[ "$2" == --* ]]; then
+                echo "Error: --tf-path requires a path argument"
+                print_usage
+            fi
+            TF_PATH="$2"
+            shift 2
+            ;;
+        *)
+            echo "Error: Unknown option $1"
+            print_usage
+            ;;
+    esac
+done
 
 echo "Starting cleanup process..."
 
@@ -59,14 +80,19 @@ EOF
 fi
 
 # Remove Terraform-related files
-echo "Cleaning up Terraform files..."
+echo "Cleaning up Terraform files in: ${TF_PATH}"
 if [ $DRY_RUN -eq 1 ]; then
     echo "[DRY RUN] Would remove:"
-    echo "  - terraform.lock.hcl file"
-    echo "  - terraform.tfstate* files"
+    echo "  - ${TF_PATH}/terraform.lock.hcl file"
+    echo "  - ${TF_PATH}/terraform.tfstate* files"
 else
-    rm -f terraform.lock.hcl
-    rm -f terraform.tfstate*
+    # Check if the path exists
+    if [ ! -d "$TF_PATH" ]; then
+        echo "Warning: Terraform path '$TF_PATH' does not exist"
+    else
+        rm -f "${TF_PATH}/terraform.lock.hcl"
+        rm -f "${TF_PATH}"/terraform.tfstate*
+    fi
 fi
 
 echo "Cleanup completed successfully!"

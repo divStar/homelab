@@ -7,6 +7,7 @@ This module and its sub-modules setup the Proxmox host.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Modules](#modules) _(nested and adjacent)_
   - [copy_configs](#copy_configs)
   - [directory_mappings](#directory_mappings)
@@ -38,7 +39,8 @@ This module and its sub-modules setup the Proxmox host.
   - [no_subscription](#no_subscription)
   - [share_user](#share_user)
   - [storage_pools](#storage_pools)
-  - [terraform_user](#terraform_user)</blockquote>
+  - [terraform_user](#terraform_user)
+</blockquote>
 
 ## Requirements
 
@@ -47,9 +49,30 @@ This module and its sub-modules setup the Proxmox host.
 | <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.13.0 |
 | <a name="requirement_tls"></a> [tls](#requirement\_tls) | >= 4.0.6 |
+
 ## Providers
 
 No providers.
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── module.repositories
+│   ├── module.repositories.ssh_resource.add_no_sub_repository
+│   ├── module.repositories.ssh_resource.remove_no_sub_repository
+│   ├── module.repositories.ssh_resource.update_all_repositories
+├── module.zfs_storage
+│   ├── module.zfs_storage.ssh_resource.export_zfs_pools
+│   ├── module.zfs_storage.ssh_resource.import_zfs_pools
+├── module.directory_mappings
+│   ├── module.directory_mappings.ssh_resource.directory_mappings
+│   ├── module.directory_mappings.ssh_resource.remove_directory_mappings
+├── module.packages
+│   ├── module.packages.ssh_resource.package_install
+│   ├── module.packages.ssh_resource.package_remove
+```
+
 ## Modules
 <blockquote>
 

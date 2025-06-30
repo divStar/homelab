@@ -7,14 +7,16 @@ Handles the copying of configuration files to the host.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [copy_configuration_files](#copy_configuration_files-ssh_resource) (*ssh_resource*)
-  - [remove_configuration_files](#remove_configuration_files-ssh_resource) (*ssh_resource*)
+  - _ssh_resource_.[copy_configuration_files](#ssh_resourcecopy_configuration_files)
+  - _ssh_resource_.[remove_configuration_files](#ssh_resourceremove_configuration_files)
 - [Variables](#variables)
   - [configuration_files](#configuration_files-required) (**Required**)
   - [ssh](#ssh-required) (**Required**)
 - [Outputs](#outputs)
-  - [configuration_files](#configuration_files)</blockquote>
+  - [configuration_files](#configuration_files)
+</blockquote>
 
 ## Requirements
 
@@ -22,17 +24,28 @@ Handles the copying of configuration files to the host.
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
+| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── ssh_resource.copy_configuration_files
+├── ssh_resource.remove_configuration_files
+```
+
+
 
 
 ## Resources
 <blockquote>
 
-#### `copy_configuration_files` (_ssh_resource_)
+#### _ssh_resource_.`copy_configuration_files`
 
   <table>
     <tr>
@@ -47,7 +60,7 @@ Handles the copying of configuration files to the host.
 </blockquote>
 <blockquote>
 
-#### `remove_configuration_files` (_ssh_resource_)
+#### _ssh_resource_.`remove_configuration_files`
 
   <table>
     <tr>

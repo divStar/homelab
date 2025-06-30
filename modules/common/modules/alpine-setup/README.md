@@ -9,13 +9,14 @@ other Alpine packages (if specified; `bash` is installed by default).
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [container](#container-proxmox_virtual_environment_container) (*proxmox_virtual_environment_container*)
-  - [template](#template-proxmox_virtual_environment_download_file) (*proxmox_virtual_environment_download_file*)
-  - [root_password](#root_password-random_password) (*random_password*)
-  - [install_openssh](#install_openssh-ssh_resource) (*ssh_resource*)
-  - [install_packages](#install_packages-ssh_resource) (*ssh_resource*)
-  - [ssh_key](#ssh_key-tls_private_key) (*tls_private_key*)
+  - _proxmox_virtual_environment_container_.[container](#proxmox_virtual_environment_containercontainer)
+  - _proxmox_virtual_environment_download_file_.[template](#proxmox_virtual_environment_download_filetemplate)
+  - _random_password_.[root_password](#random_passwordroot_password)
+  - _ssh_resource_.[install_openssh](#ssh_resourceinstall_openssh)
+  - _ssh_resource_.[install_packages](#ssh_resourceinstall_packages)
+  - _tls_private_key_.[ssh_key](#tls_private_keyssh_key)
 - [Variables](#variables)
   - [hostname](#hostname-required) (**Required**)
   - [ni_gateway](#ni_gateway-required) (**Required**)
@@ -41,7 +42,8 @@ other Alpine packages (if specified; `bash` is installed by default).
   - [tags](#tags-optional) (*Optional*)
 - [Outputs](#outputs)
   - [root_password](#root_password)
-  - [ssh_private_key](#ssh_private_key)</blockquote>
+  - [ssh_private_key](#ssh_private_key)
+</blockquote>
 
 ## Requirements
 
@@ -50,6 +52,7 @@ other Alpine packages (if specified; `bash` is installed by default).
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) | >= 0.75.0 |
 | <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+
 ## Providers
 
 | Name | Version |
@@ -59,11 +62,25 @@ other Alpine packages (if specified; `bash` is installed by default).
 | <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
 | <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.6 |
 
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── random_password.root_password
+├── tls_private_key.ssh_key
+├── proxmox_virtual_environment_download_file.template
+├── proxmox_virtual_environment_container.container
+├── ssh_resource.install_openssh
+├── ssh_resource.install_packages
+```
+
+
+
 
 ## Resources
 <blockquote>
 
-#### `container` (_proxmox_virtual_environment_container_)
+#### _proxmox_virtual_environment_container_.`container`
 Create Alpine LXC container
   <table>
     <tr>
@@ -78,7 +95,7 @@ Create Alpine LXC container
 </blockquote>
 <blockquote>
 
-#### `template` (_proxmox_virtual_environment_download_file_)
+#### _proxmox_virtual_environment_download_file_.`template`
 Downloads the `alpine` image.
   <table>
     <tr>
@@ -93,7 +110,7 @@ Downloads the `alpine` image.
 </blockquote>
 <blockquote>
 
-#### `root_password` (_random_password_)
+#### _random_password_.`root_password`
 Generate a random password for the container
   <table>
     <tr>
@@ -108,7 +125,7 @@ Generate a random password for the container
 </blockquote>
 <blockquote>
 
-#### `install_openssh` (_ssh_resource_)
+#### _ssh_resource_.`install_openssh`
 Install OpenSSH into the Alpine LXC container
   <table>
     <tr>
@@ -123,7 +140,7 @@ Install OpenSSH into the Alpine LXC container
 </blockquote>
 <blockquote>
 
-#### `install_packages` (_ssh_resource_)
+#### _ssh_resource_.`install_packages`
 Install necessary Alpine packages
   <table>
     <tr>
@@ -138,7 +155,7 @@ Install necessary Alpine packages
 </blockquote>
 <blockquote>
 
-#### `ssh_key` (_tls_private_key_)
+#### _tls_private_key_.`ssh_key`
 Generate SSH key for the container
   <table>
     <tr>

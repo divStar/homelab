@@ -7,14 +7,15 @@ This module sets up PiHole in an Alpine LXC container using the provided informa
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Modules](#modules) _(nested and adjacent)_
   - [setup_certificate](#setup_certificate)
   - [setup_container](#setup_container)
 - [Resources](#resources)
-  - [admin_password](#admin_password-random_password) (*random_password*)
-  - [configure](#configure-ssh_resource) (*ssh_resource*)
-  - [install](#install-ssh_resource) (*ssh_resource*)
-  - [install_cert](#install_cert-ssh_resource) (*ssh_resource*)
+  - _random_password_.[admin_password](#random_passwordadmin_password)
+  - _ssh_resource_.[configure](#ssh_resourceconfigure)
+  - _ssh_resource_.[install](#ssh_resourceinstall)
+  - _ssh_resource_.[install_cert](#ssh_resourceinstall_cert)
 - [Variables](#variables)
   - [proxmox](#proxmox-required) (**Required**)
   - [admin_password](#admin_password-optional) (*Optional*)
@@ -41,7 +42,8 @@ This module sets up PiHole in an Alpine LXC container using the provided informa
   - [admin_password](#admin_password)
   - [admin_url](#admin_url)
   - [root_password](#root_password)
-  - [ssh_private_key](#ssh_private_key)</blockquote>
+  - [ssh_private_key](#ssh_private_key)
+</blockquote>
 
 ## Requirements
 
@@ -50,12 +52,31 @@ This module sets up PiHole in an Alpine LXC container using the provided informa
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) | >= 0.69.0 |
 | <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_random"></a> [random](#provider\_random) | 3.7.1 |
 | <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── random_password.admin_password
+├── ssh_resource.configure
+├── ssh_resource.install
+├── ssh_resource.install_cert
+├── module.setup_container
+│   ├── module.setup_container.random_password.root_password
+│   ├── module.setup_container.tls_private_key.ssh_key
+│   ├── module.setup_container.proxmox_virtual_environment_download_file.template
+│   ├── module.setup_container.proxmox_virtual_environment_container.container
+│   ├── module.setup_container.ssh_resource.install_openssh
+│   ├── module.setup_container.ssh_resource.install_packages
+```
+
 ## Modules
 <blockquote>
 
@@ -98,7 +119,7 @@ Alpine LXC container setup
 ## Resources
 <blockquote>
 
-#### `admin_password` (_random_password_)
+#### _random_password_.`admin_password`
 Create a random password for the PiHole admin web UI
   <table>
     <tr>
@@ -113,7 +134,7 @@ Create a random password for the PiHole admin web UI
 </blockquote>
 <blockquote>
 
-#### `configure` (_ssh_resource_)
+#### _ssh_resource_.`configure`
 Configure PiHole
   <table>
     <tr>
@@ -128,7 +149,7 @@ Configure PiHole
 </blockquote>
 <blockquote>
 
-#### `install` (_ssh_resource_)
+#### _ssh_resource_.`install`
 Install PiHole
   <table>
     <tr>
@@ -143,7 +164,7 @@ Install PiHole
 </blockquote>
 <blockquote>
 
-#### `install_cert` (_ssh_resource_)
+#### _ssh_resource_.`install_cert`
 Install certificate
   <table>
     <tr>

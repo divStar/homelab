@@ -7,14 +7,16 @@ Handles the import and export of ZFS pools as well as directories.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [export_zfs_pools](#export_zfs_pools-ssh_resource) (*ssh_resource*)
-  - [import_zfs_pools](#import_zfs_pools-ssh_resource) (*ssh_resource*)
+  - _ssh_resource_.[export_zfs_pools](#ssh_resourceexport_zfs_pools)
+  - _ssh_resource_.[import_zfs_pools](#ssh_resourceimport_zfs_pools)
 - [Variables](#variables)
   - [ssh](#ssh-required) (**Required**)
   - [storage_pools](#storage_pools-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [storage_pools](#storage_pools)</blockquote>
+  - [storage_pools](#storage_pools)
+</blockquote>
 
 ## Requirements
 
@@ -22,17 +24,28 @@ Handles the import and export of ZFS pools as well as directories.
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
+| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── ssh_resource.export_zfs_pools
+├── ssh_resource.import_zfs_pools
+```
+
+
 
 
 ## Resources
 <blockquote>
 
-#### `export_zfs_pools` (_ssh_resource_)
+#### _ssh_resource_.`export_zfs_pools`
 Export ZFS pools
   <table>
     <tr>
@@ -47,7 +60,7 @@ Export ZFS pools
 </blockquote>
 <blockquote>
 
-#### `import_zfs_pools` (_ssh_resource_)
+#### _ssh_resource_.`import_zfs_pools`
 Import ZFS pools
   <table>
     <tr>

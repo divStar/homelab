@@ -11,15 +11,17 @@ via LDAPS while also verifying the self-signed certificate.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [install_proxmox_ca](#install_proxmox_ca-ssh_resource) (*ssh_resource*)
-  - [restart_pveproxy](#restart_pveproxy-ssh_resource) (*ssh_resource*)
-  - [uninstall_proxmox_ca](#uninstall_proxmox_ca-ssh_resource) (*ssh_resource*)
+  - _ssh_resource_.[install_proxmox_ca](#ssh_resourceinstall_proxmox_ca)
+  - _ssh_resource_.[restart_pveproxy](#ssh_resourcerestart_pveproxy)
+  - _ssh_resource_.[uninstall_proxmox_ca](#ssh_resourceuninstall_proxmox_ca)
 - [Variables](#variables)
   - [ssh](#ssh-required) (**Required**)
   - [pve_root_ca_pem_source](#pve_root_ca_pem_source-optional) (*Optional*)
   - [pve_root_ca_pem_target](#pve_root_ca_pem_target-optional) (*Optional*)
-  - [restart_pveproxy](#restart_pveproxy-optional) (*Optional*)</blockquote>
+  - [restart_pveproxy](#restart_pveproxy-optional) (*Optional*)
+</blockquote>
 
 ## Requirements
 
@@ -27,17 +29,29 @@ via LDAPS while also verifying the self-signed certificate.
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
+| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── ssh_resource.uninstall_proxmox_ca
+├── ssh_resource.restart_pveproxy
+├── ssh_resource.install_proxmox_ca
+```
+
+
 
 
 ## Resources
 <blockquote>
 
-#### `install_proxmox_ca` (_ssh_resource_)
+#### _ssh_resource_.`install_proxmox_ca`
 Fetch Proxmox CA public certificate
   <table>
     <tr>
@@ -52,7 +66,7 @@ Fetch Proxmox CA public certificate
 </blockquote>
 <blockquote>
 
-#### `restart_pveproxy` (_ssh_resource_)
+#### _ssh_resource_.`restart_pveproxy`
 
   <table>
     <tr>
@@ -67,7 +81,7 @@ Fetch Proxmox CA public certificate
 </blockquote>
 <blockquote>
 
-#### `uninstall_proxmox_ca` (_ssh_resource_)
+#### _ssh_resource_.`uninstall_proxmox_ca`
 
   <table>
     <tr>

@@ -7,15 +7,17 @@ Handles the download, execution and cleanup of (shell-)scripts on the host
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [script_cleanup](#script_cleanup-ssh_resource) (*ssh_resource*)
-  - [script_download](#script_download-ssh_resource) (*ssh_resource*)
-  - [script_execute](#script_execute-ssh_resource) (*ssh_resource*)
+  - _ssh_resource_.[script_cleanup](#ssh_resourcescript_cleanup)
+  - _ssh_resource_.[script_download](#ssh_resourcescript_download)
+  - _ssh_resource_.[script_execute](#ssh_resourcescript_execute)
 - [Variables](#variables)
   - [ssh](#ssh-required) (**Required**)
   - [scripts](#scripts-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [installed_scripts](#installed_scripts)</blockquote>
+  - [installed_scripts](#installed_scripts)
+</blockquote>
 
 ## Requirements
 
@@ -23,17 +25,29 @@ Handles the download, execution and cleanup of (shell-)scripts on the host
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
+| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── ssh_resource.script_cleanup
+├── ssh_resource.script_download
+├── ssh_resource.script_execute
+```
+
+
 
 
 ## Resources
 <blockquote>
 
-#### `script_cleanup` (_ssh_resource_)
+#### _ssh_resource_.`script_cleanup`
 
   <table>
     <tr>
@@ -48,7 +62,7 @@ Handles the download, execution and cleanup of (shell-)scripts on the host
 </blockquote>
 <blockquote>
 
-#### `script_download` (_ssh_resource_)
+#### _ssh_resource_.`script_download`
 
   <table>
     <tr>
@@ -63,7 +77,7 @@ Handles the download, execution and cleanup of (shell-)scripts on the host
 </blockquote>
 <blockquote>
 
-#### `script_execute` (_ssh_resource_)
+#### _ssh_resource_.`script_execute`
 
   <table>
     <tr>

@@ -8,15 +8,17 @@ the creation and activation of the no-subscription repositories.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [add_no_sub_repository](#add_no_sub_repository-ssh_resource) (*ssh_resource*)
-  - [remove_no_sub_repository](#remove_no_sub_repository-ssh_resource) (*ssh_resource*)
-  - [update_all_repositories](#update_all_repositories-ssh_resource) (*ssh_resource*)
+  - _ssh_resource_.[add_no_sub_repository](#ssh_resourceadd_no_sub_repository)
+  - _ssh_resource_.[remove_no_sub_repository](#ssh_resourceremove_no_sub_repository)
+  - _ssh_resource_.[update_all_repositories](#ssh_resourceupdate_all_repositories)
 - [Variables](#variables)
   - [ssh](#ssh-required) (**Required**)
   - [no_subscription](#no_subscription-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [no_subscription](#no_subscription)</blockquote>
+  - [no_subscription](#no_subscription)
+</blockquote>
 
 ## Requirements
 
@@ -24,17 +26,29 @@ the creation and activation of the no-subscription repositories.
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
+| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── ssh_resource.add_no_sub_repository
+├── ssh_resource.remove_no_sub_repository
+├── ssh_resource.update_all_repositories
+```
+
+
 
 
 ## Resources
 <blockquote>
 
-#### `add_no_sub_repository` (_ssh_resource_)
+#### _ssh_resource_.`add_no_sub_repository`
 
   <table>
     <tr>
@@ -49,7 +63,7 @@ the creation and activation of the no-subscription repositories.
 </blockquote>
 <blockquote>
 
-#### `remove_no_sub_repository` (_ssh_resource_)
+#### _ssh_resource_.`remove_no_sub_repository`
 
   <table>
     <tr>
@@ -64,7 +78,7 @@ the creation and activation of the no-subscription repositories.
 </blockquote>
 <blockquote>
 
-#### `update_all_repositories` (_ssh_resource_)
+#### _ssh_resource_.`update_all_repositories`
 
   <table>
     <tr>

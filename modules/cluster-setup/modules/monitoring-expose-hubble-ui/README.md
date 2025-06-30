@@ -7,28 +7,40 @@ Exposes the Hubble UI from Cilium CNI.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [cilium_namespace](#cilium_namespace-kubectl_manifest) (*kubectl_manifest*)
+  - _kubectl_manifest_.[cilium_namespace](#kubectl_manifestcilium_namespace)
 - [Variables](#variables)
   - [ca_issuer](#ca_issuer-required) (**Required**)
-  - [service_host](#service_host-optional) (*Optional*)</blockquote>
+  - [service_host](#service_host-optional) (*Optional*)
+</blockquote>
 
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | n/a |
+| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | 1.19.0 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── kubectl_manifest.cilium_namespace
+```
+
+
 
 
 ## Resources
 <blockquote>
 
-#### `cilium_namespace` (_kubectl_manifest_)
+#### _kubectl_manifest_.`cilium_namespace`
 
   <table>
     <tr>

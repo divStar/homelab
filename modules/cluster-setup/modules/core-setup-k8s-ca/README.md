@@ -9,8 +9,9 @@ for automatic certificate issuance via HTTP-01 challenges.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [install_acme_cluster_issuer](#install_acme_cluster_issuer-kubectl_manifest) (*kubectl_manifest*)
+  - _kubectl_manifest_.[install_acme_cluster_issuer](#kubectl_manifestinstall_acme_cluster_issuer)
 - [Variables](#variables)
   - [acme_contact](#acme_contact-required) (**Required**)
   - [acme_server_directory_url](#acme_server_directory_url-required) (**Required**)
@@ -18,25 +19,36 @@ for automatic certificate issuance via HTTP-01 challenges.
   - [step_ca_host](#step_ca_host-required) (**Required**)
   - [secret_name](#secret_name-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [k8s_ca_issuer_name](#k8s_ca_issuer_name)</blockquote>
+  - [k8s_ca_issuer_name](#k8s_ca_issuer_name)
+</blockquote>
 
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_http"></a> [http](#provider\_http) | n/a |
-| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | n/a |
+| <a name="provider_http"></a> [http](#provider\_http) | 3.5.0 |
+| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | 1.19.0 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── kubectl_manifest.install_acme_cluster_issuer
+```
+
+
 
 
 ## Resources
 <blockquote>
 
-#### `install_acme_cluster_issuer` (_kubectl_manifest_)
+#### _kubectl_manifest_.`install_acme_cluster_issuer`
 Install the ACME ClusterIssuer resource
   <table>
     <tr>

@@ -8,19 +8,21 @@ and API token for the Terraform provisioner on the host.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [assign_role](#assign_role-ssh_resource) (*ssh_resource*)
-  - [create_api_token](#create_api_token-ssh_resource) (*ssh_resource*)
-  - [create_role](#create_role-ssh_resource) (*ssh_resource*)
-  - [create_user](#create_user-ssh_resource) (*ssh_resource*)
-  - [delete_role](#delete_role-ssh_resource) (*ssh_resource*)
-  - [delete_user](#delete_user-ssh_resource) (*ssh_resource*)
+  - _ssh_resource_.[assign_role](#ssh_resourceassign_role)
+  - _ssh_resource_.[create_api_token](#ssh_resourcecreate_api_token)
+  - _ssh_resource_.[create_role](#ssh_resourcecreate_role)
+  - _ssh_resource_.[create_user](#ssh_resourcecreate_user)
+  - _ssh_resource_.[delete_role](#ssh_resourcedelete_role)
+  - _ssh_resource_.[delete_user](#ssh_resourcedelete_user)
 - [Variables](#variables)
   - [ssh](#ssh-required) (**Required**)
   - [terraform_user](#terraform_user-optional) (*Optional*)
 - [Outputs](#outputs)
   - [token](#token)
-  - [user](#user)</blockquote>
+  - [user](#user)
+</blockquote>
 
 ## Requirements
 
@@ -28,17 +30,32 @@ and API token for the Terraform provisioner on the host.
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
+| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── ssh_resource.create_api_token
+├── ssh_resource.create_user
+├── ssh_resource.delete_user
+├── ssh_resource.delete_role
+├── ssh_resource.create_role
+├── ssh_resource.assign_role
+```
+
+
 
 
 ## Resources
 <blockquote>
 
-#### `assign_role` (_ssh_resource_)
+#### _ssh_resource_.`assign_role`
 
   <table>
     <tr>
@@ -53,7 +70,7 @@ and API token for the Terraform provisioner on the host.
 </blockquote>
 <blockquote>
 
-#### `create_api_token` (_ssh_resource_)
+#### _ssh_resource_.`create_api_token`
 
   <table>
     <tr>
@@ -68,7 +85,7 @@ and API token for the Terraform provisioner on the host.
 </blockquote>
 <blockquote>
 
-#### `create_role` (_ssh_resource_)
+#### _ssh_resource_.`create_role`
 
   <table>
     <tr>
@@ -83,7 +100,7 @@ and API token for the Terraform provisioner on the host.
 </blockquote>
 <blockquote>
 
-#### `create_user` (_ssh_resource_)
+#### _ssh_resource_.`create_user`
 
   <table>
     <tr>
@@ -98,7 +115,7 @@ and API token for the Terraform provisioner on the host.
 </blockquote>
 <blockquote>
 
-#### `delete_role` (_ssh_resource_)
+#### _ssh_resource_.`delete_role`
 
   <table>
     <tr>
@@ -113,7 +130,7 @@ and API token for the Terraform provisioner on the host.
 </blockquote>
 <blockquote>
 
-#### `delete_user` (_ssh_resource_)
+#### _ssh_resource_.`delete_user`
 
   <table>
     <tr>

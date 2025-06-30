@@ -10,14 +10,16 @@ and `apt-get remove` are not yet supported by Proxmox API.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [package_install](#package_install-ssh_resource) (*ssh_resource*)
-  - [package_remove](#package_remove-ssh_resource) (*ssh_resource*)
+  - _ssh_resource_.[package_install](#ssh_resourcepackage_install)
+  - _ssh_resource_.[package_remove](#ssh_resourcepackage_remove)
 - [Variables](#variables)
   - [ssh](#ssh-required) (**Required**)
   - [packages](#packages-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [installed_packages](#installed_packages)</blockquote>
+  - [installed_packages](#installed_packages)
+</blockquote>
 
 ## Requirements
 
@@ -25,17 +27,28 @@ and `apt-get remove` are not yet supported by Proxmox API.
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
+| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── ssh_resource.package_install
+├── ssh_resource.package_remove
+```
+
+
 
 
 ## Resources
 <blockquote>
 
-#### `package_install` (_ssh_resource_)
+#### _ssh_resource_.`package_install`
 
   <table>
     <tr>
@@ -50,7 +63,7 @@ and `apt-get remove` are not yet supported by Proxmox API.
 </blockquote>
 <blockquote>
 
-#### `package_remove` (_ssh_resource_)
+#### _ssh_resource_.`package_remove`
 
   <table>
     <tr>

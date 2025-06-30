@@ -41,14 +41,6 @@ provider "talos" {
 }
 
 provider "helm" {
-  alias = "templating"
-
-  kubernetes = {}
-}
-
-provider "helm" {
-  alias = "deploying"
-
   kubernetes = {
     host                   = module.talos_cluster_ready.kube_config.kubernetes_client_configuration.host
     client_certificate     = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.client_certificate)

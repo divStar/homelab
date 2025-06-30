@@ -8,15 +8,17 @@ who will own the media and other data files in the ZFS pool `storage-pool`.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [add_share_user](#add_share_user-ssh_resource) (*ssh_resource*)
-  - [remove_share_user](#remove_share_user-ssh_resource) (*ssh_resource*)
+  - _ssh_resource_.[add_share_user](#ssh_resourceadd_share_user)
+  - _ssh_resource_.[remove_share_user](#ssh_resourceremove_share_user)
 - [Variables](#variables)
   - [ssh](#ssh-required) (**Required**)
   - [share_user](#share_user-optional) (*Optional*)
 - [Outputs](#outputs)
   - [group](#group)
-  - [user](#user)</blockquote>
+  - [user](#user)
+</blockquote>
 
 ## Requirements
 
@@ -24,17 +26,28 @@ who will own the media and other data files in the ZFS pool `storage-pool`.
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
+| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── ssh_resource.remove_share_user
+├── ssh_resource.add_share_user
+```
+
+
 
 
 ## Resources
 <blockquote>
 
-#### `add_share_user` (_ssh_resource_)
+#### _ssh_resource_.`add_share_user`
 Create user and set up repository
   <table>
     <tr>
@@ -49,7 +62,7 @@ Create user and set up repository
 </blockquote>
 <blockquote>
 
-#### `remove_share_user` (_ssh_resource_)
+#### _ssh_resource_.`remove_share_user`
 Cleanup on destroy
   <table>
     <tr>

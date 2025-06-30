@@ -8,9 +8,5 @@ terraform {
     talos = {
       source = "siderolabs/talos"
     }
-    helm = {
-      source                = "hashicorp/helm"
-      configuration_aliases = [helm.templating]
-    }
   }
 }

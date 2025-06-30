@@ -8,9 +8,10 @@ architecture, platform and schematics.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [this](#this-proxmox_virtual_environment_download_file) (*proxmox_virtual_environment_download_file*)
-  - [this](#this-talos_image_factory_schematic) (*talos_image_factory_schematic*)
+  - _proxmox_virtual_environment_download_file_.[this](#proxmox_virtual_environment_download_filethis)
+  - _talos_image_factory_schematic_.[this](#talos_image_factory_schematicthis)
 - [Variables](#variables)
   - [proxmox](#proxmox-required) (**Required**)
   - [talos_linux_version](#talos_linux_version-required) (**Required**)
@@ -22,13 +23,15 @@ architecture, platform and schematics.
   - [downloaded_iso_file_name](#downloaded_iso_file_name)
   - [downloaded_iso_id](#downloaded_iso_id)
   - [installer](#installer)
-  - [schematic_id](#schematic_id)</blockquote>
+  - [schematic_id](#schematic_id)
+</blockquote>
 
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
+
 ## Providers
 
 | Name | Version |
@@ -36,11 +39,21 @@ architecture, platform and schematics.
 | <a name="provider_proxmox"></a> [proxmox](#provider\_proxmox) | 0.68.1 |
 | <a name="provider_talos"></a> [talos](#provider\_talos) | 0.6.1 |
 
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── talos_image_factory_schematic.this
+├── proxmox_virtual_environment_download_file.this
+```
+
+
+
 
 ## Resources
 <blockquote>
 
-#### `this` (_proxmox_virtual_environment_download_file_)
+#### _proxmox_virtual_environment_download_file_.`this`
 
   <table>
     <tr>
@@ -55,7 +68,7 @@ architecture, platform and schematics.
 </blockquote>
 <blockquote>
 
-#### `this` (_talos_image_factory_schematic_)
+#### _talos_image_factory_schematic_.`this`
 
   <table>
     <tr>

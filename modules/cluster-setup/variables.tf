@@ -41,6 +41,42 @@ variable "local_path_provisioner_version" {
   nullable    = false
 }
 
+# Namespaces
+variable "cilium_namespace" {
+  description = "Namespace where the cilium operator will be installed to"
+  type        = string
+  default     = "cilium"
+  nullable    = false
+}
+
+variable "cert_manager_namespace" {
+  description = "Namespace where the cert-manager will be installed to"
+  type        = string
+  default     = "cert-manager"
+  nullable    = false
+}
+
+variable "external_dns_namespace" {
+  description = "Namespace where the external-dns operator will be installed to"
+  type        = string
+  default     = "external-dns"
+  nullable    = false
+}
+
+variable "sealed_secrets_namespace" {
+  description = "Namespace where the sealed-secrets operator will be installed to"
+  type        = string
+  default     = "sealed-secrets"
+  nullable    = false
+}
+
+variable "local_path_provisioner_namespace" {
+  description = "Namespace where the local-path-provisioner operator will be installed to"
+  type        = string
+  default     = "local-path-provisioner"
+  nullable    = false
+}
+
 # Common settings
 variable "proxmox" {
   description = "Proxmox host configuration"
@@ -170,23 +206,26 @@ variable "acme_contact" {
 }
 
 # Misc configuration
-variable "cert_manager_namespace" {
-  description = "Namespace where the cert-manager will be installed to"
-  type        = string
-  default     = "cert-manager"
-  nullable    = false
-}
-
-variable "sealed_secrets_namespace" {
-  description = "Namespace where the sealed-secrets operator will be installed to"
-  type        = string
-  default     = "sealed-secrets"
-  nullable    = false
-}
-
 variable "sealed_secrets_controller_name" {
   description = "Name of the sealed-secrets controller"
   type        = string
   default     = "sealed-secrets-release"
   nullable    = false
+}
+
+variable "external_dns_secret_name" {
+  description = "Name of the external-dns secret"
+  type        = string
+  default     = "sealed-secrets-release"
+  nullable    = false
+}
+
+variable "cilium_crds" {
+  description = "Cilium CRDs, that have to be present *before* Cilium is installed in order to install the LoadBalancer IP Pool and L2 Announcement resources; use `<VERSION>` placeholder to auto-replace the version in the URL"
+  type        = list(string)
+  default = [
+    "https://raw.githubusercontent.com/cilium/cilium/refs/tags/v<VERSION>/pkg/k8s/apis/cilium.io/client/crds/v2alpha1/ciliuml2announcementpolicies.yaml",
+    "https://raw.githubusercontent.com/cilium/cilium/refs/tags/v<VERSION>/pkg/k8s/apis/cilium.io/client/crds/v2alpha1/ciliumloadbalancerippools.yaml"
+  ]
+  nullable = false
 }

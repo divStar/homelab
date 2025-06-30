@@ -10,9 +10,6 @@ locals {
       iso = module.talos_images[node.name].downloaded_iso_id
     })
   ]
-  external_dns_secret_name = "external-dns-pihole-secret"
-  external_dns_namespace   = "external-dns"
-  cilium_namespace         = "cilium"
 }
 
 # Downloads the calculated Talos images specified in the `nodes` configurations.
@@ -49,17 +46,12 @@ module "talos_vms" {
   source     = "./modules/talos-create-vm"
   depends_on = [module.talos_cluster_prepare]
 
-  providers = {
-    helm.templating = helm.templating
-  }
-
   proxmox                    = var.proxmox
   cluster                    = var.cluster
   talos_machine_secrets      = module.talos_cluster_prepare.machine_secrets
   talos_client_configuration = module.talos_cluster_prepare.client_configuration
   talos_linux_version        = var.talos_linux_version
   target_kube_version        = var.target_kube_version
-  cilium_version             = var.cilium_version
   step_ca_host               = var.step_ca_host
 
   for_each = { for idx, node in local.nodes_with_iso : node.name => node }
@@ -101,12 +93,12 @@ module "talos_cluster_ready" {
   }]
 }
 
-data "http" "crd_l2_ann_policy" {
-  url = "https://raw.githubusercontent.com/cilium/cilium/refs/tags/v${var.cilium_version}/pkg/k8s/apis/cilium.io/client/crds/v2alpha1/ciliuml2announcementpolicies.yaml"
-}
+# Pre-fetch all the Cilium CRDs, that need to be installed beforehand;
+# replace their `<VERSION>` placeholder (if it exists) with `var.cilium_version`.
+data "http" "cilium_crds_pre_install" {
+  for_each = toset(var.cilium_crds)
 
-data "http" "crd_lb_ip_pool" {
-  url = "https://raw.githubusercontent.com/cilium/cilium/refs/tags/v${var.cilium_version}/pkg/k8s/apis/cilium.io/client/crds/v2alpha1/ciliumloadbalancerippools.yaml"
+  url = replace(each.value, "<VERSION>", var.cilium_version)
 }
 
 # Installs [`Cilium`](httpshttps://github.com/cilium/cilium) CNI,
@@ -115,14 +107,10 @@ module "cilium" {
   source     = "../common/modules/helm-terraform-installer"
   depends_on = [module.talos_cluster_ready]
 
-  providers = {
-    helm.deploying = helm.deploying
-  }
-
   chart_name    = "cilium"
   chart_repo    = "https://helm.cilium.io"
   chart_version = var.cilium_version
-  namespace     = local.cilium_namespace
+  namespace     = var.cilium_namespace
   release_name  = "cilium-release"
 
   chart_values = templatefile("${path.module}/files/cilium.values.yaml.tftpl", {
@@ -133,16 +121,18 @@ module "cilium" {
 
   chart_timeout = 300 # 5 minutes
 
-  pre_install_resources = [
-    data.http.crd_l2_ann_policy.response_body,
-    data.http.crd_lb_ip_pool.response_body,
-    templatefile("${path.module}/files/cilium.post-install.ip-pool.yaml.tftpl", {
-      namespace = local.cilium_namespace
-      lb_cidr   = var.cluster.lb_cidr
-    }),
-    templatefile("${path.module}/files/cilium.post-install.l2-policy.yaml.tftpl", {
-      namespace = local.cilium_namespace
-  })]
+  pre_install_resources = concat(
+    values(data.http.cilium_crds_pre_install)[*].response_body,
+    [
+      templatefile("${path.module}/files/cilium.post-install.ip-pool.yaml.tftpl", {
+        namespace = var.cilium_namespace
+        lb_cidr   = var.cluster.lb_cidr
+      }),
+      templatefile("${path.module}/files/cilium.post-install.l2-policy.yaml.tftpl", {
+        namespace = var.cilium_namespace
+      })
+    ]
+  )
 }
 
 # Installs [`cert-manager`](https://github.com/cert-manager/cert-manager),
@@ -151,14 +141,10 @@ module "cert_manager" {
   source     = "../common/modules/helm-terraform-installer"
   depends_on = [module.cilium]
 
-  providers = {
-    helm.deploying = helm.deploying
-  }
-
   chart_name    = "cert-manager"
   chart_repo    = "https://charts.jetstack.io"
   chart_version = var.cert_manager_version
-  namespace     = "cert-manager"
+  namespace     = var.cert_manager_namespace
   release_name  = "cert-manager-release"
 
   chart_values = file("${path.module}/files/cert-manager.values.yaml")
@@ -170,14 +156,10 @@ module "sealed_secrets" {
   source     = "../common/modules/helm-terraform-installer"
   depends_on = [module.cert_manager]
 
-  providers = {
-    helm.deploying = helm.deploying
-  }
-
   chart_name    = "sealed-secrets"
   chart_repo    = "https://bitnami-labs.github.io/sealed-secrets"
   chart_version = var.sealed_secrets_version
-  namespace     = "sealed-secrets"
+  namespace     = var.sealed_secrets_namespace
   release_name  = "sealed-secrets-release"
 }
 
@@ -196,12 +178,12 @@ module "k8s_ca" {
 resource "sealedsecret" "external_dns_secret" {
   depends_on = [module.sealed_secrets]
 
-  name      = local.external_dns_secret_name
-  namespace = local.external_dns_namespace
+  name      = var.external_dns_secret_name
+  namespace = var.external_dns_namespace
 
   data = yamldecode(templatefile("${path.module}/files/secret_external-dns-secret.yaml.tftpl", {
-    external_dns_secret_name = local.external_dns_secret_name
-    external_dns_namespace   = local.external_dns_namespace
+    external_dns_secret_name = var.external_dns_secret_name
+    external_dns_namespace   = var.external_dns_namespace
   })).data
 }
 
@@ -212,19 +194,15 @@ module "external_dns" {
   source     = "../common/modules/helm-terraform-installer"
   depends_on = [module.k8s_ca]
 
-  providers = {
-    helm.deploying = helm.deploying
-  }
-
   chart_name    = "external-dns"
   chart_repo    = "oci://registry-1.docker.io/bitnamicharts"
   chart_version = var.external_dns_version
-  namespace     = local.external_dns_namespace
+  namespace     = var.external_dns_namespace
   release_name  = "external-dns-release"
 
   chart_values = templatefile("${path.module}/files/external-dns.values.yaml.tftpl", {
-    external_dns_secret_name = local.external_dns_secret_name
-    external_dns_namespace   = local.external_dns_namespace
+    external_dns_secret_name = var.external_dns_secret_name
+    external_dns_namespace   = var.external_dns_namespace
   })
 
   pre_install_resources = [sealedsecret.external_dns_secret.yaml_content]
@@ -237,14 +215,10 @@ module "local_path_provisioner" {
   source     = "../common/modules/helm-terraform-installer"
   depends_on = [module.k8s_ca]
 
-  providers = {
-    helm.deploying = helm.deploying
-  }
-
   chart_name    = "local-path-provisioner"
   chart_repo    = "https://charts.containeroo.ch"
   chart_version = var.local_path_provisioner_version
-  namespace     = "local-path-provisioner"
+  namespace     = var.local_path_provisioner_namespace
   release_name  = "local-path-provisioner-release"
 
   chart_values            = file("${path.module}/files/local-path-provisioner.values.yaml")

@@ -7,12 +7,13 @@ This module sets up Step-CA in an Alpine LXC container using the provided inform
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Modules](#modules) _(nested and adjacent)_
   - [setup_container](#setup_container)
 - [Resources](#resources)
-  - [configure_container](#configure_container-ssh_resource) (*ssh_resource*)
-  - [configure_host](#configure_host-ssh_resource) (*ssh_resource*)
-  - [revert_host](#revert_host-ssh_resource) (*ssh_resource*)
+  - _ssh_resource_.[configure_container](#ssh_resourceconfigure_container)
+  - _ssh_resource_.[configure_host](#ssh_resourceconfigure_host)
+  - _ssh_resource_.[revert_host](#ssh_resourcerevert_host)
 - [Variables](#variables)
   - [proxmox](#proxmox-required) (**Required**)
   - [acme_contact](#acme_contact-optional) (*Optional*)
@@ -35,7 +36,8 @@ This module sets up Step-CA in an Alpine LXC container using the provided inform
   - [vm_id](#vm_id-optional) (*Optional*)
 - [Outputs](#outputs)
   - [root_password](#root_password)
-  - [ssh_private_key](#ssh_private_key)</blockquote>
+  - [ssh_private_key](#ssh_private_key)
+</blockquote>
 
 ## Requirements
 
@@ -44,11 +46,29 @@ This module sets up Step-CA in an Alpine LXC container using the provided inform
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) | >= 0.78.1 |
 | <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── ssh_resource.configure_container
+├── ssh_resource.configure_host
+├── ssh_resource.revert_host
+├── module.setup_container
+│   ├── module.setup_container.random_password.root_password
+│   ├── module.setup_container.tls_private_key.ssh_key
+│   ├── module.setup_container.proxmox_virtual_environment_download_file.template
+│   ├── module.setup_container.proxmox_virtual_environment_container.container
+│   ├── module.setup_container.ssh_resource.install_openssh
+│   ├── module.setup_container.ssh_resource.install_packages
+```
+
 ## Modules
 <blockquote>
 
@@ -73,7 +93,7 @@ Alpine LXC container setup
 ## Resources
 <blockquote>
 
-#### `configure_container` (_ssh_resource_)
+#### _ssh_resource_.`configure_container`
 Configure Step-CA
   <table>
     <tr>
@@ -88,7 +108,7 @@ Configure Step-CA
 </blockquote>
 <blockquote>
 
-#### `configure_host` (_ssh_resource_)
+#### _ssh_resource_.`configure_host`
 Configure ACME domain and order certificates
   <table>
     <tr>
@@ -103,7 +123,7 @@ Configure ACME domain and order certificates
 </blockquote>
 <blockquote>
 
-#### `revert_host` (_ssh_resource_)
+#### _ssh_resource_.`revert_host`
 ACME Cleanup on destroy
   <table>
     <tr>

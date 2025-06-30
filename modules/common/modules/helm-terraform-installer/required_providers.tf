@@ -6,8 +6,7 @@ terraform {
       source = "gavinbunney/kubectl"
     }
     helm = {
-      source                = "hashicorp/helm"
-      configuration_aliases = [helm.deploying]
+      source = "hashicorp/helm"
     }
   }
 }

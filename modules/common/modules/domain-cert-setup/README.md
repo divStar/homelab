@@ -8,12 +8,13 @@ Note: it does _not_ output any files.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [proxmox_ca_cert](#proxmox_ca_cert-ssh_resource) (*ssh_resource*)
-  - [proxmox_ca_key](#proxmox_ca_key-ssh_resource) (*ssh_resource*)
-  - [cert_request](#cert_request-tls_cert_request) (*tls_cert_request*)
-  - [cert](#cert-tls_locally_signed_cert) (*tls_locally_signed_cert*)
-  - [key](#key-tls_private_key) (*tls_private_key*)
+  - _ssh_resource_.[proxmox_ca_cert](#ssh_resourceproxmox_ca_cert)
+  - _ssh_resource_.[proxmox_ca_key](#ssh_resourceproxmox_ca_key)
+  - _tls_cert_request_.[cert_request](#tls_cert_requestcert_request)
+  - _tls_locally_signed_cert_.[cert](#tls_locally_signed_certcert)
+  - _tls_private_key_.[key](#tls_private_keykey)
 - [Variables](#variables)
   - [dns_names](#dns_names-required) (**Required**)
   - [ip_addresses](#ip_addresses-required) (**Required**)
@@ -27,7 +28,8 @@ Note: it does _not_ output any files.
 - [Outputs](#outputs)
   - [ca_cert_pem](#ca_cert_pem)
   - [cert_pem](#cert_pem)
-  - [key_pem](#key_pem)</blockquote>
+  - [key_pem](#key_pem)
+</blockquote>
 
 ## Requirements
 
@@ -35,18 +37,32 @@ Note: it does _not_ output any files.
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
-| <a name="provider_tls"></a> [tls](#provider\_tls) | n/a |
+| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | 4.1.0 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── ssh_resource.proxmox_ca_key
+├── ssh_resource.proxmox_ca_cert
+├── tls_private_key.key
+├── tls_cert_request.cert_request
+├── tls_locally_signed_cert.cert
+```
+
+
 
 
 ## Resources
 <blockquote>
 
-#### `proxmox_ca_cert` (_ssh_resource_)
+#### _ssh_resource_.`proxmox_ca_cert`
 Fetch Proxmox CA public certificate
   <table>
     <tr>
@@ -61,7 +77,7 @@ Fetch Proxmox CA public certificate
 </blockquote>
 <blockquote>
 
-#### `proxmox_ca_key` (_ssh_resource_)
+#### _ssh_resource_.`proxmox_ca_key`
 Fetch Proxmox CA key
   <table>
     <tr>
@@ -76,7 +92,7 @@ Fetch Proxmox CA key
 </blockquote>
 <blockquote>
 
-#### `cert_request` (_tls_cert_request_)
+#### _tls_cert_request_.`cert_request`
 Create certificate request
   <table>
     <tr>
@@ -91,7 +107,7 @@ Create certificate request
 </blockquote>
 <blockquote>
 
-#### `cert` (_tls_locally_signed_cert_)
+#### _tls_locally_signed_cert_.`cert`
 Sign the certificate with the CA
   <table>
     <tr>
@@ -106,7 +122,7 @@ Sign the certificate with the CA
 </blockquote>
 <blockquote>
 
-#### `key` (_tls_private_key_)
+#### _tls_private_key_.`key`
 Define private key for the intermediate Kubernetes cluster certificate
   <table>
     <tr>

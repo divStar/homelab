@@ -17,6 +17,7 @@ content: |-
 
   - [Requirements](#requirements)
   - [Providers](#providers)
+  - [Execution story](#execution-story)
   {{- if .Module.HasModuleCalls }}
   - [Modules](#modules) _(nested and adjacent)_
     {{- range .Module.ModuleCalls }}
@@ -28,7 +29,7 @@ content: |-
     {{- range .Module.Resources }}
       {{- if eq .GetMode "resource" }}
         {{- $spec := split "." .Spec }}
-    - [{{ $spec._1 }}](#{{ $spec._1 }}-{{ $spec._0 }}) (*{{ $spec._0 }}*)
+    - _{{$spec._0}}_.[{{ $spec._1 }}](#{{ $spec._0 }}{{ $spec._1 }})
       {{- end -}}
     {{- end -}}
   {{- end }}
@@ -41,13 +42,21 @@ content: |-
     {{- range .Module.Outputs }}
     - [{{ .Name }}](#{{ .Name }})
     {{- end -}}
-  {{- end -}}
+  {{- end}}
   </blockquote>
 
   {{ .Requirements }}
+
   {{ .Providers }}
 
-  {{- if .Module.HasModuleCalls }}
+  ## Execution story
+
+  Order in which Terraform will create resources (and likely destroy them in reverse order):
+  ```
+  EXECUTION_STORY_PLACE_HOLDER
+  ```
+  
+  {{ if .Module.HasModuleCalls -}}
   ## Modules
     {{- range .Module.ModuleCalls }}
   <blockquote>
@@ -78,7 +87,7 @@ content: |-
         {{- $specs := split "." .Spec }}
   <blockquote>
 
-  #### `{{ $specs._1 }}` (_{{ $specs._0 }}_)
+  #### _{{ $specs._0 }}_.`{{ $specs._1 }}`
   {{ .Description.Raw }}
     <table>
       <tr>

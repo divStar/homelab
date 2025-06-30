@@ -7,8 +7,9 @@ Creates the Talos machine secrets and the Talos client configuration.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [this](#this-talos_machine_secrets) (*talos_machine_secrets*)
+  - _talos_machine_secrets_.[this](#talos_machine_secretsthis)
 - [Variables](#variables)
   - [cluster_name](#cluster_name-required) (**Required**)
   - [nodes](#nodes-required) (**Required**)
@@ -16,24 +17,35 @@ Creates the Talos machine secrets and the Talos client configuration.
 - [Outputs](#outputs)
   - [client_configuration](#client_configuration)
   - [machine_secrets](#machine_secrets)
-  - [talos_config](#talos_config)</blockquote>
+  - [talos_config](#talos_config)
+</blockquote>
 
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_talos"></a> [talos](#provider\_talos) | n/a |
+| <a name="provider_talos"></a> [talos](#provider\_talos) | 0.8.1 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── talos_machine_secrets.this
+```
+
+
 
 
 ## Resources
 <blockquote>
 
-#### `this` (_talos_machine_secrets_)
+#### _talos_machine_secrets_.`this`
 
   <table>
     <tr>

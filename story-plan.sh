@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Script to show Terraform module execution order in "story mode"
-# Usage: ./story-plan-ex.sh [-d|--debug] [-x|--extended] [-p|--path PATH] [-b|--binary BINARY] [-h|--help]
+# Usage: ./story-plan-ex.sh [-d|--debug] [-x|--extended] [-r|--raw] [-p|--path PATH] [-b|--binary BINARY] [-h|--help]
 
 set -euo pipefail
 
@@ -14,6 +14,7 @@ DEBUG="false"
 TERRAFORM_BINARY="tofu"
 TERRAFORM_PATH="."
 EXTENDED="false"
+RAW="false"
 
 # RegEx patterns as constants (simplified)
 readonly ID='[[:alnum:]_]+'  # Terraform identifiers: letters, digits, underscore
@@ -55,9 +56,10 @@ debug() {
 
 show_help() {
     cat << EOF
-Usage: $0 [-d|--debug] [-x|--extended] [-p|--path PATH] [-b|--binary BINARY] [-h|--help]
+Usage: $0 [-d|--debug] [-x|--extended] [-r|--raw] [-p|--path PATH] [-b|--binary BINARY] [-h|--help]
   -d, --debug     Show debug information
   -x, --extended  Include individual resources (not just modules)
+  -r, --raw       Raw output (no numbers, headings, totals, or output resources)
   -p, --path      Terraform project path (default: current directory)
   -b, --binary    Terraform binary to use (default: tofu)
   -h, --help      Show this help message
@@ -65,6 +67,8 @@ Usage: $0 [-d|--debug] [-x|--extended] [-p|--path PATH] [-b|--binary BINARY] [-h
 Examples:
   $0                                    # Modules only, current directory
   $0 -x                                 # Include all resources
+  $0 -r                                 # Raw module names only
+  $0 -x -r                              # Raw modules and resources
   $0 -p /path/to/terraform -x           # Extended mode with specific path
   $0 -b terraform -d -x                 # All options with terraform binary
 EOF
@@ -83,6 +87,10 @@ parse_arguments() {
                 ;;
             -x|--extended)
                 EXTENDED="true"
+                shift
+                ;;
+            -r|--raw)
+                RAW="true"
                 shift
                 ;;
             -p|--path)
@@ -118,7 +126,24 @@ get_graph_data() {
     fi
     
     debug "🔧 Running: $TERRAFORM_BINARY graph -chdir='$abs_path'"
-    "$TERRAFORM_BINARY" -chdir="$abs_path" graph 2>/dev/null
+    
+    # Check if .terraform directory exists, if not we'll need to init temporarily
+    local need_cleanup=false
+    if [ ! -d "$abs_path/.terraform" ]; then
+        debug "🔧 .terraform not found, running temporary init..."
+        need_cleanup=true
+        
+        # Run init quietly
+        if ! "$TERRAFORM_BINARY" -chdir="$abs_path" init -backend=false >/dev/null 2>&1; then
+            debug "⚠️  Init failed, trying graph anyway..."
+        fi
+    fi
+    
+    # Run the graph command
+    local graph_output
+    graph_output=$("$TERRAFORM_BINARY" -chdir="$abs_path" graph 2>/dev/null)
+    
+    echo "$graph_output"
 }
 
 extract_dependencies() {
@@ -241,14 +266,64 @@ build_dependency_graph() {
     
     debug "🔍 Debug: Parsed as 'FROM depends_on TO' relationships:"
     
-    # Parse dependencies - NOTE: FROM -> TO means FROM depends on TO
-    # So TO must be created before FROM
+    # First pass: collect all module resources
+    local -A module_resources
+    for resource in "${!all_modules[@]}"; do
+        if [[ "$resource" =~ ^module\.([^.]+)\. ]]; then
+            local module_name="module.${BASH_REMATCH[1]}"
+            if [[ -z "${module_resources[$module_name]:-}" ]]; then
+                module_resources[$module_name]="$resource"
+            else
+                module_resources[$module_name]="${module_resources[$module_name]} $resource"
+            fi
+        fi
+    done
+    
+    # Parse dependencies
     while IFS=' ' read -r from to; do
         [[ -z "$from" || -z "$to" ]] && continue
         
+        # Skip circular module-to-resource dependencies
+        if [[ "$from" =~ ^module\.([^.]+)$ ]] && [[ "$to" =~ ^module\.${BASH_REMATCH[1]}\. ]]; then
+            debug "  Skipping circular dependency: $from -> $to"
+            continue
+        fi
+        if [[ "$to" =~ ^module\.([^.]+)$ ]] && [[ "$from" =~ ^module\.${BASH_REMATCH[1]}\. ]]; then
+            debug "  Skipping reverse circular dependency: $from -> $to"
+            continue
+        fi
+        
+        # Special handling: if something depends on a module, it should depend on ALL resources in that module
+        if [[ "$to" =~ ^module\.([^.]+)$ ]]; then
+            local module_name="$to"
+            debug "  $from depends on $module_name (module)"
+            
+            # Make 'from' depend on all resources within the module
+            if [[ -n "${module_resources[$module_name]:-}" ]]; then
+                for module_resource in ${module_resources[$module_name]}; do
+                    debug "    -> $from depends on $module_resource (module resource)"
+                    
+                    # Add module_resource to from's dependencies
+                    if [[ -z "${adj_list[$module_resource]:-}" ]]; then
+                        adj_list[$module_resource]="$from"
+                    else
+                        adj_list[$module_resource]="${adj_list[$module_resource]} $from"
+                    fi
+                    
+                    # Track in-degrees
+                    in_degree[$from]=$((${in_degree[$from]:-0} + 1))
+                    in_degree[$module_resource]=$((${in_degree[$module_resource]:-0} + 0))
+                done
+            fi
+            
+            # Still add the module to all_modules for tree view, but don't create dependencies on it
+            all_modules[$to]=1
+            in_degree[$to]=$((${in_degree[$to]:-0} + 0))
+            continue
+        fi
+        
         debug "  $from depends on $to (so $to runs before $from)"
         
-        # Reverse the relationship: TO comes before FROM
         # Add FROM to TO's dependents list
         if [[ -z "${adj_list[$to]:-}" ]]; then
             adj_list[$to]="$from"
@@ -256,9 +331,9 @@ build_dependency_graph() {
             adj_list[$to]="${adj_list[$to]} $from"
         fi
         
-        # Track in-degrees: FROM has one more dependency
+        # Track in-degrees
         in_degree[$from]=$((${in_degree[$from]:-0} + 1))
-        in_degree[$to]=$((${in_degree[$to]:-0} + 0))  # Ensure it exists
+        in_degree[$to]=$((${in_degree[$to]:-0} + 0))
         
         # Track all modules
         all_modules[$from]=1
@@ -349,98 +424,124 @@ print_execution_order() {
         
         # Print standalone resources first (if any)
         for resource in "${standalone_resources[@]}"; do
-            printf "%2d. 🔧 %s\n" $step "$resource"
-            ((step++))
+            if [[ "$RAW" == "true" ]]; then
+                printf "├── %s\n" "$resource"
+            else
+                printf "%2d. 🔧 %s\n" $step "$resource"
+                ((step++))
+            fi
         done
         
         # Print modules with their resources
         for module in "${standalone_modules[@]}"; do
-            printf "%2d. 📦 \033[1m%s\033[0m\n" "$step" "$module"
-            ((step++))
+            if [[ "$RAW" == "true" ]]; then
+                printf "├── %s\n" "$module"
+            else
+                printf "%2d. 📦 \033[1m%s\033[0m\n" "$step" "$module"
+                ((step++))
+            fi
             
             # Print resources belonging to this module (indented)
             if [[ -n "${module_resources[$module]:-}" ]]; then
                 for resource in ${module_resources[$module]}; do
-                    printf "%2d.   🔧 %s\n" $step "$resource"
-                    ((step++))
+                    if [[ "$RAW" == "true" ]]; then
+                        printf "│   ├── %s\n" "$resource"
+                    else
+                        printf "%2d.   🔧 %s\n" $step "$resource"
+                        ((step++))
+                    fi
                 done
             fi
         done
         
-        
-        # Print output resources at the bottom (if any exist)
-        local has_any_outputs=false
-        [[ ${#output_resources[@]} -gt 0 ]] && has_any_outputs=true
-        [[ ${#output_modules[@]} -gt 0 ]] 2>/dev/null && has_any_outputs=true
-        
-        if [[ "$has_any_outputs" == "true" ]]; then
-            echo
-            echo "📄 Output Resources (informational):"
-            local step_count=$((${#execution_order[@]} - ${#output_resources[@]} + 1))
+        # Skip output resources in raw mode
+        if [[ "$RAW" != "true" ]]; then
+            # Print output resources at the bottom (if any exist)
+            local has_any_outputs=false
+            [[ ${#output_resources[@]} -gt 0 ]] && has_any_outputs=true
+            [[ ${#output_modules[@]} -gt 0 ]] 2>/dev/null && has_any_outputs=true
             
-            # Collect all outputs into one array and sort
-            local all_outputs=()
-            
-            # Add output_resources (local_file, etc. from execution order)
-            for output in "${output_resources[@]}"; do
-                all_outputs+=("$output")
-            done
-            
-            # Add output_modules (discovered outputs)
-            if [[ ${#output_modules[@]} -gt 0 ]] 2>/dev/null; then
-                for output in "${!output_modules[@]}"; do
+            if [[ "$has_any_outputs" == "true" ]]; then
+                echo
+                echo "📄 Output Resources (informational):"
+                local step_count=$((${#execution_order[@]} - ${#output_resources[@]} + 1))
+                
+                # Collect all outputs into one array and sort
+                local all_outputs=()
+                
+                # Add output_resources (local_file, etc. from execution order)
+                for output in "${output_resources[@]}"; do
                     all_outputs+=("$output")
                 done
+                
+                # Add output_modules (discovered outputs)
+                if [[ ${#output_modules[@]} -gt 0 ]] 2>/dev/null; then
+                    for output in "${!output_modules[@]}"; do
+                        all_outputs+=("$output")
+                    done
+                fi
+                
+                # Sort and display unique outputs
+                if [[ ${#all_outputs[@]} -gt 0 ]]; then
+                    readarray -t sorted_outputs < <(printf '%s\n' "${all_outputs[@]}" | sort -u)
+                    for output in "${sorted_outputs[@]}"; do
+                        printf "%2d. 📄 %s\n" $step_count "$output"
+                        ((step_count++))
+                    done
+                fi
             fi
             
-            # Sort and display unique outputs
-            if [[ ${#all_outputs[@]} -gt 0 ]]; then
-                readarray -t sorted_outputs < <(printf '%s\n' "${all_outputs[@]}" | sort -u)
-                for output in "${sorted_outputs[@]}"; do
-                    printf "%2d. 📄 %s\n" $step_count "$output"
-                    ((step_count++))
-                done
-            fi
+            echo
+            printf "Total items: %d (modules + resources)\n" ${#execution_order[@]}
         fi
-        
-        echo
-        printf "Total items: %d (modules + resources)\n" ${#execution_order[@]}
     else
         local step=1
         for item in "${execution_order[@]}"; do
-            printf "%2d. 📦 %s\n" "$step" "$item"
-            ((step++))
+            if [[ "$RAW" == "true" ]]; then
+                printf "├── module.%s\n" "$item"
+            else
+                printf "%2d. 📦 %s\n" "$step" "$item"
+                ((step++))
+            fi
         done
 
-        # Print output resources for normal mode too
-        if [[ ${#output_modules[@]} -gt 0 ]] 2>/dev/null; then
-            echo
-            echo "📄 Output Resources (informational):"
-            local step_count=$((${#execution_order[@]} + 1))
-            
-            # Collect and sort all outputs
-            local all_outputs=()
-            for output in "${!output_modules[@]}"; do
-                all_outputs+=("$output")
-            done
-            
-            # Sort and display unique outputs
-            if [[ ${#all_outputs[@]} -gt 0 ]]; then
-                readarray -t sorted_outputs < <(printf '%s\n' "${all_outputs[@]}" | sort -u)
-                for output in "${sorted_outputs[@]}"; do
-                    printf "%2d. 📄 %s\n" $step_count "$output"
-                    ((step_count++))
+        # Skip output resources and totals in raw mode
+        if [[ "$RAW" != "true" ]]; then
+            # Print output resources for normal mode too
+            if [[ ${#output_modules[@]} -gt 0 ]] 2>/dev/null; then
+                echo
+                echo "📄 Output Resources (informational):"
+                local step_count=$((${#execution_order[@]} + 1))
+                
+                # Collect and sort all outputs
+                local all_outputs=()
+                for output in "${!output_modules[@]}"; do
+                    all_outputs+=("$output")
                 done
+                
+                # Sort and display unique outputs
+                if [[ ${#all_outputs[@]} -gt 0 ]]; then
+                    readarray -t sorted_outputs < <(printf '%s\n' "${all_outputs[@]}" | sort -u)
+                    for output in "${sorted_outputs[@]}"; do
+                        printf "%2d. 📄 %s\n" $step_count "$output"
+                        ((step_count++))
+                    done
+                fi
             fi
-        fi
 
-        echo
-        printf "Total modules: %d\n" ${#execution_order[@]}
+            echo
+            printf "Total modules: %d\n" ${#execution_order[@]}
+        fi
     fi
 }
 
 check_for_cycles() {
     local execution_order=("$@")
+    
+    # Skip cycle check in raw mode
+    if [[ "$RAW" == "true" ]]; then
+        return
+    fi
     
     # Check for cycles
     if [[ ${#execution_order[@]} -ne ${#all_modules[@]} ]]; then
@@ -471,30 +572,33 @@ main() {
     # Parse command line arguments
     parse_arguments "$@"
     
-    # Show immediate feedback with header and scanning message
-    local mode_text="Normal"
-    [[ "$EXTENDED" == "true" ]] && mode_text="Extended"
-    
-    echo "🚀 Terraform Execution Order ($mode_text mode):"
-    echo "================================================================================"
-    
-    # Convert to absolute path for display
-    local display_path
-    if [[ "$TERRAFORM_PATH" == "." ]]; then
-        display_path="$(pwd)"
-    elif [[ "${TERRAFORM_PATH:0:1}" == "/" ]]; then
-        display_path="$TERRAFORM_PATH"
-    else
-        display_path="$(pwd)/$TERRAFORM_PATH"
-    fi
-    
-    echo "📁 Scanning project path: $display_path"
-    
-    # Show different progress based on debug mode
-    if [[ "$DEBUG" == "true" ]]; then
-        echo "⏳ Analyzing dependencies..."
-    else
-        printf "⏳ Analyzing dependencies... extracting graph data"
+    # Skip header and progress in raw mode
+    if [[ "$RAW" != "true" ]]; then
+        # Show immediate feedback with header and scanning message
+        local mode_text="Normal"
+        [[ "$EXTENDED" == "true" ]] && mode_text="Extended"
+        
+        echo "🚀 Terraform Execution Order ($mode_text mode):"
+        echo "================================================================================"
+        
+        # Convert to absolute path for display
+        local display_path
+        if [[ "$TERRAFORM_PATH" == "." ]]; then
+            display_path="$(pwd)"
+        elif [[ "${TERRAFORM_PATH:0:1}" == "/" ]]; then
+            display_path="$TERRAFORM_PATH"
+        else
+            display_path="$(pwd)/$TERRAFORM_PATH"
+        fi
+        
+        echo "📁 Scanning project path: $display_path"
+        
+        # Show different progress based on debug mode
+        if [[ "$DEBUG" == "true" ]]; then
+            echo "⏳ Analyzing dependencies..."
+        else
+            printf "⏳ Analyzing dependencies... extracting graph data"
+        fi
     fi
     
     # Get graph data from stdin or run terraform/tofu graph
@@ -502,7 +606,7 @@ main() {
     graph_data=$(get_graph_data)
     
     # Extract all dependencies and capture outputs (for both modes)
-    if [[ "$DEBUG" != "true" ]]; then
+    if [[ "$DEBUG" != "true" && "$RAW" != "true" ]]; then
         printf "\r⏳ Analyzing dependencies... finding output references          "
     fi
     
@@ -527,7 +631,7 @@ main() {
         fi
     done <<< "$graph_data"
     
-    if [[ "$DEBUG" != "true" ]]; then
+    if [[ "$DEBUG" != "true" && "$RAW" != "true" ]]; then
         printf "\r⏳ Analyzing dependencies... processing dependencies        "
     fi
     
@@ -537,7 +641,7 @@ main() {
     extract_all_resources "$graph_data"
     
     # Filter dependencies based on mode
-    if [[ "$DEBUG" != "true" ]]; then
+    if [[ "$DEBUG" != "true" && "$RAW" != "true" ]]; then
         printf "\r⏳ Analyzing dependencies... building dependency graph      "
     fi
     
@@ -554,20 +658,30 @@ main() {
     build_dependency_graph "$filtered_deps"
     
     # Perform topological sort
-    if [[ "$DEBUG" != "true" ]]; then
+    if [[ "$DEBUG" != "true" && "$RAW" != "true" ]]; then
         printf "\r⏳ Analyzing dependencies... calculating execution order    "
     fi
     
     local execution_order
     readarray -t execution_order < <(topological_sort)
+
+    # Add these debug lines here:
+    debug "🔍 Debug: Execution order length: ${#execution_order[@]}"
+    debug "🔍 Debug: All modules length: ${#all_modules[@]}"
+    if [[ "$DEBUG" == "true" ]]; then
+        echo "Execution order:" >&2
+        printf '%s\n' "${execution_order[@]}" >&2
+    fi
     
     # Complete the analysis
-    if [[ "$DEBUG" == "true" ]]; then
-        echo "✅ Analysis complete!"
-    else
-        printf "\r✅ Analysis complete!                                        \n"
+    if [[ "$RAW" != "true" ]]; then
+        if [[ "$DEBUG" == "true" ]]; then
+            echo "✅ Analysis complete!"
+        else
+            printf "\r✅ Analysis complete!                                        \n"
+        fi
+        echo
     fi
-    echo
     
     # Display results
     print_execution_order "${execution_order[@]}"

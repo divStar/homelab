@@ -7,9 +7,10 @@ Awaits the Talos cluster to become ready and running.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [this](#this-talos_cluster_kubeconfig) (*talos_cluster_kubeconfig*)
-  - [this](#this-talos_machine_bootstrap) (*talos_machine_bootstrap*)
+  - _talos_cluster_kubeconfig_.[this](#talos_cluster_kubeconfigthis)
+  - _talos_machine_bootstrap_.[this](#talos_machine_bootstrapthis)
 - [Variables](#variables)
   - [cluster](#cluster-required) (**Required**)
   - [nodes](#nodes-required) (**Required**)
@@ -21,24 +22,36 @@ Awaits the Talos cluster to become ready and running.
   - [kubeconfig_timeout](#kubeconfig_timeout-optional) (*Optional*)
 - [Outputs](#outputs)
   - [kube_config](#kube_config)
-  - [machine_config](#machine_config)</blockquote>
+  - [machine_config](#machine_config)
+</blockquote>
 
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_talos"></a> [talos](#provider\_talos) | n/a |
+| <a name="provider_talos"></a> [talos](#provider\_talos) | 0.8.1 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── talos_machine_bootstrap.this
+├── talos_cluster_kubeconfig.this
+```
+
+
 
 
 ## Resources
 <blockquote>
 
-#### `this` (_talos_cluster_kubeconfig_)
+#### _talos_cluster_kubeconfig_.`this`
 
   <table>
     <tr>
@@ -53,7 +66,7 @@ Awaits the Talos cluster to become ready and running.
 </blockquote>
 <blockquote>
 
-#### `this` (_talos_machine_bootstrap_)
+#### _talos_machine_bootstrap_.`this`
 
   <table>
     <tr>

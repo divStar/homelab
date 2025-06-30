@@ -7,13 +7,13 @@ Creates a Talos VM with a given ISO, type and other settings.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [step_ca_root_pem_patch](#step_ca_root_pem_patch-local_file) (*local_file*)
-  - [virtiofs_patch](#virtiofs_patch-local_file) (*local_file*)
-  - [this](#this-proxmox_virtual_environment_vm) (*proxmox_virtual_environment_vm*)
-  - [this](#this-talos_machine_configuration_apply) (*talos_machine_configuration_apply*)
+  - _local_file_.[step_ca_root_pem_patch](#local_filestep_ca_root_pem_patch)
+  - _local_file_.[virtiofs_patch](#local_filevirtiofs_patch)
+  - _proxmox_virtual_environment_vm_.[this](#proxmox_virtual_environment_vmthis)
+  - _talos_machine_configuration_apply_.[this](#talos_machine_configuration_applythis)
 - [Variables](#variables)
-  - [cilium_version](#cilium_version-required) (**Required**)
   - [cluster](#cluster-required) (**Required**)
   - [node_cpu](#node_cpu-required) (**Required**)
   - [node_host](#node_host-required) (**Required**)
@@ -31,35 +31,42 @@ Creates a Talos VM with a given ISO, type and other settings.
   - [talos_linux_version](#talos_linux_version-required) (**Required**)
   - [talos_machine_secrets](#talos_machine_secrets-required) (**Required**)
   - [target_kube_version](#target_kube_version-required) (**Required**)
-  - [cilium_chart](#cilium_chart-optional) (*Optional*)
-  - [cilium_name](#cilium_name-optional) (*Optional*)
-  - [cilium_namespace](#cilium_namespace-optional) (*Optional*)
-  - [cilium_repository](#cilium_repository-optional) (*Optional*)
-  - [cilium_timeout](#cilium_timeout-optional) (*Optional*)
   - [node_bridge](#node_bridge-optional) (*Optional*)
   - [node_datastore_id](#node_datastore_id-optional) (*Optional*)
   - [node_description](#node_description-optional) (*Optional*)
-  - [node_tags](#node_tags-optional) (*Optional*)</blockquote>
+  - [node_tags](#node_tags-optional) (*Optional*)
+</blockquote>
 
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_http"></a> [http](#provider\_http) | n/a |
-| <a name="provider_local"></a> [local](#provider\_local) | n/a |
-| <a name="provider_proxmox"></a> [proxmox](#provider\_proxmox) | 0.68.1 |
-| <a name="provider_talos"></a> [talos](#provider\_talos) | 0.6.1 |
+| <a name="provider_http"></a> [http](#provider\_http) | 3.5.0 |
+| <a name="provider_local"></a> [local](#provider\_local) | 2.5.3 |
+| <a name="provider_proxmox"></a> [proxmox](#provider\_proxmox) | 0.78.2 |
+| <a name="provider_talos"></a> [talos](#provider\_talos) | 0.8.1 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── proxmox_virtual_environment_vm.this
+├── talos_machine_configuration_apply.this
+```
+
+
 
 
 ## Resources
 <blockquote>
 
-#### `step_ca_root_pem_patch` (_local_file_)
+#### _local_file_.`step_ca_root_pem_patch`
 
   <table>
     <tr>
@@ -74,7 +81,7 @@ Creates a Talos VM with a given ISO, type and other settings.
 </blockquote>
 <blockquote>
 
-#### `virtiofs_patch` (_local_file_)
+#### _local_file_.`virtiofs_patch`
 
   <table>
     <tr>
@@ -89,7 +96,7 @@ Creates a Talos VM with a given ISO, type and other settings.
 </blockquote>
 <blockquote>
 
-#### `this` (_proxmox_virtual_environment_vm_)
+#### _proxmox_virtual_environment_vm_.`this`
 
   <table>
     <tr>
@@ -104,7 +111,7 @@ Creates a Talos VM with a given ISO, type and other settings.
 </blockquote>
 <blockquote>
 
-#### `this` (_talos_machine_configuration_apply_)
+#### _talos_machine_configuration_apply_.`this`
 
   <table>
     <tr>
@@ -119,22 +126,6 @@ Creates a Talos VM with a given ISO, type and other settings.
 </blockquote>
 
 ## Variables
-<blockquote>
-
-### `cilium_version` (**Required**)
-Cilium version
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  In file: <a href="./variables.tf#L127"><code>variables.tf#L127</code></a>
-
-</details>
-</blockquote>
 <blockquote>
 
 ### `cluster` (**Required**)
@@ -352,7 +343,7 @@ Step CA IP or host, _*not*_ including the protocol (`https`).
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L179"><code>variables.tf#L179</code></a>
+  In file: <a href="./variables.tf#L139"><code>variables.tf#L139</code></a>
 
 </details>
 </blockquote>
@@ -384,7 +375,7 @@ Version of Talos (Linux/Kubernetes) to install
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L167"><code>variables.tf#L167</code></a>
+  In file: <a href="./variables.tf#L127"><code>variables.tf#L127</code></a>
 
 </details>
 </blockquote>
@@ -416,107 +407,7 @@ Target version of Kubernetes the template is built for
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L173"><code>variables.tf#L173</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
-### `cilium_chart` (*Optional*)
-Name of the Cilium Helm Chart to use
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "cilium"
-  ```
-  In file: <a href="./variables.tf#L153"><code>variables.tf#L153</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
-### `cilium_name` (*Optional*)
-Name of the Cilium Helm release
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "cilium"
-  ```
-  In file: <a href="./variables.tf#L132"><code>variables.tf#L132</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
-### `cilium_namespace` (*Optional*)
-Namespace to install Cilium into
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "cilium"
-  ```
-  In file: <a href="./variables.tf#L139"><code>variables.tf#L139</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
-### `cilium_repository` (*Optional*)
-URL of the Cilium Helm repository to use
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "https://helm.cilium.io"
-  ```
-  In file: <a href="./variables.tf#L146"><code>variables.tf#L146</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
-### `cilium_timeout` (*Optional*)
-Cilium Helm template creation timeout
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  number
-  ```
-  **Default**:
-  ```json
-  60
-  ```
-  In file: <a href="./variables.tf#L160"><code>variables.tf#L160</code></a>
+  In file: <a href="./variables.tf#L133"><code>variables.tf#L133</code></a>
 
 </details>
 </blockquote>

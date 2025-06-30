@@ -8,15 +8,17 @@ These mapped directories can then be used e.g. using `virtiofs` "pass-through" t
 
 - [Requirements](#requirements)
 - [Providers](#providers)
+- [Execution story](#execution-story)
 - [Resources](#resources)
-  - [directory_mappings](#directory_mappings-ssh_resource) (*ssh_resource*)
-  - [remove_directory_mappings](#remove_directory_mappings-ssh_resource) (*ssh_resource*)
+  - _ssh_resource_.[directory_mappings](#ssh_resourcedirectory_mappings)
+  - _ssh_resource_.[remove_directory_mappings](#ssh_resourceremove_directory_mappings)
 - [Variables](#variables)
   - [proxmox_node_name](#proxmox_node_name-required) (**Required**)
   - [ssh](#ssh-required) (**Required**)
   - [directory_mappings](#directory_mappings-optional) (*Optional*)
 - [Outputs](#outputs)
-  - [directory_mappings](#directory_mappings)</blockquote>
+  - [directory_mappings](#directory_mappings)
+</blockquote>
 
 ## Requirements
 
@@ -24,17 +26,28 @@ These mapped directories can then be used e.g. using `virtiofs` "pass-through" t
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
 | <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | ~> 2.7 |
+| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+
+## Execution story
+
+Order in which Terraform will create resources (and likely destroy them in reverse order):
+```
+├── ssh_resource.directory_mappings
+├── ssh_resource.remove_directory_mappings
+```
+
+
 
 
 ## Resources
 <blockquote>
 
-#### `directory_mappings` (_ssh_resource_)
+#### _ssh_resource_.`directory_mappings`
 
   <table>
     <tr>
@@ -49,7 +62,7 @@ These mapped directories can then be used e.g. using `virtiofs` "pass-through" t
 </blockquote>
 <blockquote>
 
-#### `remove_directory_mappings` (_ssh_resource_)
+#### _ssh_resource_.`remove_directory_mappings`
 
   <table>
     <tr>

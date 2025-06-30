@@ -5,6 +5,7 @@ metadata:
   namespace: cilium
   annotations:
     cert-manager.io/cluster-issuer: ${ca_issuer}
+    acme.cert-manager.io/http01-edit-in-place: "true"
 spec:
   ingressClassName: cilium
   rules:

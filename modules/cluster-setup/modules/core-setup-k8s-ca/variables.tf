@@ -22,3 +22,9 @@ variable "secret_name" {
   default     = "k8s-acme-secret"
   nullable    = false
 }
+
+variable "step_ca_host" {
+  description = "Step CA IP or host, _*not*_ including the protocol (`https`)."
+  type        = string
+  nullable    = false
+}

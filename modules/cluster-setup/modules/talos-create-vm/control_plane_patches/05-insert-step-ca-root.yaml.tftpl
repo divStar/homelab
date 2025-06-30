@@ -1,0 +1,5 @@
+apiVersion: v1alpha1
+kind: TrustedRootsConfig
+name: sanctum-root-ca # Step CA root certificate
+certificates: |-
+    ${indent(4, step_ca_root_pem)}

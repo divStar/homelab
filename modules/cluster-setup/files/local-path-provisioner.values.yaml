@@ -6,13 +6,13 @@ image:
 # Storage class configuration
 storageClass:
   create: true
-  defaultClass: ${default_storage_class}
+  defaultClass: true
   name: local-path
   reclaimPolicy: Delete
   volumeBindingMode: WaitForFirstConsumer
 
 # Node path configuration for Talos
-nodePath: ${storage_path}
+nodePath: /var/mnt/local-path-provisioner
 
 # Helper image for filesystem operations
 helperImage:

@@ -8,6 +8,7 @@ spec:
     email: ${acme_contact}
     privateKeySecretRef:
       name: ${secret_name}
+    caBundle: ${base64encode(acme_root_certificate)}
     solvers:
     - http01:
         ingress:

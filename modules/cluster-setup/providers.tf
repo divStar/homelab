@@ -50,18 +50,18 @@ provider "helm" {
   alias = "deploying"
 
   kubernetes = {
-    host                   = module.await_talos_cluster.kube_config.kubernetes_client_configuration.host
-    client_certificate     = base64decode(module.await_talos_cluster.kube_config.kubernetes_client_configuration.client_certificate)
-    client_key             = base64decode(module.await_talos_cluster.kube_config.kubernetes_client_configuration.client_key)
-    cluster_ca_certificate = base64decode(module.await_talos_cluster.kube_config.kubernetes_client_configuration.ca_certificate)
+    host                   = module.talos_cluster_ready.kube_config.kubernetes_client_configuration.host
+    client_certificate     = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.client_certificate)
+    client_key             = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.client_key)
+    cluster_ca_certificate = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.ca_certificate)
   }
 }
 
 provider "kubectl" {
-  host                   = module.await_talos_cluster.kube_config.kubernetes_client_configuration.host
-  client_certificate     = base64decode(module.await_talos_cluster.kube_config.kubernetes_client_configuration.client_certificate)
-  client_key             = base64decode(module.await_talos_cluster.kube_config.kubernetes_client_configuration.client_key)
-  cluster_ca_certificate = base64decode(module.await_talos_cluster.kube_config.kubernetes_client_configuration.ca_certificate)
+  host                   = module.talos_cluster_ready.kube_config.kubernetes_client_configuration.host
+  client_certificate     = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.client_certificate)
+  client_key             = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.client_key)
+  cluster_ca_certificate = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.ca_certificate)
   load_config_file       = false
 }
 
@@ -70,9 +70,9 @@ provider "sealedsecret" {
   controller_namespace = var.sealed_secrets_namespace
 
   kubernetes {
-    host                   = module.await_talos_cluster.kube_config.kubernetes_client_configuration.host
-    client_certificate     = base64decode(module.await_talos_cluster.kube_config.kubernetes_client_configuration.client_certificate)
-    client_key             = base64decode(module.await_talos_cluster.kube_config.kubernetes_client_configuration.client_key)
-    cluster_ca_certificate = base64decode(module.await_talos_cluster.kube_config.kubernetes_client_configuration.ca_certificate)
+    host                   = module.talos_cluster_ready.kube_config.kubernetes_client_configuration.host
+    client_certificate     = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.client_certificate)
+    client_key             = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.client_key)
+    cluster_ca_certificate = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.ca_certificate)
   }
 }

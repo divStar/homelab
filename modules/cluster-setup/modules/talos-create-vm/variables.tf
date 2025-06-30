@@ -175,3 +175,9 @@ variable "target_kube_version" {
   type        = string
   nullable    = false
 }
+
+variable "step_ca_host" {
+  description = "Step CA IP or host, _*not*_ including the protocol (`https`)."
+  type        = string
+  nullable    = false
+}

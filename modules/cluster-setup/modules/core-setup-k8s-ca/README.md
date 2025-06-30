@@ -15,6 +15,7 @@ for automatic certificate issuance via HTTP-01 challenges.
   - [acme_contact](#acme_contact-required) (**Required**)
   - [acme_server_directory_url](#acme_server_directory_url-required) (**Required**)
   - [secret_namespace](#secret_namespace-required) (**Required**)
+  - [step_ca_host](#step_ca_host-required) (**Required**)
   - [secret_name](#secret_name-optional) (*Optional*)
 - [Outputs](#outputs)
   - [k8s_ca_issuer_name](#k8s_ca_issuer_name)</blockquote>
@@ -28,6 +29,7 @@ for automatic certificate issuance via HTTP-01 challenges.
 
 | Name | Version |
 |------|---------|
+| <a name="provider_http"></a> [http](#provider\_http) | n/a |
 | <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | n/a |
 
 
@@ -43,7 +45,7 @@ Install the ACME ClusterIssuer resource
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L20"><code>main.tf#L20</code></a></td>
+      <td><a href="./main.tf#L26"><code>main.tf#L26</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -94,6 +96,22 @@ Namespace to deploy the secret and - by extension - the sealed secret to
   string
   ```
   In file: <a href="./variables.tf#L13"><code>variables.tf#L13</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `step_ca_host` (**Required**)
+Step CA IP or host, _*not*_ including the protocol (`https`).
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  In file: <a href="./variables.tf#L26"><code>variables.tf#L26</code></a>
 
 </details>
 </blockquote>

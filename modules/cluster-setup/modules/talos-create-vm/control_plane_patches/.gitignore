@@ -1,2 +1,3 @@
 # Ignore generated patches
-*.yaml
+04-mount-virtiofs.yaml
+05-insert-step-ca-root.yaml

@@ -148,6 +148,13 @@ variable "k8s_sealed_secret_ca_file" {
 }
 
 # ACME configuration
+variable "step_ca_host" {
+  description = "Step CA IP or host, _*not*_ including the protocol (`https`)."
+  default     = "192.168.178.155"
+  type        = string
+  nullable    = false
+}
+
 variable "acme_server_directory_url" {
   description = "ACME server directory URL"
   type        = string

@@ -1,8 +1,6 @@
 # Talos create VM
 
 Creates a Talos VM with a given ISO, type and other settings.
-
-**Note:** have a look at the patches and Cilium CNI replacement.
 ## Contents
 
 <blockquote>
@@ -10,7 +8,7 @@ Creates a Talos VM with a given ISO, type and other settings.
 - [Requirements](#requirements)
 - [Providers](#providers)
 - [Resources](#resources)
-  - [cilium_patch](#cilium_patch-local_file) (*local_file*)
+  - [step_ca_root_pem_patch](#step_ca_root_pem_patch-local_file) (*local_file*)
   - [virtiofs_patch](#virtiofs_patch-local_file) (*local_file*)
   - [this](#this-proxmox_virtual_environment_vm) (*proxmox_virtual_environment_vm*)
   - [this](#this-talos_machine_configuration_apply) (*talos_machine_configuration_apply*)
@@ -28,6 +26,7 @@ Creates a Talos VM with a given ISO, type and other settings.
   - [node_vfs_mappings](#node_vfs_mappings-required) (**Required**)
   - [node_vm_id](#node_vm_id-required) (**Required**)
   - [proxmox](#proxmox-required) (**Required**)
+  - [step_ca_host](#step_ca_host-required) (**Required**)
   - [talos_client_configuration](#talos_client_configuration-required) (**Required**)
   - [talos_linux_version](#talos_linux_version-required) (**Required**)
   - [talos_machine_secrets](#talos_machine_secrets-required) (**Required**)
@@ -51,7 +50,7 @@ Creates a Talos VM with a given ISO, type and other settings.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_helm.templating"></a> [helm.templating](#provider\_helm.templating) | n/a |
+| <a name="provider_http"></a> [http](#provider\_http) | n/a |
 | <a name="provider_local"></a> [local](#provider\_local) | n/a |
 | <a name="provider_proxmox"></a> [proxmox](#provider\_proxmox) | 0.68.1 |
 | <a name="provider_talos"></a> [talos](#provider\_talos) | 0.6.1 |
@@ -60,7 +59,7 @@ Creates a Talos VM with a given ISO, type and other settings.
 ## Resources
 <blockquote>
 
-#### `cilium_patch` (_local_file_)
+#### `step_ca_root_pem_patch` (_local_file_)
 
   <table>
     <tr>
@@ -69,7 +68,7 @@ Creates a Talos VM with a given ISO, type and other settings.
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./cilium.tf#L30"><code>cilium.tf#L30</code></a></td>
+      <td><a href="./step_ca_root.tf#L12"><code>step_ca_root.tf#L12</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -114,7 +113,7 @@ Creates a Talos VM with a given ISO, type and other settings.
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L28"><code>main.tf#L28</code></a></td>
+      <td><a href="./main.tf#L26"><code>main.tf#L26</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -338,6 +337,22 @@ Proxmox host configuration
   })
   ```
   In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `step_ca_host` (**Required**)
+Step CA IP or host, _*not*_ including the protocol (`https`).
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  In file: <a href="./variables.tf#L179"><code>variables.tf#L179</code></a>
 
 </details>
 </blockquote>

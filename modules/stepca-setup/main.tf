@@ -99,7 +99,7 @@ resource "ssh_resource" "configure_host" {
 
 # ACME Cleanup on destroy
 resource "ssh_resource" "revert_host" {
-  when = "destroy"
+  when  = "destroy"
   count = var.skip_host_configuration == true ? 0 : 1
 
   depends_on = [

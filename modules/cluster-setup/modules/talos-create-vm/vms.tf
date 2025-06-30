@@ -2,6 +2,7 @@ resource "proxmox_virtual_environment_vm" "this" {
   node_name = var.node_host
 
   on_boot     = true
+  boot_order  = ["scsi0"]
   name        = var.node_name
   description = var.node_description
   tags        = var.node_tags
@@ -10,6 +11,10 @@ resource "proxmox_virtual_environment_vm" "this" {
   machine       = "q35"
   scsi_hardware = "virtio-scsi-single"
   bios          = "seabios"
+
+  operating_system {
+    type = "l26" # Linux Kernel 2.6 - 6.X.
+  }
 
   agent {
     enabled = true
@@ -22,11 +27,6 @@ resource "proxmox_virtual_environment_vm" "this" {
 
   memory {
     dedicated = var.node_ram
-  }
-
-  network_device {
-    bridge      = var.node_bridge
-    mac_address = var.node_mac_address
   }
 
   disk {
@@ -54,8 +54,6 @@ resource "proxmox_virtual_environment_vm" "this" {
     serial       = "storage"
   }
 
-  boot_order = ["scsi0"]
-
   dynamic "virtiofs" {
     for_each = var.node_vfs_mappings
     content {
@@ -65,8 +63,9 @@ resource "proxmox_virtual_environment_vm" "this" {
     }
   }
 
-  operating_system {
-    type = "l26" # Linux Kernel 2.6 - 6.X.
+  network_device {
+    bridge      = var.node_bridge
+    mac_address = var.node_mac_address
   }
 
   initialization {

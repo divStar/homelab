@@ -2,8 +2,6 @@
  * # Talos create VM
  *
  * Creates a Talos VM with a given ISO, type and other settings.
- *
- * **Note:** have a look at the patches and Cilium CNI replacement.
  */
 
 locals {
@@ -13,7 +11,7 @@ locals {
 }
 
 data "talos_machine_configuration" "this" {
-  depends_on = [local_file.cilium_patch]
+  depends_on = [local_file.virtiofs_patch, local_file.step_ca_root_pem_patch]
 
   cluster_name     = var.cluster.name
   cluster_endpoint = "https://${var.cluster.endpoint}:6443"
@@ -26,7 +24,7 @@ data "talos_machine_configuration" "this" {
 }
 
 resource "talos_machine_configuration_apply" "this" {
-  depends_on = [proxmox_virtual_environment_vm.this, local_file.cilium_patch]
+  depends_on = [proxmox_virtual_environment_vm.this, local_file.virtiofs_patch, local_file.step_ca_root_pem_patch]
 
   node                        = var.node_ip
   client_configuration        = var.talos_client_configuration

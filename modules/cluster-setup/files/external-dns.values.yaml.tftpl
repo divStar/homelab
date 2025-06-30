@@ -7,7 +7,7 @@ provider: pihole
 pihole:
   server: https://pihole.my.family
   tlsSkipVerify: true
-  secretName: ${pihole_secret_name}
+  secretName: ${external_dns_secret_name}
 
 registry: noop
 policy: upsert-only

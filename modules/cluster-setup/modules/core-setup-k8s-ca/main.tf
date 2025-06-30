@@ -11,9 +11,15 @@ locals {
     acme_server_directory_url = var.acme_server_directory_url
     acme_contact              = var.acme_contact
     secret_name               = var.secret_name
+    acme_root_certificate     = data.http.step_ca_root_pem.response_body
   })
 
   cluster_issuer_name = yamldecode(local.cluster_issuer_yaml).metadata.name
+}
+
+data "http" "step_ca_root_pem" {
+  url                = "https://${var.step_ca_host}/roots.pem"
+  request_timeout_ms = 5000
 }
 
 # Install the ACME ClusterIssuer resource

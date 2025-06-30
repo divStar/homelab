@@ -8,20 +8,22 @@ This module and its sub-modules setup the Talos cluster on the Proxmox host.
 - [Requirements](#requirements)
 - [Providers](#providers)
 - [Modules](#modules) _(nested and adjacent)_
-  - [await_talos_cluster](#await_talos_cluster)
-  - [create_talos_vms](#create_talos_vms)
-  - [download_talos_images](#download_talos_images)
-  - [expose_hubble_ui](#expose_hubble_ui)
-  - [install_cert_manager](#install_cert_manager)
-  - [install_external_dns](#install_external_dns)
-  - [install_local_path_provisioner](#install_local_path_provisioner)
-  - [install_sealed_secrets](#install_sealed_secrets)
-  - [prepare_talos_cluster](#prepare_talos_cluster)
-  - [setup_k8s_ca](#setup_k8s_ca)
+  - [cert_manager](#cert_manager)
+  - [cilium](#cilium)
+  - [external_dns](#external_dns)
+  - [hubble_ui](#hubble_ui)
+  - [k8s_ca](#k8s_ca)
+  - [local_path_provisioner](#local_path_provisioner)
+  - [sealed_secrets](#sealed_secrets)
+  - [talos_cluster_prepare](#talos_cluster_prepare)
+  - [talos_cluster_ready](#talos_cluster_ready)
+  - [talos_images](#talos_images)
+  - [talos_vms](#talos_vms)
 - [Resources](#resources)
   - [kube_config](#kube_config-local_file) (*local_file*)
   - [machine_configs](#machine_configs-local_file) (*local_file*)
   - [talos_config](#talos_config-local_file) (*local_file*)
+  - [external_dns_secret](#external_dns_secret-sealedsecret_sealedsecret) (*sealedsecret_sealedsecret*)
 - [Variables](#variables)
   - [cert_manager_version](#cert_manager_version-required) (**Required**)
   - [cilium_version](#cilium_version-required) (**Required**)
@@ -40,6 +42,7 @@ This module and its sub-modules setup the Talos cluster on the Proxmox host.
   - [kube_config_file](#kube_config_file-optional) (*Optional*)
   - [sealed_secrets_controller_name](#sealed_secrets_controller_name-optional) (*Optional*)
   - [sealed_secrets_namespace](#sealed_secrets_namespace-optional) (*Optional*)
+  - [step_ca_host](#step_ca_host-optional) (*Optional*)
   - [talos_config_file](#talos_config_file-optional) (*Optional*)
   - [talos_machine_config_file](#talos_machine_config_file-optional) (*Optional*)
 - [Outputs](#outputs)
@@ -60,65 +63,67 @@ This module and its sub-modules setup the Talos cluster on the Proxmox host.
 
 | Name | Version |
 |------|---------|
+| <a name="provider_http"></a> [http](#provider\_http) | 3.5.0 |
 | <a name="provider_local"></a> [local](#provider\_local) | 2.5.3 |
+| <a name="provider_sealedsecret"></a> [sealedsecret](#provider\_sealedsecret) | 1.1.16 |
 ## Modules
 <blockquote>
 
-### `await_talos_cluster`
-Awaits the Talos cluster to become ready and available. <p>This module returns once all Talos nodes are up, running and healthy.</p>
+### `cert_manager`
+Installs [`cert-manager`](https://github.com/cert-manager/cert-manager), which manages TLS certificates for workloads.
   <table>
     <tr>
       <td>Module location</td>
-      <td><code>./modules/talos-await-cluster</code></td>
+      <td><code>../common/modules/helm-terraform-installer</code></td>
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L81"><code>main.tf#L81</code></a></td>
+      <td><a href="./main.tf#L150"><code>main.tf#L150</code></a></td>
     </tr>
     <tr>
-      <td colspan="2"><a href="./modules/talos-await-cluster/README.md">README.md</a> <em>(experimental)</em></td>
+      <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
 </blockquote>
 <blockquote>
 
-### `create_talos_vms`
-Creates the given Talos VMs, uses `for_each` on the list of nodes.
+### `cilium`
+Installs [`Cilium`](httpshttps://github.com/cilium/cilium) CNI, which is a networking, observability, and security solution with an eBPF-based dataplane.
   <table>
     <tr>
       <td>Module location</td>
-      <td><code>./modules/talos-create-vm</code></td>
+      <td><code>../common/modules/helm-terraform-installer</code></td>
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L45"><code>main.tf#L45</code></a></td>
+      <td><a href="./main.tf#L114"><code>main.tf#L114</code></a></td>
     </tr>
     <tr>
-      <td colspan="2"><a href="./modules/talos-create-vm/README.md">README.md</a> <em>(experimental)</em></td>
+      <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
 </blockquote>
 <blockquote>
 
-### `download_talos_images`
-Downloads the calculated Talos images specified in the `nodes` configurations.
+### `external_dns`
+Installs [`external-dns`](https://github.com/kubernetes-sigs/external-dns), which allows to forward requests about adding or removing `CNAME` and `A`/`AAAA` records to a given DNS (PiHole in this case) when a such a service is deployed (add) or destroyed (remove).
   <table>
     <tr>
       <td>Module location</td>
-      <td><code>./modules/talos-download-image</code></td>
+      <td><code>../common/modules/helm-terraform-installer</code></td>
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L16"><code>main.tf#L16</code></a></td>
+      <td><a href="./main.tf#L211"><code>main.tf#L211</code></a></td>
     </tr>
     <tr>
-      <td colspan="2"><a href="./modules/talos-download-image/README.md">README.md</a> <em>(experimental)</em></td>
+      <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
 </blockquote>
 <blockquote>
 
-### `expose_hubble_ui`
+### `hubble_ui`
 Exposes the [Cilium Hubble UI](https://docs.cilium.io/en/stable/observability/hubble/hubble-ui/), which allows to see a Service Map and inspect a variety of network traffic.
   <table>
     <tr>
@@ -127,7 +132,7 @@ Exposes the [Cilium Hubble UI](https://docs.cilium.io/en/stable/observability/hu
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L167"><code>main.tf#L167</code></a></td>
+      <td><a href="./main.tf#L256"><code>main.tf#L256</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/monitoring-expose-hubble-ui/README.md">README.md</a> <em>(experimental)</em></td>
@@ -136,79 +141,61 @@ Exposes the [Cilium Hubble UI](https://docs.cilium.io/en/stable/observability/hu
 </blockquote>
 <blockquote>
 
-### `install_cert_manager`
-Installs [`cert-manager`](https://github.com/cert-manager/cert-manager), which manages TLS certificates for workloads.
+### `k8s_ca`
+Sets up a `ClusterIssuer` resource based on the provided ACME information.
   <table>
     <tr>
       <td>Module location</td>
-      <td><code>./modules/core-install-cert-manager</code></td>
+      <td><code>./modules/core-setup-k8s-ca</code></td>
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L102"><code>main.tf#L102</code></a></td>
+      <td><a href="./main.tf#L185"><code>main.tf#L185</code></a></td>
     </tr>
     <tr>
-      <td colspan="2"><a href="./modules/core-install-cert-manager/README.md">README.md</a> <em>(experimental)</em></td>
+      <td colspan="2"><a href="./modules/core-setup-k8s-ca/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
 </blockquote>
 <blockquote>
 
-### `install_external_dns`
-Installs [`external-dns`](https://github.com/kubernetes-sigs/external-dns), which allows to forward requests about adding or removing `CNAME` and `A`/`AAAA` records to a given DNS (PiHole in this case) when a such a service is deployed (add) or destroyed (remove).
+### `local_path_provisioner`
+Installs [`local-path-provisioner`](https://github.com/rancher/local-path-provisioner), which is used for [PersistentVolumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistent-volumes) and [PersistentVolumeClaims](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
   <table>
     <tr>
       <td>Module location</td>
-      <td><code>./modules/dns-install-external-dns</code></td>
+      <td><code>../common/modules/helm-terraform-installer</code></td>
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L143"><code>main.tf#L143</code></a></td>
+      <td><a href="./main.tf#L236"><code>main.tf#L236</code></a></td>
     </tr>
     <tr>
-      <td colspan="2"><a href="./modules/dns-install-external-dns/README.md">README.md</a> <em>(experimental)</em></td>
+      <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
 </blockquote>
 <blockquote>
 
-### `install_local_path_provisioner`
-
-  <table>
-    <tr>
-      <td>Module location</td>
-      <td><code>./modules/storage-local-path-provisioner</code></td>
-    </tr>
-    <tr>
-      <td>In file</td>
-      <td><a href="./main.tf#L154"><code>main.tf#L154</code></a></td>
-    </tr>
-    <tr>
-      <td colspan="2"><a href="./modules/storage-local-path-provisioner/README.md">README.md</a> <em>(experimental)</em></td>
-    </tr>
-  </table>
-</blockquote>
-<blockquote>
-
-### `install_sealed_secrets`
+### `sealed_secrets`
 Installs [`sealed-secrets`](https://github.com/bitnami-labs/sealed-secrets), which manages `SealedSecret` resources, en- and decrypting them as necessary.
   <table>
     <tr>
       <td>Module location</td>
-      <td><code>./modules/core-install-sealed-secrets</code></td>
+      <td><code>../common/modules/helm-terraform-installer</code></td>
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L116"><code>main.tf#L116</code></a></td>
+      <td><a href="./main.tf#L169"><code>main.tf#L169</code></a></td>
     </tr>
     <tr>
-      <td colspan="2"><a href="./modules/core-install-sealed-secrets/README.md">README.md</a> <em>(experimental)</em></td>
+      <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
 </blockquote>
 <blockquote>
 
-### `prepare_talos_cluster`
+### `talos_cluster_prepare`
 Prepares the cluster creation by generating the **Talos machine secrets** and creating the **Talos client cluster configuration**.
   <table>
     <tr>
@@ -217,7 +204,7 @@ Prepares the cluster creation by generating the **Talos machine secrets** and cr
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L31"><code>main.tf#L31</code></a></td>
+      <td><a href="./main.tf#L34"><code>main.tf#L34</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/talos-prepare-cluster/README.md">README.md</a> <em>(experimental)</em></td>
@@ -226,19 +213,55 @@ Prepares the cluster creation by generating the **Talos machine secrets** and cr
 </blockquote>
 <blockquote>
 
-### `setup_k8s_ca`
-Issues an **intermediate Kubernetes __CA__ certificate** using [`cert-manager`](#install_cert_manager) and [`sealed-secrets`](#install_sealed_secrets). <p>The mandatory `SealedSecret` and `ClusterIssuer` resources for the intermediate CA certificate are created in this module.</p>
+### `talos_cluster_ready`
+Awaits the Talos cluster to become ready and available. <p>This module returns once all Talos nodes are up, running and healthy.</p>
   <table>
     <tr>
       <td>Module location</td>
-      <td><code>./modules/core-setup-k8s-ca</code></td>
+      <td><code>./modules/talos-await-cluster</code></td>
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L131"><code>main.tf#L131</code></a></td>
+      <td><a href="./main.tf#L85"><code>main.tf#L85</code></a></td>
     </tr>
     <tr>
-      <td colspan="2"><a href="./modules/core-setup-k8s-ca/README.md">README.md</a> <em>(experimental)</em></td>
+      <td colspan="2"><a href="./modules/talos-await-cluster/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
+</blockquote>
+<blockquote>
+
+### `talos_images`
+Downloads the calculated Talos images specified in the `nodes` configurations.
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/talos-download-image</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L19"><code>main.tf#L19</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/talos-download-image/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
+</blockquote>
+<blockquote>
+
+### `talos_vms`
+Creates the given Talos VMs, uses `for_each` on the list of nodes.
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/talos-create-vm</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L48"><code>main.tf#L48</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/talos-create-vm/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
 </blockquote>
@@ -287,6 +310,21 @@ Issues an **intermediate Kubernetes __CA__ certificate** using [`cert-manager`](
     <tr>
       <td>In file</td>
       <td><a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a></td>
+    </tr>
+  </table>
+</blockquote>
+<blockquote>
+
+#### `external_dns_secret` (_sealedsecret_sealedsecret_)
+Creates an `external-dns` secret, that contains credentials to access a external DNS system (PiHole in this case).
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>sealedsecret (jifwin/sealedsecret)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L196"><code>main.tf#L196</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -500,7 +538,7 @@ E-Mail address of the ACME account
   ```json
   "admin@my.world"
   ```
-  In file: <a href="./variables.tf#L158"><code>variables.tf#L158</code></a>
+  In file: <a href="./variables.tf#L165"><code>variables.tf#L165</code></a>
 
 </details>
 </blockquote>
@@ -520,7 +558,7 @@ ACME server directory URL
   ```json
   "https://192.168.178.155/acme/step-ca-acme/directory"
   ```
-  In file: <a href="./variables.tf#L151"><code>variables.tf#L151</code></a>
+  In file: <a href="./variables.tf#L158"><code>variables.tf#L158</code></a>
 
 </details>
 </blockquote>
@@ -540,7 +578,7 @@ Namespace where the cert-manager will be installed to
   ```json
   "cert-manager"
   ```
-  In file: <a href="./variables.tf#L166"><code>variables.tf#L166</code></a>
+  In file: <a href="./variables.tf#L173"><code>variables.tf#L173</code></a>
 
 </details>
 </blockquote>
@@ -600,7 +638,7 @@ Name of the sealed-secrets controller
   ```json
   "sealed-secrets-release"
   ```
-  In file: <a href="./variables.tf#L180"><code>variables.tf#L180</code></a>
+  In file: <a href="./variables.tf#L187"><code>variables.tf#L187</code></a>
 
 </details>
 </blockquote>
@@ -620,7 +658,27 @@ Namespace where the sealed-secrets operator will be installed to
   ```json
   "sealed-secrets"
   ```
-  In file: <a href="./variables.tf#L173"><code>variables.tf#L173</code></a>
+  In file: <a href="./variables.tf#L180"><code>variables.tf#L180</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `step_ca_host` (*Optional*)
+Step CA IP or host, _*not*_ including the protocol (`https`).
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  **Default**:
+  ```json
+  "192.168.178.155"
+  ```
+  In file: <a href="./variables.tf#L151"><code>variables.tf#L151</code></a>
 
 </details>
 </blockquote>

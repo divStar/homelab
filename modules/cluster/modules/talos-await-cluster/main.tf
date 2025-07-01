@@ -1,7 +1,11 @@
 /**
  * # Talos cluster *await*
  *
- * Awaits the Talos cluster to become ready and running.
+ * Awaits the Talos cluster to start up.
+ *
+ * > [!NOTE]
+ * > Since the cluster is starting up without a CNI (Flannel is disabled),
+ * > *Kubernetes checks are skipped* ([`skip_kubernetes_checks = true`](./main.tf#L29)).
  */
 
 locals {

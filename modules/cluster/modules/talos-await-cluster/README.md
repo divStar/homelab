@@ -1,6 +1,10 @@
 # Talos cluster *await*
 
-Awaits the Talos cluster to become ready and running.
+Awaits the Talos cluster to start up.
+
+> [!NOTE]
+> Since the cluster is starting up without a CNI (Flannel is disabled),
+> *Kubernetes checks are skipped* ([`skip_kubernetes_checks = true`](./main.tf#L29)).
 ## Contents
 
 <blockquote>
@@ -60,7 +64,7 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L44"><code>main.tf#L44</code></a></td>
+      <td><a href="./main.tf#L48"><code>main.tf#L48</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -75,7 +79,7 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L12"><code>main.tf#L12</code></a></td>
+      <td><a href="./main.tf#L16"><code>main.tf#L16</code></a></td>
     </tr>
   </table>
 </blockquote>

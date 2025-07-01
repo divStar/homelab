@@ -134,7 +134,7 @@ Installs [`cert-manager`](https://github.com/cert-manager/cert-manager), which m
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L140"><code>main.tf#L140</code></a></td>
+      <td><a href="./main.tf#L141"><code>main.tf#L141</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -152,7 +152,7 @@ Installs [`Cilium`](httpshttps://github.com/cilium/cilium) CNI, which is a netwo
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L106"><code>main.tf#L106</code></a></td>
+      <td><a href="./main.tf#L107"><code>main.tf#L107</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -170,7 +170,7 @@ Installs [`external-dns`](https://github.com/kubernetes-sigs/external-dns), whic
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L193"><code>main.tf#L193</code></a></td>
+      <td><a href="./main.tf#L194"><code>main.tf#L194</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -188,7 +188,7 @@ Exposes the [Cilium Hubble UI](https://docs.cilium.io/en/stable/observability/hu
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L230"><code>main.tf#L230</code></a></td>
+      <td><a href="./main.tf#L231"><code>main.tf#L231</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/monitoring-expose-hubble-ui/README.md">README.md</a> <em>(experimental)</em></td>
@@ -206,7 +206,7 @@ Sets up a `ClusterIssuer` resource based on the provided ACME information.
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L167"><code>main.tf#L167</code></a></td>
+      <td><a href="./main.tf#L168"><code>main.tf#L168</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/core-setup-k8s-ca/README.md">README.md</a> <em>(experimental)</em></td>
@@ -224,7 +224,7 @@ Installs [`local-path-provisioner`](https://github.com/rancher/local-path-provis
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L214"><code>main.tf#L214</code></a></td>
+      <td><a href="./main.tf#L215"><code>main.tf#L215</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -242,7 +242,7 @@ Installs [`sealed-secrets`](https://github.com/bitnami-labs/sealed-secrets), whi
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L155"><code>main.tf#L155</code></a></td>
+      <td><a href="./main.tf#L156"><code>main.tf#L156</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -270,7 +270,7 @@ Prepares the cluster creation by generating the **Talos machine secrets** and cr
 <blockquote>
 
 ### `talos_cluster_ready`
-Awaits the Talos cluster to become ready and available. <p>This module returns once all Talos nodes are up, running and healthy.</p>
+Awaits the Talos cluster to become ready and available. <p>This module returns once all Talos [`nodes`](#nodes-required) are up and running.</p> <p><strong>Note:</strong> since the cluster is starting up without a CNI (Flannel is disabled), <strong>Kubernetes checks are skipped</strong>.
   <table>
     <tr>
       <td>Module location</td>
@@ -278,7 +278,7 @@ Awaits the Talos cluster to become ready and available. <p>This module returns o
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L77"><code>main.tf#L77</code></a></td>
+      <td><a href="./main.tf#L78"><code>main.tf#L78</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/talos-await-cluster/README.md">README.md</a> <em>(experimental)</em></td>
@@ -288,7 +288,7 @@ Awaits the Talos cluster to become ready and available. <p>This module returns o
 <blockquote>
 
 ### `talos_images`
-Downloads the calculated Talos images specified in the `nodes` configurations.
+Downloads the calculated Talos images specified in the [`nodes`](#nodes-required) configurations.
   <table>
     <tr>
       <td>Module location</td>
@@ -306,7 +306,7 @@ Downloads the calculated Talos images specified in the `nodes` configurations.
 <blockquote>
 
 ### `talos_vms`
-Creates the given Talos VMs, uses `for_each` on the list of nodes.
+Creates the given Talos VMs, uses `for_each` on the list of [`nodes`](#nodes-required).
   <table>
     <tr>
       <td>Module location</td>
@@ -380,7 +380,7 @@ Creates an `external-dns` secret, that contains credentials to access a external
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L178"><code>main.tf#L178</code></a></td>
+      <td><a href="./main.tf#L179"><code>main.tf#L179</code></a></td>
     </tr>
   </table>
 </blockquote>

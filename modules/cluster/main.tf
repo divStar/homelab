@@ -12,7 +12,7 @@ locals {
   ]
 }
 
-# Downloads the calculated Talos images specified in the `nodes` configurations.
+# Downloads the calculated Talos images specified in the [`nodes`](#nodes-required) configurations.
 module "talos_images" {
   source = "./modules/talos-download-image"
 
@@ -41,7 +41,7 @@ module "talos_cluster_prepare" {
   }]
 }
 
-# Creates the given Talos VMs, uses `for_each` on the list of nodes.
+# Creates the given Talos VMs, uses `for_each` on the list of [`nodes`](#nodes-required).
 module "talos_vms" {
   source     = "./modules/talos-create-vm"
   depends_on = [module.talos_cluster_prepare]
@@ -73,7 +73,8 @@ module "talos_vms" {
 }
 
 # Awaits the Talos cluster to become ready and available.
-# <p>This module returns once all Talos nodes are up, running and healthy.</p>
+# <p>This module returns once all Talos [`nodes`](#nodes-required) are up and running.</p>
+# <p><strong>Note:</strong> since the cluster is starting up without a CNI (Flannel is disabled), <strong>Kubernetes checks are skipped</strong>.
 module "talos_cluster_ready" {
   source     = "./modules/talos-await-cluster"
   depends_on = [module.talos_vms]

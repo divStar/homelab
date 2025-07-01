@@ -3,6 +3,7 @@
         "**/.git": true,
         "**/.svn": true,
         "**/.hg": true,
+        "**/.terraform/": true,
         "**/terraform.tfstate*": true,
         "**/.DS_Store": true
     },

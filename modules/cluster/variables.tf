@@ -1,49 +1,7 @@
-# Versions
-variable "talos_linux_version" {
-  description = "Version of Talos (Linux/Kubernetes) to install"
+variable "versions_yaml" {
+  description = "Path to the `versions.yaml` file, that contains all relevant versions"
   type        = string
-  nullable    = false
-}
-
-variable "target_kube_version" {
-  description = "Target version of Kubernetes the template is built for"
-  type        = string
-  nullable    = false
-}
-
-variable "cilium_version" {
-  description = "Cilium version"
-  type        = string
-  nullable    = false
-}
-
-variable "cert_manager_version" {
-  description = "Version of the cert-manager Helm Chart to install"
-  type        = string
-  nullable    = false
-}
-
-variable "external_dns_version" {
-  description = "Version of the external-dns Helm Chart to install"
-  type        = string
-  nullable    = false
-}
-
-variable "sealed_secrets_version" {
-  description = "Version of the sealed-secrets Helm Chart to install"
-  type        = string
-  nullable    = false
-}
-
-variable "local_path_provisioner_version" {
-  description = "Version of the local_path_provisioner Helm Chart to install"
-  type        = string
-  nullable    = false
-}
-
-variable "traefik_version" {
-  description = "Traefik Helm chart version"
-  type        = string
+  default     = "../../versions.yaml"
   nullable    = false
 }
 

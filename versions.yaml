@@ -1,0 +1,8 @@
+talos_linux_version: "1.10.4"
+target_kube_version: "1.32"
+cilium_version: "1.17.5"
+cert_manager_version: "1.18.1"
+external_dns_version: "8.8.6"
+sealed_secrets_version: "2.17.3"
+local_path_provisioner_version: "0.0.32"
+traefik_version: "36.3.0"

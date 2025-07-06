@@ -5,6 +5,8 @@
  */
 
 locals {
+  versions = yamldecode(file("${path.module}/${var.versions_yaml}"))
+
   nodes_with_iso = [
     for node in var.nodes : merge(node, {
       iso = module.talos_images[node.name].downloaded_iso_id
@@ -29,11 +31,11 @@ data "http" "step_ca_root_pem" {
 }
 
 # Pre-fetch all the Cilium CRDs, that need to be installed beforehand;
-# replace their `<VERSION>` placeholder (if it exists) with `var.cilium_version`.
+# replace their `<VERSION>` placeholder (if it exists) with `local.versions.cilium_version`.
 data "http" "cilium_crds_pre_install" {
   for_each = toset(var.cilium_crds)
 
-  url = replace(each.value, "<VERSION>", var.cilium_version)
+  url = replace(each.value, "<VERSION>", local.versions.cilium_version)
 }
 
 # Downloads the calculated Talos images specified in the [`nodes`](#nodes-required) configurations.
@@ -44,7 +46,7 @@ module "talos_images" {
 
   for_each = { for idx, node in var.nodes : node.name => node }
 
-  talos_linux_version = var.talos_linux_version
+  talos_linux_version = local.versions.talos_linux_version
   schematic           = each.value.schematic
   platform            = each.value.platform
   arch                = each.value.arch
@@ -57,7 +59,7 @@ module "talos_cluster_prepare" {
   depends_on = [module.talos_images]
 
   cluster_name        = var.cluster.name
-  talos_linux_version = var.talos_linux_version
+  talos_linux_version = local.versions.talos_linux_version
 
   nodes = [for node in var.nodes : {
     ip           = node.ip
@@ -74,8 +76,8 @@ module "talos_vms" {
   cluster                    = var.cluster
   talos_machine_secrets      = module.talos_cluster_prepare.machine_secrets
   talos_client_configuration = module.talos_cluster_prepare.client_configuration
-  talos_linux_version        = var.talos_linux_version
-  target_kube_version        = var.target_kube_version
+  talos_linux_version        = local.versions.talos_linux_version
+  target_kube_version        = local.versions.target_kube_version
   root_ca_certificate        = data.http.step_ca_root_pem.response_body
 
   for_each = { for idx, node in local.nodes_with_iso : node.name => node }
@@ -107,7 +109,7 @@ module "talos_cluster_ready" {
     name     = var.cluster.name
     endpoint = var.cluster.endpoint
   }
-  talos_linux_version        = var.talos_linux_version
+  talos_linux_version        = local.versions.talos_linux_version
   talos_machine_secrets      = module.talos_cluster_prepare.machine_secrets
   talos_client_configuration = module.talos_cluster_prepare.client_configuration
   skip_kubernetes_checks     = true
@@ -127,7 +129,7 @@ module "cilium" {
 
   chart_name    = "cilium"
   chart_repo    = "https://helm.cilium.io"
-  chart_version = var.cilium_version
+  chart_version = local.versions.cilium_version
   namespace     = var.cilium_namespace
   release_name  = "cilium-release"
 
@@ -161,7 +163,7 @@ module "sealed_secrets" {
 
   chart_name    = "sealed-secrets"
   chart_repo    = "https://bitnami-labs.github.io/sealed-secrets"
-  chart_version = var.sealed_secrets_version
+  chart_version = local.versions.sealed_secrets_version
   namespace     = var.sealed_secrets_namespace
   release_name  = "sealed-secrets-release"
 }
@@ -188,7 +190,7 @@ module "external_dns" {
 
   chart_name    = "external-dns"
   chart_repo    = "oci://registry-1.docker.io/bitnamicharts"
-  chart_version = var.external_dns_version
+  chart_version = local.versions.external_dns_version
   namespace     = var.external_dns_namespace
   release_name  = "external-dns-release"
 
@@ -210,7 +212,7 @@ module "local_path_provisioner" {
 
   chart_name    = "local-path-provisioner"
   chart_repo    = "https://charts.containeroo.ch"
-  chart_version = var.local_path_provisioner_version
+  chart_version = local.versions.local_path_provisioner_version
   namespace     = var.local_path_provisioner_namespace
   release_name  = "local-path-provisioner-release"
 
@@ -226,7 +228,7 @@ module "traefik" {
 
   chart_name    = local.traefik_chart_name
   chart_repo    = "https://helm.traefik.io/traefik"
-  chart_version = var.traefik_version
+  chart_version = local.versions.traefik_version
   namespace     = var.traefik_namespace
   release_name  = local.traefik_release_name
 

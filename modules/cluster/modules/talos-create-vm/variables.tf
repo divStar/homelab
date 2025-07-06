@@ -129,12 +129,6 @@ variable "talos_linux_version" {
   nullable    = false
 }
 
-variable "target_kube_version" {
-  description = "Target version of Kubernetes the template is built for"
-  type        = string
-  nullable    = false
-}
-
 variable "root_ca_certificate" {
   description = "Step CA root CA certificate."
   type        = string

@@ -77,7 +77,6 @@ module "talos_vms" {
   talos_machine_secrets      = module.talos_cluster_prepare.machine_secrets
   talos_client_configuration = module.talos_cluster_prepare.client_configuration
   talos_linux_version        = local.versions.talos_linux_version
-  target_kube_version        = local.versions.target_kube_version
   root_ca_certificate        = data.http.step_ca_root_pem.response_body
 
   for_each = { for idx, node in local.nodes_with_iso : node.name => node }

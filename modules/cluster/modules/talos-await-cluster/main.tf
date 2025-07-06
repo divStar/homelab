@@ -26,7 +26,7 @@ resource "talos_machine_bootstrap" "this" {
 }
 
 data "talos_cluster_health" "this" {
-  skip_kubernetes_checks = true
+  skip_kubernetes_checks = var.skip_kubernetes_checks
   client_configuration   = var.talos_client_configuration
   endpoints              = local.control_plane_nodes
   control_plane_nodes    = local.control_plane_nodes

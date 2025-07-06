@@ -25,6 +25,8 @@ supports custom resources during pre- and post-install.
   - [release_name](#release_name-required) (**Required**)
   - [chart_timeout](#chart_timeout-optional) (*Optional*)
   - [chart_values](#chart_values-optional) (*Optional*)
+  - [cleanup_on_fail](#cleanup_on_fail-optional) (*Optional*)
+  - [is_atomic](#is_atomic-optional) (*Optional*)
   - [is_privileged_namespace](#is_privileged_namespace-optional) (*Optional*)
   - [post_install_resources](#post_install_resources-optional) (*Optional*)
   - [pre_install_resources](#pre_install_resources-optional) (*Optional*)
@@ -236,6 +238,46 @@ Additional values to pass to the helm chart (in YAML format)
   ""
   ```
   In file: <a href="./variables.tf#L22"><code>variables.tf#L22</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `cleanup_on_fail` (*Optional*)
+Specifies whether to clean up the `helm_release` if deployment fails; this setting is useful for debugging purposes
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  bool
+  ```
+  **Default**:
+  ```json
+  true
+  ```
+  In file: <a href="./variables.tf#L79"><code>variables.tf#L79</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `is_atomic` (*Optional*)
+Specifies whether `helm_release` will deploy in an 'atomic', revertible way
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  bool
+  ```
+  **Default**:
+  ```json
+  true
+  ```
+  In file: <a href="./variables.tf#L72"><code>variables.tf#L72</code></a>
 
 </details>
 </blockquote>

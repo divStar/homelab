@@ -117,7 +117,7 @@ Configure ACME domain and order certificates
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L68"><code>main.tf#L68</code></a></td>
+      <td><a href="./main.tf#L69"><code>main.tf#L69</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -132,7 +132,7 @@ ACME Cleanup on destroy
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L108"><code>main.tf#L108</code></a></td>
+      <td><a href="./main.tf#L109"><code>main.tf#L109</code></a></td>
     </tr>
   </table>
 </blockquote>

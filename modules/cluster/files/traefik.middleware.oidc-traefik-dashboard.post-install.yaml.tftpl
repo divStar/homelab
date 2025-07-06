@@ -1,0 +1,37 @@
+# OIDC Authentication Middleware for Traefik Dashboard (commented out - no OIDC provider yet)
+# apiVersion: traefik.io/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: oidc-traefik-dashboard
+#   namespace: ${traefik_namespace}
+# spec:
+#   plugin:
+#     traefik-oidc-auth:
+#       Secret: "CHANGE_THIS_SECRET_IN_PRODUCTION"
+#       LogLevel: "DEBUG"
+#       CallbackUri: "/oidc/callback"
+#       LogoutUri: "/oidc/logout"
+#       SessionCookie:
+#         Domain: ".${cluster_domain}"
+#       Provider:
+#         Url: "https://zitadel.${cluster_domain}"
+#         ClientId: "YOUR_ZITADEL_CLIENT_ID"
+#         UsePkce: true
+#       Scopes:
+#         - "openid"
+#         - "profile" 
+#         - "email"
+#       Headers:
+#         - Name: "X-Oidc-Username"
+#           Value: "{{ .claims.preferred_username }}"
+#         - Name: "X-Oidc-Subject"
+#           Value: "{{ .claims.sub }}"
+#         - Name: "X-Oidc-Roles"
+#           Value: "{{ .claims.roles }}"
+#         - Name: "Authorization"
+#           Value: "Bearer {{ .accessToken }}"
+#       Authorization:
+#         AssertClaims:
+#           - Name: "roles"
+#             AnyOf:
+#               - "traefik-user"

@@ -54,6 +54,7 @@ resource "ssh_resource" "configure_container" {
     <<-EOT
       apk add step-cli step-certificates
       rc-service step-ca start
+      rc-update add step-ca default
       step ca bootstrap --ca-url https://${var.ni_ip} --fingerprint $(echo "${file(var.fingerprint_file)}") --install --force
 
       echo "${file("${var.proxmox.ssh_key}.pub")}" >> /root/.ssh/authorized_keys

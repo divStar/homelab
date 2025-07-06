@@ -40,9 +40,9 @@ resource "helm_release" "this" {
 
   values = compact([var.chart_values])
 
-  atomic          = true
+  atomic          = var.is_atomic
   force_update    = true
-  cleanup_on_fail = false
+  cleanup_on_fail = var.cleanup_on_fail
   recreate_pods   = false
   lint            = true
 

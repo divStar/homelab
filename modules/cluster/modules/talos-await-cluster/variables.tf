@@ -22,6 +22,12 @@ variable "talos_client_configuration" {
   type        = map(any)
 }
 
+variable "skip_kubernetes_checks" {
+  description = "Skip Kubernetes checks when waiting"
+  type        = bool
+  nullable    = false
+}
+
 variable "bootstrap_timeout" {
   description = "Cluster bootstrap timeout"
   type        = string

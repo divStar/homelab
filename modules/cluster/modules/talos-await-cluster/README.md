@@ -18,6 +18,7 @@ Awaits the Talos cluster to start up.
 - [Variables](#variables)
   - [cluster](#cluster-required) (**Required**)
   - [nodes](#nodes-required) (**Required**)
+  - [skip_kubernetes_checks](#skip_kubernetes_checks-required) (**Required**)
   - [talos_client_configuration](#talos_client_configuration-required) (**Required**)
   - [talos_linux_version](#talos_linux_version-required) (**Required**)
   - [talos_machine_secrets](#talos_machine_secrets-required) (**Required**)
@@ -120,7 +121,23 @@ Configuration for cluster nodes
     ip           = string
   }))
   ```
-  In file: <a href="./variables.tf#L46"><code>variables.tf#L46</code></a>
+  In file: <a href="./variables.tf#L52"><code>variables.tf#L52</code></a>
+
+</details>
+</blockquote>
+<blockquote>
+
+### `skip_kubernetes_checks` (**Required**)
+Skip Kubernetes checks when waiting
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  bool
+  ```
+  In file: <a href="./variables.tf#L25"><code>variables.tf#L25</code></a>
 
 </details>
 </blockquote>
@@ -188,7 +205,7 @@ Cluster bootstrap timeout
   ```json
   "5m"
   ```
-  In file: <a href="./variables.tf#L25"><code>variables.tf#L25</code></a>
+  In file: <a href="./variables.tf#L31"><code>variables.tf#L31</code></a>
 
 </details>
 </blockquote>
@@ -208,7 +225,7 @@ Cluster health-check timeout
   ```json
   "10m"
   ```
-  In file: <a href="./variables.tf#L32"><code>variables.tf#L32</code></a>
+  In file: <a href="./variables.tf#L38"><code>variables.tf#L38</code></a>
 
 </details>
 </blockquote>
@@ -228,7 +245,7 @@ Cluster kubeconfig creation timeout
   ```json
   "1m"
   ```
-  In file: <a href="./variables.tf#L39"><code>variables.tf#L39</code></a>
+  In file: <a href="./variables.tf#L45"><code>variables.tf#L45</code></a>
 
 </details>
 </blockquote>

@@ -1,0 +1,10 @@
+# Even simpler - domain-specific redirect
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-dashboard
+  namespace: ${traefik_namespace}
+spec:
+  redirectRegex:
+    regex: "^/$"
+    replacement: "/dashboard/"

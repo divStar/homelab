@@ -1,0 +1,118 @@
+# Traefik v3 Helm Chart Values - Minimal Overrides
+# Only includes necessary changes from defaults
+
+# Entry Points Configuration (adding custom ports)
+ports:
+  # Default web and websecure are already configured, just need redirect and TLS
+  web:
+    redirections:
+      entryPoint:
+        to: websecure
+        scheme: https
+  websecure:
+    tls:
+      certResolver: step-ca
+  # Add custom MQTT ports
+  mqtt:
+    port: 1883
+    expose:
+      default: true
+    exposedPort: 1883
+    protocol: TCP
+  mqttws:
+    port: 9001
+    expose:
+      default: true
+    exposedPort: 9001
+    protocol: TCP
+  # Add PostgreSQL port
+  postgres:
+    port: 5432
+    expose:
+      default: true
+    exposedPort: 5432
+    protocol: TCP
+
+# Environment Variables for CA certificates
+env:
+  - name: TZ
+    value: "Europe/Berlin"
+  - name: LEGO_CA_SERVER_NAME
+    value: "step-ca.my.world"
+  - name: LEGO_CA_CERTIFICATES
+    value: "/ca-certs/root_ca.crt"
+
+# Configure securityContext
+securityContext:
+  capabilities:
+    drop: [ALL]
+    add: [NET_BIND_SERVICE]
+
+# Certificate Resolvers
+certificatesResolvers:
+  step-ca:
+    acme:
+      email: ${acme_contact}
+      storage: /data/acme.json
+      caServer: ${acme_server_directory_url}
+      tlsChallenge: true
+
+# Service type
+service:
+  type: LoadBalancer
+
+# Enable persistence for ACME certificates
+persistence:
+  enabled: true
+  size: 128Mi
+  path: /data
+
+# Additional volumes
+deployment:
+  additionalVolumes:
+  - name: traefik-plugins
+    persistentVolumeClaim:
+      claimName: traefik-plugins-claim
+
+# Additional volumeMounts
+additionalVolumeMounts:
+  - name: traefik-plugins
+    mountPath: traefik-plugins-storage
+
+# Volume mount for CA certificate
+volumes:
+  - name: step-ca-root-cert
+    mountPath: /ca-certs
+    type: configMap
+
+# Enable metrics (Prometheus is enabled by default, just ensuring it's on)
+metrics:
+  prometheus:
+    enabled: true
+
+# Enable Observability
+logs:
+  general:
+    level: INFO
+  access:
+    enabled: true
+
+# Experimental Plugins (commented out until OIDC provider is available)
+experimental:
+  plugins:
+    traefik-oidc-auth:
+      moduleName: github.com/sevensolutions/traefik-oidc-auth
+      version: v0.12.0
+
+# Additional resources
+extraObjects:
+  - kind: PersistentVolumeClaim
+    apiVersion: v1
+    metadata:
+      name: traefik-plugins-claim
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 256Mi

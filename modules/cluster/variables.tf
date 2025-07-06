@@ -41,6 +41,12 @@ variable "local_path_provisioner_version" {
   nullable    = false
 }
 
+variable "traefik_version" {
+  description = "Traefik Helm chart version"
+  type        = string
+  nullable    = false
+}
+
 # Namespaces
 variable "cilium_namespace" {
   description = "Namespace where the cilium operator will be installed to"
@@ -77,6 +83,13 @@ variable "local_path_provisioner_namespace" {
   nullable    = false
 }
 
+variable "traefik_namespace" {
+  description = "Namespace for Traefik deployment"
+  type        = string
+  default     = "traefik"
+  nullable    = false
+}
+
 # Common settings
 variable "proxmox" {
   description = "Proxmox host configuration"
@@ -99,6 +112,7 @@ variable "cluster" {
     gateway           = string
     endpoint          = string
     lb_cidr           = string
+    domain            = string
     talos_factory_url = optional(string, "https://factory.talos.dev/")
   })
 }
@@ -194,7 +208,7 @@ variable "step_ca_host" {
 variable "acme_server_directory_url" {
   description = "ACME server directory URL"
   type        = string
-  default     = "https://192.168.178.155/acme/step-ca-acme/directory"
+  default     = "https://step-ca.my.world/acme/step-ca-acme/directory"
   nullable    = false
 }
 

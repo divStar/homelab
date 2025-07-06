@@ -68,3 +68,17 @@ variable "post_install_resources" {
     error_message = "All post_install_resources must be valid YAML."
   }
 }
+
+variable "is_atomic" {
+  description = "Specifies whether `helm_release` will deploy in an 'atomic', revertible way"
+  type        = bool
+  default     = true
+  nullable    = false
+}
+
+variable "cleanup_on_fail" {
+  description = "Specifies whether to clean up the `helm_release` if deployment fails; this setting is useful for debugging purposes"
+  type        = bool
+  default     = true
+  nullable    = false
+}

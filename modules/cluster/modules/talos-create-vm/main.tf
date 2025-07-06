@@ -19,7 +19,8 @@ data "talos_machine_configuration" "this" {
   machine_type     = var.node_machine_type
   machine_secrets  = var.talos_machine_secrets
   config_patches = [
-    for patch in fileset("${path.module}/${local.patches_dir}", "*.yaml") : file("${path.module}/${local.patches_dir}/${patch}")
+    for patch in fileset("${path.module}/${local.patches_dir}", "*.yaml") :
+    file("${path.module}/${local.patches_dir}/${patch}")
   ]
 }
 

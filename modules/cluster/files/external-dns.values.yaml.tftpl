@@ -9,9 +9,17 @@ pihole:
   tlsSkipVerify: true
   secretName: ${external_dns_secret_name}
 
+# Listen for Traefik v3 resources (IngressRoute)
+sources:
+  - traefik-proxy
+
+# Disable listening to legacy Traefik resources
+extraArgs:
+  traefik-disable-legacy:
+
 registry: noop
 policy: upsert-only
-txtOwnerId: talos-cluster
+txtOwnerId: ${cluster_name}
 
 domainFilters:
   - "my.world"

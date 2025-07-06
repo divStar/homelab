@@ -10,6 +10,30 @@ locals {
       iso = module.talos_images[node.name].downloaded_iso_id
     })
   ]
+
+  traefik_chart_name   = "traefik"
+  traefik_release_name = "traefik-release"
+}
+
+# Download the `root_ca.crt` root CA certificate from Step CA.
+data "http" "step_ca_root_pem" {
+  url                = "https://${var.step_ca_host}/roots.pem"
+  request_timeout_ms = 5000
+
+  # Optional: Add retry logic
+  retry {
+    attempts     = 3
+    min_delay_ms = 1000
+    max_delay_ms = 3000
+  }
+}
+
+# Pre-fetch all the Cilium CRDs, that need to be installed beforehand;
+# replace their `<VERSION>` placeholder (if it exists) with `var.cilium_version`.
+data "http" "cilium_crds_pre_install" {
+  for_each = toset(var.cilium_crds)
+
+  url = replace(each.value, "<VERSION>", var.cilium_version)
 }
 
 # Downloads the calculated Talos images specified in the [`nodes`](#nodes-required) configurations.
@@ -52,7 +76,7 @@ module "talos_vms" {
   talos_client_configuration = module.talos_cluster_prepare.client_configuration
   talos_linux_version        = var.talos_linux_version
   target_kube_version        = var.target_kube_version
-  step_ca_host               = var.step_ca_host
+  root_ca_certificate        = data.http.step_ca_root_pem.response_body
 
   for_each = { for idx, node in local.nodes_with_iso : node.name => node }
 
@@ -86,20 +110,13 @@ module "talos_cluster_ready" {
   talos_linux_version        = var.talos_linux_version
   talos_machine_secrets      = module.talos_cluster_prepare.machine_secrets
   talos_client_configuration = module.talos_cluster_prepare.client_configuration
+  skip_kubernetes_checks     = true
 
   nodes = [for node in var.nodes : {
     name         = node.name
     ip           = node.ip
     machine_type = node.machine_type
   }]
-}
-
-# Pre-fetch all the Cilium CRDs, that need to be installed beforehand;
-# replace their `<VERSION>` placeholder (if it exists) with `var.cilium_version`.
-data "http" "cilium_crds_pre_install" {
-  for_each = toset(var.cilium_crds)
-
-  url = replace(each.value, "<VERSION>", var.cilium_version)
 }
 
 # Installs [`Cilium`](httpshttps://github.com/cilium/cilium) CNI,
@@ -125,54 +142,28 @@ module "cilium" {
   pre_install_resources = concat(
     values(data.http.cilium_crds_pre_install)[*].response_body,
     [
-      templatefile("${path.module}/files/cilium.post-install.ip-pool.yaml.tftpl", {
+      templatefile("${path.module}/files/cilium.cilium-load-balancer-ip-pool.post-install.yaml.tftpl", {
         namespace = var.cilium_namespace
         lb_cidr   = var.cluster.lb_cidr
       }),
-      templatefile("${path.module}/files/cilium.post-install.l2-policy.yaml.tftpl", {
+      templatefile("${path.module}/files/cilium.cilium-l2-announcement-policy.post-install.yaml.tftpl", {
         namespace = var.cilium_namespace
       })
     ]
   )
 }
 
-# Installs [`cert-manager`](https://github.com/cert-manager/cert-manager),
-# which manages TLS certificates for workloads.
-module "cert_manager" {
-  source     = "../common/modules/helm-terraform-installer"
-  depends_on = [module.cilium]
-
-  chart_name    = "cert-manager"
-  chart_repo    = "https://charts.jetstack.io"
-  chart_version = var.cert_manager_version
-  namespace     = var.cert_manager_namespace
-  release_name  = "cert-manager-release"
-
-  chart_values = file("${path.module}/files/cert-manager.values.yaml")
-}
-
 # Installs [`sealed-secrets`](https://github.com/bitnami-labs/sealed-secrets),
 # which manages `SealedSecret` resources, en- and decrypting them as necessary.
 module "sealed_secrets" {
   source     = "../common/modules/helm-terraform-installer"
-  depends_on = [module.cert_manager]
+  depends_on = [module.cilium]
 
   chart_name    = "sealed-secrets"
   chart_repo    = "https://bitnami-labs.github.io/sealed-secrets"
   chart_version = var.sealed_secrets_version
   namespace     = var.sealed_secrets_namespace
   release_name  = "sealed-secrets-release"
-}
-
-# Sets up a `ClusterIssuer` resource based on the provided ACME information.
-module "k8s_ca" {
-  source     = "./modules/core-setup-k8s-ca"
-  depends_on = [module.sealed_secrets]
-
-  secret_namespace          = var.cert_manager_namespace
-  acme_contact              = var.acme_contact
-  acme_server_directory_url = var.acme_server_directory_url
-  step_ca_host              = var.step_ca_host
 }
 
 # Creates an `external-dns` secret, that contains credentials to access a external DNS system (PiHole in this case).
@@ -193,7 +184,7 @@ resource "sealedsecret" "external_dns_secret" {
 # when a such a service is deployed (add) or destroyed (remove).
 module "external_dns" {
   source     = "../common/modules/helm-terraform-installer"
-  depends_on = [module.k8s_ca]
+  depends_on = [module.sealed_secrets]
 
   chart_name    = "external-dns"
   chart_repo    = "oci://registry-1.docker.io/bitnamicharts"
@@ -204,6 +195,7 @@ module "external_dns" {
   chart_values = templatefile("${path.module}/files/external-dns.values.yaml.tftpl", {
     external_dns_secret_name = var.external_dns_secret_name
     external_dns_namespace   = var.external_dns_namespace
+    cluster_name             = var.cluster.name
   })
 
   pre_install_resources = [sealedsecret.external_dns_secret.yaml_content]
@@ -214,7 +206,7 @@ module "external_dns" {
 # and [PersistentVolumeClaims](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
 module "local_path_provisioner" {
   source     = "../common/modules/helm-terraform-installer"
-  depends_on = [module.k8s_ca]
+  depends_on = [module.cilium]
 
   chart_name    = "local-path-provisioner"
   chart_repo    = "https://charts.containeroo.ch"
@@ -226,11 +218,47 @@ module "local_path_provisioner" {
   is_privileged_namespace = true
 }
 
-# Exposes the [Cilium Hubble UI](https://docs.cilium.io/en/stable/observability/hubble/hubble-ui/),
-# which allows to see a Service Map and inspect a variety of network traffic.
-module "hubble_ui" {
-  source     = "./modules/monitoring-expose-hubble-ui"
-  depends_on = [module.external_dns]
+# Installs [`Traefik v3`](https://github.com/traefik/traefik),
+# which provides ingress controller with built-in ACME support and OIDC authentication plugin capabilities.
+module "traefik" {
+  source     = "../common/modules/helm-terraform-installer"
+  depends_on = [module.external_dns, module.local_path_provisioner]
 
-  ca_issuer = module.k8s_ca.k8s_ca_issuer_name
+  chart_name    = local.traefik_chart_name
+  chart_repo    = "https://helm.traefik.io/traefik"
+  chart_version = var.traefik_version
+  namespace     = var.traefik_namespace
+  release_name  = local.traefik_release_name
+
+  chart_values = templatefile("${path.module}/files/traefik.values.yaml.tftpl", {
+    acme_contact              = var.acme_contact
+    acme_server_directory_url = var.acme_server_directory_url
+    traefik_namespace         = var.traefik_namespace
+    cluster_domain            = var.cluster.domain
+    chart_name                = local.traefik_chart_name
+    release_name              = local.traefik_release_name
+  })
+
+  pre_install_resources = [
+    templatefile("${path.module}/files/traefik.configmap.step-ca-root-cert.yaml.tftpl", {
+      traefik_namespace = var.traefik_namespace
+      root_ca_content   = data.http.step_ca_root_pem.response_body
+    })
+  ]
+
+  post_install_resources = [
+    templatefile("${path.module}/files/traefik.middleware.redirect-to-dashboard.post-install.yaml.tftpl", {
+      traefik_namespace = var.traefik_namespace
+    }),
+    templatefile("${path.module}/files/traefik.ingress-route.post-install.yaml.tftpl", {
+      traefik_namespace   = var.traefik_namespace
+      cluster_domain      = var.cluster.domain
+      external_dns_target = "${var.cluster.name}.${var.cluster.domain}" # adding a CNAME record
+    }),
+    templatefile("${path.module}/files/cilium.ingress-route.post-install.yaml.tftpl", {
+      cilium_namespace    = var.cilium_namespace
+      cluster_domain      = var.cluster.domain
+      external_dns_target = "${var.cluster.name}.${var.cluster.domain}" # adding a CNAME record
+    })
+  ]
 }

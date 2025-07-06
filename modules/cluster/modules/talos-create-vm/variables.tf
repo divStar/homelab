@@ -17,7 +17,6 @@ variable "cluster" {
     name     = string
     gateway  = string
     endpoint = string
-    lb_cidr  = string
   })
 }
 
@@ -136,8 +135,8 @@ variable "target_kube_version" {
   nullable    = false
 }
 
-variable "step_ca_host" {
-  description = "Step CA IP or host, _*not*_ including the protocol (`https`)."
+variable "root_ca_certificate" {
+  description = "Step CA root CA certificate."
   type        = string
   nullable    = false
 }

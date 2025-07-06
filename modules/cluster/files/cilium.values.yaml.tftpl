@@ -65,10 +65,9 @@ externalIPs:
 loadBalancer:
   # https://docs.cilium.io/en/stable/network/kubernetes/kubeproxy-free/#maglev-consistent-hashing
   algorithm: maglev # use if you have multiple nodes
-  #algorithm: round_robin # probably best for single-cluster nodes?
 
 gatewayAPI:
-  enabled: true
+  enabled: false
 envoy:
   securityContext:
     capabilities:
@@ -85,12 +84,7 @@ hubble:
     rollOutPods: true
 
 ingressController:
-  enabled: true
-  default: true
-  loadbalancerMode: shared
-  service:
-    annotations:
-      io.cilium/lb-ipam-ips: ${cilium_loadbalancer_cidr}
+  enabled: false
 
 # mTLS
 authentication:

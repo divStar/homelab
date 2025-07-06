@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: step-ca-root-cert
+  namespace: ${traefik_namespace}
+data:
+  root_ca.crt: |
+    ${indent(4, root_ca_content)}

@@ -26,7 +26,7 @@ Creates a Talos VM with a given ISO, type and other settings.
   - [node_vfs_mappings](#node_vfs_mappings-required) (**Required**)
   - [node_vm_id](#node_vm_id-required) (**Required**)
   - [proxmox](#proxmox-required) (**Required**)
-  - [step_ca_host](#step_ca_host-required) (**Required**)
+  - [root_ca_certificate](#root_ca_certificate-required) (**Required**)
   - [talos_client_configuration](#talos_client_configuration-required) (**Required**)
   - [talos_linux_version](#talos_linux_version-required) (**Required**)
   - [talos_machine_secrets](#talos_machine_secrets-required) (**Required**)
@@ -47,7 +47,6 @@ Creates a Talos VM with a given ISO, type and other settings.
 
 | Name | Version |
 |------|---------|
-| <a name="provider_http"></a> [http](#provider\_http) | 3.5.0 |
 | <a name="provider_local"></a> [local](#provider\_local) | 2.5.3 |
 | <a name="provider_proxmox"></a> [proxmox](#provider\_proxmox) | 0.78.2 |
 | <a name="provider_talos"></a> [talos](#provider\_talos) | 0.8.1 |
@@ -75,7 +74,7 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./step_ca_root.tf#L12"><code>step_ca_root.tf#L12</code></a></td>
+      <td><a href="./step_ca_root.tf#L7"><code>step_ca_root.tf#L7</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -120,7 +119,7 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L26"><code>main.tf#L26</code></a></td>
+      <td><a href="./main.tf#L27"><code>main.tf#L27</code></a></td>
     </tr>
   </table>
 </blockquote>
@@ -140,7 +139,6 @@ Cluster configuration
     name     = string
     gateway  = string
     endpoint = string
-    lb_cidr  = string
   })
   ```
   In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
@@ -159,7 +157,7 @@ Number of CPUs for the node
   ```hcl
   number
   ```
-  In file: <a href="./variables.tf#L100"><code>variables.tf#L100</code></a>
+  In file: <a href="./variables.tf#L99"><code>variables.tf#L99</code></a>
 
 </details>
 </blockquote>
@@ -175,7 +173,7 @@ Host node for the cluster
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L53"><code>variables.tf#L53</code></a>
+  In file: <a href="./variables.tf#L52"><code>variables.tf#L52</code></a>
 
 </details>
 </blockquote>
@@ -191,7 +189,7 @@ IP address of the node
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L75"><code>variables.tf#L75</code></a>
+  In file: <a href="./variables.tf#L74"><code>variables.tf#L74</code></a>
 
 </details>
 </blockquote>
@@ -207,7 +205,7 @@ The path to the Talos node ISO, that is supposed to be used
   ```hcl
   any
   ```
-  In file: <a href="./variables.tf#L110"><code>variables.tf#L110</code></a>
+  In file: <a href="./variables.tf#L109"><code>variables.tf#L109</code></a>
 
 </details>
 </blockquote>
@@ -223,7 +221,7 @@ MAC address of the node
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L85"><code>variables.tf#L85</code></a>
+  In file: <a href="./variables.tf#L84"><code>variables.tf#L84</code></a>
 
 </details>
 </blockquote>
@@ -239,7 +237,7 @@ Type of machine (controlplane or worker)
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L58"><code>variables.tf#L58</code></a>
+  In file: <a href="./variables.tf#L57"><code>variables.tf#L57</code></a>
 
 </details>
 </blockquote>
@@ -255,7 +253,7 @@ Name of the cluster node
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L48"><code>variables.tf#L48</code></a>
+  In file: <a href="./variables.tf#L47"><code>variables.tf#L47</code></a>
 
 </details>
 </blockquote>
@@ -271,7 +269,7 @@ Dedicated RAM for the node
   ```hcl
   number
   ```
-  In file: <a href="./variables.tf#L105"><code>variables.tf#L105</code></a>
+  In file: <a href="./variables.tf#L104"><code>variables.tf#L104</code></a>
 
 </details>
 </blockquote>
@@ -287,7 +285,7 @@ List of VirtioFS mapping names to attach to all VMs
   ```hcl
   list(string)
   ```
-  In file: <a href="./variables.tf#L114"><code>variables.tf#L114</code></a>
+  In file: <a href="./variables.tf#L113"><code>variables.tf#L113</code></a>
 
 </details>
 </blockquote>
@@ -303,7 +301,7 @@ VM ID of the node
   ```hcl
   number
   ```
-  In file: <a href="./variables.tf#L95"><code>variables.tf#L95</code></a>
+  In file: <a href="./variables.tf#L94"><code>variables.tf#L94</code></a>
 
 </details>
 </blockquote>
@@ -333,8 +331,8 @@ Proxmox host configuration
 </blockquote>
 <blockquote>
 
-### `step_ca_host` (**Required**)
-Step CA IP or host, _*not*_ including the protocol (`https`).
+### `root_ca_certificate` (**Required**)
+Step CA root CA certificate.
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -343,7 +341,7 @@ Step CA IP or host, _*not*_ including the protocol (`https`).
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L139"><code>variables.tf#L139</code></a>
+  In file: <a href="./variables.tf#L138"><code>variables.tf#L138</code></a>
 
 </details>
 </blockquote>
@@ -359,7 +357,7 @@ Talos cluster client configuration
   ```hcl
   any
   ```
-  In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
+  In file: <a href="./variables.tf#L28"><code>variables.tf#L28</code></a>
 
 </details>
 </blockquote>
@@ -375,7 +373,7 @@ Version of Talos (Linux/Kubernetes) to install
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L127"><code>variables.tf#L127</code></a>
+  In file: <a href="./variables.tf#L126"><code>variables.tf#L126</code></a>
 
 </details>
 </blockquote>
@@ -391,7 +389,7 @@ Talos cluster machine configuration
   ```hcl
   any
   ```
-  In file: <a href="./variables.tf#L24"><code>variables.tf#L24</code></a>
+  In file: <a href="./variables.tf#L23"><code>variables.tf#L23</code></a>
 
 </details>
 </blockquote>
@@ -407,7 +405,7 @@ Target version of Kubernetes the template is built for
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L133"><code>variables.tf#L133</code></a>
+  In file: <a href="./variables.tf#L132"><code>variables.tf#L132</code></a>
 
 </details>
 </blockquote>
@@ -427,7 +425,7 @@ Network bridge to use for this node
   ```json
   "vmbr0"
   ```
-  In file: <a href="./variables.tf#L68"><code>variables.tf#L68</code></a>
+  In file: <a href="./variables.tf#L67"><code>variables.tf#L67</code></a>
 
 </details>
 </blockquote>
@@ -447,7 +445,7 @@ Datastore ID for the node
   ```json
   "local"
   ```
-  In file: <a href="./variables.tf#L120"><code>variables.tf#L120</code></a>
+  In file: <a href="./variables.tf#L119"><code>variables.tf#L119</code></a>
 
 </details>
 </blockquote>
@@ -467,7 +465,7 @@ Description to set for the given node
   ```json
   ""
   ```
-  In file: <a href="./variables.tf#L34"><code>variables.tf#L34</code></a>
+  In file: <a href="./variables.tf#L33"><code>variables.tf#L33</code></a>
 
 </details>
 </blockquote>
@@ -487,7 +485,7 @@ Tags to set for the given node
   ```json
   []
   ```
-  In file: <a href="./variables.tf#L41"><code>variables.tf#L41</code></a>
+  In file: <a href="./variables.tf#L40"><code>variables.tf#L40</code></a>
 
 </details>
 </blockquote>

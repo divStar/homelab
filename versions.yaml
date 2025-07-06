@@ -7,5 +7,8 @@ local_path_provisioner_version: "0.0.32"
 traefik_version: "36.3.0"
 
 # manually set versions
+proxmox_version: "8.4+"
 alpine_linux_version: "3.21.3"
 target_kube_version: "1.33"
+step_cli_version: "0.28.6"
+step_ca_version: "0.28.1"

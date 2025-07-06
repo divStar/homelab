@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # restore-state.sh
-DEFAULT_HOST="192.168.178.27"
+DEFAULT_HOST="192.168.178.25"
 DEFAULT_USER="root"
 
 # Show usage/help

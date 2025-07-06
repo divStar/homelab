@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # backup-state.sh
-DEFAULT_HOST="192.168.178.27"
+DEFAULT_HOST="192.168.178.25"
 DEFAULT_USER="root"
 DEFAULT_SOURCE_DIR="."
 

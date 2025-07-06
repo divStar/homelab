@@ -50,6 +50,8 @@ Here's a list of all the software being used in this homelab setup:
   - **[`trust-proxmox-ca`](modules/host/modules/trust-proxmox-ca/README.md)** - Configures Proxmox to trust its own CA certificate
   - **[`zfs-storage`](modules/host/modules/zfs-storage/README.md)** - Imports and manages ZFS storage pools
 
+- **[`stepca-lxc`](modules/stepca-lxc/README.md)** - Sets up Step-CA certificate authority in an Alpine LXC container for internal PKI management
+
 - **[`cluster`](modules/cluster/README.md)** - Sets up the Talos Kubernetes cluster on Proxmox with networking (Cilium), ingress (Traefik), storage (local-path-provisioner), DNS (external-dns), and secrets management (sealed-secrets)
   - **[`talos-download-image`](modules/cluster/modules/talos-download-image/README.md)** - Downloads and manages Talos images for deployment
   - **[`talos-prepare-cluster`](modules/cluster/modules/talos-prepare-cluster/README.md)** - Prepares cluster by generating machine secrets and configurations
@@ -61,8 +63,6 @@ Here's a list of all the software being used in this homelab setup:
   - **`local-path-provisioner`** - Installs local-path-provisioner for dynamic local storage
   - **`traefik`** - Installs Traefik v3 ingress controller with ACME support and OIDC capabilities
 
-- **[`stepca-lxc`](modules/stepca-lxc/README.md)** - Sets up Step-CA certificate authority in an Alpine LXC container for internal PKI management
-
 ### Common Modules
 
 - **[`common/modules/alpine`](modules/common/modules/alpine/README.md)** - Creates Alpine Linux LXC containers with SSH access and basic packages
@@ -70,7 +70,7 @@ Here's a list of all the software being used in this homelab setup:
 
 ### Application Modules
 
-- **[`k8s-apps/zitadel`](modules/k8s-apps/zitadel/README.md)** - Deploys Zitadel identity and access management platform
+- <span style="font-variant: small-caps; background: orange; padding-left: 2pt; padding-right: 2pt; color: #555; border-radius: 3pt;">on-going</span> **[`k8s-apps/zitadel`](modules/k8s-apps/zitadel/README.md)** - Deploys Zitadel identity and access management platform
 
 ### Legacy Modules (Not in Use)
 

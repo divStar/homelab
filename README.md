@@ -10,23 +10,25 @@ This repository contains multiple modules and scripts, that you can run manually
 ## BOM
 Here's a list of all the software being used in this homelab setup:
 
+![Helm Chart](https://img.shields.io/badge/Helm%20Chart-darkblue?style=flat) ![Other version](https://img.shields.io/badge/Other%20version-blue?style=flat)
+
 ### **Infrastructure & Virtualization:**
-- <img src="docs/assets/proxmox-logo-stacked-color.svg" width="20" height="20"> **[Proxmox VE](https://www.proxmox.com/en/proxmox-virtual-environment/overview)** - Virtualization platform
-- <img src="docs/assets/talos-logo.svg" width="20" height="20"> **[Talos Linux](https://www.talos.dev/)** - Immutable Kubernetes OS
-- <img src="docs/assets/alpine-logo.svg" width="20" height="20"> **[Alpine Linux](https://alpinelinux.org/)** - Lightweight Linux distribution for containers
+- <img src="docs/assets/proxmox-logo-stacked-color.svg" width="20" height="20"> **[Proxmox VE](https://www.proxmox.com/en/proxmox-virtual-environment/overview)** ![Proxmox version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.proxmox_version&prefix=%20&label=%20) - Virtualization platform
+- <img src="docs/assets/talos-logo.svg" width="20" height="20"> **[Talos Linux](https://www.talos.dev/)** ![Talos Linux version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.talos_linux_version&prefix=%20&label=%20) - Immutable Kubernetes OS
+- <img src="docs/assets/alpine-logo.svg" width="20" height="20"> **[Alpine Linux](https://alpinelinux.org/)** ![Alpine Linux version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.alpine_linux_version&label=%20) - Lightweight Linux distribution for containers
 
 ### **Kubernetes & Container Orchestration:**
-- <img src="docs/assets/kubernetes-logo.svg" width="20" height="20"> **[Kubernetes](https://kubernetes.io/)** - Container orchestration platform
-- <img src="docs/assets/cilium-logo.svg" width="20" height="20"> **[Cilium](https://cilium.io/)** - eBPF-based networking, observability, and security
-- <img src="docs/assets/traefik-logo.svg" width="20" height="20"> **[Traefik](https://traefik.io/)** - Modern reverse proxy and load balancer with automatic service discovery
-- <img src="docs/assets/local-path-provisioner-logo.svg" width="20" height="20"> **[Local Path Provisioner](https://github.com/rancher/local-path-provisioner)** - Dynamic local storage provisioner
+- <img src="docs/assets/kubernetes-logo.svg" width="20" height="20"> **[Kubernetes](https://kubernetes.io/)** ![Kubernetes version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.target_kube_version&label=%20) - Container orchestration platform
+- <img src="docs/assets/cilium-logo.svg" width="20" height="20"> **[Cilium](https://cilium.io/)** ![Cilium version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.cilium_version&label=%20) - eBPF-based networking, observability, and security
+- <img src="docs/assets/traefik-logo.svg" width="20" height="20"> **[Traefik](https://traefik.io/)** ![Traefik Helm Chart version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.traefik_version&label=%20&color=darkblue) - Modern reverse proxy and load balancer with automatic service discovery
+- <img src="docs/assets/local-path-provisioner-logo.svg" width="20" height="20"> **[Local Path Provisioner](https://github.com/rancher/local-path-provisioner)** ![Local Path Provisioner Helm Chart version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.local_path_provisioner_version&label=%20&color=darkblue) - Dynamic local storage provisioner
 
 ### **Security & PKI:**
-- <img src="docs/assets/smallstep-logo.svg" width="20" height="20"> **[Step-CA](https://smallstep.com/certificates/)** - Certificate authority for internal PKI
-- <img src="docs/assets/sealedsecrets-logo.svg" width="20" height="20"> **[Sealed Secrets](https://sealed-secrets.netlify.app/)** - Kubernetes controller for one-way encrypted Secrets
+- <img src="docs/assets/smallstep-logo.svg" width="20" height="20"> **[Step-CA](https://smallstep.com/certificates/)** CLI ![Step-CLI version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.step_cli_version&prefix=%20&label=%20) / server ![Step-CA version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.step_ca_version&prefix=%20&label=%20) - Certificate authority for internal PKI
+- <img src="docs/assets/sealedsecrets-logo.svg" width="20" height="20"> **[Sealed Secrets](https://sealed-secrets.netlify.app/)** ![sealed-secrets version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.sealed_secrets_version&prefix=%20&label=%20&color=darkblue) - Kubernetes controller for one-way encrypted Secrets
 
 ### **DNS & Service Discovery:**
-- <img src="docs/assets/external-dns-logo.svg" width="20" height="20"> **[External DNS](https://github.com/kubernetes-sigs/external-dns)** - Kubernetes addon to configure external DNS servers
+- <img src="docs/assets/external-dns-logo.svg" width="20" height="20"> **[External DNS](https://github.com/kubernetes-sigs/external-dns)** ![external-dns version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.external_dns_version&prefix=%20&label=%20&color=darkblue) - Kubernetes addon to configure external DNS servers
 
 ### **Identity & Access Management:**
 - <img src="docs/assets/zitadel-logo.svg" width="20" height="20"> **[Zitadel](https://zitadel.com/)** - Identity and access management platform

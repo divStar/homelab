@@ -3,6 +3,9 @@
 # Script to show Terraform module execution order in "story mode"
 # Usage: ./story-plan-ex.sh [-d|--debug] [-x|--extended] [-r|--raw] [-p|--path PATH] [-b|--binary BINARY] [-h|--help]
 
+# Note: this script was written by AI and while I have looked it to the best of my abilities,
+# I cba to optimize it, because I don't really care about this particular script being maintainable.
+
 set -euo pipefail
 
 # =============================================================================
@@ -388,6 +391,17 @@ topological_sort() {
 print_execution_order() {
     local execution_order=("$@")
     
+    debug "🔍 Debug: print_execution_order called with ${#execution_order[@]} items"
+    debug "🔍 Debug: Items: ${execution_order[*]}"
+    
+    # Handle empty execution order
+    if [[ ${#execution_order[@]} -eq 0 ]]; then
+        if [[ "$RAW" != "true" ]]; then
+            echo "No resources found in execution order."
+        fi
+        return
+    fi
+    
     if [[ "$EXTENDED" == "true" ]]; then
         
         # Group resources by their parent modules for tree view
@@ -399,15 +413,20 @@ print_execution_order() {
         
         # Separate modules from resources and group them, identify outputs
         for item in "${execution_order[@]}"; do
+            debug "🔍 Debug: Processing item: $item"
             if [[ "$item" =~ $OUTPUT_PATTERN ]]; then
                 # This is an output resource (including local_file) - move to bottom
+                debug "🔍 Debug: $item matches OUTPUT_PATTERN"
                 output_resources+=("$item")
             elif [[ "$item" =~ $MODULE_PATTERN ]]; then
                 # This is a top-level module
+                debug "🔍 Debug: $item matches MODULE_PATTERN"
                 standalone_modules+=("$item")
             elif [[ "$item" =~ $MODULE_RESOURCE_EXTRACT_PATTERN ]]; then
                 # This is a resource within a module
+                debug "🔍 Debug: $item matches MODULE_RESOURCE_EXTRACT_PATTERN"
                 local parent_module="module.${BASH_REMATCH[1]}"
+                debug "🔍 Debug: Parent module: $parent_module"
                 if [[ -z "${module_resources[$parent_module]:-}" ]]; then
                     module_resources[$parent_module]="$item"
                 else
@@ -415,9 +434,15 @@ print_execution_order() {
                 fi
             else
                 # This is a standalone resource (not in a module)
+                debug "🔍 Debug: $item is standalone resource"
                 standalone_resources+=("$item")
             fi
         done
+        
+        debug "🔍 Debug: standalone_modules count: ${#standalone_modules[@]}"
+        debug "🔍 Debug: standalone_resources count: ${#standalone_resources[@]}"
+        debug "🔍 Debug: module_resources keys: ${!module_resources[*]}"
+        debug "🔍 Debug: output_resources count: ${#output_resources[@]}"
         
         # Print in hierarchical order
         local step=1
@@ -454,6 +479,46 @@ print_execution_order() {
             fi
         done
         
+        # NEW: Handle case where we have module resources but no standalone modules
+        # This happens when running from within a module directory
+        if [[ ${#standalone_modules[@]} -eq 0 && ${#module_resources[@]} -gt 0 ]]; then
+            debug "🔍 Debug: Handling module resources without standalone modules"
+            # Sort module keys for consistent output (using more compatible approach)
+            local sorted_modules_str
+            sorted_modules_str=$(printf '%s\n' "${!module_resources[@]}" | sort | tr '\n' ' ')
+            local sorted_modules=($sorted_modules_str)
+            debug "🔍 Debug: Sorted modules: ${sorted_modules[*]}"
+            
+            for module in "${sorted_modules[@]}"; do
+                debug "🔍 Debug: Processing module: $module"
+                if [[ "$RAW" == "true" ]]; then
+                    printf "├── %s\n" "$module"
+                else
+                    printf "%2d. 📦 \033[1m%s\033[0m\n" "$step" "$module"
+                    ((step++))
+                fi
+                
+                # Print resources belonging to this module (indented)
+                if [[ -n "${module_resources[$module]:-}" ]]; then
+                    debug "🔍 Debug: Module $module has resources: ${module_resources[$module]}"
+                    # Convert space-separated string to array for proper ordering
+                    local module_resource_array=()
+                    read -ra module_resource_array <<< "${module_resources[$module]}"
+                    debug "🔍 Debug: Module resource array: ${module_resource_array[*]}"
+                    
+                    for resource in "${module_resource_array[@]}"; do
+                        debug "🔍 Debug: Processing resource: $resource"
+                        if [[ "$RAW" == "true" ]]; then
+                            printf "│   ├── %s\n" "$resource"
+                        else
+                            printf "%2d.   🔧 %s\n" $step "$resource"
+                            ((step++))
+                        fi
+                    done
+                fi
+            done
+        fi
+        
         # Skip output resources in raw mode
         if [[ "$RAW" != "true" ]]; then
             # Print output resources at the bottom (if any exist)
@@ -481,9 +546,11 @@ print_execution_order() {
                     done
                 fi
                 
-                # Sort and display unique outputs
+                # Sort and display unique outputs (using more compatible approach)
                 if [[ ${#all_outputs[@]} -gt 0 ]]; then
-                    readarray -t sorted_outputs < <(printf '%s\n' "${all_outputs[@]}" | sort -u)
+                    local sorted_outputs_str
+                    sorted_outputs_str=$(printf '%s\n' "${all_outputs[@]}" | sort -u | tr '\n' ' ')
+                    local sorted_outputs=($sorted_outputs_str)
                     for output in "${sorted_outputs[@]}"; do
                         printf "%2d. 📄 %s\n" $step_count "$output"
                         ((step_count++))
@@ -519,9 +586,11 @@ print_execution_order() {
                     all_outputs+=("$output")
                 done
                 
-                # Sort and display unique outputs
+                # Sort and display unique outputs (using more compatible approach)
                 if [[ ${#all_outputs[@]} -gt 0 ]]; then
-                    readarray -t sorted_outputs < <(printf '%s\n' "${all_outputs[@]}" | sort -u)
+                    local sorted_outputs_str
+                    sorted_outputs_str=$(printf '%s\n' "${all_outputs[@]}" | sort -u | tr '\n' ' ')
+                    local sorted_outputs=($sorted_outputs_str)
                     for output in "${sorted_outputs[@]}"; do
                         printf "%2d. 📄 %s\n" $step_count "$output"
                         ((step_count++))

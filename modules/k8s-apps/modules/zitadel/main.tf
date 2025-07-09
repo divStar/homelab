@@ -13,7 +13,7 @@ locals {
 
 # Installs [`zitadel`](https://zitadel.com/), which is used for Authentication and Authorization of users and services.
 module "zitadel" {
-  source     = "../common/modules/helm-terraform-installer"
+  source = "../common/modules/helm-terraform-installer"
 
   chart_name    = "zitadel"
   chart_repo    = "https://charts.zitadel.com"

@@ -30,7 +30,6 @@ Creates a Talos VM with a given ISO, type and other settings.
   - [talos_client_configuration](#talos_client_configuration-required) (**Required**)
   - [talos_linux_version](#talos_linux_version-required) (**Required**)
   - [talos_machine_secrets](#talos_machine_secrets-required) (**Required**)
-  - [target_kube_version](#target_kube_version-required) (**Required**)
   - [node_bridge](#node_bridge-optional) (*Optional*)
   - [node_datastore_id](#node_datastore_id-optional) (*Optional*)
   - [node_description](#node_description-optional) (*Optional*)
@@ -341,7 +340,7 @@ Step CA root CA certificate.
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L138"><code>variables.tf#L138</code></a>
+  In file: <a href="./variables.tf#L132"><code>variables.tf#L132</code></a>
 
 </details>
 </blockquote>
@@ -390,22 +389,6 @@ Talos cluster machine configuration
   any
   ```
   In file: <a href="./variables.tf#L23"><code>variables.tf#L23</code></a>
-
-</details>
-</blockquote>
-<blockquote>
-
-### `target_kube_version` (**Required**)
-Target version of Kubernetes the template is built for
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  In file: <a href="./variables.tf#L132"><code>variables.tf#L132</code></a>
 
 </details>
 </blockquote>

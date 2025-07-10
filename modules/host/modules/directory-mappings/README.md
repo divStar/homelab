@@ -2,9 +2,10 @@
 
 Handles the directory mappings of particular resources (e.g. file shares).
 These mapped directories can then be used e.g. using `virtiofs` "pass-through" to VMs.
+
 ## Contents
 
-<blockquote>
+<blockquote><!-- contents:start -->
 
 - [Requirements](#requirements)
 - [Providers](#providers)
@@ -18,20 +19,16 @@ These mapped directories can then be used e.g. using `virtiofs` "pass-through" t
   - [directory_mappings](#directory_mappings-optional) (*Optional*)
 - [Outputs](#outputs)
   - [directory_mappings](#directory_mappings)
-</blockquote>
+</blockquote><!-- contents:end -->
 
 ## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+  
+![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
 
 ## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+  
+![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
 
 ## Execution story
 
@@ -41,14 +38,12 @@ Order in which Terraform will create resources (and likely destroy them in rever
 ├── ssh_resource.remove_directory_mappings
 ```
 
-
-
-
 ## Resources
-<blockquote>
+  
+<blockquote><!-- resource:"ssh_resource.directory_mappings":start -->
 
-#### _ssh_resource_.`directory_mappings`
-
+### _ssh_resource_.`directory_mappings`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -59,11 +54,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L16"><code>main.tf#L16</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.directory_mappings":end -->
+<blockquote><!-- resource:"ssh_resource.remove_directory_mappings":start -->
 
-#### _ssh_resource_.`remove_directory_mappings`
-
+### _ssh_resource_.`remove_directory_mappings`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -74,12 +69,14 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L33"><code>main.tf#L33</code></a></td>
     </tr>
   </table>
-</blockquote>
+</blockquote><!-- resource:"ssh_resource.remove_directory_mappings":end -->
 
 ## Variables
-<blockquote>
+  
+<blockquote><!-- variable:"proxmox_node_name":start -->
 
 ### `proxmox_node_name` (**Required**)
+
 Proxmox node name
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -92,10 +89,11 @@ Proxmox node name
   In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"proxmox_node_name":end -->
+<blockquote><!-- variable:"ssh":start -->
 
 ### `ssh` (**Required**)
+
 SSH configuration for remote connection
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -112,10 +110,11 @@ SSH configuration for remote connection
   In file: <a href="./variables.tf#L6"><code>variables.tf#L6</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ssh":end -->
+<blockquote><!-- variable:"directory_mappings":start -->
 
 ### `directory_mappings` (*Optional*)
+
 Directory mappings for the Proxmox node
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -136,14 +135,15 @@ Directory mappings for the Proxmox node
   In file: <a href="./variables.tf#L19"><code>variables.tf#L19</code></a>
 
 </details>
-</blockquote>
-
+</blockquote><!-- variable:"directory_mappings":end -->
 
 ## Outputs
-<blockquote>
+  
+<blockquote><!-- output:"directory_mappings":start -->
 
 #### `directory_mappings`
+
 Directory mappings created
 
 In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
-</blockquote>
+</blockquote><!-- output:"directory_mappings":end -->

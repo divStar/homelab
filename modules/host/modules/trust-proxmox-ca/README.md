@@ -5,9 +5,10 @@ own trust store and updates the certificates.
 
 Note: this is necessary for the `lldap-setup` LXC container to connect
 via LDAPS while also verifying the self-signed certificate.
+
 ## Contents
 
-<blockquote>
+<blockquote><!-- contents:start -->
 
 - [Requirements](#requirements)
 - [Providers](#providers)
@@ -21,20 +22,16 @@ via LDAPS while also verifying the self-signed certificate.
   - [pve_root_ca_pem_source](#pve_root_ca_pem_source-optional) (*Optional*)
   - [pve_root_ca_pem_target](#pve_root_ca_pem_target-optional) (*Optional*)
   - [restart_pveproxy](#restart_pveproxy-optional) (*Optional*)
-</blockquote>
+</blockquote><!-- contents:end -->
 
 ## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+  
+![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
 
 ## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+  
+![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
 
 ## Execution story
 
@@ -45,13 +42,12 @@ Order in which Terraform will create resources (and likely destroy them in rever
 ├── ssh_resource.install_proxmox_ca
 ```
 
-
-
-
 ## Resources
-<blockquote>
+  
+<blockquote><!-- resource:"ssh_resource.install_proxmox_ca":start -->
 
-#### _ssh_resource_.`install_proxmox_ca`
+### _ssh_resource_.`install_proxmox_ca`
+
 Fetch Proxmox CA public certificate
   <table>
     <tr>
@@ -63,11 +59,11 @@ Fetch Proxmox CA public certificate
       <td><a href="./main.tf#L11"><code>main.tf#L11</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.install_proxmox_ca":end -->
+<blockquote><!-- resource:"ssh_resource.restart_pveproxy":start -->
 
-#### _ssh_resource_.`restart_pveproxy`
-
+### _ssh_resource_.`restart_pveproxy`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -78,11 +74,11 @@ Fetch Proxmox CA public certificate
       <td><a href="./main.tf#L37"><code>main.tf#L37</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.restart_pveproxy":end -->
+<blockquote><!-- resource:"ssh_resource.uninstall_proxmox_ca":start -->
 
-#### _ssh_resource_.`uninstall_proxmox_ca`
-
+### _ssh_resource_.`uninstall_proxmox_ca`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -93,12 +89,14 @@ Fetch Proxmox CA public certificate
       <td><a href="./main.tf#L24"><code>main.tf#L24</code></a></td>
     </tr>
   </table>
-</blockquote>
+</blockquote><!-- resource:"ssh_resource.uninstall_proxmox_ca":end -->
 
 ## Variables
-<blockquote>
+  
+<blockquote><!-- variable:"ssh":start -->
 
 ### `ssh` (**Required**)
+
 SSH configuration for remote connection
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -115,10 +113,11 @@ SSH configuration for remote connection
   In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ssh":end -->
+<blockquote><!-- variable:"pve_root_ca_pem_source":start -->
 
 ### `pve_root_ca_pem_source` (*Optional*)
+
 Proxmox public root CA certificate source
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -135,10 +134,11 @@ Proxmox public root CA certificate source
   In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"pve_root_ca_pem_source":end -->
+<blockquote><!-- variable:"pve_root_ca_pem_target":start -->
 
 ### `pve_root_ca_pem_target` (*Optional*)
+
 Proxmox public root CA certificate target
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -155,10 +155,11 @@ Proxmox public root CA certificate target
   In file: <a href="./variables.tf#L21"><code>variables.tf#L21</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"pve_root_ca_pem_target":end -->
+<blockquote><!-- variable:"restart_pveproxy":start -->
 
 ### `restart_pveproxy` (*Optional*)
+
 Flag, specifying whether to restart the `pveproxy` service (`default = true`) or not.
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -175,4 +176,4 @@ Flag, specifying whether to restart the `pveproxy` service (`default = true`) or
   In file: <a href="./variables.tf#L28"><code>variables.tf#L28</code></a>
 
 </details>
-</blockquote>
+</blockquote><!-- variable:"restart_pveproxy":end -->

@@ -2,9 +2,10 @@
 
 Handles the deactivation of the enterprise repositories and
 the creation and activation of the no-subscription repositories.
+
 ## Contents
 
-<blockquote>
+<blockquote><!-- contents:start -->
 
 - [Requirements](#requirements)
 - [Providers](#providers)
@@ -18,20 +19,16 @@ the creation and activation of the no-subscription repositories.
   - [no_subscription](#no_subscription-optional) (*Optional*)
 - [Outputs](#outputs)
   - [no_subscription](#no_subscription)
-</blockquote>
+</blockquote><!-- contents:end -->
 
 ## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+  
+![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
 
 ## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+  
+![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
 
 ## Execution story
 
@@ -42,14 +39,12 @@ Order in which Terraform will create resources (and likely destroy them in rever
 ├── ssh_resource.update_all_repositories
 ```
 
-
-
-
 ## Resources
-<blockquote>
+  
+<blockquote><!-- resource:"ssh_resource.add_no_sub_repository":start -->
 
-#### _ssh_resource_.`add_no_sub_repository`
-
+### _ssh_resource_.`add_no_sub_repository`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -60,11 +55,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L19"><code>main.tf#L19</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.add_no_sub_repository":end -->
+<blockquote><!-- resource:"ssh_resource.remove_no_sub_repository":start -->
 
-#### _ssh_resource_.`remove_no_sub_repository`
-
+### _ssh_resource_.`remove_no_sub_repository`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -75,11 +70,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L49"><code>main.tf#L49</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.remove_no_sub_repository":end -->
+<blockquote><!-- resource:"ssh_resource.update_all_repositories":start -->
 
-#### _ssh_resource_.`update_all_repositories`
-
+### _ssh_resource_.`update_all_repositories`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -90,12 +85,14 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L35"><code>main.tf#L35</code></a></td>
     </tr>
   </table>
-</blockquote>
+</blockquote><!-- resource:"ssh_resource.update_all_repositories":end -->
 
 ## Variables
-<blockquote>
+  
+<blockquote><!-- variable:"ssh":start -->
 
 ### `ssh` (**Required**)
+
 SSH configuration for remote connection
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -112,10 +109,11 @@ SSH configuration for remote connection
   In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ssh":end -->
+<blockquote><!-- variable:"no_subscription":start -->
 
 ### `no_subscription` (*Optional*)
+
 Whether to use no-subscription repository instead of enterprise repository or not
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -138,14 +136,15 @@ Whether to use no-subscription repository instead of enterprise repository or no
   In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
-</blockquote>
-
+</blockquote><!-- variable:"no_subscription":end -->
 
 ## Outputs
-<blockquote>
+  
+<blockquote><!-- output:"no_subscription":start -->
 
 #### `no_subscription`
+
 States, whether a no-subscription repository was used (and some further details)
 
 In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
-</blockquote>
+</blockquote><!-- output:"no_subscription":end -->

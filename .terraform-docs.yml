@@ -9,11 +9,41 @@ sections:
   hide: []
   show: []
 
+output:
+  file: "README.md"
+  mode: replace
+  template: |-
+    {{ .Content }}
+
+output-values:
+  enabled: false
+  from: ""
+
+sort:
+  enabled: true
+  by: required
+
+settings:
+  anchor: true
+  color: true
+  default: true
+  description: true
+  escape: true
+  hide-empty: false
+  html: false
+  indent: 2
+  lockfile: true
+  read-comments: true
+  required: true
+  sensitive: true
+  type: true
+
 content: |-
   {{ .Header }}
+
   ## Contents
 
-  <blockquote>
+  <blockquote><!-- contents:start -->
 
   - [Requirements](#requirements)
   - [Providers](#providers)
@@ -43,11 +73,23 @@ content: |-
     - [{{ .Name }}](#{{ .Name }})
     {{- end -}}
   {{- end}}
-  </blockquote>
+  </blockquote><!-- contents:end -->
 
-  {{ .Requirements }}
+  {{- if .Module.HasRequirements }}
 
-  {{ .Providers }}
+  ## Requirements
+    {{ range .Module.Requirements }}
+  ![{{ .Name }}](https://img.shields.io/badge/{{- .Name -}}-{{- .Version.Raw | replace " " "" -}}-{{ printf "%02x%02x%02x" (mod (.Name | adler32sum) 256) (mod (add (.Name | adler32sum) 85) 256) (mod (add (.Name | adler32sum) 170) 256) }}?logo={{ .Name }})
+    {{- end }}
+  {{- end }}
+
+  {{- if .Module.HasProviders }}
+
+  ## Providers
+    {{ range .Module.Providers }}
+  ![{{ .Name }}](https://img.shields.io/badge/{{- .Name -}}-{{- .Version.Raw | replace " " "" -}}-{{ printf "%02x%02x%02x" (mod (.Name | adler32sum) 256) (mod (add (.Name | adler32sum) 85) 256) (mod (add (.Name | adler32sum) 170) 256) }})
+    {{- end }}
+  {{- end }}
 
   ## Execution story
 
@@ -56,12 +98,14 @@ content: |-
   EXECUTION_STORY_PLACE_HOLDER
   ```
   
-  {{ if .Module.HasModuleCalls -}}
+  {{- if .Module.HasModuleCalls }}
+
   ## Modules
-    {{- range .Module.ModuleCalls }}
-  <blockquote>
+    {{ range .Module.ModuleCalls }}
+  <blockquote><!-- module:"{{ .Name }}":start -->
 
   ### `{{ .Name }}`
+
   {{ .Description.Raw }}
     <table>
       <tr>
@@ -76,19 +120,24 @@ content: |-
         <td colspan="2"><a href="{{ .Source }}/README.md">README.md</a> <em>(experimental)</em></td>
       </tr>
     </table>
-  </blockquote>
+  </blockquote><!-- module:"{{ .Name }}":end -->
     {{- end }}
   {{- end }}
 
-  {{ if .Module.HasResources }}
+  {{- if .Module.HasResources }}
+
   ## Resources
-    {{- range .Module.Resources }}
+    {{ range .Module.Resources }}
       {{- if eq .GetMode "resource" }}
         {{- $specs := split "." .Spec }}
-  <blockquote>
+  <blockquote><!-- resource:"{{ $specs._0 }}.{{ $specs._1 }}":start -->
 
-  #### _{{ $specs._0 }}_.`{{ $specs._1 }}`
+  ### _{{ $specs._0 }}_.`{{ $specs._1 }}`
+        {{- if .Description.Raw }}
+
   {{ .Description.Raw }}
+        {{- else }}
+        {{ end }}
     <table>
       <tr>
         <td>Provider</td>
@@ -99,16 +148,19 @@ content: |-
         <td><a href="./{{ .Position.Filename }}#L{{ .Position.Line }}"><code>{{ .Position.Filename }}#L{{ .Position.Line }}</code></a></td>
       </tr>
     </table>
-  </blockquote>
+  </blockquote><!-- resource:"{{ $specs._0 }}.{{ $specs._1 }}":end -->
       {{- end -}}
-    {{- end }}
+    {{- end -}}
   {{- end }}
 
+  {{- if .Module.HasInputs }}
+
   ## Variables
-  {{- range .Module.Inputs }}
-  <blockquote>
+    {{ range .Module.Inputs }}
+  <blockquote><!-- variable:"{{ .Name }}":start -->
 
   ### `{{ .Name }}` ({{- if .Required -}}**Required**{{- else }}*Optional*{{- end }})
+
   {{ .Description.Raw }}
 
   <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -127,49 +179,23 @@ content: |-
     In file: <a href="./{{ .Position.Filename }}#L{{ .Position.Line }}"><code>{{ .Position.Filename }}#L{{ .Position.Line }}</code></a>
 
   </details>
-  </blockquote>
+  </blockquote><!-- variable:"{{ .Name }}":end -->
+    {{- end }}
   {{- end }}
 
-  {{ if .Module.HasOutputs }}
+  {{- if .Module.HasOutputs }}
+
   ## Outputs
-    {{- range .Module.Outputs }}
-  <blockquote>
+    {{ range .Module.Outputs }}
+  <blockquote><!-- output:"{{ .Name }}":start -->
 
   #### `{{ .Name }}`
+
   {{ .Description.Raw }}
 
   In file: <a href="./{{ .Position.Filename }}#L{{ .Position.Line }}"><code>{{ .Position.Filename }}#L{{ .Position.Line }}</code></a>
-  </blockquote>
+  </blockquote><!-- output:"{{ .Name }}":end -->
     {{- end -}}
   {{- end -}} 
   
   {{ .Footer }}
-
-output:
-  file: "README.md"
-  mode: replace
-  template: |-
-    {{ .Content }}
-
-output-values:
-  enabled: false
-  from: ""
-
-sort:
-  enabled: true
-  by: required
-
-settings:
-  anchor: true
-  color: true
-  default: true
-  description: true
-  escape: true
-  hide-empty: false
-  html: false
-  indent: 2
-  lockfile: true
-  read-comments: true
-  required: true
-  sensitive: true
-  type: true

@@ -7,39 +7,62 @@
 
 This repository contains multiple modules and scripts, that you can run manually to set up a homelab / NAS. The scripts are very opinionated and they work for me - feel free to change anything you might want or need.
 
+## Table of Contents
+
+- [BOM](#bom)
+  - [Deployment](#deployment)
+  - [System](#system)
+  - [Orchestration, network and storage](#orchestration-network-and-storage)
+  - [Security](#security)
+  - [Database](#database)
+- [Modules](#modules)
+  - [Main modules](#main-modules)
+  - [Common Modules](#common-modules)
+  - [Application Modules](#application-modules)
+  - [Legacy Modules (Not in Use)](#legacy-modules-not-in-use)
+- [Scripts](#scripts)
+  - [State management](#state-management)
+  - [Terraform / cluster management](#terraform--cluster-management)
+
 ## BOM
+
 Here's a list of all the software being used in this homelab setup:
 
 ![Helm Chart](https://img.shields.io/badge/Helm%20Chart-darkblue?style=flat) ![Other version](https://img.shields.io/badge/Other%20version-blue?style=flat)
 
-### **Infrastructure & Virtualization:**
+### **Deployment:**
+
+- <img src="docs/assets/tofu-on-light.svg" width="20" height="20"> **[OpenTofu](https://opentofu.org/)** / **[Terraform](https://www.terraform.io/)** - Infrastructure provisioning
+- <img src="docs/assets/helm-logo.svg" width="20" height="20"> **[Helm](https://helm.sh/)** - Kubernetes package manager
+
+### **System:**
+
 - <img src="docs/assets/proxmox-logo-stacked-color.svg" width="20" height="20"> **[Proxmox VE](https://www.proxmox.com/en/proxmox-virtual-environment/overview)** ![Proxmox version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.proxmox_version&label=%20) - Virtualization platform
 - <img src="docs/assets/talos-logo.svg" width="20" height="20"> **[Talos Linux](https://www.talos.dev/)** ![Talos Linux version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.talos_linux_version&prefix=%20&label=%20) - Immutable Kubernetes OS
 - <img src="docs/assets/alpine-logo.svg" width="20" height="20"> **[Alpine Linux](https://alpinelinux.org/)** ![Alpine Linux version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.alpine_linux_version&label=%20) - Lightweight Linux distribution for containers
 
-### **Kubernetes & Container Orchestration:**
+### **Orchestration, network and storage:**
+
 - <img src="docs/assets/kubernetes-logo.svg" width="20" height="20"> **[Kubernetes](https://kubernetes.io/)** ![Kubernetes version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.target_kube_version&label=%20) - Container orchestration platform
 - <img src="docs/assets/cilium-logo.svg" width="20" height="20"> **[Cilium](https://cilium.io/)** ![Cilium version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.cilium_version&label=%20&color=darkblue) - eBPF-based networking, observability, and security
 - <img src="docs/assets/traefik-logo.svg" width="20" height="20"> **[Traefik](https://traefik.io/)** ![Traefik Helm Chart version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.traefik_version&label=%20&color=darkblue) - Modern reverse proxy and load balancer with automatic service discovery
 - <img src="docs/assets/local-path-provisioner-logo.svg" width="20" height="20"> **[Local Path Provisioner](https://github.com/rancher/local-path-provisioner)** ![Local Path Provisioner Helm Chart version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.local_path_provisioner_version&label=%20&color=darkblue) - Dynamic local storage provisioner
-
-### **Security & PKI:**
-- <img src="docs/assets/smallstep-logo.svg" width="20" height="20"> **[Step-CA](https://smallstep.com/certificates/)** CLI ![Step-CLI version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.step_cli_version&label=%20) / server ![Step-CA version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.step_ca_version&label=%20) - Certificate authority for internal PKI
-- <img src="docs/assets/sealedsecrets-logo.svg" width="20" height="20"> **[Sealed Secrets](https://sealed-secrets.netlify.app/)** ![sealed-secrets version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.sealed_secrets_version&prefix=%20&label=%20&color=darkblue) - Kubernetes controller for one-way encrypted Secrets
-
-### **DNS & Service Discovery:**
 - <img src="docs/assets/external-dns-logo.svg" width="20" height="20"> **[External DNS](https://github.com/kubernetes-sigs/external-dns)** ![external-dns version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.external_dns_version&prefix=%20&label=%20&color=darkblue) - Kubernetes addon to configure external DNS servers
 
-### **Identity & Access Management:**
+### **Security:**
+
+- <img src="docs/assets/smallstep-logo.svg" width="20" height="20"> **[Step-CA](https://smallstep.com/certificates/)** CLI ![Step-CLI version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.step_cli_version&label=%20) / server ![Step-CA version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.step_ca_version&label=%20) - Certificate authority for internal PKI
+- <img src="docs/assets/sealedsecrets-logo.svg" width="20" height="20"> **[Sealed Secrets](https://sealed-secrets.netlify.app/)** ![sealed-secrets version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.sealed_secrets_version&prefix=%20&label=%20&color=darkblue) - Kubernetes controller for one-way encrypted Secrets
 - <img src="docs/assets/zitadel-logo.svg" width="20" height="20"> **[Zitadel](https://zitadel.com/)** - Identity and access management platform
 
-### **Infrastructure as Code:**
-- <img src="docs/assets/tofu-on-light.svg" width="20" height="20"> **[OpenTofu](https://opentofu.org/)** / **[Terraform](https://www.terraform.io/)** - Infrastructure provisioning
-- <img src="docs/assets/helm-logo.svg" width="20" height="20"> **[Helm](https://helm.sh/)** - Kubernetes package manager
+### Database
+
+- <img src="docs/assets/postgresql-logo.svg" width="20" height="20"> **[PostgreSQL](https://github.com/bitnami/charts/tree/main/bitnami/postgresql)** ![postgres version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.postgres_version&prefix=%20&label=%20&color=darkblue) - General purpose database, which is used by e.g. Zitadel and Grafana
 
 ## Modules
 
 ### Main modules
+
 - **[`host`](modules/host/README.md)** - Configures the Proxmox host with required packages, users, storage pools, and system settings
   - **[`copy-configs`](modules/host/modules/copy-configs/README.md)** - Handles copying configuration files to the host
   - **[`directory-mappings`](modules/host/modules/directory-mappings/README.md)** - Maps directories for VirtioFS sharing with VMs
@@ -71,7 +94,12 @@ Here's a list of all the software being used in this homelab setup:
 
 ### Application Modules
 
-- ![on-going](https://img.shields.io/badge/on--going-orange?style=flat&logo=opensourcehardware&logoColor=white&logoSize=auto&labelColor=orange) **[`k8s-apps/zitadel`](modules/k8s-apps/zitadel/README.md)** - Deploys Zitadel identity and access management platform
+- ![on-going](https://img.shields.io/badge/on--going-orange?style=flat&logo=opensourcehardware&logoColor=white&logoSize=auto&labelColor=orange) **[`k8s-apps`](modules/k8s-apps/README.md)** - Deploys all relevant applications into the Kubernetes cluster
+  > [!NOTE]
+  > In order for these deployments to be successful, the Kubernetes cluster has to have been successfully set up.
+  - **[`postgres`](modules/k8s-apps/modules/postgres/README.md)** - Deploys the PostgreSQL general purpose database.
+  - ![on-going](https://img.shields.io/badge/on--going-orange?style=flat&logo=opensourcehardware&logoColor=white&logoSize=auto&labelColor=orange) **[`zitadel`](modules/k8s-apps/modules/zitadel/README.md)** - Deploys Zitadel identity and access management platform.
+  - ![on-going](https://img.shields.io/badge/on--going-orange?style=flat&logo=opensourcehardware&logoColor=white&logoSize=auto&labelColor=orange) **[`pgadmin`](modules/k8s-apps/modules/pgadmin/README.md)** - Deploys pgAdmin as the SQL management console for PostgreSQL.
 
 ### Legacy Modules (Not in Use)
 

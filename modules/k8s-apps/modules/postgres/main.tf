@@ -4,7 +4,7 @@
  * This module installs PostgreSQL (postgres) onto a given cluster.
  *
  * > [!NOTE]
- * > The cluster is required to be configured in a way, that allows all resources to deploy correctly.
+ * > In order to install this application successfully, the cluster is *required* to be configured properly.
  */
 
 locals {

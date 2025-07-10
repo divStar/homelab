@@ -1,9 +1,10 @@
 # Host Setup
 
 This module and its sub-modules setup the Proxmox host.
+
 ## Contents
 
-<blockquote>
+<blockquote><!-- contents:start -->
 
 - [Requirements](#requirements)
 - [Providers](#providers)
@@ -40,19 +41,13 @@ This module and its sub-modules setup the Proxmox host.
   - [share_user](#share_user)
   - [storage_pools](#storage_pools)
   - [terraform_user](#terraform_user)
-</blockquote>
+</blockquote><!-- contents:end -->
 
 ## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
-| <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.13.0 |
-| <a name="requirement_tls"></a> [tls](#requirement\_tls) | >= 4.0.6 |
-
-## Providers
-
-No providers.
+  
+![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
+![time](https://img.shields.io/badge/time->=0.13.0-b0055a?logo=time)
+![tls](https://img.shields.io/badge/tls->=4.0.6-54a9fe?logo=tls)
 
 ## Execution story
 
@@ -74,9 +69,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
 ```
 
 ## Modules
-<blockquote>
+  
+<blockquote><!-- module:"copy_configs":start -->
 
 ### `copy_configs`
+
 Handles copying configuration files.
   <table>
     <tr>
@@ -91,10 +88,11 @@ Handles copying configuration files.
       <td colspan="2"><a href="./modules/copy-configs/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- module:"copy_configs":end -->
+<blockquote><!-- module:"directory_mappings":start -->
 
 ### `directory_mappings`
+
 Handles mapping directories for future use (e.g. file sharing via `virtiofs` into VMs).
   <table>
     <tr>
@@ -109,10 +107,11 @@ Handles mapping directories for future use (e.g. file sharing via `virtiofs` int
       <td colspan="2"><a href="./modules/directory-mappings/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- module:"directory_mappings":end -->
+<blockquote><!-- module:"packages":start -->
 
 ### `packages`
+
 Handles the installation of additional `apt` packages.
   <table>
     <tr>
@@ -127,10 +126,11 @@ Handles the installation of additional `apt` packages.
       <td colspan="2"><a href="./modules/packages/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- module:"packages":end -->
+<blockquote><!-- module:"repositories":start -->
 
 ### `repositories`
+
 Handles the deactivation of the enterprise `apt` repository and the activation of the `pve-no-subscription` `apt` repository.
   <table>
     <tr>
@@ -145,10 +145,11 @@ Handles the deactivation of the enterprise `apt` repository and the activation o
       <td colspan="2"><a href="./modules/repositories/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- module:"repositories":end -->
+<blockquote><!-- module:"scripts":start -->
 
 ### `scripts`
+
 Handles the execution of various *non-interactive* scripts.
   <table>
     <tr>
@@ -163,10 +164,11 @@ Handles the execution of various *non-interactive* scripts.
       <td colspan="2"><a href="./modules/scripts/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- module:"scripts":end -->
+<blockquote><!-- module:"share_user":start -->
 
 ### `share_user`
+
 Handles creating a share user.
   <table>
     <tr>
@@ -181,10 +183,11 @@ Handles creating a share user.
       <td colspan="2"><a href="./modules/share-user/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- module:"share_user":end -->
+<blockquote><!-- module:"terraform_user":start -->
 
 ### `terraform_user`
+
 Handles the creation of a Terraform user and API token. This user can be used for various Proxmox interactions.
   <table>
     <tr>
@@ -199,10 +202,11 @@ Handles the creation of a Terraform user and API token. This user can be used fo
       <td colspan="2"><a href="./modules/terraform-user/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- module:"terraform_user":end -->
+<blockquote><!-- module:"trust_proxmox_ca":start -->
 
 ### `trust_proxmox_ca`
+
 Handles letting Proxmox trust its own CA certificate.
   <table>
     <tr>
@@ -217,10 +221,11 @@ Handles letting Proxmox trust its own CA certificate.
       <td colspan="2"><a href="./modules/trust-proxmox-ca/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- module:"trust_proxmox_ca":end -->
+<blockquote><!-- module:"zfs_storage":start -->
 
 ### `zfs_storage`
+
 Handles the import of ZFS pools.
   <table>
     <tr>
@@ -235,14 +240,14 @@ Handles the import of ZFS pools.
       <td colspan="2"><a href="./modules/zfs-storage/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-
-
+</blockquote><!-- module:"zfs_storage":end -->
 
 ## Variables
-<blockquote>
+  
+<blockquote><!-- variable:"configuration_files":start -->
 
 ### `configuration_files` (**Required**)
+
 Configuration files to copy to the host
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -261,10 +266,11 @@ Configuration files to copy to the host
   In file: <a href="./variables.tf#L19"><code>variables.tf#L19</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"configuration_files":end -->
+<blockquote><!-- variable:"proxmox_node_name":start -->
 
 ### `proxmox_node_name` (**Required**)
+
 Proxmox node name
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -277,10 +283,11 @@ Proxmox node name
   In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"proxmox_node_name":end -->
+<blockquote><!-- variable:"ssh":start -->
 
 ### `ssh` (**Required**)
+
 SSH configuration for remote connection
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -297,10 +304,11 @@ SSH configuration for remote connection
   In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ssh":end -->
+<blockquote><!-- variable:"directory_mappings":start -->
 
 ### `directory_mappings` (*Optional*)
+
 Directory mappings for the Proxmox node
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -321,10 +329,11 @@ Directory mappings for the Proxmox node
   In file: <a href="./variables.tf#L198"><code>variables.tf#L198</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"directory_mappings":end -->
+<blockquote><!-- variable:"gitops_user":start -->
 
 ### `gitops_user` (*Optional*)
+
 Configuration of GitOps user.
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -346,10 +355,11 @@ Configuration of GitOps user.
   In file: <a href="./variables.tf#L129"><code>variables.tf#L129</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"gitops_user":end -->
+<blockquote><!-- variable:"no_subscription":start -->
 
 ### `no_subscription` (*Optional*)
+
 Whether to use no-subscription repository instead of enterprise repository or not
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -372,10 +382,11 @@ Whether to use no-subscription repository instead of enterprise repository or no
   In file: <a href="./variables.tf#L171"><code>variables.tf#L171</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"no_subscription":end -->
+<blockquote><!-- variable:"org_source_repo_owner":start -->
 
 ### `org_source_repo_owner` (*Optional*)
+
 Original owner of the source repository (before, e.g. root:root)
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -395,10 +406,11 @@ Original owner of the source repository (before, e.g. root:root)
   In file: <a href="./variables.tf#L141"><code>variables.tf#L141</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"org_source_repo_owner":end -->
+<blockquote><!-- variable:"packages":start -->
 
 ### `packages` (*Optional*)
+
 List of packages to install via apt-get
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -415,10 +427,11 @@ List of packages to install via apt-get
   In file: <a href="./variables.tf#L35"><code>variables.tf#L35</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"packages":end -->
+<blockquote><!-- variable:"scripts":start -->
 
 ### `scripts` (*Optional*)
+
 Configuration for script management including shared directory and script items
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -447,10 +460,11 @@ Configuration for script management including shared directory and script items
   In file: <a href="./variables.tf#L42"><code>variables.tf#L42</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"scripts":end -->
+<blockquote><!-- variable:"share_user":start -->
 
 ### `share_user` (*Optional*)
+
 Configuration of GitOps user.
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -477,10 +491,11 @@ Configuration of GitOps user.
   In file: <a href="./variables.tf#L151"><code>variables.tf#L151</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"share_user":end -->
+<blockquote><!-- variable:"storage_pools":start -->
 
 ### `storage_pools` (*Optional*)
+
 Configuration of the storage (pools and directories) to import
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -497,10 +512,11 @@ Configuration of the storage (pools and directories) to import
   In file: <a href="./variables.tf#L192"><code>variables.tf#L192</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"storage_pools":end -->
+<blockquote><!-- variable:"terraform_user":start -->
 
 ### `terraform_user` (*Optional*)
+
 Configuration for Terraform provisioner user. Individual fields can be overridden.
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -553,63 +569,71 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
   In file: <a href="./variables.tf#L78"><code>variables.tf#L78</code></a>
 
 </details>
-</blockquote>
-
+</blockquote><!-- variable:"terraform_user":end -->
 
 ## Outputs
-<blockquote>
+  
+<blockquote><!-- output:"configuration_files":start -->
 
 #### `configuration_files`
+
 Configuration files copied to host
 
 In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
-</blockquote>
-<blockquote>
+</blockquote><!-- output:"configuration_files":end -->
+<blockquote><!-- output:"directory_mappings":start -->
 
 #### `directory_mappings`
+
 List of directories mapped for further use in Proxmox
 
 In file: <a href="./outputs.tf#L6"><code>outputs.tf#L6</code></a>
-</blockquote>
-<blockquote>
+</blockquote><!-- output:"directory_mappings":end -->
+<blockquote><!-- output:"installed_packages":start -->
 
 #### `installed_packages`
+
 The packages, that have been installed/removed
 
 In file: <a href="./outputs.tf#L11"><code>outputs.tf#L11</code></a>
-</blockquote>
-<blockquote>
+</blockquote><!-- output:"installed_packages":end -->
+<blockquote><!-- output:"installed_scripts":start -->
 
 #### `installed_scripts`
+
 The scripts, that have been installed/removed
 
 In file: <a href="./outputs.tf#L16"><code>outputs.tf#L16</code></a>
-</blockquote>
-<blockquote>
+</blockquote><!-- output:"installed_scripts":end -->
+<blockquote><!-- output:"no_subscription":start -->
 
 #### `no_subscription`
+
 States, whether a no-subscription repository was used (and some further details)
 
 In file: <a href="./outputs.tf#L21"><code>outputs.tf#L21</code></a>
-</blockquote>
-<blockquote>
+</blockquote><!-- output:"no_subscription":end -->
+<blockquote><!-- output:"share_user":start -->
 
 #### `share_user`
+
 The user to manage file shares on the Proxmox host storage
 
 In file: <a href="./outputs.tf#L26"><code>outputs.tf#L26</code></a>
-</blockquote>
-<blockquote>
+</blockquote><!-- output:"share_user":end -->
+<blockquote><!-- output:"storage_pools":start -->
 
 #### `storage_pools`
+
 List of storage pools that were imported and added to Proxmox
 
 In file: <a href="./outputs.tf#L35"><code>outputs.tf#L35</code></a>
-</blockquote>
-<blockquote>
+</blockquote><!-- output:"storage_pools":end -->
+<blockquote><!-- output:"terraform_user":start -->
 
 #### `terraform_user`
+
 The user and role created to manage the Proxmox host via Terraform/OpenTofu
 
 In file: <a href="./outputs.tf#L40"><code>outputs.tf#L40</code></a>
-</blockquote>
+</blockquote><!-- output:"terraform_user":end -->

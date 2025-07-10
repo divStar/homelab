@@ -1,9 +1,10 @@
 # Copy configurations
 
 Handles the copying of configuration files to the host.
+
 ## Contents
 
-<blockquote>
+<blockquote><!-- contents:start -->
 
 - [Requirements](#requirements)
 - [Providers](#providers)
@@ -16,20 +17,16 @@ Handles the copying of configuration files to the host.
   - [ssh](#ssh-required) (**Required**)
 - [Outputs](#outputs)
   - [configuration_files](#configuration_files)
-</blockquote>
+</blockquote><!-- contents:end -->
 
 ## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+  
+![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
 
 ## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+  
+![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
 
 ## Execution story
 
@@ -39,14 +36,12 @@ Order in which Terraform will create resources (and likely destroy them in rever
 ├── ssh_resource.remove_configuration_files
 ```
 
-
-
-
 ## Resources
-<blockquote>
+  
+<blockquote><!-- resource:"ssh_resource.copy_configuration_files":start -->
 
-#### _ssh_resource_.`copy_configuration_files`
-
+### _ssh_resource_.`copy_configuration_files`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -57,11 +52,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L15"><code>main.tf#L15</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.copy_configuration_files":end -->
+<blockquote><!-- resource:"ssh_resource.remove_configuration_files":start -->
 
-#### _ssh_resource_.`remove_configuration_files`
-
+### _ssh_resource_.`remove_configuration_files`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -72,12 +67,14 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L33"><code>main.tf#L33</code></a></td>
     </tr>
   </table>
-</blockquote>
+</blockquote><!-- resource:"ssh_resource.remove_configuration_files":end -->
 
 ## Variables
-<blockquote>
+  
+<blockquote><!-- variable:"configuration_files":start -->
 
 ### `configuration_files` (**Required**)
+
 Configuration files to copy to the host
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -96,10 +93,11 @@ Configuration files to copy to the host
   In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"configuration_files":end -->
+<blockquote><!-- variable:"ssh":start -->
 
 ### `ssh` (**Required**)
+
 SSH configuration for remote connection
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -116,14 +114,15 @@ SSH configuration for remote connection
   In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
-</blockquote>
-
+</blockquote><!-- variable:"ssh":end -->
 
 ## Outputs
-<blockquote>
+  
+<blockquote><!-- output:"configuration_files":start -->
 
 #### `configuration_files`
+
 Configuration files copied to host
 
 In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
-</blockquote>
+</blockquote><!-- output:"configuration_files":end -->

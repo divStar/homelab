@@ -4,9 +4,10 @@ Handles the installation and removal of packages on the host
 
 Note: `ssh_resource` and CLI is used, because `apt-get install`
 and `apt-get remove` are not yet supported by Proxmox API.
+
 ## Contents
 
-<blockquote>
+<blockquote><!-- contents:start -->
 
 - [Requirements](#requirements)
 - [Providers](#providers)
@@ -19,20 +20,16 @@ and `apt-get remove` are not yet supported by Proxmox API.
   - [packages](#packages-optional) (*Optional*)
 - [Outputs](#outputs)
   - [installed_packages](#installed_packages)
-</blockquote>
+</blockquote><!-- contents:end -->
 
 ## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+  
+![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
 
 ## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+  
+![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
 
 ## Execution story
 
@@ -42,14 +39,12 @@ Order in which Terraform will create resources (and likely destroy them in rever
 ├── ssh_resource.package_remove
 ```
 
-
-
-
 ## Resources
-<blockquote>
+  
+<blockquote><!-- resource:"ssh_resource.package_install":start -->
 
-#### _ssh_resource_.`package_install`
-
+### _ssh_resource_.`package_install`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -60,11 +55,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L21"><code>main.tf#L21</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.package_install":end -->
+<blockquote><!-- resource:"ssh_resource.package_remove":start -->
 
-#### _ssh_resource_.`package_remove`
-
+### _ssh_resource_.`package_remove`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -75,12 +70,14 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L32"><code>main.tf#L32</code></a></td>
     </tr>
   </table>
-</blockquote>
+</blockquote><!-- resource:"ssh_resource.package_remove":end -->
 
 ## Variables
-<blockquote>
+  
+<blockquote><!-- variable:"ssh":start -->
 
 ### `ssh` (**Required**)
+
 SSH configuration for remote connection
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -97,10 +94,11 @@ SSH configuration for remote connection
   In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ssh":end -->
+<blockquote><!-- variable:"packages":start -->
 
 ### `packages` (*Optional*)
+
 List of packages to install via apt-get
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -117,14 +115,15 @@ List of packages to install via apt-get
   In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
-</blockquote>
-
+</blockquote><!-- variable:"packages":end -->
 
 ## Outputs
-<blockquote>
+  
+<blockquote><!-- output:"installed_packages":start -->
 
 #### `installed_packages`
+
 The packages, that have been installed/removed
 
 In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
-</blockquote>
+</blockquote><!-- output:"installed_packages":end -->

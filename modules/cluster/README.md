@@ -1,9 +1,10 @@
 # Cluster Setup
 
 This module and its sub-modules setup the Talos cluster on the Proxmox host.
+
 ## Contents
 
-<blockquote>
+<blockquote><!-- contents:start -->
 
 - [Requirements](#requirements)
 - [Providers](#providers)
@@ -47,26 +48,22 @@ This module and its sub-modules setup the Talos cluster on the Proxmox host.
 - [Outputs](#outputs)
   - [kube_config](#kube_config)
   - [talos_config](#talos_config)
-</blockquote>
+</blockquote><!-- contents:end -->
 
 ## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 3.0.1 |
-| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | >= 1.19.0 |
-| <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) | >= 0.78.2 |
-| <a name="requirement_sealedsecret"></a> [sealedsecret](#requirement\_sealedsecret) | >=1.1.16 |
-| <a name="requirement_talos"></a> [talos](#requirement\_talos) | >= 0.8.1 |
+  
+![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![helm](https://img.shields.io/badge/helm->=3.0.1-a7fc51?logo=helm)
+![kubectl](https://img.shields.io/badge/kubectl->=1.19.0-eb4095?logo=kubectl)
+![proxmox](https://img.shields.io/badge/proxmox->=0.78.2-1e73c8?logo=proxmox)
+![sealedsecret](https://img.shields.io/badge/sealedsecret->=1.1.16-f54a9f?logo=sealedsecret)
+![talos](https://img.shields.io/badge/talos->=0.8.1-2479ce?logo=talos)
 
 ## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_http"></a> [http](#provider\_http) | 3.5.0 |
-| <a name="provider_local"></a> [local](#provider\_local) | 2.5.3 |
-| <a name="provider_sealedsecret"></a> [sealedsecret](#provider\_sealedsecret) | 1.1.16 |
+  
+![http](https://img.shields.io/badge/http-3.5.0-c1166b)
+![local](https://img.shields.io/badge/local-2.5.3-0c61b6)
+![sealedsecret](https://img.shields.io/badge/sealedsecret-1.1.16-f54a9f)
 
 ## Execution story
 
@@ -112,9 +109,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
 ```
 
 ## Modules
-<blockquote>
+  
+<blockquote><!-- module:"cilium":start -->
 
 ### `cilium`
+
 Installs [`Cilium`](httpshttps://github.com/cilium/cilium) CNI, which is a networking, observability, and security solution with an eBPF-based dataplane.
   <table>
     <tr>
@@ -129,10 +128,11 @@ Installs [`Cilium`](httpshttps://github.com/cilium/cilium) CNI, which is a netwo
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- module:"cilium":end -->
+<blockquote><!-- module:"external_dns":start -->
 
 ### `external_dns`
+
 Installs [`external-dns`](https://github.com/kubernetes-sigs/external-dns), which allows to forward requests about adding or removing `CNAME` and `A`/`AAAA` records to a given DNS (PiHole in this case) when a such a service is deployed (add) or destroyed (remove).
   <table>
     <tr>
@@ -147,10 +147,11 @@ Installs [`external-dns`](https://github.com/kubernetes-sigs/external-dns), whic
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- module:"external_dns":end -->
+<blockquote><!-- module:"local_path_provisioner":start -->
 
 ### `local_path_provisioner`
+
 Installs [`local-path-provisioner`](https://github.com/rancher/local-path-provisioner), which is used for [PersistentVolumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistent-volumes) and [PersistentVolumeClaims](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims).
   <table>
     <tr>
@@ -165,10 +166,11 @@ Installs [`local-path-provisioner`](https://github.com/rancher/local-path-provis
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- module:"local_path_provisioner":end -->
+<blockquote><!-- module:"sealed_secrets":start -->
 
 ### `sealed_secrets`
+
 Installs [`sealed-secrets`](https://github.com/bitnami-labs/sealed-secrets), which manages `SealedSecret` resources, en- and decrypting them as necessary.
   <table>
     <tr>
@@ -183,10 +185,11 @@ Installs [`sealed-secrets`](https://github.com/bitnami-labs/sealed-secrets), whi
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- module:"sealed_secrets":end -->
+<blockquote><!-- module:"talos_cluster_prepare":start -->
 
 ### `talos_cluster_prepare`
+
 Prepares the cluster creation by generating the **Talos machine secrets** and creating the **Talos client cluster configuration**.
   <table>
     <tr>
@@ -201,10 +204,11 @@ Prepares the cluster creation by generating the **Talos machine secrets** and cr
       <td colspan="2"><a href="./modules/talos-prepare-cluster/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- module:"talos_cluster_prepare":end -->
+<blockquote><!-- module:"talos_cluster_ready":start -->
 
 ### `talos_cluster_ready`
+
 Awaits the Talos cluster to become ready and available. <p>This module returns once all Talos [`nodes`](#nodes-required) are up and running.</p> <p><strong>Note:</strong> since the cluster is starting up without a CNI (Flannel is disabled), <strong>Kubernetes checks are skipped</strong>.
   <table>
     <tr>
@@ -219,10 +223,11 @@ Awaits the Talos cluster to become ready and available. <p>This module returns o
       <td colspan="2"><a href="./modules/talos-await-cluster/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- module:"talos_cluster_ready":end -->
+<blockquote><!-- module:"talos_images":start -->
 
 ### `talos_images`
+
 Downloads the calculated Talos images specified in the [`nodes`](#nodes-required) configurations.
   <table>
     <tr>
@@ -237,10 +242,11 @@ Downloads the calculated Talos images specified in the [`nodes`](#nodes-required
       <td colspan="2"><a href="./modules/talos-download-image/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- module:"talos_images":end -->
+<blockquote><!-- module:"talos_vms":start -->
 
 ### `talos_vms`
+
 Creates the given Talos VMs, uses `for_each` on the list of [`nodes`](#nodes-required).
   <table>
     <tr>
@@ -255,10 +261,11 @@ Creates the given Talos VMs, uses `for_each` on the list of [`nodes`](#nodes-req
       <td colspan="2"><a href="./modules/talos-create-vm/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- module:"talos_vms":end -->
+<blockquote><!-- module:"traefik":start -->
 
 ### `traefik`
+
 Installs [`Traefik v3`](https://github.com/traefik/traefik), which provides ingress controller with built-in ACME support and OIDC authentication plugin capabilities.
   <table>
     <tr>
@@ -273,14 +280,14 @@ Installs [`Traefik v3`](https://github.com/traefik/traefik), which provides ingr
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-
+</blockquote><!-- module:"traefik":end -->
 
 ## Resources
-<blockquote>
+  
+<blockquote><!-- resource:"local_file.kube_config":start -->
 
-#### _local_file_.`kube_config`
-
+### _local_file_.`kube_config`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -291,11 +298,11 @@ Installs [`Traefik v3`](https://github.com/traefik/traefik), which provides ingr
       <td><a href="./outputs.tf#L14"><code>outputs.tf#L14</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"local_file.kube_config":end -->
+<blockquote><!-- resource:"local_file.machine_configs":start -->
 
-#### _local_file_.`machine_configs`
-
+### _local_file_.`machine_configs`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -306,11 +313,11 @@ Installs [`Traefik v3`](https://github.com/traefik/traefik), which provides ingr
       <td><a href="./outputs.tf#L7"><code>outputs.tf#L7</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"local_file.machine_configs":end -->
+<blockquote><!-- resource:"local_file.talos_config":start -->
 
-#### _local_file_.`talos_config`
-
+### _local_file_.`talos_config`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -321,10 +328,11 @@ Installs [`Traefik v3`](https://github.com/traefik/traefik), which provides ingr
       <td><a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"local_file.talos_config":end -->
+<blockquote><!-- resource:"sealedsecret_sealedsecret.external_dns_secret":start -->
 
-#### _sealedsecret_sealedsecret_.`external_dns_secret`
+### _sealedsecret_sealedsecret_.`external_dns_secret`
+
 Creates an `external-dns` secret, that contains credentials to access a external DNS system (PiHole in this case).
   <table>
     <tr>
@@ -336,12 +344,14 @@ Creates an `external-dns` secret, that contains credentials to access a external
       <td><a href="./main.tf#L171"><code>main.tf#L171</code></a></td>
     </tr>
   </table>
-</blockquote>
+</blockquote><!-- resource:"sealedsecret_sealedsecret.external_dns_secret":end -->
 
 ## Variables
-<blockquote>
+  
+<blockquote><!-- variable:"cluster":start -->
 
 ### `cluster` (**Required**)
+
 Cluster configuration
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -361,10 +371,11 @@ Cluster configuration
   In file: <a href="./variables.tf#L66"><code>variables.tf#L66</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"cluster":end -->
+<blockquote><!-- variable:"nodes":start -->
 
 ### `nodes` (**Required**)
+
 Configuration for cluster nodes
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -394,10 +405,11 @@ Configuration for cluster nodes
   In file: <a href="./variables.tf#L78"><code>variables.tf#L78</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"nodes":end -->
+<blockquote><!-- variable:"proxmox":start -->
 
 ### `proxmox` (**Required**)
+
 Proxmox host configuration
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -419,10 +431,11 @@ Proxmox host configuration
   In file: <a href="./variables.tf#L52"><code>variables.tf#L52</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"proxmox":end -->
+<blockquote><!-- variable:"acme_contact":start -->
 
 ### `acme_contact` (*Optional*)
+
 E-Mail address of the ACME account
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -439,10 +452,11 @@ E-Mail address of the ACME account
   In file: <a href="./variables.tf#L173"><code>variables.tf#L173</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"acme_contact":end -->
+<blockquote><!-- variable:"acme_server_directory_url":start -->
 
 ### `acme_server_directory_url` (*Optional*)
+
 ACME server directory URL
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -459,10 +473,11 @@ ACME server directory URL
   In file: <a href="./variables.tf#L166"><code>variables.tf#L166</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"acme_server_directory_url":end -->
+<blockquote><!-- variable:"cert_manager_namespace":start -->
 
 ### `cert_manager_namespace` (*Optional*)
+
 Namespace where the cert-manager will be installed to
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -479,10 +494,11 @@ Namespace where the cert-manager will be installed to
   In file: <a href="./variables.tf#L16"><code>variables.tf#L16</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"cert_manager_namespace":end -->
+<blockquote><!-- variable:"cilium_crds":start -->
 
 ### `cilium_crds` (*Optional*)
+
 Cilium CRDs, that have to be present *before* Cilium is installed in order to install the LoadBalancer IP Pool and L2 Announcement resources; use `<VERSION>` placeholder to auto-replace the version in the URL
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -502,10 +518,11 @@ Cilium CRDs, that have to be present *before* Cilium is installed in order to in
   In file: <a href="./variables.tf#L195"><code>variables.tf#L195</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"cilium_crds":end -->
+<blockquote><!-- variable:"cilium_namespace":start -->
 
 ### `cilium_namespace` (*Optional*)
+
 Namespace where the cilium operator will be installed to
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -522,10 +539,11 @@ Namespace where the cilium operator will be installed to
   In file: <a href="./variables.tf#L9"><code>variables.tf#L9</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"cilium_namespace":end -->
+<blockquote><!-- variable:"external_dns_namespace":start -->
 
 ### `external_dns_namespace` (*Optional*)
+
 Namespace where the external-dns operator will be installed to
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -542,10 +560,11 @@ Namespace where the external-dns operator will be installed to
   In file: <a href="./variables.tf#L23"><code>variables.tf#L23</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"external_dns_namespace":end -->
+<blockquote><!-- variable:"external_dns_secret_name":start -->
 
 ### `external_dns_secret_name` (*Optional*)
+
 Name of the external-dns secret
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -562,10 +581,11 @@ Name of the external-dns secret
   In file: <a href="./variables.tf#L188"><code>variables.tf#L188</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"external_dns_secret_name":end -->
+<blockquote><!-- variable:"k8s_sealed_secret_ca_file":start -->
 
 ### `k8s_sealed_secret_ca_file` (*Optional*)
+
 File name and path for the generated sealed secret of the intermediate Kubernetes CA certificate
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -582,10 +602,11 @@ File name and path for the generated sealed secret of the intermediate Kubernete
   In file: <a href="./variables.tf#L151"><code>variables.tf#L151</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"k8s_sealed_secret_ca_file":end -->
+<blockquote><!-- variable:"kube_config_file":start -->
 
 ### `kube_config_file` (*Optional*)
+
 File name and path for the generated kube-config
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -602,10 +623,11 @@ File name and path for the generated kube-config
   In file: <a href="./variables.tf#L130"><code>variables.tf#L130</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"kube_config_file":end -->
+<blockquote><!-- variable:"local_path_provisioner_namespace":start -->
 
 ### `local_path_provisioner_namespace` (*Optional*)
+
 Namespace where the local-path-provisioner operator will be installed to
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -622,10 +644,11 @@ Namespace where the local-path-provisioner operator will be installed to
   In file: <a href="./variables.tf#L37"><code>variables.tf#L37</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"local_path_provisioner_namespace":end -->
+<blockquote><!-- variable:"sealed_secrets_controller_name":start -->
 
 ### `sealed_secrets_controller_name` (*Optional*)
+
 Name of the sealed-secrets controller
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -642,10 +665,11 @@ Name of the sealed-secrets controller
   In file: <a href="./variables.tf#L181"><code>variables.tf#L181</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"sealed_secrets_controller_name":end -->
+<blockquote><!-- variable:"sealed_secrets_namespace":start -->
 
 ### `sealed_secrets_namespace` (*Optional*)
+
 Namespace where the sealed-secrets operator will be installed to
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -662,10 +686,11 @@ Namespace where the sealed-secrets operator will be installed to
   In file: <a href="./variables.tf#L30"><code>variables.tf#L30</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"sealed_secrets_namespace":end -->
+<blockquote><!-- variable:"step_ca_host":start -->
 
 ### `step_ca_host` (*Optional*)
+
 Step CA IP or host, _*not*_ including the protocol (`https`).
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -682,10 +707,11 @@ Step CA IP or host, _*not*_ including the protocol (`https`).
   In file: <a href="./variables.tf#L159"><code>variables.tf#L159</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"step_ca_host":end -->
+<blockquote><!-- variable:"talos_config_file":start -->
 
 ### `talos_config_file` (*Optional*)
+
 File name and path for the generated talos-config
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -702,10 +728,11 @@ File name and path for the generated talos-config
   In file: <a href="./variables.tf#L137"><code>variables.tf#L137</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"talos_config_file":end -->
+<blockquote><!-- variable:"talos_machine_config_file":start -->
 
 ### `talos_machine_config_file` (*Optional*)
+
 File name and path for the generated talos-machine-config; use <node-name> in the file name to replace with node name
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -722,10 +749,11 @@ File name and path for the generated talos-machine-config; use <node-name> in th
   In file: <a href="./variables.tf#L144"><code>variables.tf#L144</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"talos_machine_config_file":end -->
+<blockquote><!-- variable:"traefik_namespace":start -->
 
 ### `traefik_namespace` (*Optional*)
+
 Namespace for Traefik deployment
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -742,10 +770,11 @@ Namespace for Traefik deployment
   In file: <a href="./variables.tf#L44"><code>variables.tf#L44</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"traefik_namespace":end -->
+<blockquote><!-- variable:"versions_yaml":start -->
 
 ### `versions_yaml` (*Optional*)
+
 Path to the `versions.yaml` file, that contains all relevant versions
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -762,21 +791,23 @@ Path to the `versions.yaml` file, that contains all relevant versions
   In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
-</blockquote>
-
+</blockquote><!-- variable:"versions_yaml":end -->
 
 ## Outputs
-<blockquote>
+  
+<blockquote><!-- output:"kube_config":start -->
 
 #### `kube_config`
+
 String containing the `kube-config.yaml`
 
 In file: <a href="./outputs.tf#L26"><code>outputs.tf#L26</code></a>
-</blockquote>
-<blockquote>
+</blockquote><!-- output:"kube_config":end -->
+<blockquote><!-- output:"talos_config":start -->
 
 #### `talos_config`
+
 String containing the `talos-config.yaml`
 
 In file: <a href="./outputs.tf#L20"><code>outputs.tf#L20</code></a>
-</blockquote>
+</blockquote><!-- output:"talos_config":end -->

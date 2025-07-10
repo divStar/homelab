@@ -5,9 +5,10 @@ supports custom resources during pre- and post-install.
 
 > [!NOTE]
 > the CRDs *have to be present* when installing custom resources.
+
 ## Contents
 
-<blockquote>
+<blockquote><!-- contents:start -->
 
 - [Requirements](#requirements)
 - [Providers](#providers)
@@ -30,20 +31,16 @@ supports custom resources during pre- and post-install.
   - [is_privileged_namespace](#is_privileged_namespace-optional) (*Optional*)
   - [post_install_resources](#post_install_resources-optional) (*Optional*)
   - [pre_install_resources](#pre_install_resources-optional) (*Optional*)
-</blockquote>
+</blockquote><!-- contents:end -->
 
 ## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
+  
+![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
 
 ## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.0.2 |
-| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | 1.19.0 |
+  
+![helm](https://img.shields.io/badge/helm-3.0.2-a7fc51)
+![kubectl](https://img.shields.io/badge/kubectl-1.19.0-eb4095)
 
 ## Execution story
 
@@ -55,14 +52,12 @@ Order in which Terraform will create resources (and likely destroy them in rever
 ├── kubectl_manifest.post_install
 ```
 
-
-
-
 ## Resources
-<blockquote>
+  
+<blockquote><!-- resource:"helm_release.this":start -->
 
-#### _helm_release_.`this`
-
+### _helm_release_.`this`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -73,11 +68,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L29"><code>main.tf#L29</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"helm_release.this":end -->
+<blockquote><!-- resource:"kubectl_manifest.namespace":start -->
 
-#### _kubectl_manifest_.`namespace`
-
+### _kubectl_manifest_.`namespace`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -88,11 +83,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L10"><code>main.tf#L10</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"kubectl_manifest.namespace":end -->
+<blockquote><!-- resource:"kubectl_manifest.post_install":start -->
 
-#### _kubectl_manifest_.`post_install`
-
+### _kubectl_manifest_.`post_install`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -103,11 +98,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L54"><code>main.tf#L54</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"kubectl_manifest.post_install":end -->
+<blockquote><!-- resource:"kubectl_manifest.pre_install":start -->
 
-#### _kubectl_manifest_.`pre_install`
-
+### _kubectl_manifest_.`pre_install`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -118,12 +113,14 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L19"><code>main.tf#L19</code></a></td>
     </tr>
   </table>
-</blockquote>
+</blockquote><!-- resource:"kubectl_manifest.pre_install":end -->
 
 ## Variables
-<blockquote>
+  
+<blockquote><!-- variable:"chart_name":start -->
 
 ### `chart_name` (**Required**)
+
 Helm Chart to install
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -136,10 +133,11 @@ Helm Chart to install
   In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"chart_name":end -->
+<blockquote><!-- variable:"chart_repo":start -->
 
 ### `chart_repo` (**Required**)
+
 Helm Chart repository
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -152,10 +150,11 @@ Helm Chart repository
   In file: <a href="./variables.tf#L6"><code>variables.tf#L6</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"chart_repo":end -->
+<blockquote><!-- variable:"chart_version":start -->
 
 ### `chart_version` (**Required**)
+
 Helm Chart version
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -168,10 +167,11 @@ Helm Chart version
   In file: <a href="./variables.tf#L11"><code>variables.tf#L11</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"chart_version":end -->
+<blockquote><!-- variable:"namespace":start -->
 
 ### `namespace` (**Required**)
+
 Kubernetes namespace to install into
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -184,10 +184,11 @@ Kubernetes namespace to install into
   In file: <a href="./variables.tf#L35"><code>variables.tf#L35</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"namespace":end -->
+<blockquote><!-- variable:"release_name":start -->
 
 ### `release_name` (**Required**)
+
 Name of the Helm release
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -200,10 +201,11 @@ Name of the Helm release
   In file: <a href="./variables.tf#L16"><code>variables.tf#L16</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"release_name":end -->
+<blockquote><!-- variable:"chart_timeout":start -->
 
 ### `chart_timeout` (*Optional*)
+
 Time in seconds the Helm Chart installation times out after
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -220,10 +222,11 @@ Time in seconds the Helm Chart installation times out after
   In file: <a href="./variables.tf#L28"><code>variables.tf#L28</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"chart_timeout":end -->
+<blockquote><!-- variable:"chart_values":start -->
 
 ### `chart_values` (*Optional*)
+
 Additional values to pass to the helm chart (in YAML format)
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -240,10 +243,11 @@ Additional values to pass to the helm chart (in YAML format)
   In file: <a href="./variables.tf#L22"><code>variables.tf#L22</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"chart_values":end -->
+<blockquote><!-- variable:"cleanup_on_fail":start -->
 
 ### `cleanup_on_fail` (*Optional*)
+
 Specifies whether to clean up the `helm_release` if deployment fails; this setting is useful for debugging purposes
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -260,10 +264,11 @@ Specifies whether to clean up the `helm_release` if deployment fails; this setti
   In file: <a href="./variables.tf#L79"><code>variables.tf#L79</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"cleanup_on_fail":end -->
+<blockquote><!-- variable:"is_atomic":start -->
 
 ### `is_atomic` (*Optional*)
+
 Specifies whether `helm_release` will deploy in an 'atomic', revertible way
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -280,10 +285,11 @@ Specifies whether `helm_release` will deploy in an 'atomic', revertible way
   In file: <a href="./variables.tf#L72"><code>variables.tf#L72</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"is_atomic":end -->
+<blockquote><!-- variable:"is_privileged_namespace":start -->
 
 ### `is_privileged_namespace` (*Optional*)
+
 Whether the Kubernetes namespace is a privileged namespace or not
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -300,10 +306,11 @@ Whether the Kubernetes namespace is a privileged namespace or not
   In file: <a href="./variables.tf#L41"><code>variables.tf#L41</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"is_privileged_namespace":end -->
+<blockquote><!-- variable:"post_install_resources":start -->
 
 ### `post_install_resources` (*Optional*)
+
 List of resources to deploy before installing the application
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -320,10 +327,11 @@ List of resources to deploy before installing the application
   In file: <a href="./variables.tf#L60"><code>variables.tf#L60</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"post_install_resources":end -->
+<blockquote><!-- variable:"pre_install_resources":start -->
 
 ### `pre_install_resources` (*Optional*)
+
 List of resources to deploy before installing the application
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -340,4 +348,4 @@ List of resources to deploy before installing the application
   In file: <a href="./variables.tf#L48"><code>variables.tf#L48</code></a>
 
 </details>
-</blockquote>
+</blockquote><!-- variable:"pre_install_resources":end -->

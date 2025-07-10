@@ -4,9 +4,10 @@ This module installs Zitadel onto a given cluster.
 
 > [!NOTE]
 > The cluster is required to be configured in a way, that allows all resources to deploy correctly.
+
 ## Contents
 
-<blockquote>
+<blockquote><!-- contents:start -->
 
 - [Requirements](#requirements)
 - [Providers](#providers)
@@ -15,15 +16,7 @@ This module installs Zitadel onto a given cluster.
   - [zitadel](#zitadel)
 - [Variables](#variables)
   - [versions_yaml](#versions_yaml-optional) (*Optional*)
-</blockquote>
-
-## Requirements
-
-No requirements.
-
-## Providers
-
-No providers.
+</blockquote><!-- contents:end -->
 
 ## Execution story
 
@@ -33,9 +26,11 @@ EXECUTION_STORY_PLACE_HOLDER
 ```
 
 ## Modules
-<blockquote>
+  
+<blockquote><!-- module:"zitadel":start -->
 
 ### `zitadel`
+
 Installs [`zitadel`](https://zitadel.com/), which is used for Authentication and Authorization of users and services.
   <table>
     <tr>
@@ -50,14 +45,14 @@ Installs [`zitadel`](https://zitadel.com/), which is used for Authentication and
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-
-
+</blockquote><!-- module:"zitadel":end -->
 
 ## Variables
-<blockquote>
+  
+<blockquote><!-- variable:"versions_yaml":start -->
 
 ### `versions_yaml` (*Optional*)
+
 Path to the `versions.yaml` file, that contains all relevant versions
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -74,4 +69,4 @@ Path to the `versions.yaml` file, that contains all relevant versions
   In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
-</blockquote>
+</blockquote><!-- variable:"versions_yaml":end -->

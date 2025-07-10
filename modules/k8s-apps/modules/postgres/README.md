@@ -3,10 +3,11 @@
 This module installs PostgreSQL (postgres) onto a given cluster.
 
 > [!NOTE]
-> The cluster is required to be configured in a way, that allows all resources to deploy correctly.
+> In order to install this application successfully, the cluster is *required* to be configured properly.
+
 ## Contents
 
-<blockquote>
+<blockquote><!-- contents:start -->
 
 - [Requirements](#requirements)
 - [Providers](#providers)
@@ -20,19 +21,13 @@ This module installs PostgreSQL (postgres) onto a given cluster.
   - [postgres_secret_name](#postgres_secret_name-optional) (*Optional*)
   - [user_name](#user_name-optional) (*Optional*)
   - [versions_yaml](#versions_yaml-optional) (*Optional*)
-</blockquote>
+</blockquote><!-- contents:end -->
 
 ## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 3.0.1 |
-| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | >= 1.19.0 |
-
-## Providers
-
-No providers.
+  
+![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![helm](https://img.shields.io/badge/helm->=3.0.1-a7fc51?logo=helm)
+![kubectl](https://img.shields.io/badge/kubectl->=1.19.0-eb4095?logo=kubectl)
 
 ## Execution story
 
@@ -46,9 +41,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
 ```
 
 ## Modules
-<blockquote>
+  
+<blockquote><!-- module:"postgres":start -->
 
 ### `postgres`
+
 Installs [PostgreSQL (`postgres`)](https://github.com/bitnami/charts/tree/main/bitnami/postgresql), a database for other services to use.
   <table>
     <tr>
@@ -63,14 +60,14 @@ Installs [PostgreSQL (`postgres`)](https://github.com/bitnami/charts/tree/main/b
       <td colspan="2"><a href="../../../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-
-
+</blockquote><!-- module:"postgres":end -->
 
 ## Variables
-<blockquote>
+  
+<blockquote><!-- variable:"admin_password":start -->
 
 ### `admin_password` (**Required**)
+
 Password used as POSTGRES_ADMIN_PASSWORD
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -83,10 +80,11 @@ Password used as POSTGRES_ADMIN_PASSWORD
   In file: <a href="./variables.tf#L22"><code>variables.tf#L22</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"admin_password":end -->
+<blockquote><!-- variable:"user_password":start -->
 
 ### `user_password` (**Required**)
+
 Password used as POSTGRES_PASSWORD
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -99,10 +97,11 @@ Password used as POSTGRES_PASSWORD
   In file: <a href="./variables.tf#L36"><code>variables.tf#L36</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"user_password":end -->
+<blockquote><!-- variable:"postgres_namespace":start -->
 
 ### `postgres_namespace` (*Optional*)
+
 Namespace for PostgreSQL
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -119,10 +118,11 @@ Namespace for PostgreSQL
   In file: <a href="./variables.tf#L15"><code>variables.tf#L15</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"postgres_namespace":end -->
+<blockquote><!-- variable:"postgres_secret_name":start -->
 
 ### `postgres_secret_name` (*Optional*)
+
 Name of the secret, that will contain the passwords
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -139,10 +139,11 @@ Name of the secret, that will contain the passwords
   In file: <a href="./variables.tf#L8"><code>variables.tf#L8</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"postgres_secret_name":end -->
+<blockquote><!-- variable:"user_name":start -->
 
 ### `user_name` (*Optional*)
+
 Custom user, that will be created upon deployment
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -159,10 +160,11 @@ Custom user, that will be created upon deployment
   In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"user_name":end -->
+<blockquote><!-- variable:"versions_yaml":start -->
 
 ### `versions_yaml` (*Optional*)
+
 Path to the `versions.yaml` file, that contains all relevant versions
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -179,4 +181,4 @@ Path to the `versions.yaml` file, that contains all relevant versions
   In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
-</blockquote>
+</blockquote><!-- variable:"versions_yaml":end -->

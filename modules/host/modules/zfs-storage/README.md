@@ -1,9 +1,10 @@
 # Storage Management
 
 Handles the import and export of ZFS pools as well as directories.
+
 ## Contents
 
-<blockquote>
+<blockquote><!-- contents:start -->
 
 - [Requirements](#requirements)
 - [Providers](#providers)
@@ -16,20 +17,16 @@ Handles the import and export of ZFS pools as well as directories.
   - [storage_pools](#storage_pools-optional) (*Optional*)
 - [Outputs](#outputs)
   - [storage_pools](#storage_pools)
-</blockquote>
+</blockquote><!-- contents:end -->
 
 ## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+  
+![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
 
 ## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+  
+![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
 
 ## Execution story
 
@@ -39,13 +36,12 @@ Order in which Terraform will create resources (and likely destroy them in rever
 ├── ssh_resource.import_zfs_pools
 ```
 
-
-
-
 ## Resources
-<blockquote>
+  
+<blockquote><!-- resource:"ssh_resource.export_zfs_pools":start -->
 
-#### _ssh_resource_.`export_zfs_pools`
+### _ssh_resource_.`export_zfs_pools`
+
 Export ZFS pools
   <table>
     <tr>
@@ -57,10 +53,11 @@ Export ZFS pools
       <td><a href="./main.tf#L29"><code>main.tf#L29</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.export_zfs_pools":end -->
+<blockquote><!-- resource:"ssh_resource.import_zfs_pools":start -->
 
-#### _ssh_resource_.`import_zfs_pools`
+### _ssh_resource_.`import_zfs_pools`
+
 Import ZFS pools
   <table>
     <tr>
@@ -72,12 +69,14 @@ Import ZFS pools
       <td><a href="./main.tf#L16"><code>main.tf#L16</code></a></td>
     </tr>
   </table>
-</blockquote>
+</blockquote><!-- resource:"ssh_resource.import_zfs_pools":end -->
 
 ## Variables
-<blockquote>
+  
+<blockquote><!-- variable:"ssh":start -->
 
 ### `ssh` (**Required**)
+
 SSH configuration for remote connection
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -94,10 +93,11 @@ SSH configuration for remote connection
   In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ssh":end -->
+<blockquote><!-- variable:"storage_pools":start -->
 
 ### `storage_pools` (*Optional*)
+
 Configuration of the storage (pools and directories) to import
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -114,14 +114,15 @@ Configuration of the storage (pools and directories) to import
   In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
-</blockquote>
-
+</blockquote><!-- variable:"storage_pools":end -->
 
 ## Outputs
-<blockquote>
+  
+<blockquote><!-- output:"storage_pools":start -->
 
 #### `storage_pools`
+
 List of storage pools that were imported
 
 In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
-</blockquote>
+</blockquote><!-- output:"storage_pools":end -->

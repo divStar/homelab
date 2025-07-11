@@ -1,0 +1,40 @@
+# pgAdmin 4 Helm Chart Configuration
+# Documentation: https://github.com/rowanruseler/helm-charts/tree/main/charts/pgadmin4
+
+## pgAdmin configuration
+env:
+  email: ${pgadmin_email}
+existingSecret: ${pgadmin_secret_name}
+secretKeys:
+  pgadminPasswordKey: password
+
+## Server definitions - automatically configure PostgreSQL connection
+serverDefinitions:
+  enabled: true
+  existingConfigmap: pgadmin-servers-config
+
+## Preferences
+preferences:
+  enabled: true
+  data:
+    misc:user_interface:theme: "dark"
+    misc:user_interface:layout: "classic"
+
+## Service configuration
+service:
+  loadBalancerIP: ${cluster_lbcidr}
+
+startupProbe:
+  httpGet:
+    path: /misc/ping
+    port: 80
+  failureThreshold: 15
+  periodSeconds: 5
+
+envVarsExtra:
+  - name: PGADMIN_CONFIG_DEBUG
+    value: "True"
+  - name: CONSOLE_LOG_LEVEL
+    value: logging.DEBUG
+  - name: FILE_LOG_LEVEL
+    value: logging.DEBUG

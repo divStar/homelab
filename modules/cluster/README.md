@@ -122,7 +122,7 @@ Installs [`Cilium`](httpshttps://github.com/cilium/cilium) CNI, which is a netwo
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L125"><code>main.tf#L125</code></a></td>
+      <td><a href="./main.tf#L126"><code>main.tf#L126</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -141,7 +141,7 @@ Installs [`external-dns`](https://github.com/kubernetes-sigs/external-dns), whic
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L186"><code>main.tf#L186</code></a></td>
+      <td><a href="./main.tf#L187"><code>main.tf#L187</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -160,7 +160,7 @@ Installs [`local-path-provisioner`](https://github.com/rancher/local-path-provis
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L208"><code>main.tf#L208</code></a></td>
+      <td><a href="./main.tf#L209"><code>main.tf#L209</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -179,7 +179,7 @@ Installs [`sealed-secrets`](https://github.com/bitnami-labs/sealed-secrets), whi
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L159"><code>main.tf#L159</code></a></td>
+      <td><a href="./main.tf#L160"><code>main.tf#L160</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -217,7 +217,7 @@ Awaits the Talos cluster to become ready and available. <p>This module returns o
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L103"><code>main.tf#L103</code></a></td>
+      <td><a href="./main.tf#L104"><code>main.tf#L104</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/talos-await-cluster/README.md">README.md</a> <em>(experimental)</em></td>
@@ -274,7 +274,7 @@ Installs [`Traefik v3`](https://github.com/traefik/traefik), which provides ingr
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L224"><code>main.tf#L224</code></a></td>
+      <td><a href="./main.tf#L225"><code>main.tf#L225</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -341,7 +341,7 @@ Creates an `external-dns` secret, that contains credentials to access a external
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L171"><code>main.tf#L171</code></a></td>
+      <td><a href="./main.tf#L172"><code>main.tf#L172</code></a></td>
     </tr>
   </table>
 </blockquote><!-- resource:"sealedsecret_sealedsecret.external_dns_secret":end -->
@@ -399,6 +399,7 @@ Configuration for cluster nodes
     cpu          = number
     ram          = number
     datastore_id = optional(string)
+    iso_store_id = optional(string)
     vfs_mappings = optional(list(string), [])
   }))
   ```
@@ -449,7 +450,7 @@ E-Mail address of the ACME account
   ```json
   "admin@my.world"
   ```
-  In file: <a href="./variables.tf#L173"><code>variables.tf#L173</code></a>
+  In file: <a href="./variables.tf#L174"><code>variables.tf#L174</code></a>
 
 </details>
 </blockquote><!-- variable:"acme_contact":end -->
@@ -470,7 +471,7 @@ ACME server directory URL
   ```json
   "https://step-ca.my.world/acme/step-ca-acme/directory"
   ```
-  In file: <a href="./variables.tf#L166"><code>variables.tf#L166</code></a>
+  In file: <a href="./variables.tf#L167"><code>variables.tf#L167</code></a>
 
 </details>
 </blockquote><!-- variable:"acme_server_directory_url":end -->
@@ -515,7 +516,7 @@ Cilium CRDs, that have to be present *before* Cilium is installed in order to in
   "https://raw.githubusercontent.com/cilium/cilium/refs/tags/v<VERSION>/pkg/k8s/apis/cilium.io/client/crds/v2alpha1/ciliumloadbalancerippools.yaml"
 ]
   ```
-  In file: <a href="./variables.tf#L195"><code>variables.tf#L195</code></a>
+  In file: <a href="./variables.tf#L196"><code>variables.tf#L196</code></a>
 
 </details>
 </blockquote><!-- variable:"cilium_crds":end -->
@@ -578,7 +579,7 @@ Name of the external-dns secret
   ```json
   "sealed-secrets-release"
   ```
-  In file: <a href="./variables.tf#L188"><code>variables.tf#L188</code></a>
+  In file: <a href="./variables.tf#L189"><code>variables.tf#L189</code></a>
 
 </details>
 </blockquote><!-- variable:"external_dns_secret_name":end -->
@@ -599,7 +600,7 @@ File name and path for the generated sealed secret of the intermediate Kubernete
   ```json
   "output/k8s_sealed_secret_ca.yaml"
   ```
-  In file: <a href="./variables.tf#L151"><code>variables.tf#L151</code></a>
+  In file: <a href="./variables.tf#L152"><code>variables.tf#L152</code></a>
 
 </details>
 </blockquote><!-- variable:"k8s_sealed_secret_ca_file":end -->
@@ -620,7 +621,7 @@ File name and path for the generated kube-config
   ```json
   "output/kube-config.yaml"
   ```
-  In file: <a href="./variables.tf#L130"><code>variables.tf#L130</code></a>
+  In file: <a href="./variables.tf#L131"><code>variables.tf#L131</code></a>
 
 </details>
 </blockquote><!-- variable:"kube_config_file":end -->
@@ -662,7 +663,7 @@ Name of the sealed-secrets controller
   ```json
   "sealed-secrets-release"
   ```
-  In file: <a href="./variables.tf#L181"><code>variables.tf#L181</code></a>
+  In file: <a href="./variables.tf#L182"><code>variables.tf#L182</code></a>
 
 </details>
 </blockquote><!-- variable:"sealed_secrets_controller_name":end -->
@@ -704,7 +705,7 @@ Step CA IP or host, _*not*_ including the protocol (`https`).
   ```json
   "192.168.178.155"
   ```
-  In file: <a href="./variables.tf#L159"><code>variables.tf#L159</code></a>
+  In file: <a href="./variables.tf#L160"><code>variables.tf#L160</code></a>
 
 </details>
 </blockquote><!-- variable:"step_ca_host":end -->
@@ -725,7 +726,7 @@ File name and path for the generated talos-config
   ```json
   "output/talos-config.yaml"
   ```
-  In file: <a href="./variables.tf#L137"><code>variables.tf#L137</code></a>
+  In file: <a href="./variables.tf#L138"><code>variables.tf#L138</code></a>
 
 </details>
 </blockquote><!-- variable:"talos_config_file":end -->
@@ -746,7 +747,7 @@ File name and path for the generated talos-machine-config; use <node-name> in th
   ```json
   "output/talos-machine-config-<node-name>.yaml"
   ```
-  In file: <a href="./variables.tf#L144"><code>variables.tf#L144</code></a>
+  In file: <a href="./variables.tf#L145"><code>variables.tf#L145</code></a>
 
 </details>
 </blockquote><!-- variable:"talos_machine_config_file":end -->

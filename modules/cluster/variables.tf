@@ -93,6 +93,7 @@ variable "nodes" {
     cpu          = number
     ram          = number
     datastore_id = optional(string)
+    iso_store_id = optional(string)
     vfs_mappings = optional(list(string), [])
   }))
 

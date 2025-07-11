@@ -30,7 +30,7 @@ resource "proxmox_virtual_environment_vm" "this" {
   }
 
   disk {
-    datastore_id = var.node_datastore_id
+    datastore_id = var.node_iso_store_id
     file_id      = var.node_iso
     interface    = "scsi0"
     iothread     = true
@@ -38,7 +38,7 @@ resource "proxmox_virtual_environment_vm" "this" {
     discard      = "on"
     ssd          = true
     file_format  = "raw"
-    size         = 8
+    size         = 16
     serial       = "boot"
   }
 
@@ -50,8 +50,20 @@ resource "proxmox_virtual_environment_vm" "this" {
     discard      = "on"
     ssd          = true
     file_format  = "raw"
-    size         = 64
-    serial       = "storage"
+    size         = 256
+    serial       = "kube-state-storage"
+  }
+
+  disk {
+    datastore_id = var.node_datastore_id
+    interface    = "scsi2"
+    iothread     = true
+    cache        = "writethrough"
+    discard      = "on"
+    ssd          = true
+    file_format  = "raw"
+    size         = 256
+    serial       = "pv-storage"
   }
 
   dynamic "virtiofs" {

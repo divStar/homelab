@@ -1,0 +1,7 @@
+apiVersion: v1alpha1
+kind: VolumeConfig
+name: EPHEMERAL
+provisioning:
+  diskSelector:
+    match: "disk.symlinks.exists(s, s.endsWith('_kube-state-storage'))"
+  maxSize: 256GB

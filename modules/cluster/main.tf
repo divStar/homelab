@@ -94,6 +94,7 @@ module "talos_vms" {
   node_ram          = each.value.ram
   node_iso          = each.value.iso
   node_datastore_id = each.value.datastore_id
+  node_iso_store_id = each.value.iso_store_id
   node_vfs_mappings = each.value.vfs_mappings
 }
 

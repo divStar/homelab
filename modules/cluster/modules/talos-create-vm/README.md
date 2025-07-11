@@ -34,6 +34,7 @@ Creates a Talos VM with a given ISO, type and other settings.
   - [node_bridge](#node_bridge-optional) (*Optional*)
   - [node_datastore_id](#node_datastore_id-optional) (*Optional*)
   - [node_description](#node_description-optional) (*Optional*)
+  - [node_iso_store_id](#node_iso_store_id-optional) (*Optional*)
   - [node_tags](#node_tags-optional) (*Optional*)
 </blockquote><!-- contents:end -->
 
@@ -349,7 +350,7 @@ Step CA root CA certificate.
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L132"><code>variables.tf#L132</code></a>
+  In file: <a href="./variables.tf#L139"><code>variables.tf#L139</code></a>
 
 </details>
 </blockquote><!-- variable:"root_ca_certificate":end -->
@@ -383,7 +384,7 @@ Version of Talos (Linux/Kubernetes) to install
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L126"><code>variables.tf#L126</code></a>
+  In file: <a href="./variables.tf#L133"><code>variables.tf#L133</code></a>
 
 </details>
 </blockquote><!-- variable:"talos_linux_version":end -->
@@ -467,6 +468,27 @@ Description to set for the given node
 
 </details>
 </blockquote><!-- variable:"node_description":end -->
+<blockquote><!-- variable:"node_iso_store_id":start -->
+
+### `node_iso_store_id` (*Optional*)
+
+Datastore ID for the ISO file
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  **Default**:
+  ```json
+  "local"
+  ```
+  In file: <a href="./variables.tf#L126"><code>variables.tf#L126</code></a>
+
+</details>
+</blockquote><!-- variable:"node_iso_store_id":end -->
 <blockquote><!-- variable:"node_tags":start -->
 
 ### `node_tags` (*Optional*)

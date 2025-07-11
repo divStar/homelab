@@ -1,0 +1,9 @@
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: pv-storage
+provisioning:
+  diskSelector:
+    match: "disk.symlinks.exists(s, s.endsWith('_pv-storage'))"
+  maxSize: 256GB
+filesystem:
+  type: ext4

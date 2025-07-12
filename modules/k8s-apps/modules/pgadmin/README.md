@@ -16,11 +16,10 @@ This module installs pgAdmin onto a given cluster for PostgreSQL database admini
 - [Modules](#modules) _(nested and adjacent)_
   - [pgadmin](#pgadmin)
 - [Variables](#variables)
+  - [cluster](#cluster-required) (**Required**)
   - [pgadmin_password](#pgadmin_password-required) (**Required**)
   - [postgres_password](#postgres_password-required) (**Required**)
   - [postgres_username](#postgres_username-required) (**Required**)
-  - [cluster_domain](#cluster_domain-optional) (*Optional*)
-  - [cluster_name](#cluster_name-optional) (*Optional*)
   - [pgadmin_email](#pgadmin_email-optional) (*Optional*)
   - [pgadmin_namespace](#pgadmin_namespace-optional) (*Optional*)
   - [pgadmin_secret_name](#pgadmin_secret_name-optional) (*Optional*)
@@ -71,6 +70,27 @@ Installs [pgAdmin 4](https://github.com/rowanruseler/helm-charts/tree/main/chart
 
 ## Variables
   
+<blockquote><!-- variable:"cluster":start -->
+
+### `cluster` (**Required**)
+
+Cluster configuration
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  object({
+    name    = string
+    lb_cidr = string
+    domain  = string
+  })
+  ```
+  In file: <a href="./variables.tf#L8"><code>variables.tf#L8</code></a>
+
+</details>
+</blockquote><!-- variable:"cluster":end -->
 <blockquote><!-- variable:"pgadmin_password":start -->
 
 ### `pgadmin_password` (**Required**)
@@ -84,7 +104,7 @@ Password for the pgAdmin admin user
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
+  In file: <a href="./variables.tf#L38"><code>variables.tf#L38</code></a>
 
 </details>
 </blockquote><!-- variable:"pgadmin_password":end -->
@@ -101,7 +121,7 @@ PostgreSQL password for pgAdmin to connect with
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L74"><code>variables.tf#L74</code></a>
+  In file: <a href="./variables.tf#L69"><code>variables.tf#L69</code></a>
 
 </details>
 </blockquote><!-- variable:"postgres_password":end -->
@@ -118,52 +138,10 @@ PostgreSQL username for pgAdmin to connect with
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L69"><code>variables.tf#L69</code></a>
+  In file: <a href="./variables.tf#L64"><code>variables.tf#L64</code></a>
 
 </details>
 </blockquote><!-- variable:"postgres_username":end -->
-<blockquote><!-- variable:"cluster_domain":start -->
-
-### `cluster_domain` (*Optional*)
-
-Cluster domain to expose the service on
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "my.world"
-  ```
-  In file: <a href="./variables.tf#L36"><code>variables.tf#L36</code></a>
-
-</details>
-</blockquote><!-- variable:"cluster_domain":end -->
-<blockquote><!-- variable:"cluster_name":start -->
-
-### `cluster_name` (*Optional*)
-
-Cluster name this service is installed onto
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "talos-cluster"
-  ```
-  In file: <a href="./variables.tf#L43"><code>variables.tf#L43</code></a>
-
-</details>
-</blockquote><!-- variable:"cluster_name":end -->
 <blockquote><!-- variable:"pgadmin_email":start -->
 
 ### `pgadmin_email` (*Optional*)
@@ -181,7 +159,7 @@ Email address for the pgAdmin admin user
   ```json
   "admin@my.world"
   ```
-  In file: <a href="./variables.tf#L22"><code>variables.tf#L22</code></a>
+  In file: <a href="./variables.tf#L31"><code>variables.tf#L31</code></a>
 
 </details>
 </blockquote><!-- variable:"pgadmin_email":end -->
@@ -202,7 +180,7 @@ Namespace for pgAdmin
   ```json
   "pgadmin"
   ```
-  In file: <a href="./variables.tf#L15"><code>variables.tf#L15</code></a>
+  In file: <a href="./variables.tf#L24"><code>variables.tf#L24</code></a>
 
 </details>
 </blockquote><!-- variable:"pgadmin_namespace":end -->
@@ -223,7 +201,7 @@ Name of the secret, that will contain the passwords
   ```json
   "pgadmin-passwords"
   ```
-  In file: <a href="./variables.tf#L8"><code>variables.tf#L8</code></a>
+  In file: <a href="./variables.tf#L17"><code>variables.tf#L17</code></a>
 
 </details>
 </blockquote><!-- variable:"pgadmin_secret_name":end -->
@@ -244,7 +222,7 @@ Default PostgreSQL database name
   ```json
   "postgres"
   ```
-  In file: <a href="./variables.tf#L63"><code>variables.tf#L63</code></a>
+  In file: <a href="./variables.tf#L58"><code>variables.tf#L58</code></a>
 
 </details>
 </blockquote><!-- variable:"postgres_database":end -->
@@ -265,7 +243,7 @@ PostgreSQL service port
   ```json
   "5432"
   ```
-  In file: <a href="./variables.tf#L57"><code>variables.tf#L57</code></a>
+  In file: <a href="./variables.tf#L52"><code>variables.tf#L52</code></a>
 
 </details>
 </blockquote><!-- variable:"postgres_port":end -->
@@ -286,7 +264,7 @@ PostgreSQL service name (FQDN or service.namespace format)
   ```json
   "postgres-release-postgresql.postgres.svc.cluster.local"
   ```
-  In file: <a href="./variables.tf#L51"><code>variables.tf#L51</code></a>
+  In file: <a href="./variables.tf#L46"><code>variables.tf#L46</code></a>
 
 </details>
 </blockquote><!-- variable:"postgres_service_name":end -->

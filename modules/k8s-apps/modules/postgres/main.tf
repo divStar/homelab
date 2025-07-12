@@ -8,7 +8,7 @@
  */
 
 locals {
-  versions = yamldecode(file("${path.module}/${var.versions_yaml}"))
+  postgres = yamldecode(file("${path.module}/${var.versions_yaml}")).postgres
 }
 
 # Installs [PostgreSQL (`postgres`)](https://github.com/bitnami/charts/tree/main/bitnami/postgresql),
@@ -16,11 +16,11 @@ locals {
 module "postgres" {
   source = "../../../common/modules/helm-terraform-installer"
 
-  chart_name    = "postgresql"
-  chart_repo    = "oci://registry-1.docker.io/bitnamicharts"
-  chart_version = local.versions.postgres_version
-  namespace     = var.postgres_namespace
-  release_name  = "postgres-release"
+  chart_name    = local.postgres.chartName
+  chart_repo    = local.postgres.chartRepo
+  chart_version = local.postgres.chartVersion
+  namespace     = local.postgres.namespace
+  release_name  = local.postgres.releaseName
 
   chart_values = templatefile("${path.module}/files/postgres.values.yaml.tftpl", {
     postgres_secret_name = var.postgres_secret_name
@@ -29,8 +29,8 @@ module "postgres" {
 
   pre_install_resources = [
     templatefile("${path.module}/files/postgres.secret.pre-install.yaml.tftpl", {
+      postgres_namespace   = local.postgres.namespace
       postgres_secret_name = var.postgres_secret_name
-      postgres_namespace   = var.postgres_namespace
       admin_password       = base64encode(var.admin_password)
       user_password        = base64encode(var.user_password)
     })

@@ -59,7 +59,7 @@ provider "kubectl" {
 
 provider "sealedsecret" {
   controller_name      = var.sealed_secrets_controller_name
-  controller_namespace = var.sealed_secrets_namespace
+  controller_namespace = local.sealed_secrets.namespace
 
   kubernetes {
     host                   = module.talos_cluster_ready.kube_config.kubernetes_client_configuration.host

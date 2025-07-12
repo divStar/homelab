@@ -12,13 +12,6 @@ variable "postgres_secret_name" {
   nullable    = false
 }
 
-variable "postgres_namespace" {
-  description = "Namespace for PostgreSQL"
-  type        = string
-  default     = "postgres"
-  nullable    = false
-}
-
 variable "admin_password" {
   description = "Password used as POSTGRES_ADMIN_PASSWORD"
   type        = string

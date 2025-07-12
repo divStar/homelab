@@ -21,13 +21,6 @@ variable "pgadmin_secret_name" {
   nullable    = false
 }
 
-variable "pgadmin_namespace" {
-  description = "Namespace for pgAdmin"
-  type        = string
-  default     = "pgadmin"
-  nullable    = false
-}
-
 variable "pgadmin_email" {
   description = "Email address for the pgAdmin admin user"
   type        = string

@@ -5,49 +5,6 @@ variable "versions_yaml" {
   nullable    = false
 }
 
-# Namespaces
-variable "cilium_namespace" {
-  description = "Namespace where the cilium operator will be installed to"
-  type        = string
-  default     = "cilium"
-  nullable    = false
-}
-
-variable "cert_manager_namespace" {
-  description = "Namespace where the cert-manager will be installed to"
-  type        = string
-  default     = "cert-manager"
-  nullable    = false
-}
-
-variable "external_dns_namespace" {
-  description = "Namespace where the external-dns operator will be installed to"
-  type        = string
-  default     = "external-dns"
-  nullable    = false
-}
-
-variable "sealed_secrets_namespace" {
-  description = "Namespace where the sealed-secrets operator will be installed to"
-  type        = string
-  default     = "sealed-secrets"
-  nullable    = false
-}
-
-variable "local_path_provisioner_namespace" {
-  description = "Namespace where the local-path-provisioner operator will be installed to"
-  type        = string
-  default     = "local-path-provisioner"
-  nullable    = false
-}
-
-variable "traefik_namespace" {
-  description = "Namespace for Traefik deployment"
-  type        = string
-  default     = "traefik"
-  nullable    = false
-}
-
 # Common settings
 variable "proxmox" {
   description = "Proxmox host configuration"

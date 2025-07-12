@@ -1,14 +1,58 @@
 talos_linux_version: "1.10.4"
-cilium_version: "1.17.5"
-cert_manager_version: "1.18.1"
-external_dns_version: "8.8.6"
-sealed_secrets_version: "2.17.3"
-local_path_provisioner_version: "0.0.32"
-traefik_version: "36.3.0"
+
+# core apps
+cilium:
+  chartName: "cilium"
+  chartRepo: "https://helm.cilium.io"
+  chartVersion: "1.17.5"
+  namespace: "cilium"
+  releaseName: "cilium-release"
+
+sealedSecrets:
+  chartName: "sealed-secrets"
+  chartRepo: "https://bitnami-labs.github.io/sealed-secrets"
+  chartVersion: "2.17.3"
+  namespace: "sealed-secrets"
+  releaseName: "sealed-secrets-release"
+
+externalDns:
+  chartName: "external-dns"
+  chartRepo: "oci://registry-1.docker.io/bitnamicharts"
+  chartVersion: "8.8.6"
+  namespace: "external-dns"
+  releaseName: "external-dns-release"
+
+localPathProvisioner:
+  chartName: "local-path-provisioner"
+  chartRepo: "https://charts.containeroo.ch"
+  chartVersion: "0.0.32"
+  namespace: "local-path-provisioner"
+  releaseName: "local-path-provisioner-release"
+
+traefik:
+  chartName: "traefik"
+  chartRepo: "https://helm.traefik.io/traefik"
+  chartVersion: "36.3.0"
+  namespace: "traefik"
+  releaseName: "traefik-release"
+
+# k8s-apps
+postgres:
+  chartName: "postgresql"
+  chartRepo: "oci://registry-1.docker.io/bitnamicharts"
+  chartVersion: "16.7.15"
+  namespace: "postgres"
+  releaseName: "postgres-release"
+
+pgAdmin:
+  chartName: "pgadmin4"
+  chartRepo: "https://helm.runix.net"
+  chartVersion: "1.47.0"
+  namespace: "pgadmin"
+  releaseName: "pgadmin-release"
+
 zitadel_version: "8.13.4"
 zitadel_image_tag: "3.3.0"
-postgres_version: "16.7.15"
-pgadmin_version: "1.47.0"
 
 # manually set versions
 proxmox_version: "8.4+"

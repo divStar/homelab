@@ -5,16 +5,18 @@
  */
 
 locals {
-  versions = yamldecode(file("${path.module}/${var.versions_yaml}"))
+  versions               = yamldecode(file("${path.module}/${var.versions_yaml}"))
+  cilium                 = local.versions.cilium
+  sealed_secrets         = local.versions.sealedSecrets
+  external_dns           = local.versions.externalDns
+  local_path_provisioner = local.versions.localPathProvisioner
+  traefik                = local.versions.traefik
 
   nodes_with_iso = [
     for node in var.nodes : merge(node, {
       iso = module.talos_images[node.name].downloaded_iso_id
     })
   ]
-
-  traefik_chart_name   = "traefik"
-  traefik_release_name = "traefik-release"
 }
 
 # Download the `root_ca.crt` root CA certificate from Step CA.
@@ -31,11 +33,11 @@ data "http" "step_ca_root_pem" {
 }
 
 # Pre-fetch all the Cilium CRDs, that need to be installed beforehand;
-# replace their `<VERSION>` placeholder (if it exists) with `local.versions.cilium_version`.
+# replace their `<VERSION>` placeholder (if it exists) with `local.versions.cilium.chartVersion`.
 data "http" "cilium_crds_pre_install" {
   for_each = toset(var.cilium_crds)
 
-  url = replace(each.value, "<VERSION>", local.versions.cilium_version)
+  url = replace(each.value, "<VERSION>", local.versions.cilium.chartVersion)
 }
 
 # Downloads the calculated Talos images specified in the [`nodes`](#nodes-required) configurations.
@@ -127,11 +129,11 @@ module "cilium" {
   source     = "../common/modules/helm-terraform-installer"
   depends_on = [module.talos_cluster_ready]
 
-  chart_name    = "cilium"
-  chart_repo    = "https://helm.cilium.io"
-  chart_version = local.versions.cilium_version
-  namespace     = var.cilium_namespace
-  release_name  = "cilium-release"
+  chart_name    = local.cilium.chartName
+  chart_repo    = local.cilium.chartRepo
+  chart_version = local.cilium.chartVersion
+  namespace     = local.cilium.namespace
+  release_name  = local.cilium.releaseName
 
   chart_values = templatefile("${path.module}/files/cilium.values.yaml.tftpl", {
     cluster_name             = var.cluster.name
@@ -145,11 +147,11 @@ module "cilium" {
     values(data.http.cilium_crds_pre_install)[*].response_body,
     [
       templatefile("${path.module}/files/cilium.cilium-load-balancer-ip-pool.post-install.yaml.tftpl", {
-        namespace = var.cilium_namespace
+        namespace = local.cilium.namespace
         lb_cidr   = var.cluster.lb_cidr
       }),
       templatefile("${path.module}/files/cilium.cilium-l2-announcement-policy.post-install.yaml.tftpl", {
-        namespace = var.cilium_namespace
+        namespace = local.cilium.namespace
       })
     ]
   )
@@ -161,11 +163,11 @@ module "sealed_secrets" {
   source     = "../common/modules/helm-terraform-installer"
   depends_on = [module.cilium]
 
-  chart_name    = "sealed-secrets"
-  chart_repo    = "https://bitnami-labs.github.io/sealed-secrets"
-  chart_version = local.versions.sealed_secrets_version
-  namespace     = var.sealed_secrets_namespace
-  release_name  = "sealed-secrets-release"
+  chart_name    = local.sealed_secrets.chartName
+  chart_repo    = local.sealed_secrets.chartRepo
+  chart_version = local.sealed_secrets.chartVersion
+  namespace     = local.sealed_secrets.namespace
+  release_name  = local.sealed_secrets.releaseName
 }
 
 # Creates an `external-dns` secret, that contains credentials to access a external DNS system (PiHole in this case).
@@ -173,11 +175,11 @@ resource "sealedsecret" "external_dns_secret" {
   depends_on = [module.sealed_secrets]
 
   name      = var.external_dns_secret_name
-  namespace = var.external_dns_namespace
+  namespace = local.external_dns.namespace
 
   data = yamldecode(templatefile("${path.module}/files/secret_external-dns-secret.yaml.tftpl", {
+    external_dns_namespace   = local.external_dns.namespace
     external_dns_secret_name = var.external_dns_secret_name
-    external_dns_namespace   = var.external_dns_namespace
   })).data
 }
 
@@ -188,15 +190,15 @@ module "external_dns" {
   source     = "../common/modules/helm-terraform-installer"
   depends_on = [module.sealed_secrets]
 
-  chart_name    = "external-dns"
-  chart_repo    = "oci://registry-1.docker.io/bitnamicharts"
-  chart_version = local.versions.external_dns_version
-  namespace     = var.external_dns_namespace
-  release_name  = "external-dns-release"
+  chart_name    = local.external_dns.chartName
+  chart_repo    = local.external_dns.chartRepo
+  chart_version = local.external_dns.chartVersion
+  namespace     = local.external_dns.namespace
+  release_name  = local.external_dns.releaseName
 
   chart_values = templatefile("${path.module}/files/external-dns.values.yaml.tftpl", {
+    external_dns_namespace   = local.external_dns.namespace
     external_dns_secret_name = var.external_dns_secret_name
-    external_dns_namespace   = var.external_dns_namespace
     cluster_name             = var.cluster.name
   })
 
@@ -210,11 +212,11 @@ module "local_path_provisioner" {
   source     = "../common/modules/helm-terraform-installer"
   depends_on = [module.cilium]
 
-  chart_name    = "local-path-provisioner"
-  chart_repo    = "https://charts.containeroo.ch"
-  chart_version = local.versions.local_path_provisioner_version
-  namespace     = var.local_path_provisioner_namespace
-  release_name  = "local-path-provisioner-release"
+  chart_name    = local.local_path_provisioner.chartName
+  chart_repo    = local.local_path_provisioner.chartRepo
+  chart_version = local.local_path_provisioner.chartVersion
+  namespace     = local.local_path_provisioner.namespace
+  release_name  = local.local_path_provisioner.releaseName
 
   chart_values            = file("${path.module}/files/local-path-provisioner.values.yaml")
   is_privileged_namespace = true
@@ -226,39 +228,35 @@ module "traefik" {
   source     = "../common/modules/helm-terraform-installer"
   depends_on = [module.external_dns, module.local_path_provisioner]
 
-  chart_name    = local.traefik_chart_name
-  chart_repo    = "https://helm.traefik.io/traefik"
-  chart_version = local.versions.traefik_version
-  namespace     = var.traefik_namespace
-  release_name  = local.traefik_release_name
+  chart_name    = local.traefik.chartName
+  chart_repo    = local.traefik.chartRepo
+  chart_version = local.traefik.chartVersion
+  namespace     = local.traefik.namespace
+  release_name  = local.traefik.releaseName
 
   chart_values = templatefile("${path.module}/files/traefik.values.yaml.tftpl", {
     acme_contact              = var.acme_contact
     acme_server_directory_url = var.acme_server_directory_url
-    traefik_namespace         = var.traefik_namespace
-    cluster_domain            = var.cluster.domain
-    chart_name                = local.traefik_chart_name
-    release_name              = local.traefik_release_name
   })
 
   pre_install_resources = [
     templatefile("${path.module}/files/traefik.configmap.step-ca-root-cert.yaml.tftpl", {
-      traefik_namespace = var.traefik_namespace
+      traefik_namespace = local.traefik.namespace
       root_ca_content   = data.http.step_ca_root_pem.response_body
     })
   ]
 
   post_install_resources = [
     templatefile("${path.module}/files/traefik.middleware.redirect-to-dashboard.post-install.yaml.tftpl", {
-      traefik_namespace = var.traefik_namespace
+      traefik_namespace = local.traefik.namespace
     }),
     templatefile("${path.module}/files/traefik.ingress-route.post-install.yaml.tftpl", {
-      traefik_namespace   = var.traefik_namespace
+      traefik_namespace   = local.traefik.namespace
       cluster_domain      = var.cluster.domain
       external_dns_target = "${var.cluster.name}.${var.cluster.domain}" # adding a CNAME record
     }),
     templatefile("${path.module}/files/cilium.ingress-route.post-install.yaml.tftpl", {
-      cilium_namespace    = var.cilium_namespace
+      cilium_namespace    = local.cilium.namespace
       cluster_domain      = var.cluster.domain
       external_dns_target = "${var.cluster.name}.${var.cluster.domain}" # adding a CNAME record
     })

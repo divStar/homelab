@@ -30,20 +30,14 @@ This module and its sub-modules setup the Talos cluster on the Proxmox host.
   - [proxmox](#proxmox-required) (**Required**)
   - [acme_contact](#acme_contact-optional) (*Optional*)
   - [acme_server_directory_url](#acme_server_directory_url-optional) (*Optional*)
-  - [cert_manager_namespace](#cert_manager_namespace-optional) (*Optional*)
   - [cilium_crds](#cilium_crds-optional) (*Optional*)
-  - [cilium_namespace](#cilium_namespace-optional) (*Optional*)
-  - [external_dns_namespace](#external_dns_namespace-optional) (*Optional*)
   - [external_dns_secret_name](#external_dns_secret_name-optional) (*Optional*)
   - [k8s_sealed_secret_ca_file](#k8s_sealed_secret_ca_file-optional) (*Optional*)
   - [kube_config_file](#kube_config_file-optional) (*Optional*)
-  - [local_path_provisioner_namespace](#local_path_provisioner_namespace-optional) (*Optional*)
   - [sealed_secrets_controller_name](#sealed_secrets_controller_name-optional) (*Optional*)
-  - [sealed_secrets_namespace](#sealed_secrets_namespace-optional) (*Optional*)
   - [step_ca_host](#step_ca_host-optional) (*Optional*)
   - [talos_config_file](#talos_config_file-optional) (*Optional*)
   - [talos_machine_config_file](#talos_machine_config_file-optional) (*Optional*)
-  - [traefik_namespace](#traefik_namespace-optional) (*Optional*)
   - [versions_yaml](#versions_yaml-optional) (*Optional*)
 - [Outputs](#outputs)
   - [kube_config](#kube_config)
@@ -122,7 +116,7 @@ Installs [`Cilium`](httpshttps://github.com/cilium/cilium) CNI, which is a netwo
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L126"><code>main.tf#L126</code></a></td>
+      <td><a href="./main.tf#L128"><code>main.tf#L128</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -141,7 +135,7 @@ Installs [`external-dns`](https://github.com/kubernetes-sigs/external-dns), whic
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L187"><code>main.tf#L187</code></a></td>
+      <td><a href="./main.tf#L189"><code>main.tf#L189</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -160,7 +154,7 @@ Installs [`local-path-provisioner`](https://github.com/rancher/local-path-provis
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L209"><code>main.tf#L209</code></a></td>
+      <td><a href="./main.tf#L211"><code>main.tf#L211</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -179,7 +173,7 @@ Installs [`sealed-secrets`](https://github.com/bitnami-labs/sealed-secrets), whi
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L160"><code>main.tf#L160</code></a></td>
+      <td><a href="./main.tf#L162"><code>main.tf#L162</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -198,7 +192,7 @@ Prepares the cluster creation by generating the **Talos machine secrets** and cr
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L57"><code>main.tf#L57</code></a></td>
+      <td><a href="./main.tf#L59"><code>main.tf#L59</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/talos-prepare-cluster/README.md">README.md</a> <em>(experimental)</em></td>
@@ -217,7 +211,7 @@ Awaits the Talos cluster to become ready and available. <p>This module returns o
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L104"><code>main.tf#L104</code></a></td>
+      <td><a href="./main.tf#L106"><code>main.tf#L106</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/talos-await-cluster/README.md">README.md</a> <em>(experimental)</em></td>
@@ -236,7 +230,7 @@ Downloads the calculated Talos images specified in the [`nodes`](#nodes-required
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L42"><code>main.tf#L42</code></a></td>
+      <td><a href="./main.tf#L44"><code>main.tf#L44</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/talos-download-image/README.md">README.md</a> <em>(experimental)</em></td>
@@ -255,7 +249,7 @@ Creates the given Talos VMs, uses `for_each` on the list of [`nodes`](#nodes-req
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L71"><code>main.tf#L71</code></a></td>
+      <td><a href="./main.tf#L73"><code>main.tf#L73</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/talos-create-vm/README.md">README.md</a> <em>(experimental)</em></td>
@@ -274,7 +268,7 @@ Installs [`Traefik v3`](https://github.com/traefik/traefik), which provides ingr
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L225"><code>main.tf#L225</code></a></td>
+      <td><a href="./main.tf#L227"><code>main.tf#L227</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -341,7 +335,7 @@ Creates an `external-dns` secret, that contains credentials to access a external
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L172"><code>main.tf#L172</code></a></td>
+      <td><a href="./main.tf#L174"><code>main.tf#L174</code></a></td>
     </tr>
   </table>
 </blockquote><!-- resource:"sealedsecret_sealedsecret.external_dns_secret":end -->
@@ -368,7 +362,7 @@ Cluster configuration
     talos_factory_url = optional(string, "https://factory.talos.dev/")
   })
   ```
-  In file: <a href="./variables.tf#L66"><code>variables.tf#L66</code></a>
+  In file: <a href="./variables.tf#L23"><code>variables.tf#L23</code></a>
 
 </details>
 </blockquote><!-- variable:"cluster":end -->
@@ -403,7 +397,7 @@ Configuration for cluster nodes
     vfs_mappings = optional(list(string), [])
   }))
   ```
-  In file: <a href="./variables.tf#L78"><code>variables.tf#L78</code></a>
+  In file: <a href="./variables.tf#L35"><code>variables.tf#L35</code></a>
 
 </details>
 </blockquote><!-- variable:"nodes":end -->
@@ -429,7 +423,7 @@ Proxmox host configuration
     ssh_key   = string
   })
   ```
-  In file: <a href="./variables.tf#L52"><code>variables.tf#L52</code></a>
+  In file: <a href="./variables.tf#L9"><code>variables.tf#L9</code></a>
 
 </details>
 </blockquote><!-- variable:"proxmox":end -->
@@ -450,7 +444,7 @@ E-Mail address of the ACME account
   ```json
   "admin@my.world"
   ```
-  In file: <a href="./variables.tf#L174"><code>variables.tf#L174</code></a>
+  In file: <a href="./variables.tf#L131"><code>variables.tf#L131</code></a>
 
 </details>
 </blockquote><!-- variable:"acme_contact":end -->
@@ -471,31 +465,10 @@ ACME server directory URL
   ```json
   "https://step-ca.my.world/acme/step-ca-acme/directory"
   ```
-  In file: <a href="./variables.tf#L167"><code>variables.tf#L167</code></a>
+  In file: <a href="./variables.tf#L124"><code>variables.tf#L124</code></a>
 
 </details>
 </blockquote><!-- variable:"acme_server_directory_url":end -->
-<blockquote><!-- variable:"cert_manager_namespace":start -->
-
-### `cert_manager_namespace` (*Optional*)
-
-Namespace where the cert-manager will be installed to
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "cert-manager"
-  ```
-  In file: <a href="./variables.tf#L16"><code>variables.tf#L16</code></a>
-
-</details>
-</blockquote><!-- variable:"cert_manager_namespace":end -->
 <blockquote><!-- variable:"cilium_crds":start -->
 
 ### `cilium_crds` (*Optional*)
@@ -516,52 +489,10 @@ Cilium CRDs, that have to be present *before* Cilium is installed in order to in
   "https://raw.githubusercontent.com/cilium/cilium/refs/tags/v<VERSION>/pkg/k8s/apis/cilium.io/client/crds/v2alpha1/ciliumloadbalancerippools.yaml"
 ]
   ```
-  In file: <a href="./variables.tf#L196"><code>variables.tf#L196</code></a>
+  In file: <a href="./variables.tf#L153"><code>variables.tf#L153</code></a>
 
 </details>
 </blockquote><!-- variable:"cilium_crds":end -->
-<blockquote><!-- variable:"cilium_namespace":start -->
-
-### `cilium_namespace` (*Optional*)
-
-Namespace where the cilium operator will be installed to
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "cilium"
-  ```
-  In file: <a href="./variables.tf#L9"><code>variables.tf#L9</code></a>
-
-</details>
-</blockquote><!-- variable:"cilium_namespace":end -->
-<blockquote><!-- variable:"external_dns_namespace":start -->
-
-### `external_dns_namespace` (*Optional*)
-
-Namespace where the external-dns operator will be installed to
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "external-dns"
-  ```
-  In file: <a href="./variables.tf#L23"><code>variables.tf#L23</code></a>
-
-</details>
-</blockquote><!-- variable:"external_dns_namespace":end -->
 <blockquote><!-- variable:"external_dns_secret_name":start -->
 
 ### `external_dns_secret_name` (*Optional*)
@@ -579,7 +510,7 @@ Name of the external-dns secret
   ```json
   "sealed-secrets-release"
   ```
-  In file: <a href="./variables.tf#L189"><code>variables.tf#L189</code></a>
+  In file: <a href="./variables.tf#L146"><code>variables.tf#L146</code></a>
 
 </details>
 </blockquote><!-- variable:"external_dns_secret_name":end -->
@@ -600,7 +531,7 @@ File name and path for the generated sealed secret of the intermediate Kubernete
   ```json
   "output/k8s_sealed_secret_ca.yaml"
   ```
-  In file: <a href="./variables.tf#L152"><code>variables.tf#L152</code></a>
+  In file: <a href="./variables.tf#L109"><code>variables.tf#L109</code></a>
 
 </details>
 </blockquote><!-- variable:"k8s_sealed_secret_ca_file":end -->
@@ -621,31 +552,10 @@ File name and path for the generated kube-config
   ```json
   "output/kube-config.yaml"
   ```
-  In file: <a href="./variables.tf#L131"><code>variables.tf#L131</code></a>
+  In file: <a href="./variables.tf#L88"><code>variables.tf#L88</code></a>
 
 </details>
 </blockquote><!-- variable:"kube_config_file":end -->
-<blockquote><!-- variable:"local_path_provisioner_namespace":start -->
-
-### `local_path_provisioner_namespace` (*Optional*)
-
-Namespace where the local-path-provisioner operator will be installed to
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "local-path-provisioner"
-  ```
-  In file: <a href="./variables.tf#L37"><code>variables.tf#L37</code></a>
-
-</details>
-</blockquote><!-- variable:"local_path_provisioner_namespace":end -->
 <blockquote><!-- variable:"sealed_secrets_controller_name":start -->
 
 ### `sealed_secrets_controller_name` (*Optional*)
@@ -663,31 +573,10 @@ Name of the sealed-secrets controller
   ```json
   "sealed-secrets-release"
   ```
-  In file: <a href="./variables.tf#L182"><code>variables.tf#L182</code></a>
+  In file: <a href="./variables.tf#L139"><code>variables.tf#L139</code></a>
 
 </details>
 </blockquote><!-- variable:"sealed_secrets_controller_name":end -->
-<blockquote><!-- variable:"sealed_secrets_namespace":start -->
-
-### `sealed_secrets_namespace` (*Optional*)
-
-Namespace where the sealed-secrets operator will be installed to
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "sealed-secrets"
-  ```
-  In file: <a href="./variables.tf#L30"><code>variables.tf#L30</code></a>
-
-</details>
-</blockquote><!-- variable:"sealed_secrets_namespace":end -->
 <blockquote><!-- variable:"step_ca_host":start -->
 
 ### `step_ca_host` (*Optional*)
@@ -705,7 +594,7 @@ Step CA IP or host, _*not*_ including the protocol (`https`).
   ```json
   "192.168.178.155"
   ```
-  In file: <a href="./variables.tf#L160"><code>variables.tf#L160</code></a>
+  In file: <a href="./variables.tf#L117"><code>variables.tf#L117</code></a>
 
 </details>
 </blockquote><!-- variable:"step_ca_host":end -->
@@ -726,7 +615,7 @@ File name and path for the generated talos-config
   ```json
   "output/talos-config.yaml"
   ```
-  In file: <a href="./variables.tf#L138"><code>variables.tf#L138</code></a>
+  In file: <a href="./variables.tf#L95"><code>variables.tf#L95</code></a>
 
 </details>
 </blockquote><!-- variable:"talos_config_file":end -->
@@ -747,36 +636,15 @@ File name and path for the generated talos-machine-config; use <node-name> in th
   ```json
   "output/talos-machine-config-<node-name>.yaml"
   ```
-  In file: <a href="./variables.tf#L145"><code>variables.tf#L145</code></a>
+  In file: <a href="./variables.tf#L102"><code>variables.tf#L102</code></a>
 
 </details>
 </blockquote><!-- variable:"talos_machine_config_file":end -->
-<blockquote><!-- variable:"traefik_namespace":start -->
-
-### `traefik_namespace` (*Optional*)
-
-Namespace for Traefik deployment
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "traefik"
-  ```
-  In file: <a href="./variables.tf#L44"><code>variables.tf#L44</code></a>
-
-</details>
-</blockquote><!-- variable:"traefik_namespace":end -->
 <blockquote><!-- variable:"versions_yaml":start -->
 
 ### `versions_yaml` (*Optional*)
 
-Path to the `versions.yaml` file, that contains all relevant versions
+Absolute path and filename to the `versions.yaml` file, that contains all relevant Helm Chart descriptions and versions
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>

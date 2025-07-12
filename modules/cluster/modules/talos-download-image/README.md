@@ -17,7 +17,6 @@ architecture, platform and schematics.
   - [proxmox](#proxmox-required) (**Required**)
   - [talos_linux_version](#talos_linux_version-required) (**Required**)
   - [arch](#arch-optional) (*Optional*)
-  - [factory_url](#factory_url-optional) (*Optional*)
   - [platform](#platform-optional) (*Optional*)
   - [schematic](#schematic-optional) (*Optional*)
 - [Outputs](#outputs)
@@ -138,31 +137,10 @@ Architecture to use (amd64 or arm64)
   ```json
   "amd64"
   ```
-  In file: <a href="./variables.tf#L41"><code>variables.tf#L41</code></a>
+  In file: <a href="./variables.tf#L34"><code>variables.tf#L34</code></a>
 
 </details>
 </blockquote><!-- variable:"arch":end -->
-<blockquote><!-- variable:"factory_url":start -->
-
-### `factory_url` (*Optional*)
-
-URL of the Talos image factory
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "https://factory.talos.dev"
-  ```
-  In file: <a href="./variables.tf#L27"><code>variables.tf#L27</code></a>
-
-</details>
-</blockquote><!-- variable:"factory_url":end -->
 <blockquote><!-- variable:"platform":start -->
 
 ### `platform` (*Optional*)
@@ -180,7 +158,7 @@ Platform to use (e.g. metal, nocloud, aws, etc., see https://registry.terraform.
   ```json
   "nocloud"
   ```
-  In file: <a href="./variables.tf#L34"><code>variables.tf#L34</code></a>
+  In file: <a href="./variables.tf#L27"><code>variables.tf#L27</code></a>
 
 </details>
 </blockquote><!-- variable:"platform":end -->

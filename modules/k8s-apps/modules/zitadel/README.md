@@ -53,7 +53,7 @@ Installs [`zitadel`](https://zitadel.com/), which is used for Authentication and
 
 ### `versions_yaml` (*Optional*)
 
-Path to the `versions.yaml` file, that contains all relevant versions
+Absolute path and filename to the `versions.yaml` file, that contains all relevant Helm Chart descriptions and versions
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>

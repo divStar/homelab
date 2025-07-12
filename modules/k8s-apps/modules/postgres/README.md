@@ -17,7 +17,6 @@ This module installs PostgreSQL (postgres) onto a given cluster.
 - [Variables](#variables)
   - [admin_password](#admin_password-required) (**Required**)
   - [user_password](#user_password-required) (**Required**)
-  - [postgres_namespace](#postgres_namespace-optional) (*Optional*)
   - [postgres_secret_name](#postgres_secret_name-optional) (*Optional*)
   - [user_name](#user_name-optional) (*Optional*)
   - [versions_yaml](#versions_yaml-optional) (*Optional*)
@@ -77,7 +76,7 @@ Password used as POSTGRES_ADMIN_PASSWORD
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L22"><code>variables.tf#L22</code></a>
+  In file: <a href="./variables.tf#L15"><code>variables.tf#L15</code></a>
 
 </details>
 </blockquote><!-- variable:"admin_password":end -->
@@ -94,31 +93,10 @@ Password used as POSTGRES_PASSWORD
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L36"><code>variables.tf#L36</code></a>
+  In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
 
 </details>
 </blockquote><!-- variable:"user_password":end -->
-<blockquote><!-- variable:"postgres_namespace":start -->
-
-### `postgres_namespace` (*Optional*)
-
-Namespace for PostgreSQL
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "postgres"
-  ```
-  In file: <a href="./variables.tf#L15"><code>variables.tf#L15</code></a>
-
-</details>
-</blockquote><!-- variable:"postgres_namespace":end -->
 <blockquote><!-- variable:"postgres_secret_name":start -->
 
 ### `postgres_secret_name` (*Optional*)
@@ -157,7 +135,7 @@ Custom user, that will be created upon deployment
   ```json
   "appuser"
   ```
-  In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
+  In file: <a href="./variables.tf#L22"><code>variables.tf#L22</code></a>
 
 </details>
 </blockquote><!-- variable:"user_name":end -->
@@ -165,7 +143,7 @@ Custom user, that will be created upon deployment
 
 ### `versions_yaml` (*Optional*)
 
-Path to the `versions.yaml` file, that contains all relevant versions
+Absolute path and filename to the `versions.yaml` file, that contains all relevant Helm Chart descriptions and versions
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>

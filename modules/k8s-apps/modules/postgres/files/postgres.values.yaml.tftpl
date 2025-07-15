@@ -5,8 +5,6 @@ auth:
   # Enable postgres admin user
   enablePostgresUser: true
   existingSecret: ${postgres_secret_name}
-  # Create a regular database user
-  username: "${user_name}"
 
 primary:
   persistence:

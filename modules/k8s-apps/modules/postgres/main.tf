@@ -24,7 +24,6 @@ module "postgres" {
 
   chart_values = templatefile("${path.module}/files/postgres.values.yaml.tftpl", {
     postgres_secret_name = var.postgres_secret_name
-    user_name            = var.user_name
   })
 
   pre_install_resources = [
@@ -32,7 +31,6 @@ module "postgres" {
       postgres_namespace   = local.postgres.namespace
       postgres_secret_name = var.postgres_secret_name
       admin_password       = base64encode(var.admin_password)
-      user_password        = base64encode(var.user_password)
     })
   ]
 }

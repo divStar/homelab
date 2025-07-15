@@ -1,9 +1,9 @@
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: redirect-to-dashboard
-  namespace: ${traefik_namespace}
+  name: redirect-to-console
+  namespace: ${zitadel_namespace}
 spec:
   redirectRegex:
     regex: "^/$"
-    replacement: "/dashboard/"
+    replacement: "/ui/console/"

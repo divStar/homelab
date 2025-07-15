@@ -18,17 +18,3 @@ variable "admin_password" {
   nullable    = false
   sensitive   = true
 }
-
-variable "user_name" {
-  description = "Custom user, that will be created upon deployment"
-  type        = string
-  default     = "appuser"
-  nullable    = false
-}
-
-variable "user_password" {
-  description = "Password used as POSTGRES_PASSWORD"
-  type        = string
-  nullable    = false
-  sensitive   = true
-}

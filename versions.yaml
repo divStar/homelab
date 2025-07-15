@@ -51,8 +51,13 @@ pgAdmin:
   namespace: "pgadmin"
   releaseName: "pgadmin-release"
 
-zitadel_version: "8.13.4"
-zitadel_image_tag: "3.3.0"
+zitadel:
+  chartName: "zitadel"
+  chartRepo: "https://charts.zitadel.com"
+  chartVersion: "8.13.4"
+  appVersion: "3.3.0"
+  namespace: "zitadel"
+  releaseName: "zitadel-release"
 
 # manually set versions
 proxmox_version: "8.4+"

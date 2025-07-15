@@ -1,26 +1,54 @@
 /**
- * # Zitadel
+ * # Zitadel v3
  *
- * This module installs Zitadel onto a given cluster.
+ * This module installs Zitadel v3+ onto a given cluster with PostgreSQL backend.
  *
  * > [!NOTE]
- * > The cluster is required to be configured in a way, that allows all resources to deploy correctly.
+ * > Traefik handles TLS termination and `IngressRoute` service exposure.
+ * > TLS is *not* used internally or between PostgreSQL database and Zitalde.
  */
 
 locals {
-  versions = yamldecode(file("${path.module}/${var.versions_yaml}"))
+  zitadel = yamldecode(file("${path.module}/${var.versions_yaml}")).zitadel
 }
 
-# Installs [`zitadel`](https://zitadel.com/), which is used for Authentication and Authorization of users and services.
+# Generate a secure master key for Zitadel symmetrical encryption
+resource "random_password" "zitadel_master_key" {
+  length  = 32
+  special = false
+}
+
+# Install [Zitadel](https://github.com/zitadel/zitadel-charts) - an identity and access management solution.
 module "zitadel" {
-  source = "../common/modules/helm-terraform-installer"
+  source = "../../../common/modules/helm-terraform-installer"
 
-  chart_name    = "zitadel"
-  chart_repo    = "https://charts.zitadel.com"
-  chart_version = local.versions.zitadel_version
-  namespace     = "zitadel"
-  release_name  = "zitadel-release"
+  chart_name    = local.zitadel.chartName
+  chart_repo    = local.zitadel.chartRepo
+  chart_version = local.zitadel.chartVersion
+  namespace     = local.zitadel.namespace
+  release_name  = local.zitadel.releaseName
 
-  chart_values            = file("${path.module}/files/local-path-provisioner.values.yaml")
-  is_privileged_namespace = true
+  chart_values = templatefile("${path.module}/files/zitadel.values.yaml.tftpl", {
+    app_version             = local.zitadel.appVersion
+    master_key              = random_password.zitadel_master_key.result
+    cluster_domain          = var.cluster.domain
+    postgres_service_name   = var.postgres_service_name
+    postgres_port           = var.postgres_port
+    postgres_database       = var.postgres_database
+    postgres_user           = var.postgres_user
+    postgres_password       = var.postgres_password
+    postgres_admin_user     = var.postgres_admin_user
+    postgres_admin_password = var.postgres_admin_password
+  })
+
+  post_install_resources = [
+    templatefile("${path.module}/files/zitadel.middleware.redirect-to-console.post-install.yaml.tftpl", {
+      zitadel_namespace = local.zitadel.namespace
+    }),
+    templatefile("${path.module}/files/zitadel.ingress-route.post-install.yaml.tftpl", {
+      zitadel_namespace   = local.zitadel.namespace
+      cluster_domain      = var.cluster.domain
+      external_dns_target = "${var.cluster.name}.${var.cluster.domain}" # adding a CNAME record
+    })
+  ]
 }

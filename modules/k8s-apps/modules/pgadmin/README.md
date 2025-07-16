@@ -33,6 +33,7 @@ This module installs pgAdmin onto a given cluster for PostgreSQL database admini
 ![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
 ![helm](https://img.shields.io/badge/helm->=3.0.1-a7fc51?logo=helm)
 ![kubectl](https://img.shields.io/badge/kubectl->=1.19.0-eb4095?logo=kubectl)
+![random](https://img.shields.io/badge/random->=3.7.2-82d72c?logo=random)
 
 ## Execution story
 

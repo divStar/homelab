@@ -10,8 +10,10 @@ This module and its sub-modules setup the Proxmox host.
 - [Providers](#providers)
 - [Execution story](#execution-story)
 - [Modules](#modules) _(nested and adjacent)_
+  - [authorized_keys_appender](#authorized_keys_appender)
   - [copy_configs](#copy_configs)
   - [directory_mappings](#directory_mappings)
+  - [gitops_user](#gitops_user)
   - [packages](#packages)
   - [repositories](#repositories)
   - [scripts](#scripts)
@@ -35,6 +37,7 @@ This module and its sub-modules setup the Proxmox host.
 - [Outputs](#outputs)
   - [configuration_files](#configuration_files)
   - [directory_mappings](#directory_mappings)
+  - [gitops_user](#gitops_user)
   - [installed_packages](#installed_packages)
   - [installed_scripts](#installed_scripts)
   - [no_subscription](#no_subscription)
@@ -63,6 +66,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
 ├── module.directory_mappings
 │   ├── module.directory_mappings.ssh_resource.directory_mappings
 │   ├── module.directory_mappings.ssh_resource.remove_directory_mappings
+├── module.gitops_user
+│   ├── module.gitops_user.ssh_resource.add_gitops_user
+│   ├── module.gitops_user.ssh_resource.remove_gitops_user
+├── module.authorized_keys_appender
+│   ├── module.authorized_keys_appender.ssh_resource.add_key
 ├── module.packages
 │   ├── module.packages.ssh_resource.package_install
 │   ├── module.packages.ssh_resource.package_remove
@@ -70,6 +78,25 @@ Order in which Terraform will create resources (and likely destroy them in rever
 
 ## Modules
   
+<blockquote><!-- module:"authorized_keys_appender":start -->
+
+### `authorized_keys_appender`
+
+Handles adding the SSH key of the machine running this script to the gitops user and git+ssh repository.
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/authorized-keys-appender</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L110"><code>main.tf#L110</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/authorized-keys-appender/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
+</blockquote><!-- module:"authorized_keys_appender":end -->
 <blockquote><!-- module:"copy_configs":start -->
 
 ### `copy_configs`
@@ -108,6 +135,25 @@ Handles mapping directories for future use (e.g. file sharing via `virtiofs` int
     </tr>
   </table>
 </blockquote><!-- module:"directory_mappings":end -->
+<blockquote><!-- module:"gitops_user":start -->
+
+### `gitops_user`
+
+Handles creating a gitops user, providing it with access to the gitops git repository and exposing it for git+ssh access (gitops). > [!NOTE] > In order to make use of the gitops git repository and user, public SSH keys of users/applications, > who need access, have to be introduced into the `/home/<user, e.g. gitops>/.ssh/authorized_keys` file.<br> > You can use the [`authorized-keys-appender`](./modules/authorized-keys-appender/README.md) module for this.
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/gitops-user</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L102"><code>main.tf#L102</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/gitops-user/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
+</blockquote><!-- module:"gitops_user":end -->
 <blockquote><!-- module:"packages":start -->
 
 ### `packages`
@@ -589,6 +635,14 @@ List of directories mapped for further use in Proxmox
 
 In file: <a href="./outputs.tf#L6"><code>outputs.tf#L6</code></a>
 </blockquote><!-- output:"directory_mappings":end -->
+<blockquote><!-- output:"gitops_user":start -->
+
+#### `gitops_user`
+
+User and git+ssh URL for gitops purposes
+
+In file: <a href="./outputs.tf#L49"><code>outputs.tf#L49</code></a>
+</blockquote><!-- output:"gitops_user":end -->
 <blockquote><!-- output:"installed_packages":start -->
 
 #### `installed_packages`

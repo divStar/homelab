@@ -45,3 +45,14 @@ output "terraform_user" {
   }
   sensitive = true
 }
+
+output "gitops_user" {
+  description = "User and git+ssh URL for gitops purposes"
+  value = {
+    git_ssh_url = module.gitops_user.git_ssh_url
+    user        = module.gitops_user.user
+    user_home   = module.gitops_user.user_home
+    local_repo  = module.gitops_user.repo_local_path
+    org_repo    = module.gitops_user.repo_actual_path
+  }
+}

@@ -16,9 +16,7 @@ This module installs PostgreSQL (postgres) onto a given cluster.
   - [postgres](#postgres)
 - [Variables](#variables)
   - [admin_password](#admin_password-required) (**Required**)
-  - [user_password](#user_password-required) (**Required**)
   - [postgres_secret_name](#postgres_secret_name-optional) (*Optional*)
-  - [user_name](#user_name-optional) (*Optional*)
   - [versions_yaml](#versions_yaml-optional) (*Optional*)
 </blockquote><!-- contents:end -->
 
@@ -80,23 +78,6 @@ Password used as POSTGRES_ADMIN_PASSWORD
 
 </details>
 </blockquote><!-- variable:"admin_password":end -->
-<blockquote><!-- variable:"user_password":start -->
-
-### `user_password` (**Required**)
-
-Password used as POSTGRES_PASSWORD
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
-
-</details>
-</blockquote><!-- variable:"user_password":end -->
 <blockquote><!-- variable:"postgres_secret_name":start -->
 
 ### `postgres_secret_name` (*Optional*)
@@ -118,27 +99,6 @@ Name of the secret, that will contain the passwords
 
 </details>
 </blockquote><!-- variable:"postgres_secret_name":end -->
-<blockquote><!-- variable:"user_name":start -->
-
-### `user_name` (*Optional*)
-
-Custom user, that will be created upon deployment
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "appuser"
-  ```
-  In file: <a href="./variables.tf#L22"><code>variables.tf#L22</code></a>
-
-</details>
-</blockquote><!-- variable:"user_name":end -->
 <blockquote><!-- variable:"versions_yaml":start -->
 
 ### `versions_yaml` (*Optional*)

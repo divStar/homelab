@@ -25,7 +25,6 @@ and `apt-get remove` are not yet supported by Proxmox API.
 ## Requirements
   
 ![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
-![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
 
 ## Providers
   

@@ -1,9 +1,0 @@
-cluster = {
-  name    = "talos-cluster"
-  domain  = "my.world"
-  lb_cidr = "192.168.178.223"
-}
-
-pgadmin_password  = "super-secret-pgadmin-password"
-postgres_username = "appuser"
-postgres_password = "super-secret-user-password"

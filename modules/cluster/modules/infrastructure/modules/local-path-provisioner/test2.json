@@ -1,0 +1,549 @@
+{
+    "format_version": "1.2",
+    "terraform_version": "1.10.3",
+    "variables": {
+        "cluster": {
+            "value": {
+                "domain": "my.world",
+                "lb_cidr": "192.168.178.223/32",
+                "name": "talos-cluster"
+            }
+        },
+        "homelab_root": {
+            "value": "~/Documents/homelab-tofu/"
+        }
+    },
+    "planned_values": {
+        "root_module": {
+            "child_modules": [
+                {
+                    "resources": [
+                        {
+                            "address": "module.local_path_provisioner.helm_release.this",
+                            "mode": "managed",
+                            "type": "helm_release",
+                            "name": "this",
+                            "provider_name": "registry.opentofu.org/hashicorp/helm",
+                            "schema_version": 2,
+                            "values": {
+                                "atomic": true,
+                                "chart": "local-path-provisioner",
+                                "cleanup_on_fail": true,
+                                "create_namespace": false,
+                                "dependency_update": false,
+                                "description": null,
+                                "devel": null,
+                                "disable_crd_hooks": false,
+                                "disable_openapi_validation": false,
+                                "disable_webhooks": false,
+                                "force_update": true,
+                                "keyring": null,
+                                "lint": true,
+                                "manifest": null,
+                                "max_history": 0,
+                                "name": "local-path-provisioner-release",
+                                "namespace": "local-path-provisioner",
+                                "pass_credentials": false,
+                                "postrender": null,
+                                "recreate_pods": false,
+                                "render_subchart_notes": true,
+                                "replace": false,
+                                "repository": "https://charts.containeroo.ch",
+                                "repository_ca_file": null,
+                                "repository_cert_file": null,
+                                "repository_key_file": null,
+                                "repository_password": null,
+                                "repository_username": null,
+                                "reset_values": false,
+                                "reuse_values": false,
+                                "set": null,
+                                "set_list": null,
+                                "set_sensitive": null,
+                                "set_wo": null,
+                                "set_wo_revision": null,
+                                "skip_crds": false,
+                                "status": "deployed",
+                                "timeout": 120,
+                                "values": [
+                                    "# Local Path Provisioner configuration\nimage:\n  repository: rancher/local-path-provisioner\n  tag: v0.0.31\n\n# Storage class configuration\nstorageClass:\n  create: true\n  defaultClass: true\n  name: local-path\n  reclaimPolicy: Delete\n  volumeBindingMode: WaitForFirstConsumer\n\n# Node path configuration for Talos\nnodePath: /var/mnt/local-path-provisioner\n\n# Helper image for filesystem operations\nhelperImage:\n  repository: busybox\n  tag: latest\n\nresources:\n  requests:\n    memory: 32Mi\n    cpu: 10m\n  limits:\n    memory: 128Mi\n    cpu: 100m"
+                                ],
+                                "verify": false,
+                                "version": "0.0.32",
+                                "wait": true,
+                                "wait_for_jobs": true
+                            },
+                            "sensitive_values": {
+                                "metadata": {},
+                                "repository_password": true,
+                                "values": [
+                                    false
+                                ]
+                            }
+                        },
+                        {
+                            "address": "module.local_path_provisioner.kubectl_manifest.namespace",
+                            "mode": "managed",
+                            "type": "kubectl_manifest",
+                            "name": "namespace",
+                            "provider_name": "registry.opentofu.org/gavinbunney/kubectl",
+                            "schema_version": 1,
+                            "values": {
+                                "api_version": "v1",
+                                "apply_only": false,
+                                "force_conflicts": false,
+                                "force_new": false,
+                                "ignore_fields": null,
+                                "kind": "Namespace",
+                                "name": "local-path-provisioner",
+                                "override_namespace": null,
+                                "sensitive_fields": null,
+                                "server_side_apply": false,
+                                "timeouts": null,
+                                "validate_schema": true,
+                                "wait": true,
+                                "wait_for_rollout": true,
+                                "yaml_body": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: local-path-provisioner\n  labels:\n    pod-security.kubernetes.io/enforce: privileged\n    pod-security.kubernetes.io/audit: privileged\n    pod-security.kubernetes.io/warn: privileged\n",
+                                "yaml_body_parsed": "apiVersion: v1\nkind: Namespace\nmetadata:\n  labels:\n    pod-security.kubernetes.io/audit: privileged\n    pod-security.kubernetes.io/enforce: privileged\n    pod-security.kubernetes.io/warn: privileged\n  name: local-path-provisioner\n"
+                            },
+                            "sensitive_values": {
+                                "live_manifest_incluster": true,
+                                "yaml_body": true,
+                                "yaml_incluster": true
+                            }
+                        }
+                    ],
+                    "address": "module.local_path_provisioner"
+                }
+            ]
+        }
+    },
+    "resource_changes": [
+        {
+            "address": "module.local_path_provisioner.helm_release.this",
+            "module_address": "module.local_path_provisioner",
+            "mode": "managed",
+            "type": "helm_release",
+            "name": "this",
+            "provider_name": "registry.opentofu.org/hashicorp/helm",
+            "change": {
+                "actions": [
+                    "create"
+                ],
+                "before": null,
+                "after": {
+                    "atomic": true,
+                    "chart": "local-path-provisioner",
+                    "cleanup_on_fail": true,
+                    "create_namespace": false,
+                    "dependency_update": false,
+                    "description": null,
+                    "devel": null,
+                    "disable_crd_hooks": false,
+                    "disable_openapi_validation": false,
+                    "disable_webhooks": false,
+                    "force_update": true,
+                    "keyring": null,
+                    "lint": true,
+                    "manifest": null,
+                    "max_history": 0,
+                    "name": "local-path-provisioner-release",
+                    "namespace": "local-path-provisioner",
+                    "pass_credentials": false,
+                    "postrender": null,
+                    "recreate_pods": false,
+                    "render_subchart_notes": true,
+                    "replace": false,
+                    "repository": "https://charts.containeroo.ch",
+                    "repository_ca_file": null,
+                    "repository_cert_file": null,
+                    "repository_key_file": null,
+                    "repository_password": null,
+                    "repository_username": null,
+                    "reset_values": false,
+                    "reuse_values": false,
+                    "set": null,
+                    "set_list": null,
+                    "set_sensitive": null,
+                    "set_wo": null,
+                    "set_wo_revision": null,
+                    "skip_crds": false,
+                    "status": "deployed",
+                    "timeout": 120,
+                    "values": [
+                        "# Local Path Provisioner configuration\nimage:\n  repository: rancher/local-path-provisioner\n  tag: v0.0.31\n\n# Storage class configuration\nstorageClass:\n  create: true\n  defaultClass: true\n  name: local-path\n  reclaimPolicy: Delete\n  volumeBindingMode: WaitForFirstConsumer\n\n# Node path configuration for Talos\nnodePath: /var/mnt/local-path-provisioner\n\n# Helper image for filesystem operations\nhelperImage:\n  repository: busybox\n  tag: latest\n\nresources:\n  requests:\n    memory: 32Mi\n    cpu: 10m\n  limits:\n    memory: 128Mi\n    cpu: 100m"
+                    ],
+                    "verify": false,
+                    "version": "0.0.32",
+                    "wait": true,
+                    "wait_for_jobs": true
+                },
+                "after_unknown": {
+                    "id": true,
+                    "metadata": true,
+                    "values": [
+                        false
+                    ]
+                },
+                "before_sensitive": false,
+                "after_sensitive": {
+                    "metadata": {},
+                    "repository_password": true,
+                    "values": [
+                        false
+                    ]
+                }
+            }
+        },
+        {
+            "address": "module.local_path_provisioner.kubectl_manifest.namespace",
+            "module_address": "module.local_path_provisioner",
+            "mode": "managed",
+            "type": "kubectl_manifest",
+            "name": "namespace",
+            "provider_name": "registry.opentofu.org/gavinbunney/kubectl",
+            "change": {
+                "actions": [
+                    "create"
+                ],
+                "before": null,
+                "after": {
+                    "api_version": "v1",
+                    "apply_only": false,
+                    "force_conflicts": false,
+                    "force_new": false,
+                    "ignore_fields": null,
+                    "kind": "Namespace",
+                    "name": "local-path-provisioner",
+                    "override_namespace": null,
+                    "sensitive_fields": null,
+                    "server_side_apply": false,
+                    "timeouts": null,
+                    "validate_schema": true,
+                    "wait": true,
+                    "wait_for_rollout": true,
+                    "yaml_body": "apiVersion: v1\nkind: Namespace\nmetadata:\n  name: local-path-provisioner\n  labels:\n    pod-security.kubernetes.io/enforce: privileged\n    pod-security.kubernetes.io/audit: privileged\n    pod-security.kubernetes.io/warn: privileged\n",
+                    "yaml_body_parsed": "apiVersion: v1\nkind: Namespace\nmetadata:\n  labels:\n    pod-security.kubernetes.io/audit: privileged\n    pod-security.kubernetes.io/enforce: privileged\n    pod-security.kubernetes.io/warn: privileged\n  name: local-path-provisioner\n"
+                },
+                "after_unknown": {
+                    "id": true,
+                    "live_manifest_incluster": true,
+                    "live_uid": true,
+                    "namespace": true,
+                    "uid": true,
+                    "yaml_incluster": true
+                },
+                "before_sensitive": false,
+                "after_sensitive": {
+                    "live_manifest_incluster": true,
+                    "yaml_body": true,
+                    "yaml_incluster": true
+                }
+            }
+        }
+    ],
+    "configuration": {
+        "provider_config": {
+            "helm": {
+                "name": "helm",
+                "full_name": "registry.opentofu.org/hashicorp/helm"
+            },
+            "kubectl": {
+                "name": "kubectl",
+                "full_name": "registry.opentofu.org/gavinbunney/kubectl"
+            }
+        },
+        "root_module": {
+            "module_calls": {
+                "local_path_provisioner": {
+                    "source": "../../../../../common/modules/helm-terraform-installer",
+                    "expressions": {
+                        "chart_name": {
+                            "references": [
+                                "local.local_path_provisioner.chartName",
+                                "local.local_path_provisioner"
+                            ]
+                        },
+                        "chart_repo": {
+                            "references": [
+                                "local.local_path_provisioner.chartRepo",
+                                "local.local_path_provisioner"
+                            ]
+                        },
+                        "chart_values": {
+                            "references": [
+                                "path.module"
+                            ]
+                        },
+                        "chart_version": {
+                            "references": [
+                                "local.local_path_provisioner.chartVersion",
+                                "local.local_path_provisioner"
+                            ]
+                        },
+                        "is_privileged_namespace": {
+                            "constant_value": true
+                        },
+                        "namespace": {
+                            "references": [
+                                "local.local_path_provisioner.namespace",
+                                "local.local_path_provisioner"
+                            ]
+                        },
+                        "release_name": {
+                            "references": [
+                                "local.local_path_provisioner.releaseName",
+                                "local.local_path_provisioner"
+                            ]
+                        }
+                    },
+                    "module": {
+                        "resources": [
+                            {
+                                "address": "helm_release.this",
+                                "mode": "managed",
+                                "type": "helm_release",
+                                "name": "this",
+                                "provider_config_key": "helm",
+                                "expressions": {
+                                    "atomic": {
+                                        "references": [
+                                            "var.is_atomic"
+                                        ]
+                                    },
+                                    "chart": {
+                                        "references": [
+                                            "var.chart_name"
+                                        ]
+                                    },
+                                    "cleanup_on_fail": {
+                                        "references": [
+                                            "var.cleanup_on_fail"
+                                        ]
+                                    },
+                                    "create_namespace": {
+                                        "constant_value": false
+                                    },
+                                    "force_update": {
+                                        "constant_value": true
+                                    },
+                                    "lint": {
+                                        "constant_value": true
+                                    },
+                                    "name": {
+                                        "references": [
+                                            "var.release_name"
+                                        ]
+                                    },
+                                    "namespace": {
+                                        "references": [
+                                            "var.namespace"
+                                        ]
+                                    },
+                                    "recreate_pods": {
+                                        "constant_value": false
+                                    },
+                                    "repository": {
+                                        "references": [
+                                            "var.chart_repo"
+                                        ]
+                                    },
+                                    "timeout": {
+                                        "references": [
+                                            "var.chart_timeout"
+                                        ]
+                                    },
+                                    "values": {
+                                        "references": [
+                                            "var.chart_values"
+                                        ]
+                                    },
+                                    "version": {
+                                        "references": [
+                                            "var.chart_version"
+                                        ]
+                                    },
+                                    "wait": {
+                                        "constant_value": true
+                                    },
+                                    "wait_for_jobs": {
+                                        "constant_value": true
+                                    }
+                                },
+                                "schema_version": 2,
+                                "depends_on": [
+                                    "kubectl_manifest.pre_install"
+                                ]
+                            },
+                            {
+                                "address": "kubectl_manifest.namespace",
+                                "mode": "managed",
+                                "type": "kubectl_manifest",
+                                "name": "namespace",
+                                "provider_config_key": "kubectl",
+                                "expressions": {
+                                    "wait": {
+                                        "constant_value": true
+                                    },
+                                    "yaml_body": {
+                                        "references": [
+                                            "path.module",
+                                            "var.namespace",
+                                            "var.is_privileged_namespace"
+                                        ]
+                                    }
+                                },
+                                "schema_version": 1
+                            },
+                            {
+                                "address": "kubectl_manifest.post_install",
+                                "mode": "managed",
+                                "type": "kubectl_manifest",
+                                "name": "post_install",
+                                "provider_config_key": "kubectl",
+                                "expressions": {
+                                    "wait": {
+                                        "constant_value": true
+                                    },
+                                    "yaml_body": {
+                                        "references": [
+                                            "each.value"
+                                        ]
+                                    }
+                                },
+                                "schema_version": 1,
+                                "for_each_expression": {
+                                    "references": [
+                                        "var.post_install_resources"
+                                    ]
+                                },
+                                "depends_on": [
+                                    "helm_release.this"
+                                ]
+                            },
+                            {
+                                "address": "kubectl_manifest.pre_install",
+                                "mode": "managed",
+                                "type": "kubectl_manifest",
+                                "name": "pre_install",
+                                "provider_config_key": "kubectl",
+                                "expressions": {
+                                    "wait": {
+                                        "constant_value": true
+                                    },
+                                    "yaml_body": {
+                                        "references": [
+                                            "each.value"
+                                        ]
+                                    }
+                                },
+                                "schema_version": 1,
+                                "for_each_expression": {
+                                    "references": [
+                                        "var.pre_install_resources"
+                                    ]
+                                },
+                                "depends_on": [
+                                    "kubectl_manifest.namespace"
+                                ]
+                            }
+                        ],
+                        "variables": {
+                            "chart_name": {
+                                "description": "Helm Chart to install"
+                            },
+                            "chart_repo": {
+                                "description": "Helm Chart repository"
+                            },
+                            "chart_timeout": {
+                                "default": 120,
+                                "description": "Time in seconds the Helm Chart installation times out after"
+                            },
+                            "chart_values": {
+                                "default": "",
+                                "description": "Additional values to pass to the helm chart (in YAML format)"
+                            },
+                            "chart_version": {
+                                "description": "Helm Chart version"
+                            },
+                            "cleanup_on_fail": {
+                                "default": true,
+                                "description": "Specifies whether to clean up the `helm_release` if deployment fails; this setting is useful for debugging purposes"
+                            },
+                            "is_atomic": {
+                                "default": true,
+                                "description": "Specifies whether `helm_release` will deploy in an 'atomic', revertible way"
+                            },
+                            "is_privileged_namespace": {
+                                "default": false,
+                                "description": "Whether the Kubernetes namespace is a privileged namespace or not"
+                            },
+                            "namespace": {
+                                "description": "Kubernetes namespace to install into"
+                            },
+                            "post_install_resources": {
+                                "default": [],
+                                "description": "List of resources to deploy before installing the application"
+                            },
+                            "pre_install_resources": {
+                                "default": [],
+                                "description": "List of resources to deploy before installing the application"
+                            },
+                            "release_name": {
+                                "description": "Name of the Helm release"
+                            }
+                        }
+                    }
+                }
+            },
+            "variables": {
+                "cluster": {
+                    "description": "Cluster configuration"
+                },
+                "homelab_root": {
+                    "default": "~/Documents/homelab-tofu/",
+                    "description": "Path to the gitops git repository root"
+                }
+            }
+        }
+    },
+    "checks": [
+        {
+            "address": {
+                "kind": "var",
+                "module": "module.local_path_provisioner",
+                "name": "post_install_resources",
+                "to_display": "module.local_path_provisioner.var.post_install_resources"
+            },
+            "status": "pass",
+            "instances": [
+                {
+                    "address": {
+                        "module": "module.local_path_provisioner",
+                        "to_display": "module.local_path_provisioner.var.post_install_resources"
+                    },
+                    "status": "pass"
+                }
+            ]
+        },
+        {
+            "address": {
+                "kind": "var",
+                "module": "module.local_path_provisioner",
+                "name": "pre_install_resources",
+                "to_display": "module.local_path_provisioner.var.pre_install_resources"
+            },
+            "status": "pass",
+            "instances": [
+                {
+                    "address": {
+                        "module": "module.local_path_provisioner",
+                        "to_display": "module.local_path_provisioner.var.pre_install_resources"
+                    },
+                    "status": "pass"
+                }
+            ]
+        }
+    ],
+    "timestamp": "2025-08-08T21:40:42Z",
+    "errored": false
+}

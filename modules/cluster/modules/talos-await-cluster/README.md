@@ -2,17 +2,12 @@
 
 Awaits the Talos cluster to start up.
 
-> [!NOTE]
-> Since the cluster is starting up without a CNI (Flannel is disabled),
-> *Kubernetes checks are skipped* ([`skip_kubernetes_checks = true`](./main.tf#L29)).
-
 ## Contents
 
 <blockquote><!-- contents:start -->
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Resources](#resources)
   - _talos_cluster_kubeconfig_.[this](#talos_cluster_kubeconfigthis)
   - _talos_machine_bootstrap_.[this](#talos_machine_bootstrapthis)
@@ -39,20 +34,13 @@ Awaits the Talos cluster to start up.
   
 ![talos](https://img.shields.io/badge/talos-0.8.1-2479ce)
 
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── talos_machine_bootstrap.this
-├── talos_cluster_kubeconfig.this
-```
-
 ## Resources
   
 <blockquote><!-- resource:"talos_cluster_kubeconfig.this":start -->
 
 ### _talos_cluster_kubeconfig_.`this`
-      
+
+Retrieves a `kube_config` for the given Talos Kubernetes node
   <table>
     <tr>
       <td>Provider</td>
@@ -60,14 +48,15 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L48"><code>main.tf#L48</code></a></td>
+      <td><a href="./main.tf#L51"><code>main.tf#L51</code></a></td>
     </tr>
   </table>
 </blockquote><!-- resource:"talos_cluster_kubeconfig.this":end -->
 <blockquote><!-- resource:"talos_machine_bootstrap.this":start -->
 
 ### _talos_machine_bootstrap_.`this`
-      
+
+Bootstraps a Talos node
   <table>
     <tr>
       <td>Provider</td>
@@ -75,7 +64,7 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L16"><code>main.tf#L16</code></a></td>
+      <td><a href="./main.tf#L38"><code>main.tf#L38</code></a></td>
     </tr>
   </table>
 </blockquote><!-- resource:"talos_machine_bootstrap.this":end -->

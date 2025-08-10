@@ -32,7 +32,7 @@ Handles appending of SSH keys to the authorized\_keys file of a given user.
 
 ## Providers
   
-![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9)
+![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
 
 ## Execution story
 

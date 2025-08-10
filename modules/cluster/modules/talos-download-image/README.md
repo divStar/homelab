@@ -9,7 +9,6 @@ architecture, platform and schematics.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Resources](#resources)
   - _proxmox_virtual_environment_download_file_.[this](#proxmox_virtual_environment_download_filethis)
   - _talos_image_factory_schematic_.[this](#talos_image_factory_schematicthis)
@@ -34,14 +33,6 @@ architecture, platform and schematics.
   
 ![proxmox](https://img.shields.io/badge/proxmox-0.68.1-1e73c8)
 ![talos](https://img.shields.io/badge/talos-0.6.1-2479ce)
-
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── talos_image_factory_schematic.this
-├── proxmox_virtual_environment_download_file.this
-```
 
 ## Resources
   

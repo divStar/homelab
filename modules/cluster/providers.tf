@@ -18,10 +18,6 @@ terraform {
       source  = "gavinbunney/kubectl"
       version = ">= 1.19.0"
     }
-    sealedsecret = {
-      version = ">=1.1.16"
-      source  = "jifwin/sealedsecret"
-    }
   }
 }
 
@@ -55,16 +51,4 @@ provider "kubectl" {
   client_key             = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.client_key)
   cluster_ca_certificate = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.ca_certificate)
   load_config_file       = false
-}
-
-provider "sealedsecret" {
-  controller_name      = var.sealed_secrets_controller_name
-  controller_namespace = local.sealed_secrets.namespace
-
-  kubernetes {
-    host                   = module.talos_cluster_ready.kube_config.kubernetes_client_configuration.host
-    client_certificate     = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.client_certificate)
-    client_key             = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.client_key)
-    cluster_ca_certificate = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.ca_certificate)
-  }
 }

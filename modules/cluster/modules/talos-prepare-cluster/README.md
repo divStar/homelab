@@ -8,7 +8,6 @@ Creates the Talos machine secrets and the Talos client configuration.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Resources](#resources)
   - _talos_machine_secrets_.[this](#talos_machine_secretsthis)
 - [Variables](#variables)
@@ -28,13 +27,6 @@ Creates the Talos machine secrets and the Talos client configuration.
 ## Providers
   
 ![talos](https://img.shields.io/badge/talos-0.8.1-2479ce)
-
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── talos_machine_secrets.this
-```
 
 ## Resources
   

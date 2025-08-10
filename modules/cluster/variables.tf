@@ -106,56 +106,9 @@ variable "talos_machine_config_file" {
   nullable    = false
 }
 
-variable "k8s_sealed_secret_ca_file" {
-  description = "File name and path for the generated sealed secret of the intermediate Kubernetes CA certificate"
-  type        = string
-  default     = "output/k8s_sealed_secret_ca.yaml"
-  nullable    = false
-}
-
-# ACME configuration
 variable "step_ca_host" {
   description = "Step CA IP or host, _*not*_ including the protocol (`https`)."
   default     = "192.168.178.155"
   type        = string
   nullable    = false
-}
-
-variable "acme_server_directory_url" {
-  description = "ACME server directory URL"
-  type        = string
-  default     = "https://step-ca.my.world/acme/step-ca-acme/directory"
-  nullable    = false
-}
-
-variable "acme_contact" {
-  description = "E-Mail address of the ACME account"
-  type        = string
-  default     = "admin@my.world"
-  nullable    = false
-}
-
-# Misc configuration
-variable "sealed_secrets_controller_name" {
-  description = "Name of the sealed-secrets controller"
-  type        = string
-  default     = "sealed-secrets-release"
-  nullable    = false
-}
-
-variable "external_dns_secret_name" {
-  description = "Name of the external-dns secret"
-  type        = string
-  default     = "sealed-secrets-release"
-  nullable    = false
-}
-
-variable "cilium_crds" {
-  description = "Cilium CRDs, that have to be present *before* Cilium is installed in order to install the LoadBalancer IP Pool and L2 Announcement resources; use `<VERSION>` placeholder to auto-replace the version in the URL"
-  type        = list(string)
-  default = [
-    "https://raw.githubusercontent.com/cilium/cilium/refs/tags/v<VERSION>/pkg/k8s/apis/cilium.io/client/crds/v2alpha1/ciliuml2announcementpolicies.yaml",
-    "https://raw.githubusercontent.com/cilium/cilium/refs/tags/v<VERSION>/pkg/k8s/apis/cilium.io/client/crds/v2alpha1/ciliumloadbalancerippools.yaml"
-  ]
-  nullable = false
 }

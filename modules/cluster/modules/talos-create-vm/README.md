@@ -8,7 +8,6 @@ Creates a Talos VM with a given ISO, type and other settings.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Resources](#resources)
   - _local_file_.[step_ca_root_pem_patch](#local_filestep_ca_root_pem_patch)
   - _local_file_.[virtiofs_patch](#local_filevirtiofs_patch)
@@ -48,20 +47,13 @@ Creates a Talos VM with a given ISO, type and other settings.
 ![proxmox](https://img.shields.io/badge/proxmox-0.78.2-1e73c8)
 ![talos](https://img.shields.io/badge/talos-0.8.1-2479ce)
 
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── proxmox_virtual_environment_vm.this
-├── talos_machine_configuration_apply.this
-```
-
 ## Resources
   
 <blockquote><!-- resource:"local_file.step_ca_root_pem_patch":start -->
 
 ### _local_file_.`step_ca_root_pem_patch`
-      
+
+Renders the Step CA root certificate patch template
   <table>
     <tr>
       <td>Provider</td>
@@ -69,14 +61,15 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./step_ca_root.tf#L7"><code>step_ca_root.tf#L7</code></a></td>
+      <td><a href="./main.tf#L48"><code>main.tf#L48</code></a></td>
     </tr>
   </table>
 </blockquote><!-- resource:"local_file.step_ca_root_pem_patch":end -->
 <blockquote><!-- resource:"local_file.virtiofs_patch":start -->
 
 ### _local_file_.`virtiofs_patch`
-      
+
+Renders the virtiofs patch template
   <table>
     <tr>
       <td>Provider</td>
@@ -84,14 +77,15 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./virtiofs_mount.tf#L7"><code>virtiofs_mount.tf#L7</code></a></td>
+      <td><a href="./main.tf#L37"><code>main.tf#L37</code></a></td>
     </tr>
   </table>
 </blockquote><!-- resource:"local_file.virtiofs_patch":end -->
 <blockquote><!-- resource:"proxmox_virtual_environment_vm.this":start -->
 
 ### _proxmox_virtual_environment_vm_.`this`
-      
+
+Handles the creation of the VM
   <table>
     <tr>
       <td>Provider</td>
@@ -99,14 +93,15 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./vms.tf#L1"><code>vms.tf#L1</code></a></td>
+      <td><a href="./main.tf#L73"><code>main.tf#L73</code></a></td>
     </tr>
   </table>
 </blockquote><!-- resource:"proxmox_virtual_environment_vm.this":end -->
 <blockquote><!-- resource:"talos_machine_configuration_apply.this":start -->
 
 ### _talos_machine_configuration_apply_.`this`
-      
+
+Applies the Talos machine configuration
   <table>
     <tr>
       <td>Provider</td>
@@ -114,7 +109,7 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L27"><code>main.tf#L27</code></a></td>
+      <td><a href="./main.tf#L59"><code>main.tf#L59</code></a></td>
     </tr>
   </table>
 </blockquote><!-- resource:"talos_machine_configuration_apply.this":end -->

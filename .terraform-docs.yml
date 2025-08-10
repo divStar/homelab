@@ -47,7 +47,6 @@ content: |-
 
   - [Requirements](#requirements)
   - [Providers](#providers)
-  - [Execution story](#execution-story)
   {{- if .Module.HasModuleCalls }}
   - [Modules](#modules) _(nested and adjacent)_
     {{- range .Module.ModuleCalls }}
@@ -90,13 +89,6 @@ content: |-
   ![{{ .Name }}](https://img.shields.io/badge/{{- .Name -}}-{{- .Version.Raw | replace " " "" -}}-{{ printf "%02x%02x%02x" (mod (.Name | adler32sum) 256) (mod (add (.Name | adler32sum) 85) 256) (mod (add (.Name | adler32sum) 170) 256) }})
     {{- end }}
   {{- end }}
-
-  ## Execution story
-
-  Order in which Terraform will create resources (and likely destroy them in reverse order):
-  ```
-  EXECUTION_STORY_PLACE_HOLDER
-  ```
   
   {{- if .Module.HasModuleCalls }}
 

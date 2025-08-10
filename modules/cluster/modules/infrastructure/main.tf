@@ -5,13 +5,11 @@
  */
 
 locals {
-  versions               = yamldecode(file("${var.homelab_root}/versions.yaml"))
+  versions               = yamldecode(file("${var.relative_path_to_versions_yaml}/versions.yaml"))
   cilium                 = local.versions.cilium
   external_dns           = local.versions.externalDns
   local_path_provisioner = local.versions.localPathProvisioner
   traefik                = local.versions.traefik
-
-  helm_terraform_installer_path = pathexpand("${var.homelab_root}/modules/common/modules/helm-terraform-installer")
 }
 
 # Installs [`Traefik v3`](https://github.com/traefik/traefik) *CRDs*
@@ -19,7 +17,8 @@ locals {
 module "traefik_crds" {
   source = "./modules/traefik-crds"
 
-  cluster = var.cluster
+  cluster                        = var.cluster
+  relative_path_to_versions_yaml = var.relative_path_to_versions_yaml
 }
 
 # Installs [`Cilium`](https://github.com/cilium/cilium) CNI,
@@ -28,7 +27,8 @@ module "cilium" {
   source     = "./modules/cilium"
   depends_on = [module.traefik_crds]
 
-  cluster = var.cluster
+  cluster                        = var.cluster
+  relative_path_to_versions_yaml = var.relative_path_to_versions_yaml
 }
 
 # Installs [`external-dns`](https://github.com/kubernetes-sigs/external-dns),
@@ -38,7 +38,8 @@ module "external_dns" {
   source     = "./modules/external-dns"
   depends_on = [module.cilium]
 
-  cluster = var.cluster
+  cluster                        = var.cluster
+  relative_path_to_versions_yaml = var.relative_path_to_versions_yaml
 }
 
 # Installs [`local-path-provisioner`](https://github.com/rancher/local-path-provisioner),
@@ -48,15 +49,17 @@ module "local_path_provisioner" {
   source     = "./modules/local-path-provisioner"
   depends_on = [module.cilium]
 
-  cluster = var.cluster
+  cluster                        = var.cluster
+  relative_path_to_versions_yaml = var.relative_path_to_versions_yaml
 }
 
 # Installs [`Traefik v3`](https://github.com/traefik/traefik),
 # which provides ingress controller with built-in ACME support and OIDC authentication plugin capabilities.
 module "traefik" {
-  source = "./modules/traefik"
+  source     = "./modules/traefik"
   depends_on = [module.external_dns, module.local_path_provisioner]
 
-  cluster = var.cluster
-  root_ca_certificate = var.root_ca_certificate
+  cluster                        = var.cluster
+  relative_path_to_versions_yaml = var.relative_path_to_versions_yaml
+  root_ca_certificate            = var.root_ca_certificate
 }

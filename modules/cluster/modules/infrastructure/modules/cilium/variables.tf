@@ -1,10 +1,3 @@
-variable "homelab_root" {
-  description = "Path to the gitops git repository root"
-  type        = string
-  default     = "~/Documents/homelab-tofu/"
-  nullable    = false
-}
-
 variable "cluster" {
   description = "Cluster configuration"
   type = object({
@@ -12,6 +5,12 @@ variable "cluster" {
     lb_cidr = string
     domain  = string
   })
+}
+
+variable "relative_path_to_versions_yaml" {
+  description = "Relative path to the `versions.yaml` file"
+  type        = string
+  nullable    = false
 }
 
 variable "cilium_crds" {

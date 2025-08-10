@@ -5,10 +5,8 @@
  */
 
 locals {
-  versions     = yamldecode(file("${var.homelab_root}/versions.yaml"))
-  traefik = local.versions.traefik
-
-  helm_terraform_installer_path = pathexpand("${var.homelab_root}/modules/common/modules/helm-terraform-installer")
+  versions = yamldecode(file("${var.relative_path_to_versions_yaml}/versions.yaml"))
+  traefik  = local.versions.traefik
 }
 
 # Installs [`Traefik v3`](https://github.com/traefik/traefik),

@@ -5,10 +5,8 @@
  */
 
 locals {
-  versions               = yamldecode(file("${var.homelab_root}/versions.yaml"))
+  versions               = yamldecode(file("${var.relative_path_to_versions_yaml}/versions.yaml"))
   local_path_provisioner = local.versions.localPathProvisioner
-
-  helm_terraform_installer_path = pathexpand("${var.homelab_root}/modules/common/modules/helm-terraform-installer")
 }
 
 # Installs [`local-path-provisioner`](https://github.com/rancher/local-path-provisioner),

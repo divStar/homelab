@@ -24,19 +24,4 @@ module "cnpg_operator" {
   release_name  = local.cnpg_operator.releaseName
 
   chart_values = file("${path.module}/files/cnpg-operator.values.yaml")
-
-  post_install_resources = [
-    {
-      yaml = file("${path.module}/files/cnpg-operator.namespace.post-install.yaml")
-    },
-    {
-      yaml = file("${path.module}/files/cnpg-operator.cluster.post-install.yaml")
-      wait_for = {
-        conditions = [{
-          type   = "Ready"
-          status = "True"
-        }]
-      }
-    }
-  ]
 }

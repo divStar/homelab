@@ -12,10 +12,10 @@ This module installs and configures Traefik.
   - [traefik](#traefik)
 - [Variables](#variables)
   - [cluster](#cluster-required) (**Required**)
+  - [relative_path_to_versions_yaml](#relative_path_to_versions_yaml-required) (**Required**)
   - [root_ca_certificate](#root_ca_certificate-required) (**Required**)
   - [acme_contact](#acme_contact-optional) (*Optional*)
   - [acme_server_directory_url](#acme_server_directory_url-optional) (*Optional*)
-  - [homelab_root](#homelab_root-optional) (*Optional*)
 </blockquote><!-- contents:end -->
 
 ## Requirements
@@ -36,7 +36,7 @@ Installs [`Traefik v3`](https://github.com/traefik/traefik), which provides ingr
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L16"><code>main.tf#L16</code></a></td>
+      <td><a href="./main.tf#L14"><code>main.tf#L14</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../../../../../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -63,10 +63,27 @@ Cluster configuration
     domain  = string
   })
   ```
-  In file: <a href="./variables.tf#L8"><code>variables.tf#L8</code></a>
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote><!-- variable:"cluster":end -->
+<blockquote><!-- variable:"relative_path_to_versions_yaml":start -->
+
+### `relative_path_to_versions_yaml` (**Required**)
+
+Relative path to the `versions.yaml` file
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  In file: <a href="./variables.tf#L10"><code>variables.tf#L10</code></a>
+
+</details>
+</blockquote><!-- variable:"relative_path_to_versions_yaml":end -->
 <blockquote><!-- variable:"root_ca_certificate":start -->
 
 ### `root_ca_certificate` (**Required**)
@@ -80,7 +97,7 @@ Step CA root CA certificate.
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L17"><code>variables.tf#L17</code></a>
+  In file: <a href="./variables.tf#L16"><code>variables.tf#L16</code></a>
 
 </details>
 </blockquote><!-- variable:"root_ca_certificate":end -->
@@ -101,7 +118,7 @@ E-Mail address of the ACME account
   ```json
   "admin@my.world"
   ```
-  In file: <a href="./variables.tf#L30"><code>variables.tf#L30</code></a>
+  In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
 
 </details>
 </blockquote><!-- variable:"acme_contact":end -->
@@ -122,28 +139,7 @@ ACME server directory URL
   ```json
   "https://step-ca.my.world/acme/step-ca-acme/directory"
   ```
-  In file: <a href="./variables.tf#L23"><code>variables.tf#L23</code></a>
+  In file: <a href="./variables.tf#L22"><code>variables.tf#L22</code></a>
 
 </details>
 </blockquote><!-- variable:"acme_server_directory_url":end -->
-<blockquote><!-- variable:"homelab_root":start -->
-
-### `homelab_root` (*Optional*)
-
-Path to the gitops git repository root
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "~/Documents/homelab-tofu/"
-  ```
-  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
-
-</details>
-</blockquote><!-- variable:"homelab_root":end -->

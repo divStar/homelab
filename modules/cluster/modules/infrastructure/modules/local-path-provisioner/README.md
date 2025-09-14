@@ -12,7 +12,7 @@ This module installs and configures local-path-provisioner.
   - [local_path_provisioner](#local_path_provisioner)
 - [Variables](#variables)
   - [cluster](#cluster-required) (**Required**)
-  - [homelab_root](#homelab_root-optional) (*Optional*)
+  - [relative_path_to_versions_yaml](#relative_path_to_versions_yaml-required) (**Required**)
 </blockquote><!-- contents:end -->
 
 ## Requirements
@@ -33,7 +33,7 @@ Installs [`local-path-provisioner`](https://github.com/rancher/local-path-provis
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L17"><code>main.tf#L17</code></a></td>
+      <td><a href="./main.tf#L15"><code>main.tf#L15</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../../../../../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -60,15 +60,15 @@ Cluster configuration
     domain  = string
   })
   ```
-  In file: <a href="./variables.tf#L8"><code>variables.tf#L8</code></a>
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote><!-- variable:"cluster":end -->
-<blockquote><!-- variable:"homelab_root":start -->
+<blockquote><!-- variable:"relative_path_to_versions_yaml":start -->
 
-### `homelab_root` (*Optional*)
+### `relative_path_to_versions_yaml` (**Required**)
 
-Path to the gitops git repository root
+Relative path to the `versions.yaml` file
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -77,11 +77,7 @@ Path to the gitops git repository root
   ```hcl
   string
   ```
-  **Default**:
-  ```json
-  "~/Documents/homelab-tofu/"
-  ```
-  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
+  In file: <a href="./variables.tf#L10"><code>variables.tf#L10</code></a>
 
 </details>
-</blockquote><!-- variable:"homelab_root":end -->
+</blockquote><!-- variable:"relative_path_to_versions_yaml":end -->

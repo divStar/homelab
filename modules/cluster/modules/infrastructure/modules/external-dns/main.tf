@@ -28,10 +28,10 @@ module "external_dns" {
     cluster_name             = var.cluster.name
   })
 
-  pre_install_resources = [
-    templatefile("${path.module}/files/external-dns.secret.yaml.tftpl", {
+  pre_install_resources = [{
+    yaml = templatefile("${path.module}/files/external-dns.secret.yaml.tftpl", {
       external_dns_namespace   = local.external_dns.namespace
       external_dns_secret_name = var.external_dns_secret_name
     })
-  ]
+  }]
 }

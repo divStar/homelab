@@ -26,21 +26,25 @@ module "traefik" {
     acme_server_directory_url = var.acme_server_directory_url
   })
 
-  pre_install_resources = [
-    templatefile("${path.module}/files/traefik.configmap.step-ca-root-cert.yaml.tftpl", {
+  pre_install_resources = [{
+    yaml = templatefile("${path.module}/files/traefik.configmap.step-ca-root-cert.pre-install.yaml.tftpl", {
       traefik_namespace = local.traefik.namespace
       root_ca_content   = var.root_ca_certificate
     })
-  ]
+  }]
 
   post_install_resources = [
-    templatefile("${path.module}/files/traefik.middleware.redirect-to-dashboard.post-install.yaml.tftpl", {
-      traefik_namespace = local.traefik.namespace
-    }),
-    templatefile("${path.module}/files/traefik.ingress-route.post-install.yaml.tftpl", {
-      traefik_namespace   = local.traefik.namespace
-      cluster_domain      = var.cluster.domain
-      external_dns_target = "${var.cluster.name}.${var.cluster.domain}" # adding a CNAME record
-    })
+    {
+      yaml = templatefile("${path.module}/files/traefik.middleware.redirect-to-dashboard.post-install.yaml.tftpl", {
+        traefik_namespace = local.traefik.namespace
+      })
+    },
+    {
+      yaml = templatefile("${path.module}/files/traefik.ingress-route.post-install.yaml.tftpl", {
+        traefik_namespace   = local.traefik.namespace
+        cluster_domain      = var.cluster.domain
+        external_dns_target = "${var.cluster.name}.${var.cluster.domain}" # adding a CNAME record
+      })
+    }
   ]
 }

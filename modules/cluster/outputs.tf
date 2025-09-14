@@ -28,3 +28,9 @@ output "kube_config" {
   value       = module.talos_cluster_ready.kube_config.kubeconfig_raw
   sensitive   = true
 }
+
+output "zitadel_pat" {
+  description = "Personal Access Token of the Zitadel Admin"
+  value       = module.platform.zitadel_pat
+  sensitive   = true
+}

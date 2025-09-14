@@ -21,9 +21,35 @@ resource "kubectl_manifest" "pre_install" {
 
   # Using `idx`, because it helps ensure the order of the YAML resources
   for_each  = { for idx, resource in var.pre_install_resources : idx => resource }
-  yaml_body = each.value
+  yaml_body = each.value.yaml
 
+  wait_for_rollout = true
   wait = true
+
+  dynamic "wait_for" {
+    for_each = each.value.wait_for != null ? [each.value.wait_for] : []
+    
+    content {
+      # Add field conditions if any
+      dynamic "field" {
+        for_each = wait_for.value.fields != null ? wait_for.value.fields : []
+        content {
+          key        = field.value.key
+          value      = field.value.value
+          value_type = field.value.value_type
+        }
+      }
+      
+      # Add status conditions if any
+      dynamic "condition" {
+        for_each = wait_for.value.conditions != null ? wait_for.value.conditions : []
+        content {
+          type   = condition.value.type
+          status = condition.value.status
+        }
+      }
+    }
+  }
 }
 
 resource "helm_release" "this" {
@@ -56,7 +82,33 @@ resource "kubectl_manifest" "post_install" {
 
   # Using `idx`, because it helps ensure the order of the YAML resources
   for_each  = { for idx, resource in var.post_install_resources : idx => resource }
-  yaml_body = each.value
+  yaml_body = each.value.yaml
 
+  wait_for_rollout = true
   wait = true
+
+  dynamic "wait_for" {
+    for_each = each.value.wait_for != null ? [each.value.wait_for] : []
+    
+    content {
+      # Add field conditions if any
+      dynamic "field" {
+        for_each = wait_for.value.fields != null ? wait_for.value.fields : []
+        content {
+          key        = field.value.key
+          value      = field.value.value
+          value_type = field.value.value_type
+        }
+      }
+      
+      # Add status conditions if any
+      dynamic "condition" {
+        for_each = wait_for.value.conditions != null ? wait_for.value.conditions : []
+        content {
+          type   = condition.value.type
+          status = condition.value.status
+        }
+      }
+    }
+  }
 }

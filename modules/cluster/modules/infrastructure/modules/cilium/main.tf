@@ -39,23 +39,29 @@ module "cilium" {
   chart_timeout = 300 # 5 minutes
 
   pre_install_resources = concat(
-    values(data.http.cilium_crds_pre_install)[*].response_body,
+    [for response_yaml_body in values(data.http.cilium_crds_pre_install)[*].response_body : {
+      yaml = response_yaml_body
+    }],
     [
-      templatefile("${path.module}/files/cilium.cilium-load-balancer-ip-pool.post-install.yaml.tftpl", {
-        namespace = local.cilium.namespace
-        lb_cidr   = var.cluster.lb_cidr
-      }),
-      templatefile("${path.module}/files/cilium.cilium-l2-announcement-policy.post-install.yaml.tftpl", {
-        namespace = local.cilium.namespace
-      })
+      {
+        yaml = templatefile("${path.module}/files/cilium.cilium-load-balancer-ip-pool.pre-install.yaml.tftpl", {
+          namespace = local.cilium.namespace
+          lb_cidr   = var.cluster.lb_cidr
+        })
+      },
+      {
+        yaml = templatefile("${path.module}/files/cilium.cilium-l2-announcement-policy.pre-install.yaml.tftpl", {
+          namespace = local.cilium.namespace
+        })
+      }
     ]
   )
 
-  post_install_resources = [
-    templatefile("${path.module}/files/cilium.ingress-route.post-install.yaml.tftpl", {
+  post_install_resources = [{
+    yaml = templatefile("${path.module}/files/cilium.ingress-route.post-install.yaml.tftpl", {
       cilium_namespace    = local.cilium.namespace
       cluster_domain      = var.cluster.domain
       external_dns_target = "${var.cluster.name}.${var.cluster.domain}" # adding a CNAME record
     })
-  ]
+  }]
 }

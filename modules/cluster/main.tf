@@ -120,3 +120,17 @@ module "infrastructure" {
     lb_cidr = var.cluster.lb_cidr
   }
 }
+
+# Handles the set up of platform services and functionality (CNPG operator, pgAdmin, Zitadel, etc.).
+module "platform" {
+  source     = "./modules/platform"
+  depends_on = [module.infrastructure]
+
+  root_ca_certificate = data.http.step_ca_root_pem.response_body
+  cluster = {
+    name    = var.cluster.name
+    domain  = var.cluster.domain
+    lb_cidr = var.cluster.lb_cidr
+  }
+  zitadel_admin_password = var.zitadel_admin_password
+}

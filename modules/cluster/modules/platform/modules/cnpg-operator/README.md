@@ -1,7 +1,9 @@
-# Traefik CRDs setup
+# CloudNative PostgreSQL
 
-This module installs the Traefik CRDs Helm Chart, ultimately allowing each application to bring its own `IngressRoute`
-even before the [Traefik module](../traefik/README.md) is installed.
+This module installs PostgreSQL (postgres) onto a given cluster.
+
+> [!NOTE]
+> In order to install this application successfully, the cluster is *required* to be configured properly.
 
 ## Contents
 
@@ -10,7 +12,7 @@ even before the [Traefik module](../traefik/README.md) is installed.
 - [Requirements](#requirements)
 - [Providers](#providers)
 - [Modules](#modules) _(nested and adjacent)_
-  - [traefik_crds](#traefik_crds)
+  - [cnpg_operator](#cnpg_operator)
 - [Variables](#variables)
   - [cluster](#cluster-required) (**Required**)
   - [relative_path_to_versions_yaml](#relative_path_to_versions_yaml-required) (**Required**)
@@ -22,11 +24,11 @@ even before the [Traefik module](../traefik/README.md) is installed.
 
 ## Modules
   
-<blockquote><!-- module:"traefik_crds":start -->
+<blockquote><!-- module:"cnpg_operator":start -->
 
-### `traefik_crds`
+### `cnpg_operator`
 
-Installs [`Traefik v3`](https://github.com/traefik/traefik) *CRDs* in order to allow the deployment of `IngressRoute` resources before Traefik is deployed.
+Installs [PostgreSQL (`postgres`)](https://github.com/bitnami/charts/tree/main/bitnami/postgresql), a database for other services to use.
   <table>
     <tr>
       <td>Module location</td>
@@ -34,13 +36,13 @@ Installs [`Traefik v3`](https://github.com/traefik/traefik) *CRDs* in order to a
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L15"><code>main.tf#L15</code></a></td>
+      <td><a href="./main.tf#L17"><code>main.tf#L17</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../../../../../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote><!-- module:"traefik_crds":end -->
+</blockquote><!-- module:"cnpg_operator":end -->
 
 ## Variables
   

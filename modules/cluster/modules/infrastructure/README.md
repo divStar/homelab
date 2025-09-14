@@ -17,7 +17,7 @@ This module sets up the most critical k8s applications.
 - [Variables](#variables)
   - [cluster](#cluster-required) (**Required**)
   - [root_ca_certificate](#root_ca_certificate-required) (**Required**)
-  - [homelab_root](#homelab_root-optional) (*Optional*)
+  - [relative_path_to_versions_yaml](#relative_path_to_versions_yaml-optional) (*Optional*)
 </blockquote><!-- contents:end -->
 
 ## Requirements
@@ -38,7 +38,7 @@ Installs [`Cilium`](https://github.com/cilium/cilium) CNI, which is a networking
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L27"><code>main.tf#L27</code></a></td>
+      <td><a href="./main.tf#L26"><code>main.tf#L26</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/cilium/README.md">README.md</a> <em>(experimental)</em></td>
@@ -76,7 +76,7 @@ Installs [`local-path-provisioner`](https://github.com/rancher/local-path-provis
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L47"><code>main.tf#L47</code></a></td>
+      <td><a href="./main.tf#L48"><code>main.tf#L48</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/local-path-provisioner/README.md">README.md</a> <em>(experimental)</em></td>
@@ -95,7 +95,7 @@ Installs [`Traefik v3`](https://github.com/traefik/traefik), which provides ingr
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L56"><code>main.tf#L56</code></a></td>
+      <td><a href="./main.tf#L58"><code>main.tf#L58</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/traefik/README.md">README.md</a> <em>(experimental)</em></td>
@@ -114,7 +114,7 @@ Installs [`Traefik v3`](https://github.com/traefik/traefik) *CRDs* in order to a
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L19"><code>main.tf#L19</code></a></td>
+      <td><a href="./main.tf#L17"><code>main.tf#L17</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/traefik-crds/README.md">README.md</a> <em>(experimental)</em></td>
@@ -141,7 +141,7 @@ Cluster configuration
     domain  = string
   })
   ```
-  In file: <a href="./variables.tf#L8"><code>variables.tf#L8</code></a>
+  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
 </blockquote><!-- variable:"cluster":end -->
@@ -162,11 +162,11 @@ Step CA root CA certificate.
 
 </details>
 </blockquote><!-- variable:"root_ca_certificate":end -->
-<blockquote><!-- variable:"homelab_root":start -->
+<blockquote><!-- variable:"relative_path_to_versions_yaml":start -->
 
-### `homelab_root` (*Optional*)
+### `relative_path_to_versions_yaml` (*Optional*)
 
-Path to the gitops git repository root
+Relative path to the `versions.yaml` file; it's passed to sub-modules
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -177,9 +177,9 @@ Path to the gitops git repository root
   ```
   **Default**:
   ```json
-  "~/Documents/homelab-tofu/"
+  "../.."
   ```
-  In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
+  In file: <a href="./variables.tf#L10"><code>variables.tf#L10</code></a>
 
 </details>
-</blockquote><!-- variable:"homelab_root":end -->
+</blockquote><!-- variable:"relative_path_to_versions_yaml":end -->

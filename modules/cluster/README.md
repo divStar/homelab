@@ -8,9 +8,9 @@ This module and its sub-modules setup the Talos cluster on the Proxmox host.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Modules](#modules) _(nested and adjacent)_
   - [infrastructure](#infrastructure)
+  - [platform](#platform)
   - [talos_cluster_prepare](#talos_cluster_prepare)
   - [talos_cluster_ready](#talos_cluster_ready)
   - [talos_images](#talos_images)
@@ -46,13 +46,6 @@ This module and its sub-modules setup the Talos cluster on the Proxmox host.
 ![http](https://img.shields.io/badge/http-3.5.0-c1166b)
 ![local](https://img.shields.io/badge/local-2.5.3-0c61b6)
 
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-EXECUTION_STORY_PLACE_HOLDER
-```
-
 ## Modules
   
 <blockquote><!-- module:"infrastructure":start -->
@@ -67,13 +60,32 @@ Handles the set up of the most basic infrastructure (CNI, ingress, certificates,
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L113"><code>main.tf#L113</code></a></td>
+      <td><a href="./main.tf#L112"><code>main.tf#L112</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/infrastructure/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
 </blockquote><!-- module:"infrastructure":end -->
+<blockquote><!-- module:"platform":start -->
+
+### `platform`
+
+Handles the set up of platform services and functionality (CNPG operator, pgAdmin, Zitadel, etc.).
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/platform</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L125"><code>main.tf#L125</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/platform/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
+</blockquote><!-- module:"platform":end -->
 <blockquote><!-- module:"talos_cluster_prepare":start -->
 
 ### `talos_cluster_prepare`
@@ -86,7 +98,7 @@ Prepares the cluster creation by generating the **Talos machine secrets** and cr
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L45"><code>main.tf#L45</code></a></td>
+      <td><a href="./main.tf#L44"><code>main.tf#L44</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/talos-prepare-cluster/README.md">README.md</a> <em>(experimental)</em></td>
@@ -105,7 +117,7 @@ Awaits the Talos cluster to become ready and available. <p>This module returns o
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L92"><code>main.tf#L92</code></a></td>
+      <td><a href="./main.tf#L91"><code>main.tf#L91</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/talos-await-cluster/README.md">README.md</a> <em>(experimental)</em></td>
@@ -124,7 +136,7 @@ Downloads the calculated Talos images specified in the [`nodes`](#nodes-required
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L30"><code>main.tf#L30</code></a></td>
+      <td><a href="./main.tf#L29"><code>main.tf#L29</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/talos-download-image/README.md">README.md</a> <em>(experimental)</em></td>
@@ -143,7 +155,7 @@ Creates the given Talos VMs, uses `for_each` on the list of [`nodes`](#nodes-req
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L59"><code>main.tf#L59</code></a></td>
+      <td><a href="./main.tf#L58"><code>main.tf#L58</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/talos-create-vm/README.md">README.md</a> <em>(experimental)</em></td>

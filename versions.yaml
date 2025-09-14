@@ -39,9 +39,9 @@ traefik:
 cnpgOperator:
   chartName: "cloudnative-pg"
   chartRepo: "https://cloudnative-pg.github.io/charts"  
-  chartVersion: "0.25.0"
+  chartVersion: "0.26.0"
   namespace: "cnpg-system"
-  releaseName: "cnpg"
+  releaseName: "cnpg-release"
 
 pgAdmin:
   chartName: "pgadmin4"
@@ -53,8 +53,7 @@ pgAdmin:
 zitadel:
   chartName: "zitadel"
   chartRepo: "https://charts.zitadel.com"
-  chartVersion: "8.13.4"
-  appVersion: "3.3.0"
+  chartVersion: "9.5.0"
   namespace: "zitadel"
   releaseName: "zitadel-release"
 

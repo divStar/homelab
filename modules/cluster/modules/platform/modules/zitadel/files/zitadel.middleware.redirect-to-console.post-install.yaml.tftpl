@@ -1,0 +1,9 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-to-login-v2
+  namespace: ${zitadel_namespace}
+spec:
+  redirectRegex:
+    regex: "^/$"
+    replacement: "/ui/v2/login"

@@ -112,3 +112,9 @@ variable "step_ca_host" {
   type        = string
   nullable    = false
 }
+
+variable "zitadel_admin_password" {
+  description = "Password of the `zitadel-admin` user"
+  type        = string
+  nullable    = false
+}

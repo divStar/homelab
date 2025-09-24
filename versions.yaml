@@ -1,4 +1,4 @@
-talos_linux_version: "1.10.4"
+talos_linux_version: "1.11.1"
 
 # core apps
 traefikCrds:
@@ -43,19 +43,19 @@ cnpgOperator:
   namespace: "cnpg-system"
   releaseName: "cnpg-release"
 
-pgAdmin:
-  chartName: "pgadmin4"
-  chartRepo: "https://helm.runix.net"
-  chartVersion: "1.47.0"
-  namespace: "pgadmin"
-  releaseName: "pgadmin-release"
-
 zitadel:
   chartName: "zitadel"
   chartRepo: "https://charts.zitadel.com"
   chartVersion: "9.5.0"
   namespace: "zitadel"
   releaseName: "zitadel-release"
+
+pgAdmin:
+  chartName: "pgadmin4"
+  chartRepo: "https://helm.runix.net"
+  chartVersion: "1.49.0"
+  namespace: "pgadmin"
+  releaseName: "pgadmin-release"
 
 # manually set versions
 proxmox_version: "8.4+"

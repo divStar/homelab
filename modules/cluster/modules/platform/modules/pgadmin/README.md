@@ -14,25 +14,26 @@ This module installs pgAdmin onto a given cluster for PostgreSQL database admini
 - [Providers](#providers)
 - [Modules](#modules) _(nested and adjacent)_
   - [pgadmin](#pgadmin)
+- [Resources](#resources)
+  - _zitadel_application_oidc_.[this](#zitadel_application_oidcthis)
+  - _zitadel_project_.[this](#zitadel_projectthis)
 - [Variables](#variables)
   - [cluster](#cluster-required) (**Required**)
-  - [pgadmin_password](#pgadmin_password-required) (**Required**)
-  - [postgres_password](#postgres_password-required) (**Required**)
-  - [postgres_username](#postgres_username-required) (**Required**)
+  - [relative_path_to_versions_yaml](#relative_path_to_versions_yaml-required) (**Required**)
+  - [zitadel_orga_name](#zitadel_orga_name-required) (**Required**)
+  - [pgadmin_configmap_name](#pgadmin_configmap_name-optional) (*Optional*)
   - [pgadmin_email](#pgadmin_email-optional) (*Optional*)
   - [pgadmin_secret_name](#pgadmin_secret_name-optional) (*Optional*)
-  - [postgres_database](#postgres_database-optional) (*Optional*)
-  - [postgres_port](#postgres_port-optional) (*Optional*)
-  - [postgres_service_name](#postgres_service_name-optional) (*Optional*)
   - [versions_yaml](#versions_yaml-optional) (*Optional*)
 </blockquote><!-- contents:end -->
 
 ## Requirements
   
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
-![helm](https://img.shields.io/badge/helm->=3.0.1-a7fc51?logo=helm)
-![kubectl](https://img.shields.io/badge/kubectl->=1.19.0-eb4095?logo=kubectl)
-![random](https://img.shields.io/badge/random->=3.7.2-82d72c?logo=random)
+![terraform](https://img.shields.io/badge/terraform->=1.5.7-d3287d?logo=terraform)
+
+## Providers
+  
+![zitadel](https://img.shields.io/badge/zitadel--ee4398)
 
 ## Modules
   
@@ -44,17 +45,51 @@ Installs [pgAdmin 4](https://github.com/rowanruseler/helm-charts/tree/main/chart
   <table>
     <tr>
       <td>Module location</td>
-      <td><code>../../../common/modules/helm-terraform-installer</code></td>
+      <td><code>../../../../../common/modules/helm-terraform-installer</code></td>
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L17"><code>main.tf#L17</code></a></td>
+      <td><a href="./main.tf#L47"><code>main.tf#L47</code></a></td>
     </tr>
     <tr>
-      <td colspan="2"><a href="../../../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
+      <td colspan="2"><a href="../../../../../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
 </blockquote><!-- module:"pgadmin":end -->
+
+## Resources
+  
+<blockquote><!-- resource:"zitadel_application_oidc.this":start -->
+
+### _zitadel_application_oidc_.`this`
+      
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>zitadel (zitadel/zitadel)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L32"><code>main.tf#L32</code></a></td>
+    </tr>
+  </table>
+</blockquote><!-- resource:"zitadel_application_oidc.this":end -->
+<blockquote><!-- resource:"zitadel_project.this":start -->
+
+### _zitadel_project_.`this`
+
+Creates the `pgadmin` project within the given `var.zitadel_orga_name` organization.
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>zitadel (zitadel/zitadel)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L25"><code>main.tf#L25</code></a></td>
+    </tr>
+  </table>
+</blockquote><!-- resource:"zitadel_project.this":end -->
 
 ## Variables
   
@@ -79,28 +114,11 @@ Cluster configuration
 
 </details>
 </blockquote><!-- variable:"cluster":end -->
-<blockquote><!-- variable:"pgadmin_password":start -->
+<blockquote><!-- variable:"relative_path_to_versions_yaml":start -->
 
-### `pgadmin_password` (**Required**)
+### `relative_path_to_versions_yaml` (**Required**)
 
-Password for the pgAdmin admin user
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  In file: <a href="./variables.tf#L31"><code>variables.tf#L31</code></a>
-
-</details>
-</blockquote><!-- variable:"pgadmin_password":end -->
-<blockquote><!-- variable:"postgres_password":start -->
-
-### `postgres_password` (**Required**)
-
-PostgreSQL password for pgAdmin to connect with
+Relative path to the `versions.yaml` file
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -109,15 +127,15 @@ PostgreSQL password for pgAdmin to connect with
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L62"><code>variables.tf#L62</code></a>
+  In file: <a href="./variables.tf#L17"><code>variables.tf#L17</code></a>
 
 </details>
-</blockquote><!-- variable:"postgres_password":end -->
-<blockquote><!-- variable:"postgres_username":start -->
+</blockquote><!-- variable:"relative_path_to_versions_yaml":end -->
+<blockquote><!-- variable:"zitadel_orga_name":start -->
 
-### `postgres_username` (**Required**)
+### `zitadel_orga_name` (**Required**)
 
-PostgreSQL username for pgAdmin to connect with
+Name of the organization in Zitadel
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -126,10 +144,31 @@ PostgreSQL username for pgAdmin to connect with
   ```hcl
   string
   ```
-  In file: <a href="./variables.tf#L57"><code>variables.tf#L57</code></a>
+  In file: <a href="./variables.tf#L44"><code>variables.tf#L44</code></a>
 
 </details>
-</blockquote><!-- variable:"postgres_username":end -->
+</blockquote><!-- variable:"zitadel_orga_name":end -->
+<blockquote><!-- variable:"pgadmin_configmap_name":start -->
+
+### `pgadmin_configmap_name` (*Optional*)
+
+Name of the ConfigMap resource, that will contain the extra configuration
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  string
+  ```
+  **Default**:
+  ```json
+  "pgadmin4-extra-config"
+  ```
+  In file: <a href="./variables.tf#L30"><code>variables.tf#L30</code></a>
+
+</details>
+</blockquote><!-- variable:"pgadmin_configmap_name":end -->
 <blockquote><!-- variable:"pgadmin_email":start -->
 
 ### `pgadmin_email` (*Optional*)
@@ -147,7 +186,7 @@ Email address for the pgAdmin admin user
   ```json
   "admin@my.world"
   ```
-  In file: <a href="./variables.tf#L24"><code>variables.tf#L24</code></a>
+  In file: <a href="./variables.tf#L37"><code>variables.tf#L37</code></a>
 
 </details>
 </blockquote><!-- variable:"pgadmin_email":end -->
@@ -155,7 +194,7 @@ Email address for the pgAdmin admin user
 
 ### `pgadmin_secret_name` (*Optional*)
 
-Name of the secret, that will contain the passwords
+Name of the Secret resource, that will contain the passwords
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
@@ -166,75 +205,12 @@ Name of the secret, that will contain the passwords
   ```
   **Default**:
   ```json
-  "pgadmin-passwords"
+  "pgadmin4-extra-secrets"
   ```
-  In file: <a href="./variables.tf#L17"><code>variables.tf#L17</code></a>
+  In file: <a href="./variables.tf#L23"><code>variables.tf#L23</code></a>
 
 </details>
 </blockquote><!-- variable:"pgadmin_secret_name":end -->
-<blockquote><!-- variable:"postgres_database":start -->
-
-### `postgres_database` (*Optional*)
-
-Default PostgreSQL database name
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "postgres"
-  ```
-  In file: <a href="./variables.tf#L51"><code>variables.tf#L51</code></a>
-
-</details>
-</blockquote><!-- variable:"postgres_database":end -->
-<blockquote><!-- variable:"postgres_port":start -->
-
-### `postgres_port` (*Optional*)
-
-PostgreSQL service port
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "5432"
-  ```
-  In file: <a href="./variables.tf#L45"><code>variables.tf#L45</code></a>
-
-</details>
-</blockquote><!-- variable:"postgres_port":end -->
-<blockquote><!-- variable:"postgres_service_name":start -->
-
-### `postgres_service_name` (*Optional*)
-
-PostgreSQL service name (FQDN or service.namespace format)
-
-<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
-  <summary>Show more...</summary>
-
-  **Type**:
-  ```hcl
-  string
-  ```
-  **Default**:
-  ```json
-  "postgres-release-postgresql.postgres.svc.cluster.local"
-  ```
-  In file: <a href="./variables.tf#L39"><code>variables.tf#L39</code></a>
-
-</details>
-</blockquote><!-- variable:"postgres_service_name":end -->
 <blockquote><!-- variable:"versions_yaml":start -->
 
 ### `versions_yaml` (*Optional*)

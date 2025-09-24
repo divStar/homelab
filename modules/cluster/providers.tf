@@ -1,26 +1,30 @@
 terraform {
-  required_version = ">= 1.8.0"
+  required_version = ">= 1.5.7"
 
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"
-      version = ">= 0.78.2"
+      version = "0.83.2"
     }
     talos = {
       source  = "siderolabs/talos"
-      version = ">= 0.8.1"
-    }
-    helm = {
-      source  = "hashicorp/helm"
-      version = ">= 3.0.1"
+      version = "0.9.0"
     }
     kubectl = {
       source  = "alekc/kubectl"
-      version = ">= 2.1.3"
+      version = "2.1.3"
+    }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "3.0.2"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = ">= 2.38.0"
+      version = "2.38.0"
+    }
+    zitadel = {
+      source  = "zitadel/zitadel"
+      version = "2.2.0"
     }
   }
 }
@@ -62,4 +66,9 @@ provider "kubernetes" {
   client_certificate     = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.client_certificate)
   client_key             = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.client_key)
   cluster_ca_certificate = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.ca_certificate)
+}
+
+provider "zitadel" {
+  domain = "zitadel.${var.cluster.domain}"
+  jwt_profile_json = base64decode(module.platform.machine_user_key)
 }

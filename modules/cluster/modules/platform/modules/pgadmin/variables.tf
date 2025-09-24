@@ -14,10 +14,23 @@ variable "cluster" {
   })
 }
 
-variable "pgadmin_secret_name" {
-  description = "Name of the secret, that will contain the passwords"
+variable "relative_path_to_versions_yaml" {
+  description = "Relative path to the `versions.yaml` file"
   type        = string
-  default     = "pgadmin-passwords"
+  nullable    = false
+}
+
+variable "pgadmin_secret_name" {
+  description = "Name of the Secret resource, that will contain the passwords"
+  type        = string
+  default     = "pgadmin4-extra-secrets"
+  nullable    = false
+}
+
+variable "pgadmin_configmap_name" {
+  description = "Name of the ConfigMap resource, that will contain the extra configuration"
+  type        = string
+  default     = "pgadmin4-extra-config"
   nullable    = false
 }
 
@@ -28,39 +41,8 @@ variable "pgadmin_email" {
   nullable    = false
 }
 
-variable "pgadmin_password" {
-  description = "Password for the pgAdmin admin user"
+variable "zitadel_orga_name" {
+  description = "Name of the organization in Zitadel"
   type        = string
   nullable    = false
-  sensitive   = true
-}
-
-# PostgreSQL connection variables
-variable "postgres_service_name" {
-  description = "PostgreSQL service name (FQDN or service.namespace format)"
-  type        = string
-  default     = "postgres-release-postgresql.postgres.svc.cluster.local"
-}
-
-variable "postgres_port" {
-  description = "PostgreSQL service port"
-  type        = string
-  default     = "5432"
-}
-
-variable "postgres_database" {
-  description = "Default PostgreSQL database name"
-  type        = string
-  default     = "postgres"
-}
-
-variable "postgres_username" {
-  description = "PostgreSQL username for pgAdmin to connect with"
-  type        = string
-}
-
-variable "postgres_password" {
-  description = "PostgreSQL password for pgAdmin to connect with"
-  type        = string
-  sensitive   = true
 }

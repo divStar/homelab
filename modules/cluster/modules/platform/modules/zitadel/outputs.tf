@@ -4,8 +4,8 @@ output "zitadel_master_key" {
   sensitive   = true
 }
 
-output "machine_user_pat" {
-  description = "PAT of the machine user of the FirstInstance"
-  value       = base64decode(data.kubernetes_resource.login_client_pat.object.data.pat)
+output "machine_user_key" {
+  description = "Key of the Zitadel Admin Service Account (FirstInstance)"
+  value       = data.kubernetes_resource.zitadel_admin_sa_key.object.data["zitadel-admin-sa.json"]
   sensitive   = true
 }

@@ -34,8 +34,15 @@ variable "postgres_user" {
   nullable    = false
 }
 
+# Zitadel user configuration
 variable "zitadel_admin_password" {
   description = "Password of the `zitadel-admin` user"
+  type        = string
+  nullable    = false
+}
+
+variable "zitadel_orga_name" {
+  description = "Name of the organization in Zitadel"
   type        = string
   nullable    = false
 }

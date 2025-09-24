@@ -22,7 +22,7 @@ This module sets up the most critical k8s applications.
 
 ## Requirements
   
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![terraform](https://img.shields.io/badge/terraform->=1.5.7-d3287d?logo=terraform)
 
 ## Modules
   
@@ -57,7 +57,7 @@ Installs [`external-dns`](https://github.com/kubernetes-sigs/external-dns), whic
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L37"><code>main.tf#L37</code></a></td>
+      <td><a href="./main.tf#L43"><code>main.tf#L43</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/external-dns/README.md">README.md</a> <em>(experimental)</em></td>
@@ -76,7 +76,7 @@ Installs [`local-path-provisioner`](https://github.com/rancher/local-path-provis
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L48"><code>main.tf#L48</code></a></td>
+      <td><a href="./main.tf#L54"><code>main.tf#L54</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/local-path-provisioner/README.md">README.md</a> <em>(experimental)</em></td>
@@ -95,7 +95,7 @@ Installs [`Traefik v3`](https://github.com/traefik/traefik), which provides ingr
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L58"><code>main.tf#L58</code></a></td>
+      <td><a href="./main.tf#L64"><code>main.tf#L64</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/traefik/README.md">README.md</a> <em>(experimental)</em></td>

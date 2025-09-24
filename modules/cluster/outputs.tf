@@ -30,7 +30,7 @@ output "kube_config" {
 }
 
 output "zitadel_pat" {
-  description = "Personal Access Token of the Zitadel Admin"
-  value       = module.platform.zitadel_pat
+  description = "Key of the Zitadel Admin Service Account"
+  value       = module.platform.machine_user_key
   sensitive   = true
 }

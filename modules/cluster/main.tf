@@ -132,5 +132,4 @@ module "platform" {
     domain  = var.cluster.domain
     lb_cidr = var.cluster.lb_cidr
   }
-  zitadel_admin_password = var.zitadel_admin_password
 }

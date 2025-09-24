@@ -20,7 +20,7 @@ This module installs PostgreSQL (postgres) onto a given cluster.
 
 ## Requirements
   
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![terraform](https://img.shields.io/badge/terraform->=1.5.7-d3287d?logo=terraform)
 
 ## Modules
   

@@ -9,13 +9,43 @@
  */
 
 locals {
-  pgAdmin = yamldecode(file("${path.module}/${var.versions_yaml}")).pgAdmin
+  versions = yamldecode(file("${var.relative_path_to_versions_yaml}/versions.yaml"))
+
+  pgAdmin = local.versions.pgAdmin
+  # We expect there to only be one company; this *should* always be the case!
+  sanctum_orga_id = data.zitadel_orgs.this.ids[0]
+}
+
+# This data source retrieves the organization ID of `zitadel_orga_name`.
+data "zitadel_orgs" "this" {
+  name = var.zitadel_orga_name
+}
+
+# Creates the `pgadmin` project within the given `var.zitadel_orga_name` organization.
+resource "zitadel_project" "this" {
+  name                   = "pgadmin"
+  org_id                 = local.sanctum_orga_id
+  project_role_assertion = true
+  project_role_check     = true
+}
+
+resource "zitadel_application_oidc" "this" {
+  org_id     = local.sanctum_orga_id
+  project_id = zitadel_project.this.id
+
+  name                      = "pgadmin"
+  redirect_uris             = ["https://pgadmin.${var.cluster.domain}/oauth2/authorize"]
+  response_types            = ["OIDC_RESPONSE_TYPE_CODE"]
+  grant_types               = ["OIDC_GRANT_TYPE_AUTHORIZATION_CODE"]
+  app_type                  = "OIDC_APP_TYPE_WEB"
+  auth_method_type          = "OIDC_AUTH_METHOD_TYPE_BASIC"
+  post_logout_redirect_uris = ["https://pgadmin.${var.cluster.domain}/"]
 }
 
 # Installs [pgAdmin 4](https://github.com/rowanruseler/helm-charts/tree/main/charts/pgadmin4),
 # a web-based administration tool for PostgreSQL.
 module "pgadmin" {
-  source = "../../../common/modules/helm-terraform-installer"
+  source = "../../../../../common/modules/helm-terraform-installer"
 
   chart_name    = local.pgAdmin.chartName
   chart_repo    = local.pgAdmin.chartRepo
@@ -24,31 +54,41 @@ module "pgadmin" {
   release_name  = local.pgAdmin.releaseName
 
   chart_values = templatefile("${path.module}/files/pgadmin.values.yaml.tftpl", {
-    pgadmin_secret_name = var.pgadmin_secret_name
-    pgadmin_email       = var.pgadmin_email
-    cluster_lbcidr      = var.cluster.lb_cidr
+    pgadmin_email          = var.pgadmin_email
+    pgadmin_secret_name    = var.pgadmin_secret_name
+    pgadmin_configmap_name = var.pgadmin_configmap_name
+    cluster_lbcidr         = var.cluster.lb_cidr
   })
 
   pre_install_resources = [
-    templatefile("${path.module}/files/pgadmin.secret.pre-install.yaml.tftpl", {
-      pgadmin_secret_name = var.pgadmin_secret_name
-      pgadmin_namespace   = local.pgAdmin.namespace
-      pgadmin_password    = base64encode(var.pgadmin_password)
-    }),
-    templatefile("${path.module}/files/pgadmin.servers.pre-install.yaml.tftpl", {
-      pgadmin_namespace     = local.pgAdmin.namespace
-      postgres_service_name = var.postgres_service_name
-      postgres_port         = var.postgres_port
-      postgres_username     = var.postgres_username
-      postgres_database     = var.postgres_database
-    })
+    {
+      yaml = templatefile("${path.module}/files/pgadmin.secret.env.pre-install.yaml.tftpl", {
+        pgadmin_namespace    = local.pgAdmin.namespace
+        pgadmin_secret_name  = var.pgadmin_secret_name
+        oauth2_client_id     = zitadel_application_oidc.this.client_id
+        oauth2_client_secret = zitadel_application_oidc.this.client_secret
+      })
+    },
+    {
+      yaml = templatefile("${path.module}/files/pgadmin.secret.admin-password.pre-install.yaml.tftpl", {
+        pgadmin_namespace   = local.pgAdmin.namespace
+        pgadmin_secret_name = var.pgadmin_secret_name
+      })
+    },
+    {
+      yaml = templatefile("${path.module}/files/pgadmin.configmap.pre-install.yaml.tftpl", {
+        pgadmin_namespace      = local.pgAdmin.namespace
+        pgadmin_configmap_name = var.pgadmin_configmap_name
+        cluster_domain         = var.cluster.domain
+      })
+    }
   ]
 
-  post_install_resources = [
-    templatefile("${path.module}/files/pgadmin.ingress-route.post-install.yaml.tftpl", {
+  post_install_resources = [{
+    yaml = templatefile("${path.module}/files/pgadmin.ingress-route.post-install.yaml.tftpl", {
       pgadmin_namespace   = local.pgAdmin.namespace
       cluster_domain      = var.cluster.domain
       external_dns_target = "${var.cluster.name}.${var.cluster.domain}" # adding a CNAME record
     })
-  ]
+  }]
 }

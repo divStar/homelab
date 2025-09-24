@@ -7,14 +7,11 @@ env:
   variables:
     - name: PGADMIN_CONFIG_UPGRADE_CHECK_ENABLED
       value: "False"
-existingSecret: ${pgadmin_secret_name}
+    - name: PGADMIN_DISABLE_POSTFIX
+      value: "True"
+existingSecret: ${pgadmin_secret_name}-admin-password
 secretKeys:
   pgadminPasswordKey: password
-
-## Server definitions - automatically configure PostgreSQL connection
-serverDefinitions:
-  enabled: true
-  existingConfigmap: pgadmin-servers-config
 
 ## Preferences
 preferences:
@@ -34,10 +31,12 @@ startupProbe:
   failureThreshold: 15
   periodSeconds: 5
 
-envVarsExtra:
-  - name: PGADMIN_CONFIG_DEBUG
-    value: "True"
-  - name: CONSOLE_LOG_LEVEL
-    value: logging.DEBUG
-  - name: FILE_LOG_LEVEL
-    value: logging.DEBUG
+extraConfigmapMounts:
+  - name: config-local
+    configMap: ${pgadmin_configmap_name}
+    subPath: config_local.py
+    mountPath: "/pgadmin4/config_local.py"
+    readOnly: true
+
+envVarsFromSecrets:
+  - ${pgadmin_secret_name}-env

@@ -1,0 +1,5 @@
+# This patch enables the rotation of server certificates
+# machine:
+#   kubelet:
+#     extraArgs:
+#       rotate-server-certificates: true

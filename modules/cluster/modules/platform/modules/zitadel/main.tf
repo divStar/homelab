@@ -9,8 +9,9 @@
  */
 
 locals {
-  versions = yamldecode(file("${var.relative_path_to_versions_yaml}/versions.yaml"))
-  zitadel  = local.versions.zitadel
+  versions      = yamldecode(file("${var.relative_path_to_versions_yaml}/versions.yaml"))
+  zitadel       = local.versions.zitadel
+  postgres_host = "${var.postgres_database}-rw.${local.zitadel.namespace}.svc.cluster.local"
 }
 
 # Generate a secure master key for Zitadel symmetrical encryption
@@ -31,11 +32,13 @@ module "zitadel" {
   chart_timeout = 300 // give it 5 minutes to install - should be enough
 
   chart_values = templatefile("${path.module}/files/zitadel.values.yaml.tftpl", {
-    master_key             = random_password.zitadel_master_key.result
+    postgres_host          = local.postgres_host
     cluster_domain         = var.cluster.domain
+    master_key             = random_password.zitadel_master_key.result
+    zitadel_admin_password = var.zitadel_admin_password
+    zitadel_orga_name      = var.zitadel_orga_name
     postgres_database      = var.postgres_database
     postgres_user          = var.postgres_user
-    zitadel_admin_password = var.zitadel_admin_password
   })
 
   pre_install_resources = [{
@@ -52,30 +55,29 @@ module "zitadel" {
     }
   }]
 
-  post_install_resources = [
-    {
-      yaml = templatefile("${path.module}/files/zitadel.middleware.redirect-to-console.post-install.yaml.tftpl", {
-        zitadel_namespace = local.zitadel.namespace
-      })
-    },
-    {
-      yaml = templatefile("${path.module}/files/zitadel.ingress-route.post-install.yaml.tftpl", {
-        zitadel_namespace   = local.zitadel.namespace
-        cluster_domain      = var.cluster.domain
-        external_dns_target = "${var.cluster.name}.${var.cluster.domain}" # adding a CNAME record
-      })
-    }
-  ]
+  post_install_resources = [{
+    yaml = templatefile("${path.module}/files/zitadel.ingress-route.post-install.yaml.tftpl", {
+      zitadel_namespace   = local.zitadel.namespace
+      cluster_domain      = var.cluster.domain
+      external_dns_target = "${var.cluster.name}.${var.cluster.domain}" # adding a CNAME record
+    })
+  }]
 }
 
-data "kubernetes_resource" "login_client_pat" {
+data "kubernetes_resource" "zitadel_admin_sa_key" {
   depends_on = [module.zitadel]
 
   api_version = "v1"
   kind        = "Secret"
 
   metadata {
-    name      = "login-client"
+    name      = "zitadel-admin-sa"
     namespace = local.zitadel.namespace
   }
+}
+
+resource "local_file" "zitadel_admin_sa_json" {
+  depends_on = [data.kubernetes_resource.zitadel_admin_sa_key]
+  content    = base64decode(data.kubernetes_resource.zitadel_admin_sa_key.object.data["zitadel-admin-sa.json"])
+  filename   = "${path.cwd}/zitadel-admin-sa.json"
 }

@@ -10,16 +10,20 @@ This module sets up k8s applications, that are used as part of the platform.
 - [Providers](#providers)
 - [Modules](#modules) _(nested and adjacent)_
   - [cnpg_operator](#cnpg_operator)
+  - [pgadmin](#pgadmin)
+  - [zitadel](#zitadel)
 - [Variables](#variables)
   - [cluster](#cluster-required) (**Required**)
   - [root_ca_certificate](#root_ca_certificate-required) (**Required**)
   - [homelab_root](#homelab_root-optional) (*Optional*)
   - [relative_path_to_versions_yaml](#relative_path_to_versions_yaml-optional) (*Optional*)
+- [Outputs](#outputs)
+  - [machine_user_key](#machine_user_key)
 </blockquote><!-- contents:end -->
 
 ## Requirements
   
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![terraform](https://img.shields.io/badge/terraform->=1.5.7-d3287d?logo=terraform)
 
 ## Modules
   
@@ -35,13 +39,51 @@ Installs [`CNPG operator`](https://github.com/cloudnative-pg/charts/tree/main/ch
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L19"><code>main.tf#L19</code></a></td>
+      <td><a href="./main.tf#L21"><code>main.tf#L21</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/cnpg-operator/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
 </blockquote><!-- module:"cnpg_operator":end -->
+<blockquote><!-- module:"pgadmin":start -->
+
+### `pgadmin`
+
+
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/pgadmin</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L39"><code>main.tf#L39</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/pgadmin/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
+</blockquote><!-- module:"pgadmin":end -->
+<blockquote><!-- module:"zitadel":start -->
+
+### `zitadel`
+
+Installs [`Zitadel`](https://github.com/zitadel/zitadel) for managing authentication.
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/zitadel</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L29"><code>main.tf#L29</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/zitadel/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
+</blockquote><!-- module:"zitadel":end -->
 
 ## Variables
   
@@ -125,3 +167,14 @@ Relative path to the `versions.yaml` file; it's passed to sub-modules
 
 </details>
 </blockquote><!-- variable:"relative_path_to_versions_yaml":end -->
+
+## Outputs
+  
+<blockquote><!-- output:"machine_user_key":start -->
+
+#### `machine_user_key`
+
+Key of the Zitadel Admin Service Account
+
+In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
+</blockquote><!-- output:"machine_user_key":end -->

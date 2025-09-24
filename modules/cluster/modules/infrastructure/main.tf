@@ -31,6 +31,12 @@ module "cilium" {
   relative_path_to_versions_yaml = var.relative_path_to_versions_yaml
 }
 
+# Installs what Talos requires to provide a metrics server.
+# module "metrics" {
+#   source = "./modules/metrics"
+#   depends_on = [module.cilium]
+# }
+
 # Installs [`external-dns`](https://github.com/kubernetes-sigs/external-dns),
 # which allows to forward requests about adding or removing `CNAME` and `A`/`AAAA` records to a given DNS (PiHole in this case)
 # when a such a service is deployed (add) or destroyed (remove).

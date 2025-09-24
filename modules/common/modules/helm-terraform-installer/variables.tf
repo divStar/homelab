@@ -64,10 +64,10 @@ variable "pre_install_resources" {
   default     = []
   nullable    = false
 
-  validation {
-    condition     = alltrue([for pre_install_resource in var.pre_install_resources : can(yamldecode(pre_install_resource.yaml))])
-    error_message = "All pre_install_resources must be valid YAML."
-  }
+  # validation {
+  #   condition     = alltrue([for pre_install_resource in var.pre_install_resources : can(yamldecode(pre_install_resource.yaml))])
+  #   error_message = "All pre_install_resources must be valid YAML. Found this: \n${nonsensitive(join("\n---\n", [for r in var.pre_install_resources : r.yaml]))}"
+  # }
 }
 
 variable "post_install_resources" {

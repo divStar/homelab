@@ -31,15 +31,18 @@ This module and its sub-modules setup the Talos cluster on the Proxmox host.
 - [Outputs](#outputs)
   - [kube_config](#kube_config)
   - [talos_config](#talos_config)
+  - [zitadel_pat](#zitadel_pat)
 </blockquote><!-- contents:end -->
 
 ## Requirements
   
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
-![helm](https://img.shields.io/badge/helm->=3.0.1-a7fc51?logo=helm)
-![kubectl](https://img.shields.io/badge/kubectl->=1.19.0-eb4095?logo=kubectl)
-![proxmox](https://img.shields.io/badge/proxmox->=0.78.2-1e73c8?logo=proxmox)
-![talos](https://img.shields.io/badge/talos->=0.8.1-2479ce?logo=talos)
+![terraform](https://img.shields.io/badge/terraform->=1.5.7-d3287d?logo=terraform)
+![helm](https://img.shields.io/badge/helm-3.0.2-a7fc51?logo=helm)
+![kubectl](https://img.shields.io/badge/kubectl-2.1.3-eb4095?logo=kubectl)
+![kubernetes](https://img.shields.io/badge/kubernetes-2.38.0-398ee3?logo=kubernetes)
+![proxmox](https://img.shields.io/badge/proxmox-0.83.2-1e73c8?logo=proxmox)
+![talos](https://img.shields.io/badge/talos-0.9.0-2479ce?logo=talos)
+![zitadel](https://img.shields.io/badge/zitadel-2.2.0-ee4398?logo=zitadel)
 
 ## Providers
   
@@ -422,3 +425,11 @@ String containing the `talos-config.yaml`
 
 In file: <a href="./outputs.tf#L20"><code>outputs.tf#L20</code></a>
 </blockquote><!-- output:"talos_config":end -->
+<blockquote><!-- output:"zitadel_pat":start -->
+
+#### `zitadel_pat`
+
+Key of the Zitadel Admin Service Account
+
+In file: <a href="./outputs.tf#L32"><code>outputs.tf#L32</code></a>
+</blockquote><!-- output:"zitadel_pat":end -->

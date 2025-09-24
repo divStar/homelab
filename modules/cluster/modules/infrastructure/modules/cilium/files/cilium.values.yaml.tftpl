@@ -42,8 +42,9 @@ resources:
     cpu: 200m
     memory: 512Mi
 
-debug:
-  enabled: true
+# Uncomment for debugging
+# debug:
+#   enabled: true
 
 # Increase rate limit when doing L2 announcements
 k8sClientRateLimit:
@@ -96,3 +97,15 @@ authentication:
         server:
           dataStorage:
             storageClass: cilium-spire-sc
+
+# Disable IPv6
+ipv6:
+  enabled: false
+enableIPv6BIGTCP: false
+enableIPv6Masquerade: false
+
+
+# Ensure IPv4-only mode
+ipv4:
+  enabled: true
+enableIPv4Masquerade: true

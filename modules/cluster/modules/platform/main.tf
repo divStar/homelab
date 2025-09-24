@@ -10,6 +10,8 @@ locals {
   pg_admin      = local.versions.pgAdmin
   zitadel       = local.versions.zitadel
 
+  platform_secrets = yamldecode(file("${path.module}/files/platform.secret.yaml"))
+
   helm_terraform_installer_path = pathexpand("${var.homelab_root}/modules/common/modules/helm-terraform-installer")
 }
 
@@ -30,5 +32,15 @@ module "zitadel" {
 
   cluster                        = var.cluster
   relative_path_to_versions_yaml = var.relative_path_to_versions_yaml
-  zitadel_admin_password         = var.zitadel_admin_password
+  zitadel_admin_password         = local.platform_secrets.zitadel.admin.password
+  zitadel_orga_name              = local.platform_secrets.zitadel.organization.name
+}
+
+module "pgadmin" {
+  source     = "./modules/pgadmin"
+  depends_on = [module.zitadel]
+
+  cluster                        = var.cluster
+  relative_path_to_versions_yaml = var.relative_path_to_versions_yaml
+  zitadel_orga_name              = local.platform_secrets.zitadel.organization.name
 }

@@ -8,6 +8,7 @@ resource "talos_machine_secrets" "this" {
   talos_version = var.talos_linux_version
 }
 
+# Defines the Talos client configuration
 data "talos_client_configuration" "this" {
   cluster_name         = var.cluster_name
   client_configuration = talos_machine_secrets.this.client_configuration

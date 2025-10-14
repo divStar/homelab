@@ -28,3 +28,9 @@ output "kube_config" {
   value       = module.talos_cluster_ready.kube_config.kubeconfig_raw
   sensitive   = true
 }
+
+output "zitadel_pat" {
+  description = "Key of the Zitadel Admin Service Account"
+  value       = module.platform.machine_user_key
+  sensitive   = true
+}

@@ -2,9 +2,10 @@
 
 Handles the creation and deletion of a dedicated user with a custom role
 and API token for the Terraform provisioner on the host.
+
 ## Contents
 
-<blockquote>
+<blockquote><!-- contents:start -->
 
 - [Requirements](#requirements)
 - [Providers](#providers)
@@ -22,20 +23,16 @@ and API token for the Terraform provisioner on the host.
 - [Outputs](#outputs)
   - [token](#token)
   - [user](#user)
-</blockquote>
+</blockquote><!-- contents:end -->
 
 ## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+  
+![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
 
 ## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+  
+![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
 
 ## Execution story
 
@@ -49,14 +46,12 @@ Order in which Terraform will create resources (and likely destroy them in rever
 ├── ssh_resource.assign_role
 ```
 
-
-
-
 ## Resources
-<blockquote>
+  
+<blockquote><!-- resource:"ssh_resource.assign_role":start -->
 
-#### _ssh_resource_.`assign_role`
-
+### _ssh_resource_.`assign_role`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -67,11 +62,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L46"><code>main.tf#L46</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.assign_role":end -->
+<blockquote><!-- resource:"ssh_resource.create_api_token":start -->
 
-#### _ssh_resource_.`create_api_token`
-
+### _ssh_resource_.`create_api_token`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -82,11 +77,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L60"><code>main.tf#L60</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.create_api_token":end -->
+<blockquote><!-- resource:"ssh_resource.create_role":start -->
 
-#### _ssh_resource_.`create_role`
-
+### _ssh_resource_.`create_role`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -97,11 +92,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L33"><code>main.tf#L33</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.create_role":end -->
+<blockquote><!-- resource:"ssh_resource.create_user":start -->
 
-#### _ssh_resource_.`create_user`
-
+### _ssh_resource_.`create_user`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -112,11 +107,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L20"><code>main.tf#L20</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.create_user":end -->
+<blockquote><!-- resource:"ssh_resource.delete_role":start -->
 
-#### _ssh_resource_.`delete_role`
-
+### _ssh_resource_.`delete_role`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -127,11 +122,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L74"><code>main.tf#L74</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.delete_role":end -->
+<blockquote><!-- resource:"ssh_resource.delete_user":start -->
 
-#### _ssh_resource_.`delete_user`
-
+### _ssh_resource_.`delete_user`
+      
   <table>
     <tr>
       <td>Provider</td>
@@ -142,12 +137,14 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L87"><code>main.tf#L87</code></a></td>
     </tr>
   </table>
-</blockquote>
+</blockquote><!-- resource:"ssh_resource.delete_user":end -->
 
 ## Variables
-<blockquote>
+  
+<blockquote><!-- variable:"ssh":start -->
 
 ### `ssh` (**Required**)
+
 SSH configuration for remote connection
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -164,10 +161,11 @@ SSH configuration for remote connection
   In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ssh":end -->
+<blockquote><!-- variable:"terraform_user":start -->
 
 ### `terraform_user` (*Optional*)
+
 Configuration for Terraform provisioner user. Individual fields can be overridden.
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -220,21 +218,23 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
   In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
-</blockquote>
-
+</blockquote><!-- variable:"terraform_user":end -->
 
 ## Outputs
-<blockquote>
+  
+<blockquote><!-- output:"token":start -->
 
 #### `token`
+
 The API token created on the Proxmox host
 
 In file: <a href="./outputs.tf#L11"><code>outputs.tf#L11</code></a>
-</blockquote>
-<blockquote>
+</blockquote><!-- output:"token":end -->
+<blockquote><!-- output:"user":start -->
 
 #### `user`
+
 The user and role created on the Proxmox host
 
 In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
-</blockquote>
+</blockquote><!-- output:"user":end -->

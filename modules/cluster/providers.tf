@@ -1,26 +1,30 @@
 terraform {
-  required_version = ">= 1.8.0"
+  required_version = ">= 1.5.7"
 
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"
-      version = ">= 0.78.2"
+      version = "0.83.2"
     }
     talos = {
       source  = "siderolabs/talos"
-      version = ">= 0.8.1"
+      version = "0.9.0"
+    }
+    kubectl = {
+      source  = "alekc/kubectl"
+      version = "2.1.3"
     }
     helm = {
       source  = "hashicorp/helm"
-      version = ">= 3.0.1"
+      version = "3.0.2"
     }
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = ">= 1.19.0"
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.38.0"
     }
-    sealedsecret = {
-      version = ">=1.1.16"
-      source  = "jifwin/sealedsecret"
+    zitactl = {
+      source = "divstar/zitactl"
+      #version = "0.1.0"
     }
   }
 }
@@ -57,14 +61,15 @@ provider "kubectl" {
   load_config_file       = false
 }
 
-provider "sealedsecret" {
-  controller_name      = var.sealed_secrets_controller_name
-  controller_namespace = var.sealed_secrets_namespace
+provider "kubernetes" {
+  host                   = module.talos_cluster_ready.kube_config.kubernetes_client_configuration.host
+  client_certificate     = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.client_certificate)
+  client_key             = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.client_key)
+  cluster_ca_certificate = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.ca_certificate)
+}
 
-  kubernetes {
-    host                   = module.talos_cluster_ready.kube_config.kubernetes_client_configuration.host
-    client_certificate     = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.client_certificate)
-    client_key             = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.client_key)
-    cluster_ca_certificate = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.ca_certificate)
-  }
+provider "zitactl" {
+  domain                = "zitadel.${var.cluster.domain}"
+  service_account_key   = base64decode(module.platform.machine_user_key)
+  skip_tls_verification = true
 }

@@ -1,0 +1,12 @@
+resources:
+  limits:
+    cpu: 200m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+# monitoring:
+#   podMonitorEnabled: true
+#   grafanaDashboard:
+#     create: true

@@ -1,0 +1,71 @@
+env:
+  # Regular user credentials
+  - name: ZITADEL_DATABASE_POSTGRES_USER_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: zitadel-app
+        key: username
+  - name: ZITADEL_DATABASE_POSTGRES_USER_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: zitadel-app
+        key: password
+  
+  # Superuser credentials (for init phase)
+  - name: ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: zitadel-superuser
+        key: username
+  - name: ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: zitadel-superuser
+        key: password
+
+zitadel:
+  masterkey: "${master_key}"
+
+  configmapConfig:
+    ExternalDomain: "zitadel.${cluster_domain}"
+    ExternalPort: 443
+    ExternalSecure: true
+    TLS:
+      Enabled: false
+
+    FirstInstance:
+      Org:
+        Name: ${zitadel_orga_name}
+        Human:
+          UserName: zitadel-admin
+          FirstName: Steven
+          LastName: Strange
+          DisplayName: Dr. Steven Strange (Zitadel Admin)
+          Email:
+            Address: strange@my.world
+            Verified: true
+          Password: ${zitadel_admin_password}
+          PasswordChangeRequired: false
+        Machine:
+          Machine:
+            Username: zitadel-admin-sa
+            Name: Admin
+          MachineKey:
+            # Type: 1 means JSON. This is currently the only supported machine key type.
+            Type: 1
+    
+    Database:
+      Postgres:
+        Host: ${postgres_host}
+        Port: 5432
+        Database: ${postgres_database}
+        User:
+          Username: ${postgres_user}
+
+replicaCount: 2
+
+metrics:
+  enabled: true
+
+initJob:
+  enabled: true

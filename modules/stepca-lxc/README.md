@@ -1,9 +1,10 @@
 # Step-CA Setup
 
 This module sets up Step-CA in an Alpine LXC container using the provided information.
+
 ## Contents
 
-<blockquote>
+<blockquote><!-- contents:start -->
 
 - [Requirements](#requirements)
 - [Providers](#providers)
@@ -37,21 +38,17 @@ This module sets up Step-CA in an Alpine LXC container using the provided inform
 - [Outputs](#outputs)
   - [root_password](#root_password)
   - [ssh_private_key](#ssh_private_key)
-</blockquote>
+</blockquote><!-- contents:end -->
 
 ## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) | >= 0.78.1 |
-| <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+  
+![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![proxmox](https://img.shields.io/badge/proxmox->=0.78.1-1e73c8?logo=proxmox)
+![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
 
 ## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+  
+![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
 
 ## Execution story
 
@@ -70,9 +67,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
 ```
 
 ## Modules
-<blockquote>
+  
+<blockquote><!-- module:"setup_container":start -->
 
 ### `setup_container`
+
 Alpine LXC container setup
   <table>
     <tr>
@@ -87,13 +86,14 @@ Alpine LXC container setup
       <td colspan="2"><a href="../common/modules/alpine/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-
+</blockquote><!-- module:"setup_container":end -->
 
 ## Resources
-<blockquote>
+  
+<blockquote><!-- resource:"ssh_resource.configure_container":start -->
 
-#### _ssh_resource_.`configure_container`
+### _ssh_resource_.`configure_container`
+
 Configure Step-CA
   <table>
     <tr>
@@ -105,10 +105,11 @@ Configure Step-CA
       <td><a href="./main.tf#L38"><code>main.tf#L38</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.configure_container":end -->
+<blockquote><!-- resource:"ssh_resource.configure_host":start -->
 
-#### _ssh_resource_.`configure_host`
+### _ssh_resource_.`configure_host`
+
 Configure ACME domain and order certificates
   <table>
     <tr>
@@ -120,10 +121,11 @@ Configure ACME domain and order certificates
       <td><a href="./main.tf#L69"><code>main.tf#L69</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.configure_host":end -->
+<blockquote><!-- resource:"ssh_resource.revert_host":start -->
 
-#### _ssh_resource_.`revert_host`
+### _ssh_resource_.`revert_host`
+
 ACME Cleanup on destroy
   <table>
     <tr>
@@ -135,12 +137,14 @@ ACME Cleanup on destroy
       <td><a href="./main.tf#L109"><code>main.tf#L109</code></a></td>
     </tr>
   </table>
-</blockquote>
+</blockquote><!-- resource:"ssh_resource.revert_host":end -->
 
 ## Variables
-<blockquote>
+  
+<blockquote><!-- variable:"proxmox":start -->
 
 ### `proxmox` (**Required**)
+
 Proxmox host configuration
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -161,10 +165,11 @@ Proxmox host configuration
   In file: <a href="./variables.tf#L2"><code>variables.tf#L2</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"proxmox":end -->
+<blockquote><!-- variable:"acme_contact":start -->
 
 ### `acme_contact` (*Optional*)
+
 E-Mail address of the ACME account in Proxmox
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -181,10 +186,11 @@ E-Mail address of the ACME account in Proxmox
   In file: <a href="./variables.tf#L116"><code>variables.tf#L116</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"acme_contact":end -->
+<blockquote><!-- variable:"acme_name":start -->
 
 ### `acme_name` (*Optional*)
+
 ACME account name
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -201,10 +207,11 @@ ACME account name
   In file: <a href="./variables.tf#L123"><code>variables.tf#L123</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"acme_name":end -->
+<blockquote><!-- variable:"acme_proxmox_domains":start -->
 
 ### `acme_proxmox_domains` (*Optional*)
+
 Proxmox ACME domains to order certificates for
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -224,10 +231,11 @@ Proxmox ACME domains to order certificates for
   In file: <a href="./variables.tf#L130"><code>variables.tf#L130</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"acme_proxmox_domains":end -->
+<blockquote><!-- variable:"description":start -->
 
 ### `description` (*Optional*)
+
 Description of the container
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -244,10 +252,11 @@ Description of the container
   In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"description":end -->
+<blockquote><!-- variable:"fingerprint_file":start -->
 
 ### `fingerprint_file` (*Optional*)
+
 File containing the fingerprint
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -264,10 +273,11 @@ File containing the fingerprint
   In file: <a href="./variables.tf#L138"><code>variables.tf#L138</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"fingerprint_file":end -->
+<blockquote><!-- variable:"hostname":start -->
 
 ### `hostname` (*Optional*)
+
 Step-CA host name
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -284,10 +294,11 @@ Step-CA host name
   In file: <a href="./variables.tf#L22"><code>variables.tf#L22</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"hostname":end -->
+<blockquote><!-- variable:"imagestore_id":start -->
 
 ### `imagestore_id` (*Optional*)
+
 Step-CA imagestore ID
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -304,10 +315,11 @@ Step-CA imagestore ID
   In file: <a href="./variables.tf#L58"><code>variables.tf#L58</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"imagestore_id":end -->
+<blockquote><!-- variable:"mount_points":start -->
 
 ### `mount_points` (*Optional*)
+
 List of mount points for the container
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -332,10 +344,11 @@ List of mount points for the container
   In file: <a href="./variables.tf#L43"><code>variables.tf#L43</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"mount_points":end -->
+<blockquote><!-- variable:"ni_bridge":start -->
 
 ### `ni_bridge` (*Optional*)
+
 Network interface bridge
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -352,10 +365,11 @@ Network interface bridge
   In file: <a href="./variables.tf#L108"><code>variables.tf#L108</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_bridge":end -->
+<blockquote><!-- variable:"ni_gateway":start -->
 
 ### `ni_gateway` (*Optional*)
+
 Network interface gateway
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -372,10 +386,11 @@ Network interface gateway
   In file: <a href="./variables.tf#L80"><code>variables.tf#L80</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_gateway":end -->
+<blockquote><!-- variable:"ni_ip":start -->
 
 ### `ni_ip` (*Optional*)
+
 Network interface IP address
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -392,10 +407,11 @@ Network interface IP address
   In file: <a href="./variables.tf#L73"><code>variables.tf#L73</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_ip":end -->
+<blockquote><!-- variable:"ni_mac_address":start -->
 
 ### `ni_mac_address` (*Optional*)
+
 Network interface MAC address
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -412,10 +428,11 @@ Network interface MAC address
   In file: <a href="./variables.tf#L87"><code>variables.tf#L87</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_mac_address":end -->
+<blockquote><!-- variable:"ni_name":start -->
 
 ### `ni_name` (*Optional*)
+
 Network interface name
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -432,10 +449,11 @@ Network interface name
   In file: <a href="./variables.tf#L101"><code>variables.tf#L101</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_name":end -->
+<blockquote><!-- variable:"ni_subnet_mask":start -->
 
 ### `ni_subnet_mask` (*Optional*)
+
 Network interface subnet mask in CIDR notation
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -452,10 +470,11 @@ Network interface subnet mask in CIDR notation
   In file: <a href="./variables.tf#L94"><code>variables.tf#L94</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_subnet_mask":end -->
+<blockquote><!-- variable:"skip_host_configuration":start -->
 
 ### `skip_host_configuration` (*Optional*)
+
 Controls whether the Proxmox host will be configured with ACME or not
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -472,10 +491,11 @@ Controls whether the Proxmox host will be configured with ACME or not
   In file: <a href="./variables.tf#L145"><code>variables.tf#L145</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"skip_host_configuration":end -->
+<blockquote><!-- variable:"startup_order":start -->
 
 ### `startup_order` (*Optional*)
+
 Container startup order; shutdowns happen in reverse order
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -492,10 +512,11 @@ Container startup order; shutdowns happen in reverse order
   In file: <a href="./variables.tf#L65"><code>variables.tf#L65</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"startup_order":end -->
+<blockquote><!-- variable:"tags":start -->
 
 ### `tags` (*Optional*)
+
 Tags
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -515,10 +536,11 @@ Tags
   In file: <a href="./variables.tf#L36"><code>variables.tf#L36</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"tags":end -->
+<blockquote><!-- variable:"vm_id":start -->
 
 ### `vm_id` (*Optional*)
+
 Step-CA VM ID
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -535,21 +557,23 @@ Step-CA VM ID
   In file: <a href="./variables.tf#L15"><code>variables.tf#L15</code></a>
 
 </details>
-</blockquote>
-
+</blockquote><!-- variable:"vm_id":end -->
 
 ## Outputs
-<blockquote>
+  
+<blockquote><!-- output:"root_password":start -->
 
 #### `root_password`
+
 Root password
 
 In file: <a href="./outputs.tf#L2"><code>outputs.tf#L2</code></a>
-</blockquote>
-<blockquote>
+</blockquote><!-- output:"root_password":end -->
+<blockquote><!-- output:"ssh_private_key":start -->
 
 #### `ssh_private_key`
+
 Private SSH key
 
 In file: <a href="./outputs.tf#L9"><code>outputs.tf#L9</code></a>
-</blockquote>
+</blockquote><!-- output:"ssh_private_key":end -->

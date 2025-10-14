@@ -2,10 +2,6 @@
  * # Talos cluster *await*
  *
  * Awaits the Talos cluster to start up.
- *
- * > [!NOTE]
- * > Since the cluster is starting up without a CNI (Flannel is disabled),
- * > *Kubernetes checks are skipped* ([`skip_kubernetes_checks = true`](./main.tf#L29)).
  */
 
 locals {
@@ -13,18 +9,10 @@ locals {
   worker_nodes        = [for node in var.nodes : node.ip if node.machine_type == "worker"]
 }
 
-resource "talos_machine_bootstrap" "this" {
-  for_each = toset(local.control_plane_nodes)
-
-  node                 = each.value
-  endpoint             = var.cluster.endpoint
-  client_configuration = var.talos_client_configuration
-
-  timeouts = {
-    create = var.bootstrap_timeout
-  }
-}
-
+# Awaits for the Talos cluster to become healthy
+# > [!NOTE]
+# > Since the cluster is starting up without a CNI (Flannel is disabled),
+# > *Kubernetes checks are skipped* ([`skip_kubernetes_checks = true`](./main.tf#L17)).
 data "talos_cluster_health" "this" {
   skip_kubernetes_checks = var.skip_kubernetes_checks
   client_configuration   = var.talos_client_configuration
@@ -37,6 +25,7 @@ data "talos_cluster_health" "this" {
   }
 }
 
+# Generates a Talos machine configuration, which is written to a `local_file` resource
 data "talos_machine_configuration" "this" {
   for_each         = toset([for node in var.nodes : node.name])
   cluster_name     = var.cluster.name
@@ -45,6 +34,20 @@ data "talos_machine_configuration" "this" {
   machine_secrets  = var.talos_machine_secrets
 }
 
+# Bootstraps a Talos node
+resource "talos_machine_bootstrap" "this" {
+  for_each = toset(local.control_plane_nodes)
+
+  node                 = each.value
+  endpoint             = var.cluster.endpoint
+  client_configuration = var.talos_client_configuration
+
+  timeouts = {
+    create = var.bootstrap_timeout
+  }
+}
+
+# Retrieves a `kube_config` for the given Talos Kubernetes node
 resource "talos_cluster_kubeconfig" "this" {
   depends_on = [data.talos_cluster_health.this]
 

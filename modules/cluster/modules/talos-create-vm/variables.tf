@@ -123,6 +123,13 @@ variable "node_datastore_id" {
   nullable    = false
 }
 
+variable "node_iso_store_id" {
+  description = "Datastore ID for the ISO file"
+  type        = string
+  default     = "local"
+  nullable    = false
+}
+
 variable "talos_linux_version" {
   description = "Version of Talos (Linux/Kubernetes) to install"
   type        = string

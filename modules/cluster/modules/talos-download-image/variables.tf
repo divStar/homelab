@@ -24,13 +24,6 @@ variable "schematic" {
   nullable    = false
 }
 
-variable "factory_url" {
-  description = "URL of the Talos image factory"
-  type        = string
-  default     = "https://factory.talos.dev"
-  nullable    = false
-}
-
 variable "platform" {
   description = "Platform to use (e.g. metal, nocloud, aws, etc., see https://registry.terraform.io/providers/siderolabs/talos/latest/docs/data-sources/image_factory_urls#platform-8)"
   type        = string

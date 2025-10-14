@@ -3,11 +3,11 @@ proxmox = {
   host      = "192.168.178.25"
   endpoint  = "https://192.168.178.25:8006"
   insecure  = true
-  api_token = "terraform@pve!terraform-token=<value>"
+  api_token = "terraform@pve!terraform-token=fd381762-fe20-4395-a15c-1165d58896dd"
   username  = "root"
   ssh_user  = "root"
   ssh_key   = "~/.ssh/id_rsa"
-  iso_store = "proxmox-resources"
+  iso_store = "virt-assets"
 }
 
 cluster = {
@@ -16,6 +16,7 @@ cluster = {
   endpoint = "192.168.178.110"
   lb_cidr  = "192.168.178.223/32"
   domain   = "my.world"
+  #talos_factory_url = "https://talos.fastcup.cloud/"
 }
 
 nodes = [
@@ -30,7 +31,10 @@ nodes = [
     vm_id        = 810
     cpu          = 8
     ram          = 65536
-    datastore_id = "vm-data"
-    vfs_mappings = ["music-storage", "pictures-storage", "video-storage"]
+    iso_store_id = "virt-assets"
+    datastore_id = "virt-vms"
+    vfs_mappings = ["music-storage", "pictures-storage", "video-storage", "yuliia-storage", "documents-storage", "scans-storage"]
   }
 ]
+
+zitadel_admin_password = "complex-zitadel-password"

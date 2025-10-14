@@ -1,0 +1,5 @@
+# This patch enables an etcd metrics server listening URL
+cluster:
+  etcd:
+    extraArgs:
+      listen-metrics-urls: http://0.0.0.0:2381

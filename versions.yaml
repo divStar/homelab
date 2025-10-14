@@ -1,10 +1,61 @@
-talos_linux_version: "1.10.4"
-cilium_version: "1.17.5"
-cert_manager_version: "1.18.1"
-external_dns_version: "8.8.6"
-sealed_secrets_version: "2.17.3"
-local_path_provisioner_version: "0.0.32"
-traefik_version: "36.3.0"
+talos_linux_version: "1.11.1"
+
+# core apps
+traefikCrds:
+  chartName: "traefik-crds"
+  chartRepo: "https://helm.traefik.io/traefik"
+  chartVersion: "1.10.0"
+  namespace: "traefik"
+  releaseName: "traefik-crds-release"
+
+cilium:
+  chartName: "cilium"
+  chartRepo: "https://helm.cilium.io"
+  chartVersion: "1.17.5"
+  namespace: "cilium"
+  releaseName: "cilium-release"
+
+externalDns:
+  chartName: "external-dns"
+  chartRepo: "oci://registry-1.docker.io/bitnamicharts"
+  chartVersion: "9.0.3"
+  namespace: "external-dns"
+  releaseName: "external-dns-release"
+
+localPathProvisioner:
+  chartName: "local-path-provisioner"
+  chartRepo: "https://charts.containeroo.ch"
+  chartVersion: "0.0.32"
+  namespace: "local-path-provisioner"
+  releaseName: "local-path-provisioner-release"
+
+traefik:
+  chartName: "traefik"
+  chartRepo: "https://helm.traefik.io/traefik"
+  chartVersion: "37.0.0"
+  namespace: "traefik"
+  releaseName: "traefik-release"
+
+cnpgOperator:
+  chartName: "cloudnative-pg"
+  chartRepo: "https://cloudnative-pg.github.io/charts"  
+  chartVersion: "0.26.0"
+  namespace: "cnpg-system"
+  releaseName: "cnpg-release"
+
+zitadel:
+  chartName: "zitadel"
+  chartRepo: "https://charts.zitadel.com"
+  chartVersion: "9.5.0"
+  namespace: "zitadel"
+  releaseName: "zitadel-release"
+
+pgAdmin:
+  chartName: "pgadmin4"
+  chartRepo: "https://helm.runix.net"
+  chartVersion: "1.49.0"
+  namespace: "pgadmin"
+  releaseName: "pgadmin-release"
 
 # manually set versions
 proxmox_version: "8.4+"

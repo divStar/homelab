@@ -32,4 +32,11 @@ resource "proxmox_virtual_environment_download_file" "this" {
     var.platform,
     talos_image_factory_schematic.this.id
   )
+
+  lifecycle {
+    ignore_changes = [
+      file_name,
+      url
+    ]
+  }
 }

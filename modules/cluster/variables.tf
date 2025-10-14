@@ -1,50 +1,7 @@
 variable "versions_yaml" {
-  description = "Path to the `versions.yaml` file, that contains all relevant versions"
+  description = "Absolute path and filename to the `versions.yaml` file, that contains all relevant Helm Chart descriptions and versions"
   type        = string
   default     = "../../versions.yaml"
-  nullable    = false
-}
-
-# Namespaces
-variable "cilium_namespace" {
-  description = "Namespace where the cilium operator will be installed to"
-  type        = string
-  default     = "cilium"
-  nullable    = false
-}
-
-variable "cert_manager_namespace" {
-  description = "Namespace where the cert-manager will be installed to"
-  type        = string
-  default     = "cert-manager"
-  nullable    = false
-}
-
-variable "external_dns_namespace" {
-  description = "Namespace where the external-dns operator will be installed to"
-  type        = string
-  default     = "external-dns"
-  nullable    = false
-}
-
-variable "sealed_secrets_namespace" {
-  description = "Namespace where the sealed-secrets operator will be installed to"
-  type        = string
-  default     = "sealed-secrets"
-  nullable    = false
-}
-
-variable "local_path_provisioner_namespace" {
-  description = "Namespace where the local-path-provisioner operator will be installed to"
-  type        = string
-  default     = "local-path-provisioner"
-  nullable    = false
-}
-
-variable "traefik_namespace" {
-  description = "Namespace for Traefik deployment"
-  type        = string
-  default     = "traefik"
   nullable    = false
 }
 
@@ -93,6 +50,7 @@ variable "nodes" {
     cpu          = number
     ram          = number
     datastore_id = optional(string)
+    iso_store_id = optional(string)
     vfs_mappings = optional(list(string), [])
   }))
 
@@ -148,56 +106,9 @@ variable "talos_machine_config_file" {
   nullable    = false
 }
 
-variable "k8s_sealed_secret_ca_file" {
-  description = "File name and path for the generated sealed secret of the intermediate Kubernetes CA certificate"
-  type        = string
-  default     = "output/k8s_sealed_secret_ca.yaml"
-  nullable    = false
-}
-
-# ACME configuration
 variable "step_ca_host" {
   description = "Step CA IP or host, _*not*_ including the protocol (`https`)."
   default     = "192.168.178.155"
   type        = string
   nullable    = false
-}
-
-variable "acme_server_directory_url" {
-  description = "ACME server directory URL"
-  type        = string
-  default     = "https://step-ca.my.world/acme/step-ca-acme/directory"
-  nullable    = false
-}
-
-variable "acme_contact" {
-  description = "E-Mail address of the ACME account"
-  type        = string
-  default     = "admin@my.world"
-  nullable    = false
-}
-
-# Misc configuration
-variable "sealed_secrets_controller_name" {
-  description = "Name of the sealed-secrets controller"
-  type        = string
-  default     = "sealed-secrets-release"
-  nullable    = false
-}
-
-variable "external_dns_secret_name" {
-  description = "Name of the external-dns secret"
-  type        = string
-  default     = "sealed-secrets-release"
-  nullable    = false
-}
-
-variable "cilium_crds" {
-  description = "Cilium CRDs, that have to be present *before* Cilium is installed in order to install the LoadBalancer IP Pool and L2 Announcement resources; use `<VERSION>` placeholder to auto-replace the version in the URL"
-  type        = list(string)
-  default = [
-    "https://raw.githubusercontent.com/cilium/cilium/refs/tags/v<VERSION>/pkg/k8s/apis/cilium.io/client/crds/v2alpha1/ciliuml2announcementpolicies.yaml",
-    "https://raw.githubusercontent.com/cilium/cilium/refs/tags/v<VERSION>/pkg/k8s/apis/cilium.io/client/crds/v2alpha1/ciliumloadbalancerippools.yaml"
-  ]
-  nullable = false
 }

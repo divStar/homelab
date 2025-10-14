@@ -1,9 +1,10 @@
 # PiHole Setup
 
 This module sets up PiHole in an Alpine LXC container using the provided information.
+
 ## Contents
 
-<blockquote>
+<blockquote><!-- contents:start -->
 
 - [Requirements](#requirements)
 - [Providers](#providers)
@@ -42,22 +43,18 @@ This module sets up PiHole in an Alpine LXC container using the provided informa
   - [admin_url](#admin_url)
   - [root_password](#root_password)
   - [ssh_private_key](#ssh_private_key)
-</blockquote>
+</blockquote><!-- contents:end -->
 
 ## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) | >= 0.69.0 |
-| <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+  
+![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![proxmox](https://img.shields.io/badge/proxmox->=0.69.0-1e73c8?logo=proxmox)
+![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
 
 ## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_random"></a> [random](#provider\_random) | 3.7.1 |
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+  
+![random](https://img.shields.io/badge/random-3.7.1-82d72c)
+![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
 
 ## Execution story
 
@@ -77,9 +74,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
 ```
 
 ## Modules
-<blockquote>
+  
+<blockquote><!-- module:"setup_container":start -->
 
 ### `setup_container`
+
 Alpine LXC container setup
   <table>
     <tr>
@@ -94,13 +93,14 @@ Alpine LXC container setup
       <td colspan="2"><a href="../common/modules/alpine/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-
+</blockquote><!-- module:"setup_container":end -->
 
 ## Resources
-<blockquote>
+  
+<blockquote><!-- resource:"random_password.admin_password":start -->
 
-#### _random_password_.`admin_password`
+### _random_password_.`admin_password`
+
 Create a random password for the PiHole admin web UI
   <table>
     <tr>
@@ -112,10 +112,11 @@ Create a random password for the PiHole admin web UI
       <td><a href="./main.tf#L37"><code>main.tf#L37</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"random_password.admin_password":end -->
+<blockquote><!-- resource:"ssh_resource.configure":start -->
 
-#### _ssh_resource_.`configure`
+### _ssh_resource_.`configure`
+
 Configure PiHole
   <table>
     <tr>
@@ -127,10 +128,11 @@ Configure PiHole
       <td><a href="./main.tf#L44"><code>main.tf#L44</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.configure":end -->
+<blockquote><!-- resource:"ssh_resource.install":start -->
 
-#### _ssh_resource_.`install`
+### _ssh_resource_.`install`
+
 Install PiHole
   <table>
     <tr>
@@ -142,10 +144,11 @@ Install PiHole
       <td><a href="./main.tf#L64"><code>main.tf#L64</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.install":end -->
+<blockquote><!-- resource:"ssh_resource.install_cert":start -->
 
-#### _ssh_resource_.`install_cert`
+### _ssh_resource_.`install_cert`
+
 Install certificate
   <table>
     <tr>
@@ -157,12 +160,14 @@ Install certificate
       <td><a href="./main.tf#L108"><code>main.tf#L108</code></a></td>
     </tr>
   </table>
-</blockquote>
+</blockquote><!-- resource:"ssh_resource.install_cert":end -->
 
 ## Variables
-<blockquote>
+  
+<blockquote><!-- variable:"proxmox":start -->
 
 ### `proxmox` (**Required**)
+
 Proxmox host configuration
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -183,10 +188,11 @@ Proxmox host configuration
   In file: <a href="./variables.tf#L2"><code>variables.tf#L2</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"proxmox":end -->
+<blockquote><!-- variable:"admin_password":start -->
 
 ### `admin_password` (*Optional*)
+
 PiHole Administrator password
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -203,10 +209,11 @@ PiHole Administrator password
   In file: <a href="./variables.tf#L191"><code>variables.tf#L191</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"admin_password":end -->
+<blockquote><!-- variable:"description":start -->
 
 ### `description` (*Optional*)
+
 Description of the container
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -223,10 +230,11 @@ Description of the container
   In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"description":end -->
+<blockquote><!-- variable:"dns_names":start -->
 
 ### `dns_names` (*Optional*)
+
 DNS names for the certificate
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -250,10 +258,11 @@ DNS names for the certificate
   In file: <a href="./variables.tf#L169"><code>variables.tf#L169</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"dns_names":end -->
+<blockquote><!-- variable:"hostname":start -->
 
 ### `hostname` (*Optional*)
+
 PiHole host name
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -270,10 +279,11 @@ PiHole host name
   In file: <a href="./variables.tf#L22"><code>variables.tf#L22</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"hostname":end -->
+<blockquote><!-- variable:"imagestore_id":start -->
 
 ### `imagestore_id` (*Optional*)
+
 PiHole imagestore ID
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -290,10 +300,11 @@ PiHole imagestore ID
   In file: <a href="./variables.tf#L91"><code>variables.tf#L91</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"imagestore_id":end -->
+<blockquote><!-- variable:"init_certificate":start -->
 
 ### `init_certificate` (*Optional*)
+
 Initialize certificate as new (also needed for renewal)
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -310,10 +321,11 @@ Initialize certificate as new (also needed for renewal)
   In file: <a href="./variables.tf#L149"><code>variables.tf#L149</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"init_certificate":end -->
+<blockquote><!-- variable:"init_configuration":start -->
 
 ### `init_configuration` (*Optional*)
+
 Initialize a new stock configuration
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -330,10 +342,11 @@ Initialize a new stock configuration
   In file: <a href="./variables.tf#L184"><code>variables.tf#L184</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"init_configuration":end -->
+<blockquote><!-- variable:"ip_addresses":start -->
 
 ### `ip_addresses` (*Optional*)
+
 IP addresses for the certificate
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -354,10 +367,11 @@ IP addresses for the certificate
   In file: <a href="./variables.tf#L176"><code>variables.tf#L176</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ip_addresses":end -->
+<blockquote><!-- variable:"mount_points":start -->
 
 ### `mount_points` (*Optional*)
+
 List of mount points for the container
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -386,10 +400,11 @@ List of mount points for the container
   In file: <a href="./variables.tf#L72"><code>variables.tf#L72</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"mount_points":end -->
+<blockquote><!-- variable:"ni_bridge":start -->
 
 ### `ni_bridge` (*Optional*)
+
 Network interface bridge
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -406,10 +421,11 @@ Network interface bridge
   In file: <a href="./variables.tf#L141"><code>variables.tf#L141</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_bridge":end -->
+<blockquote><!-- variable:"ni_gateway":start -->
 
 ### `ni_gateway` (*Optional*)
+
 Network interface gateway
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -426,10 +442,11 @@ Network interface gateway
   In file: <a href="./variables.tf#L113"><code>variables.tf#L113</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_gateway":end -->
+<blockquote><!-- variable:"ni_ip":start -->
 
 ### `ni_ip` (*Optional*)
+
 Network interface IP address
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -446,10 +463,11 @@ Network interface IP address
   In file: <a href="./variables.tf#L106"><code>variables.tf#L106</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_ip":end -->
+<blockquote><!-- variable:"ni_mac_address":start -->
 
 ### `ni_mac_address` (*Optional*)
+
 Network interface MAC address
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -466,10 +484,11 @@ Network interface MAC address
   In file: <a href="./variables.tf#L120"><code>variables.tf#L120</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_mac_address":end -->
+<blockquote><!-- variable:"ni_name":start -->
 
 ### `ni_name` (*Optional*)
+
 Network interface name
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -486,10 +505,11 @@ Network interface name
   In file: <a href="./variables.tf#L134"><code>variables.tf#L134</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_name":end -->
+<blockquote><!-- variable:"ni_subnet_mask":start -->
 
 ### `ni_subnet_mask` (*Optional*)
+
 Network interface subnet mask in CIDR notation
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -506,10 +526,11 @@ Network interface subnet mask in CIDR notation
   In file: <a href="./variables.tf#L127"><code>variables.tf#L127</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_subnet_mask":end -->
+<blockquote><!-- variable:"packages":start -->
 
 ### `packages` (*Optional*)
+
 List of packages to install on the container
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -549,10 +570,11 @@ List of packages to install on the container
   In file: <a href="./variables.tf#L43"><code>variables.tf#L43</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"packages":end -->
+<blockquote><!-- variable:"startup_order":start -->
 
 ### `startup_order` (*Optional*)
+
 Container startup order; shutdowns happen in reverse order
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -569,10 +591,11 @@ Container startup order; shutdowns happen in reverse order
   In file: <a href="./variables.tf#L98"><code>variables.tf#L98</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"startup_order":end -->
+<blockquote><!-- variable:"subject":start -->
 
 ### `subject` (*Optional*)
+
 Subject information for the certificate
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -595,10 +618,11 @@ Subject information for the certificate
   In file: <a href="./variables.tf#L156"><code>variables.tf#L156</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"subject":end -->
+<blockquote><!-- variable:"tags":start -->
 
 ### `tags` (*Optional*)
+
 Tags
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -618,10 +642,11 @@ Tags
   In file: <a href="./variables.tf#L36"><code>variables.tf#L36</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"tags":end -->
+<blockquote><!-- variable:"vm_id":start -->
 
 ### `vm_id` (*Optional*)
+
 PiHole VM ID
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -638,35 +663,39 @@ PiHole VM ID
   In file: <a href="./variables.tf#L15"><code>variables.tf#L15</code></a>
 
 </details>
-</blockquote>
-
+</blockquote><!-- variable:"vm_id":end -->
 
 ## Outputs
-<blockquote>
+  
+<blockquote><!-- output:"admin_password":start -->
 
 #### `admin_password`
+
 Password for Pi-hole admin interface
 
 In file: <a href="./outputs.tf#L16"><code>outputs.tf#L16</code></a>
-</blockquote>
-<blockquote>
+</blockquote><!-- output:"admin_password":end -->
+<blockquote><!-- output:"admin_url":start -->
 
 #### `admin_url`
+
 PiHole admin web UI URL
 
 In file: <a href="./outputs.tf#L23"><code>outputs.tf#L23</code></a>
-</blockquote>
-<blockquote>
+</blockquote><!-- output:"admin_url":end -->
+<blockquote><!-- output:"root_password":start -->
 
 #### `root_password`
+
 Root password
 
 In file: <a href="./outputs.tf#L2"><code>outputs.tf#L2</code></a>
-</blockquote>
-<blockquote>
+</blockquote><!-- output:"root_password":end -->
+<blockquote><!-- output:"ssh_private_key":start -->
 
 #### `ssh_private_key`
+
 Private SSH key
 
 In file: <a href="./outputs.tf#L9"><code>outputs.tf#L9</code></a>
-</blockquote>
+</blockquote><!-- output:"ssh_private_key":end -->

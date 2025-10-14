@@ -47,24 +47,50 @@ variable "is_privileged_namespace" {
 
 variable "pre_install_resources" {
   description = "List of resources to deploy before installing the application"
-  type        = list(string)
-  default     = []
-  nullable    = false
+  type = list(object({
+    yaml = string
+    wait_for = optional(object({
+      fields = optional(list(object({
+        key        = string
+        value      = string
+        value_type = optional(string, "eq")
+      })), [])
+      conditions = optional(list(object({
+        type   = string
+        status = string
+      })), [])
+    }))
+  }))
+  default  = []
+  nullable = false
 
-  validation {
-    condition     = alltrue([for pre_install_resource in var.pre_install_resources : can(yamldecode(pre_install_resource))])
-    error_message = "All pre_install_resources must be valid YAML."
-  }
+  # validation {
+  #   condition     = alltrue([for pre_install_resource in var.pre_install_resources : can(yamldecode(pre_install_resource.yaml))])
+  #   error_message = "All pre_install_resources must be valid YAML. Found this: \n${nonsensitive(join("\n---\n", [for r in var.pre_install_resources : r.yaml]))}"
+  # }
 }
 
 variable "post_install_resources" {
   description = "List of resources to deploy before installing the application"
-  type        = list(string)
-  default     = []
-  nullable    = false
+  type = list(object({
+    yaml = string
+    wait_for = optional(object({
+      fields = optional(list(object({
+        key        = string
+        value      = string
+        value_type = optional(string, "eq")
+      })), [])
+      conditions = optional(list(object({
+        type   = string
+        status = string
+      })), [])
+    }))
+  }))
+  default  = []
+  nullable = false
 
   validation {
-    condition     = alltrue([for post_install_resource in var.post_install_resources : can(yamldecode(post_install_resource))])
+    condition     = alltrue([for post_install_resource in var.post_install_resources : can(yamldecode(post_install_resource.yaml))])
     error_message = "All post_install_resources must be valid YAML."
   }
 }

@@ -1,3 +1,4 @@
+# This patch makes the virtual network interface names more predictable (eth0 vs e.g. enp3s0)
 machine:
   install:
     extraKernelArgs:

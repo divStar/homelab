@@ -1,9 +1,10 @@
 # LLDAP Setup
 
 This module sets up LLDAP in an Alpine LXC container using the provided information.
+
 ## Contents
 
-<blockquote>
+<blockquote><!-- contents:start -->
 
 - [Requirements](#requirements)
 - [Providers](#providers)
@@ -37,21 +38,17 @@ This module sets up LLDAP in an Alpine LXC container using the provided informat
 - [Outputs](#outputs)
   - [root_password](#root_password)
   - [ssh_private_key](#ssh_private_key)
-</blockquote>
+</blockquote><!-- contents:end -->
 
 ## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8.0 |
-| <a name="requirement_proxmox"></a> [proxmox](#requirement\_proxmox) | >= 0.75.0 |
-| <a name="requirement_ssh"></a> [ssh](#requirement\_ssh) | ~> 2.7 |
+  
+![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![proxmox](https://img.shields.io/badge/proxmox->=0.75.0-1e73c8?logo=proxmox)
+![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
 
 ## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_ssh"></a> [ssh](#provider\_ssh) | 2.7.0 |
+  
+![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
 
 ## Execution story
 
@@ -70,9 +67,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
 ```
 
 ## Modules
-<blockquote>
+  
+<blockquote><!-- module:"setup_container":start -->
 
 ### `setup_container`
+
 Alpine LXC container setup
   <table>
     <tr>
@@ -87,13 +86,14 @@ Alpine LXC container setup
       <td colspan="2"><a href="../common/modules/alpine/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
-</blockquote>
-
+</blockquote><!-- module:"setup_container":end -->
 
 ## Resources
-<blockquote>
+  
+<blockquote><!-- resource:"ssh_resource.configure":start -->
 
-#### _ssh_resource_.`configure`
+### _ssh_resource_.`configure`
+
 Configure LLDAP
   <table>
     <tr>
@@ -105,10 +105,11 @@ Configure LLDAP
       <td><a href="./main.tf#L62"><code>main.tf#L62</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.configure":end -->
+<blockquote><!-- resource:"ssh_resource.install":start -->
 
-#### _ssh_resource_.`install`
+### _ssh_resource_.`install`
+
 Install LLDAP
   <table>
     <tr>
@@ -120,10 +121,11 @@ Install LLDAP
       <td><a href="./main.tf#L88"><code>main.tf#L88</code></a></td>
     </tr>
   </table>
-</blockquote>
-<blockquote>
+</blockquote><!-- resource:"ssh_resource.install":end -->
+<blockquote><!-- resource:"ssh_resource.install_cert":start -->
 
-#### _ssh_resource_.`install_cert`
+### _ssh_resource_.`install_cert`
+
 Install the generated certificate
   <table>
     <tr>
@@ -135,12 +137,14 @@ Install the generated certificate
       <td><a href="./main.tf#L32"><code>main.tf#L32</code></a></td>
     </tr>
   </table>
-</blockquote>
+</blockquote><!-- resource:"ssh_resource.install_cert":end -->
 
 ## Variables
-<blockquote>
+  
+<blockquote><!-- variable:"proxmox":start -->
 
 ### `proxmox` (**Required**)
+
 Proxmox host configuration
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -161,10 +165,11 @@ Proxmox host configuration
   In file: <a href="./variables.tf#L2"><code>variables.tf#L2</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"proxmox":end -->
+<blockquote><!-- variable:"description":start -->
 
 ### `description` (*Optional*)
+
 Description of the container
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -181,10 +186,11 @@ Description of the container
   In file: <a href="./variables.tf#L29"><code>variables.tf#L29</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"description":end -->
+<blockquote><!-- variable:"dns_names":start -->
 
 ### `dns_names` (*Optional*)
+
 DNS names for the certificate
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -207,10 +213,11 @@ DNS names for the certificate
   In file: <a href="./variables.tf#L134"><code>variables.tf#L134</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"dns_names":end -->
+<blockquote><!-- variable:"hostname":start -->
 
 ### `hostname` (*Optional*)
+
 LLDAP host name
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -227,10 +234,11 @@ LLDAP host name
   In file: <a href="./variables.tf#L22"><code>variables.tf#L22</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"hostname":end -->
+<blockquote><!-- variable:"imagestore_id":start -->
 
 ### `imagestore_id` (*Optional*)
+
 LLDAP imagestore ID
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -247,10 +255,11 @@ LLDAP imagestore ID
   In file: <a href="./variables.tf#L56"><code>variables.tf#L56</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"imagestore_id":end -->
+<blockquote><!-- variable:"init_certificate":start -->
 
 ### `init_certificate` (*Optional*)
+
 Initialize certificate as new (also needed for renewal)
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -267,10 +276,11 @@ Initialize certificate as new (also needed for renewal)
   In file: <a href="./variables.tf#L114"><code>variables.tf#L114</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"init_certificate":end -->
+<blockquote><!-- variable:"init_configuration":start -->
 
 ### `init_configuration` (*Optional*)
+
 Initialize a new stock configuration
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -287,10 +297,11 @@ Initialize a new stock configuration
   In file: <a href="./variables.tf#L149"><code>variables.tf#L149</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"init_configuration":end -->
+<blockquote><!-- variable:"ip_addresses":start -->
 
 ### `ip_addresses` (*Optional*)
+
 IP addresses for the certificate
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -311,10 +322,11 @@ IP addresses for the certificate
   In file: <a href="./variables.tf#L141"><code>variables.tf#L141</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ip_addresses":end -->
+<blockquote><!-- variable:"mount_points":start -->
 
 ### `mount_points` (*Optional*)
+
 List of mount points for the container
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -339,10 +351,11 @@ List of mount points for the container
   In file: <a href="./variables.tf#L43"><code>variables.tf#L43</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"mount_points":end -->
+<blockquote><!-- variable:"ni_bridge":start -->
 
 ### `ni_bridge` (*Optional*)
+
 Network interface bridge
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -359,10 +372,11 @@ Network interface bridge
   In file: <a href="./variables.tf#L106"><code>variables.tf#L106</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_bridge":end -->
+<blockquote><!-- variable:"ni_gateway":start -->
 
 ### `ni_gateway` (*Optional*)
+
 Network interface gateway
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -379,10 +393,11 @@ Network interface gateway
   In file: <a href="./variables.tf#L78"><code>variables.tf#L78</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_gateway":end -->
+<blockquote><!-- variable:"ni_ip":start -->
 
 ### `ni_ip` (*Optional*)
+
 Network interface IP address
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -399,10 +414,11 @@ Network interface IP address
   In file: <a href="./variables.tf#L71"><code>variables.tf#L71</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_ip":end -->
+<blockquote><!-- variable:"ni_mac_address":start -->
 
 ### `ni_mac_address` (*Optional*)
+
 Network interface MAC address
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -419,10 +435,11 @@ Network interface MAC address
   In file: <a href="./variables.tf#L85"><code>variables.tf#L85</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_mac_address":end -->
+<blockquote><!-- variable:"ni_name":start -->
 
 ### `ni_name` (*Optional*)
+
 Network interface name
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -439,10 +456,11 @@ Network interface name
   In file: <a href="./variables.tf#L99"><code>variables.tf#L99</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_name":end -->
+<blockquote><!-- variable:"ni_subnet_mask":start -->
 
 ### `ni_subnet_mask` (*Optional*)
+
 Network interface subnet mask in CIDR notation
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -459,10 +477,11 @@ Network interface subnet mask in CIDR notation
   In file: <a href="./variables.tf#L92"><code>variables.tf#L92</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"ni_subnet_mask":end -->
+<blockquote><!-- variable:"startup_order":start -->
 
 ### `startup_order` (*Optional*)
+
 Container startup order; shutdowns happen in reverse order
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -479,10 +498,11 @@ Container startup order; shutdowns happen in reverse order
   In file: <a href="./variables.tf#L63"><code>variables.tf#L63</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"startup_order":end -->
+<blockquote><!-- variable:"subject":start -->
 
 ### `subject` (*Optional*)
+
 Subject information for the certificate
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -505,10 +525,11 @@ Subject information for the certificate
   In file: <a href="./variables.tf#L121"><code>variables.tf#L121</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"subject":end -->
+<blockquote><!-- variable:"tags":start -->
 
 ### `tags` (*Optional*)
+
 Tags
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -528,10 +549,11 @@ Tags
   In file: <a href="./variables.tf#L36"><code>variables.tf#L36</code></a>
 
 </details>
-</blockquote>
-<blockquote>
+</blockquote><!-- variable:"tags":end -->
+<blockquote><!-- variable:"vm_id":start -->
 
 ### `vm_id` (*Optional*)
+
 LLDAP VM ID
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
@@ -548,21 +570,23 @@ LLDAP VM ID
   In file: <a href="./variables.tf#L15"><code>variables.tf#L15</code></a>
 
 </details>
-</blockquote>
-
+</blockquote><!-- variable:"vm_id":end -->
 
 ## Outputs
-<blockquote>
+  
+<blockquote><!-- output:"root_password":start -->
 
 #### `root_password`
+
 Root password
 
 In file: <a href="./outputs.tf#L2"><code>outputs.tf#L2</code></a>
-</blockquote>
-<blockquote>
+</blockquote><!-- output:"root_password":end -->
+<blockquote><!-- output:"ssh_private_key":start -->
 
 #### `ssh_private_key`
+
 Private SSH key
 
 In file: <a href="./outputs.tf#L9"><code>outputs.tf#L9</code></a>
-</blockquote>
+</blockquote><!-- output:"ssh_private_key":end -->

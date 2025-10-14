@@ -1,0 +1,42 @@
+# pgAdmin 4 Helm Chart Configuration
+# Documentation: https://github.com/rowanruseler/helm-charts/tree/main/charts/pgadmin4
+
+## pgAdmin configuration
+env:
+  email: ${pgadmin_email}
+  variables:
+    - name: PGADMIN_CONFIG_UPGRADE_CHECK_ENABLED
+      value: "False"
+    - name: PGADMIN_DISABLE_POSTFIX
+      value: "True"
+existingSecret: ${pgadmin_secret_name}-admin-password
+secretKeys:
+  pgadminPasswordKey: password
+
+## Preferences
+preferences:
+  enabled: true
+  data:
+    misc:user_interface:theme: "dark"
+    misc:user_interface:layout: "classic"
+
+## Service configuration
+service:
+  loadBalancerIP: ${cluster_lbcidr}
+
+startupProbe:
+  httpGet:
+    path: /misc/ping
+    port: 80
+  failureThreshold: 15
+  periodSeconds: 5
+
+extraConfigmapMounts:
+  - name: config-local
+    configMap: ${pgadmin_configmap_name}
+    subPath: config_local.py
+    mountPath: "/pgadmin4/config_local.py"
+    readOnly: true
+
+envVarsFromSecrets:
+  - ${pgadmin_secret_name}-env

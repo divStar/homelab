@@ -92,3 +92,28 @@ module "directory_mappings" {
   proxmox_node_name  = var.proxmox_node_name
   directory_mappings = var.directory_mappings
 }
+
+# Handles creating a gitops user, providing it with access to the gitops git repository
+# and exposing it for git+ssh access (gitops).
+# > [!NOTE]
+# > In order to make use of the gitops git repository and user, public SSH keys of users/applications,
+# > who need access, have to be introduced into the `/home/<user, e.g. gitops>/.ssh/authorized_keys` file.<br>
+# > You can use the [`authorized-keys-appender`](./modules/authorized-keys-appender/README.md) module for this.
+module "gitops_user" {
+  source     = "./modules/gitops-user"
+  depends_on = [module.zfs_storage]
+
+  ssh = var.ssh
+}
+
+# Handles adding the SSH key of the machine running this script to the gitops user and git+ssh repository.
+module "authorized_keys_appender" {
+  source     = "./modules/authorized-keys-appender"
+  depends_on = [module.gitops_user]
+
+  ssh = var.ssh
+
+  ssh_key_file = "~/.ssh/id_rsa.pub"
+  target_user  = module.gitops_user.user
+  repo_name    = module.gitops_user.repo_name
+}

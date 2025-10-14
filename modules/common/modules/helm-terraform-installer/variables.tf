@@ -47,7 +47,7 @@ variable "is_privileged_namespace" {
 
 variable "pre_install_resources" {
   description = "List of resources to deploy before installing the application"
-  type        = list(object({
+  type = list(object({
     yaml = string
     wait_for = optional(object({
       fields = optional(list(object({
@@ -61,8 +61,8 @@ variable "pre_install_resources" {
       })), [])
     }))
   }))
-  default     = []
-  nullable    = false
+  default  = []
+  nullable = false
 
   # validation {
   #   condition     = alltrue([for pre_install_resource in var.pre_install_resources : can(yamldecode(pre_install_resource.yaml))])
@@ -72,7 +72,7 @@ variable "pre_install_resources" {
 
 variable "post_install_resources" {
   description = "List of resources to deploy before installing the application"
-  type        = list(object({
+  type = list(object({
     yaml = string
     wait_for = optional(object({
       fields = optional(list(object({
@@ -86,8 +86,8 @@ variable "post_install_resources" {
       })), [])
     }))
   }))
-  default     = []
-  nullable    = false
+  default  = []
+  nullable = false
 
   validation {
     condition     = alltrue([for post_install_resource in var.post_install_resources : can(yamldecode(post_install_resource.yaml))])

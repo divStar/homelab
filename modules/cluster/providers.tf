@@ -22,9 +22,9 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "2.38.0"
     }
-    zitadel = {
-      source  = "zitadel/zitadel"
-      version = "2.2.0"
+    zitactl = {
+      source = "divstar/zitactl"
+      #version = "0.1.0"
     }
   }
 }
@@ -68,7 +68,8 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(module.talos_cluster_ready.kube_config.kubernetes_client_configuration.ca_certificate)
 }
 
-provider "zitadel" {
-  domain = "zitadel.${var.cluster.domain}"
-  jwt_profile_json = base64decode(module.platform.machine_user_key)
+provider "zitactl" {
+  domain                = "zitadel.${var.cluster.domain}"
+  service_account_key   = base64decode(module.platform.machine_user_key)
+  skip_tls_verification = true
 }

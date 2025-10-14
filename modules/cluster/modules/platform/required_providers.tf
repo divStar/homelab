@@ -11,8 +11,8 @@ terraform {
     helm = {
       source = "hashicorp/helm"
     }
-    zitadel = {
-      source = "zitadel/zitadel"
+    zitactl = {
+      source = "divstar/zitactl"
     }
   }
 }

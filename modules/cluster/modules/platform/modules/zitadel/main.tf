@@ -75,9 +75,3 @@ data "kubernetes_resource" "zitadel_admin_sa_key" {
     namespace = local.zitadel.namespace
   }
 }
-
-resource "local_file" "zitadel_admin_sa_json" {
-  depends_on = [data.kubernetes_resource.zitadel_admin_sa_key]
-  content    = base64decode(data.kubernetes_resource.zitadel_admin_sa_key.object.data["zitadel-admin-sa.json"])
-  filename   = "${path.cwd}/zitadel-admin-sa.json"
-}

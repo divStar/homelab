@@ -18,7 +18,7 @@ cilium:
 externalDns:
   chartName: "external-dns"
   chartRepo: "oci://registry-1.docker.io/bitnamicharts"
-  chartVersion: "8.8.6"
+  chartVersion: "9.0.3"
   namespace: "external-dns"
   releaseName: "external-dns-release"
 

@@ -24,11 +24,11 @@ resource "kubectl_manifest" "pre_install" {
   yaml_body = each.value.yaml
 
   wait_for_rollout = true
-  wait = true
+  wait             = true
 
   dynamic "wait_for" {
     for_each = each.value.wait_for != null ? [each.value.wait_for] : []
-    
+
     content {
       # Add field conditions if any
       dynamic "field" {
@@ -39,7 +39,7 @@ resource "kubectl_manifest" "pre_install" {
           value_type = field.value.value_type
         }
       }
-      
+
       # Add status conditions if any
       dynamic "condition" {
         for_each = wait_for.value.conditions != null ? wait_for.value.conditions : []
@@ -85,11 +85,11 @@ resource "kubectl_manifest" "post_install" {
   yaml_body = each.value.yaml
 
   wait_for_rollout = true
-  wait = true
+  wait             = true
 
   dynamic "wait_for" {
     for_each = each.value.wait_for != null ? [each.value.wait_for] : []
-    
+
     content {
       # Add field conditions if any
       dynamic "field" {
@@ -100,7 +100,7 @@ resource "kubectl_manifest" "post_install" {
           value_type = field.value.value_type
         }
       }
-      
+
       # Add status conditions if any
       dynamic "condition" {
         for_each = wait_for.value.conditions != null ? wait_for.value.conditions : []

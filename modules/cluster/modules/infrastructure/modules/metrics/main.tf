@@ -9,8 +9,7 @@ data "http" "kubelet_serving_cert_approver" {
 
 resource "kubectl_manifest" "kubelet_serving_cert_approver" {
   yaml_body = data.http.kubelet_serving_cert_approver.response_body
-  
-  wait = true
+  wait      = true
 }
 
 data "http" "metrics_server" {
@@ -19,7 +18,7 @@ data "http" "metrics_server" {
 
 resource "kubectl_manifest" "metrics_server" {
   depends_on = [kubectl_manifest.kubelet_serving_cert_approver]
-  yaml_body = data.http.metrics_server.response_body
+  yaml_body  = data.http.metrics_server.response_body
 
   wait = true
 }

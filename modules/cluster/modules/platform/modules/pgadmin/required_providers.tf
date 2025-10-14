@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.5.7"
+  required_version = ">= 1.8.0"
 
   required_providers {
     kubectl = {
@@ -11,8 +11,8 @@ terraform {
     random = {
       source = "hashicorp/random"
     }
-    zitadel = {
-      source = "zitadel/zitadel"
+    zitactl = {
+      source = "divstar/zitactl"
     }
   }
 }

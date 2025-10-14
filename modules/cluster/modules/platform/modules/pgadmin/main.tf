@@ -13,25 +13,24 @@ locals {
 
   pgAdmin = local.versions.pgAdmin
   # We expect there to only be one company; this *should* always be the case!
-  sanctum_orga_id = data.zitadel_orgs.this.ids[0]
+  sanctum_orga_id = data.zitactl_orgs.this.ids[0]
 }
 
 # This data source retrieves the organization ID of `zitadel_orga_name`.
-data "zitadel_orgs" "this" {
+data "zitactl_orgs" "this" {
   name = var.zitadel_orga_name
 }
 
 # Creates the `pgadmin` project within the given `var.zitadel_orga_name` organization.
-resource "zitadel_project" "this" {
+resource "zitactl_project" "this" {
   name                   = "pgadmin"
   org_id                 = local.sanctum_orga_id
   project_role_assertion = true
   project_role_check     = true
 }
 
-resource "zitadel_application_oidc" "this" {
-  org_id     = local.sanctum_orga_id
-  project_id = zitadel_project.this.id
+resource "zitactl_application_oidc" "this" {
+  project_id = zitactl_project.this.id
 
   name                      = "pgadmin"
   redirect_uris             = ["https://pgadmin.${var.cluster.domain}/oauth2/authorize"]
@@ -52,6 +51,7 @@ module "pgadmin" {
   chart_version = local.pgAdmin.chartVersion
   namespace     = local.pgAdmin.namespace
   release_name  = local.pgAdmin.releaseName
+  chart_timeout = 300 // 5 minutes
 
   chart_values = templatefile("${path.module}/files/pgadmin.values.yaml.tftpl", {
     pgadmin_email          = var.pgadmin_email
@@ -65,8 +65,8 @@ module "pgadmin" {
       yaml = templatefile("${path.module}/files/pgadmin.secret.env.pre-install.yaml.tftpl", {
         pgadmin_namespace    = local.pgAdmin.namespace
         pgadmin_secret_name  = var.pgadmin_secret_name
-        oauth2_client_id     = zitadel_application_oidc.this.client_id
-        oauth2_client_secret = zitadel_application_oidc.this.client_secret
+        oauth2_client_id     = zitactl_application_oidc.this.client_id
+        oauth2_client_secret = zitactl_application_oidc.this.client_secret
       })
     },
     {

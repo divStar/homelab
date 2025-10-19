@@ -37,6 +37,11 @@ output "storage_pools" {
   value       = module.zfs_storage.storage_pools
 }
 
+output "imported_directories" {
+  description = "Imported directories"
+  value       = module.proxmox_storage_import.imported_directories
+}
+
 output "terraform_user" {
   description = "The user and role created to manage the Proxmox host via Terraform/OpenTofu"
   value = {

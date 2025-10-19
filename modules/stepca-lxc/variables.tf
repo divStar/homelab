@@ -58,7 +58,7 @@ variable "mount_points" {
 variable "imagestore_id" {
   description = "Step-CA imagestore ID"
   type        = string
-  default     = "proxmox-resources"
+  default     = "virt-assets"
   nullable    = false
 }
 
@@ -130,7 +130,7 @@ variable "acme_name" {
 variable "acme_proxmox_domains" {
   description = "Proxmox ACME domains to order certificates for"
   type        = list(string)
-  default     = ["sanctum.my.world", "sanctum.fritz.box"]
+  default     = ["sanctum.my.world"]
   nullable    = false
 }
 

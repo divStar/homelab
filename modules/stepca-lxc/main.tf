@@ -102,7 +102,7 @@ resource "ssh_resource" "configure_host" {
     EOT
   ]
 
-  timeout = "2m"
+  timeout = "75s"
 }
 
 # ACME Cleanup on destroy

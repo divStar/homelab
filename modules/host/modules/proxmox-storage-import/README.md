@@ -15,8 +15,7 @@ Imports existing storage into Proxmox.
   - [ssh](#ssh-required) (**Required**)
   - [storage_directories](#storage_directories-required) (**Required**)
 - [Outputs](#outputs)
-  - [configured_storages](#configured_storages)
-  - [storage_details](#storage_details)
+  - [imported_directories](#imported_directories)
 </blockquote><!-- contents:end -->
 
 ## Requirements
@@ -107,19 +106,11 @@ Map of storage directories to configure; the key is the name of the directory.
 
 ## Outputs
   
-<blockquote><!-- output:"configured_storages":start -->
+<blockquote><!-- output:"imported_directories":start -->
 
-#### `configured_storages`
+#### `imported_directories`
 
-List of configured storage names
+List of imported directories, their mountpoints and types
 
 In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
-</blockquote><!-- output:"configured_storages":end -->
-<blockquote><!-- output:"storage_details":start -->
-
-#### `storage_details`
-
-Full storage configuration details
-
-In file: <a href="./outputs.tf#L6"><code>outputs.tf#L6</code></a>
-</blockquote><!-- output:"storage_details":end -->
+</blockquote><!-- output:"imported_directories":end -->

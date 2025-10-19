@@ -39,6 +39,7 @@ This module and its sub-modules setup the Proxmox host.
   - [configuration_files](#configuration_files)
   - [directory_mappings](#directory_mappings)
   - [gitops_user](#gitops_user)
+  - [imported_directories](#imported_directories)
   - [installed_packages](#installed_packages)
   - [installed_scripts](#installed_scripts)
   - [no_subscription](#no_subscription)
@@ -653,8 +654,16 @@ In file: <a href="./outputs.tf#L6"><code>outputs.tf#L6</code></a>
 
 User and git+ssh URL for gitops purposes
 
-In file: <a href="./outputs.tf#L49"><code>outputs.tf#L49</code></a>
+In file: <a href="./outputs.tf#L54"><code>outputs.tf#L54</code></a>
 </blockquote><!-- output:"gitops_user":end -->
+<blockquote><!-- output:"imported_directories":start -->
+
+#### `imported_directories`
+
+Imported directories
+
+In file: <a href="./outputs.tf#L40"><code>outputs.tf#L40</code></a>
+</blockquote><!-- output:"imported_directories":end -->
 <blockquote><!-- output:"installed_packages":start -->
 
 #### `installed_packages`
@@ -701,5 +710,5 @@ In file: <a href="./outputs.tf#L35"><code>outputs.tf#L35</code></a>
 
 The user and role created to manage the Proxmox host via Terraform/OpenTofu
 
-In file: <a href="./outputs.tf#L40"><code>outputs.tf#L40</code></a>
+In file: <a href="./outputs.tf#L45"><code>outputs.tf#L45</code></a>
 </blockquote><!-- output:"terraform_user":end -->

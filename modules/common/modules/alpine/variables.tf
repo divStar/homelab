@@ -90,7 +90,7 @@ variable "memory_dedicated" {
 variable "imagestore_id" {
   description = "DataStore ID for the Alpine template"
   type        = string
-  default     = "images-host"
+  default     = "virt-assets"
   nullable    = false
 }
 

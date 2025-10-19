@@ -41,12 +41,13 @@ This module sets up Step-CA in an Alpine LXC container using the provided inform
 
 ## Requirements
 ![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
-![proxmox](https://img.shields.io/badge/proxmox->=0.78.1-1e73c8?logo=proxmox)
-![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
+![proxmox](https://img.shields.io/badge/proxmox->=0.85.1-1e73c8?logo=proxmox)
+![random](https://img.shields.io/badge/random->=3.7.2-82d72c?logo=random)
+![ssh](https://img.shields.io/badge/ssh->=2.7.0-4fa4f9?logo=ssh)
 
 ## Providers
   
-![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9)
+![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
 
 ## Modules
   
@@ -206,8 +207,7 @@ Proxmox ACME domains to order certificates for
   **Default**:
   ```json
   [
-  "sanctum.my.world",
-  "sanctum.fritz.box"
+  "sanctum.my.world"
 ]
   ```
   In file: <a href="./variables.tf#L130"><code>variables.tf#L130</code></a>
@@ -292,7 +292,7 @@ Step-CA imagestore ID
   ```
   **Default**:
   ```json
-  "proxmox-resources"
+  "virt-assets"
   ```
   In file: <a href="./variables.tf#L58"><code>variables.tf#L58</code></a>
 

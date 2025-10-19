@@ -393,7 +393,7 @@ DataStore ID for the Alpine template
   ```
   **Default**:
   ```json
-  "images-host"
+  "virt-assets"
   ```
   In file: <a href="./variables.tf#L90"><code>variables.tf#L90</code></a>
 

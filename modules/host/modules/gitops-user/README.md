@@ -9,7 +9,6 @@ as well as setting and restoring owner / group of the original gitops repository
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Resources](#resources)
   - _ssh_resource_.[add_gitops_user](#ssh_resourceadd_gitops_user)
   - _ssh_resource_.[remove_gitops_user](#ssh_resourceremove_gitops_user)
@@ -29,21 +28,11 @@ as well as setting and restoring owner / group of the original gitops repository
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
-![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 
 ## Providers
   
-![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
-
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── ssh_resource.add_gitops_user
-├── ssh_resource.remove_gitops_user
-```
+![ssh](https://img.shields.io/badge/ssh--4fa4f9)
 
 ## Resources
   

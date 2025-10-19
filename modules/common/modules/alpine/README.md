@@ -10,7 +10,6 @@ other Alpine packages (if specified; `bash` is installed by default).
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Resources](#resources)
   - _proxmox_virtual_environment_container_.[container](#proxmox_virtual_environment_containercontainer)
   - _proxmox_virtual_environment_download_file_.[template](#proxmox_virtual_environment_download_filetemplate)
@@ -47,29 +46,16 @@ other Alpine packages (if specified; `bash` is installed by default).
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 ![proxmox](https://img.shields.io/badge/proxmox->=0.75.0-1e73c8?logo=proxmox)
 ![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
 
 ## Providers
   
-![proxmox](https://img.shields.io/badge/proxmox-0.75.0-1e73c8)
-![random](https://img.shields.io/badge/random-3.7.1-82d72c)
-![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
-![tls](https://img.shields.io/badge/tls-4.0.6-54a9fe)
-
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── random_password.root_password
-├── tls_private_key.ssh_key
-├── proxmox_virtual_environment_download_file.template
-├── proxmox_virtual_environment_container.container
-├── ssh_resource.install_openssh
-├── ssh_resource.install_packages
-```
+![proxmox](https://img.shields.io/badge/proxmox->=0.75.0-1e73c8)
+![random](https://img.shields.io/badge/random--82d72c)
+![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9)
+![tls](https://img.shields.io/badge/tls--54a9fe)
 
 ## Resources
   

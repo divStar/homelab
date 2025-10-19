@@ -8,7 +8,6 @@ This module sets up PiHole in an Alpine LXC container using the provided informa
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Modules](#modules) _(nested and adjacent)_
   - [setup_container](#setup_container)
 - [Resources](#resources)
@@ -46,32 +45,14 @@ This module sets up PiHole in an Alpine LXC container using the provided informa
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 ![proxmox](https://img.shields.io/badge/proxmox->=0.69.0-1e73c8?logo=proxmox)
 ![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
 
 ## Providers
   
-![random](https://img.shields.io/badge/random-3.7.1-82d72c)
-![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
-
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── random_password.admin_password
-├── ssh_resource.configure
-├── ssh_resource.install
-├── ssh_resource.install_cert
-├── module.setup_container
-│   ├── module.setup_container.random_password.root_password
-│   ├── module.setup_container.tls_private_key.ssh_key
-│   ├── module.setup_container.proxmox_virtual_environment_download_file.template
-│   ├── module.setup_container.proxmox_virtual_environment_container.container
-│   ├── module.setup_container.ssh_resource.install_openssh
-│   ├── module.setup_container.ssh_resource.install_packages
-```
+![random](https://img.shields.io/badge/random--82d72c)
+![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9)
 
 ## Modules
   

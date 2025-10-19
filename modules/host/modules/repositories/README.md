@@ -9,11 +9,12 @@ the creation and activation of the no-subscription repositories.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Resources](#resources)
-  - _ssh_resource_.[add_no_sub_repository](#ssh_resourceadd_no_sub_repository)
-  - _ssh_resource_.[remove_no_sub_repository](#ssh_resourceremove_no_sub_repository)
+  - _ssh_resource_.[copy_no_subscription_sources](#ssh_resourcecopy_no_subscription_sources)
+  - _ssh_resource_.[disable_enterprise_sources](#ssh_resourcedisable_enterprise_sources)
+  - _ssh_resource_.[enable_enterprise_sources](#ssh_resourceenable_enterprise_sources)
   - _ssh_resource_.[update_all_repositories](#ssh_resourceupdate_all_repositories)
+  - _ssh_resource_.[update_all_repositories_enterprise](#ssh_resourceupdate_all_repositories_enterprise)
 - [Variables](#variables)
   - [ssh](#ssh-required) (**Required**)
   - [no_subscription](#no_subscription-optional) (*Optional*)
@@ -22,28 +23,32 @@ the creation and activation of the no-subscription repositories.
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
-![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 
 ## Providers
   
-![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
-
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── ssh_resource.add_no_sub_repository
-├── ssh_resource.remove_no_sub_repository
-├── ssh_resource.update_all_repositories
-```
+![ssh](https://img.shields.io/badge/ssh--4fa4f9)
 
 ## Resources
   
-<blockquote><!-- resource:"ssh_resource.add_no_sub_repository":start -->
+<blockquote><!-- resource:"ssh_resource.copy_no_subscription_sources":start -->
 
-### _ssh_resource_.`add_no_sub_repository`
+### _ssh_resource_.`copy_no_subscription_sources`
+      
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L34"><code>main.tf#L34</code></a></td>
+    </tr>
+  </table>
+</blockquote><!-- resource:"ssh_resource.copy_no_subscription_sources":end -->
+<blockquote><!-- resource:"ssh_resource.disable_enterprise_sources":start -->
+
+### _ssh_resource_.`disable_enterprise_sources`
       
   <table>
     <tr>
@@ -55,10 +60,10 @@ Order in which Terraform will create resources (and likely destroy them in rever
       <td><a href="./main.tf#L19"><code>main.tf#L19</code></a></td>
     </tr>
   </table>
-</blockquote><!-- resource:"ssh_resource.add_no_sub_repository":end -->
-<blockquote><!-- resource:"ssh_resource.remove_no_sub_repository":start -->
+</blockquote><!-- resource:"ssh_resource.disable_enterprise_sources":end -->
+<blockquote><!-- resource:"ssh_resource.enable_enterprise_sources":start -->
 
-### _ssh_resource_.`remove_no_sub_repository`
+### _ssh_resource_.`enable_enterprise_sources`
       
   <table>
     <tr>
@@ -67,10 +72,10 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L49"><code>main.tf#L49</code></a></td>
+      <td><a href="./main.tf#L84"><code>main.tf#L84</code></a></td>
     </tr>
   </table>
-</blockquote><!-- resource:"ssh_resource.remove_no_sub_repository":end -->
+</blockquote><!-- resource:"ssh_resource.enable_enterprise_sources":end -->
 <blockquote><!-- resource:"ssh_resource.update_all_repositories":start -->
 
 ### _ssh_resource_.`update_all_repositories`
@@ -82,10 +87,25 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L35"><code>main.tf#L35</code></a></td>
+      <td><a href="./main.tf#L56"><code>main.tf#L56</code></a></td>
     </tr>
   </table>
 </blockquote><!-- resource:"ssh_resource.update_all_repositories":end -->
+<blockquote><!-- resource:"ssh_resource.update_all_repositories_enterprise":start -->
+
+### _ssh_resource_.`update_all_repositories_enterprise`
+      
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L99"><code>main.tf#L99</code></a></td>
+    </tr>
+  </table>
+</blockquote><!-- resource:"ssh_resource.update_all_repositories_enterprise":end -->
 
 ## Variables
   
@@ -121,17 +141,11 @@ Whether to use no-subscription repository instead of enterprise repository or no
 
   **Type**:
   ```hcl
-  object({
-    enabled           = bool
-    list_file         = optional(string, "pve-no-subscription.list")
-    list_file_content = optional(string, "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription")
-  })
+  bool
   ```
   **Default**:
   ```json
-  {
-  "enabled": true
-}
+  true
   ```
   In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 

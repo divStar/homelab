@@ -35,14 +35,13 @@ This module and its sub-modules setup the Talos cluster on the Proxmox host.
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.5.7-d3287d?logo=terraform)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 ![helm](https://img.shields.io/badge/helm-3.0.2-a7fc51?logo=helm)
 ![kubectl](https://img.shields.io/badge/kubectl-2.1.3-eb4095?logo=kubectl)
 ![kubernetes](https://img.shields.io/badge/kubernetes-2.38.0-398ee3?logo=kubernetes)
 ![proxmox](https://img.shields.io/badge/proxmox-0.83.2-1e73c8?logo=proxmox)
 ![talos](https://img.shields.io/badge/talos-0.9.0-2479ce?logo=talos)
-![zitadel](https://img.shields.io/badge/zitadel-2.2.0-ee4398?logo=zitadel)
+![zitactl](https://img.shields.io/badge/zitactl-1.0.0-fc51a6?logo=zitactl)
 
 ## Providers
   

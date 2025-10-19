@@ -15,8 +15,7 @@ This module installs what's required for Talos to provide a metrics server.
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.5.7-d3287d?logo=terraform)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 
 ## Providers
   
@@ -51,7 +50,7 @@ This module installs what's required for Talos to provide a metrics server.
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L20"><code>main.tf#L20</code></a></td>
+      <td><a href="./main.tf#L19"><code>main.tf#L19</code></a></td>
     </tr>
   </table>
 </blockquote><!-- resource:"kubectl_manifest.metrics_server":end -->

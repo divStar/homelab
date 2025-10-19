@@ -15,7 +15,6 @@ This module installs Zitadel v3+ onto a given cluster with PostgreSQL backend.
 - [Modules](#modules) _(nested and adjacent)_
   - [zitadel](#zitadel)
 - [Resources](#resources)
-  - _local_file_.[zitadel_admin_sa_json](#local_filezitadel_admin_sa_json)
   - _random_password_.[zitadel_master_key](#random_passwordzitadel_master_key)
 - [Variables](#variables)
   - [cluster](#cluster-required) (**Required**)
@@ -31,14 +30,12 @@ This module installs Zitadel v3+ onto a given cluster with PostgreSQL backend.
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.5.7-d3287d?logo=terraform)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 
 ## Providers
   
 ![kubernetes](https://img.shields.io/badge/kubernetes--398ee3)
-![local](https://img.shields.io/badge/local--0c61b6)
-![random](https://img.shields.io/badge/random-3.7.2-82d72c)
+![random](https://img.shields.io/badge/random--82d72c)
 
 ## Modules
   
@@ -64,21 +61,6 @@ Install [Zitadel](https://github.com/zitadel/zitadel-charts) - an identity and a
 
 ## Resources
   
-<blockquote><!-- resource:"local_file.zitadel_admin_sa_json":start -->
-
-### _local_file_.`zitadel_admin_sa_json`
-      
-  <table>
-    <tr>
-      <td>Provider</td>
-      <td><code>local (hashicorp/local)</code></td>
-    </tr>
-    <tr>
-      <td>In file</td>
-      <td><a href="./main.tf#L79"><code>main.tf#L79</code></a></td>
-    </tr>
-  </table>
-</blockquote><!-- resource:"local_file.zitadel_admin_sa_json":end -->
 <blockquote><!-- resource:"random_password.zitadel_master_key":start -->
 
 ### _random_password_.`zitadel_master_key`

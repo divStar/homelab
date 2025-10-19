@@ -8,7 +8,6 @@ Handles appending of SSH keys to the authorized\_keys file of a given user.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Resources](#resources)
   - _ssh_resource_.[add_key](#ssh_resourceadd_key)
 - [Variables](#variables)
@@ -26,20 +25,11 @@ Handles appending of SSH keys to the authorized\_keys file of a given user.
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
-![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 
 ## Providers
   
-![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
-
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── ssh_resource.add_key
-```
+![ssh](https://img.shields.io/badge/ssh--4fa4f9)
 
 ## Resources
   

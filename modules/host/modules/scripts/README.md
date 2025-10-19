@@ -8,7 +8,6 @@ Handles the download, execution and cleanup of (shell-)scripts on the host
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Resources](#resources)
   - _ssh_resource_.[script_cleanup](#ssh_resourcescript_cleanup)
   - _ssh_resource_.[script_download](#ssh_resourcescript_download)
@@ -21,22 +20,11 @@ Handles the download, execution and cleanup of (shell-)scripts on the host
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
-![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 
 ## Providers
   
-![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
-
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── ssh_resource.script_cleanup
-├── ssh_resource.script_download
-├── ssh_resource.script_execute
-```
+![ssh](https://img.shields.io/badge/ssh--4fa4f9)
 
 ## Resources
   

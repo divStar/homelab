@@ -8,7 +8,6 @@ Handles the copying of configuration files to the host.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Resources](#resources)
   - _ssh_resource_.[copy_configuration_files](#ssh_resourcecopy_configuration_files)
   - _ssh_resource_.[remove_configuration_files](#ssh_resourceremove_configuration_files)
@@ -20,21 +19,11 @@ Handles the copying of configuration files to the host.
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
-![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 
 ## Providers
   
-![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
-
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── ssh_resource.copy_configuration_files
-├── ssh_resource.remove_configuration_files
-```
+![ssh](https://img.shields.io/badge/ssh--4fa4f9)
 
 ## Resources
   

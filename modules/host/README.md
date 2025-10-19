@@ -8,13 +8,13 @@ This module and its sub-modules setup the Proxmox host.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Modules](#modules) _(nested and adjacent)_
   - [authorized_keys_appender](#authorized_keys_appender)
   - [copy_configs](#copy_configs)
   - [directory_mappings](#directory_mappings)
   - [gitops_user](#gitops_user)
   - [packages](#packages)
+  - [proxmox_storage_import](#proxmox_storage_import)
   - [repositories](#repositories)
   - [scripts](#scripts)
   - [share_user](#share_user)
@@ -32,6 +32,7 @@ This module and its sub-modules setup the Proxmox host.
   - [packages](#packages-optional) (*Optional*)
   - [scripts](#scripts-optional) (*Optional*)
   - [share_user](#share_user-optional) (*Optional*)
+  - [storage_directories](#storage_directories-optional) (*Optional*)
   - [storage_pools](#storage_pools-optional) (*Optional*)
   - [terraform_user](#terraform_user-optional) (*Optional*)
 - [Outputs](#outputs)
@@ -47,34 +48,9 @@ This module and its sub-modules setup the Proxmox host.
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
 ![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
 ![time](https://img.shields.io/badge/time->=0.13.0-b0055a?logo=time)
 ![tls](https://img.shields.io/badge/tls->=4.0.6-54a9fe?logo=tls)
-
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── module.repositories
-│   ├── module.repositories.ssh_resource.add_no_sub_repository
-│   ├── module.repositories.ssh_resource.remove_no_sub_repository
-│   ├── module.repositories.ssh_resource.update_all_repositories
-├── module.zfs_storage
-│   ├── module.zfs_storage.ssh_resource.export_zfs_pools
-│   ├── module.zfs_storage.ssh_resource.import_zfs_pools
-├── module.directory_mappings
-│   ├── module.directory_mappings.ssh_resource.directory_mappings
-│   ├── module.directory_mappings.ssh_resource.remove_directory_mappings
-├── module.gitops_user
-│   ├── module.gitops_user.ssh_resource.add_gitops_user
-│   ├── module.gitops_user.ssh_resource.remove_gitops_user
-├── module.authorized_keys_appender
-│   ├── module.authorized_keys_appender.ssh_resource.add_key
-├── module.packages
-│   ├── module.packages.ssh_resource.package_install
-│   ├── module.packages.ssh_resource.package_remove
-```
 
 ## Modules
   
@@ -90,7 +66,7 @@ Handles adding the SSH key of the machine running this script to the gitops user
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L110"><code>main.tf#L110</code></a></td>
+      <td><a href="./main.tf#L119"><code>main.tf#L119</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/authorized-keys-appender/README.md">README.md</a> <em>(experimental)</em></td>
@@ -128,7 +104,7 @@ Handles mapping directories for future use (e.g. file sharing via `virtiofs` int
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L86"><code>main.tf#L86</code></a></td>
+      <td><a href="./main.tf#L95"><code>main.tf#L95</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/directory-mappings/README.md">README.md</a> <em>(experimental)</em></td>
@@ -147,7 +123,7 @@ Handles creating a gitops user, providing it with access to the gitops git repos
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L102"><code>main.tf#L102</code></a></td>
+      <td><a href="./main.tf#L111"><code>main.tf#L111</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/gitops-user/README.md">README.md</a> <em>(experimental)</em></td>
@@ -166,13 +142,32 @@ Handles the installation of additional `apt` packages.
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L76"><code>main.tf#L76</code></a></td>
+      <td><a href="./main.tf#L85"><code>main.tf#L85</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/packages/README.md">README.md</a> <em>(experimental)</em></td>
     </tr>
   </table>
 </blockquote><!-- module:"packages":end -->
+<blockquote><!-- module:"proxmox_storage_import":start -->
+
+### `proxmox_storage_import`
+
+Handles the import of directories into Proxmox.
+  <table>
+    <tr>
+      <td>Module location</td>
+      <td><code>./modules/proxmox-storage-import</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L69"><code>main.tf#L69</code></a></td>
+    </tr>
+    <tr>
+      <td colspan="2"><a href="./modules/proxmox-storage-import/README.md">README.md</a> <em>(experimental)</em></td>
+    </tr>
+  </table>
+</blockquote><!-- module:"proxmox_storage_import":end -->
 <blockquote><!-- module:"repositories":start -->
 
 ### `repositories`
@@ -261,7 +256,7 @@ Handles letting Proxmox trust its own CA certificate.
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L69"><code>main.tf#L69</code></a></td>
+      <td><a href="./main.tf#L78"><code>main.tf#L78</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="./modules/trust-proxmox-ca/README.md">README.md</a> <em>(experimental)</em></td>
@@ -372,7 +367,7 @@ Directory mappings for the Proxmox node
   ```json
   []
   ```
-  In file: <a href="./variables.tf#L198"><code>variables.tf#L198</code></a>
+  In file: <a href="./variables.tf#L191"><code>variables.tf#L191</code></a>
 
 </details>
 </blockquote><!-- variable:"directory_mappings":end -->
@@ -398,7 +393,7 @@ Configuration of GitOps user.
   ```json
   {}
   ```
-  In file: <a href="./variables.tf#L129"><code>variables.tf#L129</code></a>
+  In file: <a href="./variables.tf#L128"><code>variables.tf#L128</code></a>
 
 </details>
 </blockquote><!-- variable:"gitops_user":end -->
@@ -413,19 +408,13 @@ Whether to use no-subscription repository instead of enterprise repository or no
 
   **Type**:
   ```hcl
-  object({
-    enabled           = bool
-    list_file         = optional(string, "pve-no-subscription.list")
-    list_file_content = optional(string, "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription")
-  })
+  bool
   ```
   **Default**:
   ```json
-  {
-  "enabled": true
-}
+  true
   ```
-  In file: <a href="./variables.tf#L171"><code>variables.tf#L171</code></a>
+  In file: <a href="./variables.tf#L170"><code>variables.tf#L170</code></a>
 
 </details>
 </blockquote><!-- variable:"no_subscription":end -->
@@ -449,7 +438,7 @@ Original owner of the source repository (before, e.g. root:root)
   ```json
   {}
   ```
-  In file: <a href="./variables.tf#L141"><code>variables.tf#L141</code></a>
+  In file: <a href="./variables.tf#L140"><code>variables.tf#L140</code></a>
 
 </details>
 </blockquote><!-- variable:"org_source_repo_owner":end -->
@@ -534,10 +523,34 @@ Configuration of GitOps user.
   "user": "share-user"
 }
   ```
-  In file: <a href="./variables.tf#L151"><code>variables.tf#L151</code></a>
+  In file: <a href="./variables.tf#L150"><code>variables.tf#L150</code></a>
 
 </details>
 </blockquote><!-- variable:"share_user":end -->
+<blockquote><!-- variable:"storage_directories":start -->
+
+### `storage_directories` (*Optional*)
+
+Map of storage directories to configure; the key is the name of the directory.
+
+<details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
+  <summary>Show more...</summary>
+
+  **Type**:
+  ```hcl
+  map(object({
+    path    = string
+    content = string
+  }))
+  ```
+  **Default**:
+  ```json
+  {}
+  ```
+  In file: <a href="./variables.tf#L182"><code>variables.tf#L182</code></a>
+
+</details>
+</blockquote><!-- variable:"storage_directories":end -->
 <blockquote><!-- variable:"storage_pools":start -->
 
 ### `storage_pools` (*Optional*)
@@ -555,7 +568,7 @@ Configuration of the storage (pools and directories) to import
   ```json
   []
   ```
-  In file: <a href="./variables.tf#L192"><code>variables.tf#L192</code></a>
+  In file: <a href="./variables.tf#L176"><code>variables.tf#L176</code></a>
 
 </details>
 </blockquote><!-- variable:"storage_pools":end -->
@@ -587,7 +600,6 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
         "VM.Config.Cloudinit",
         "VM.Config.Options",
         "VM.PowerMgmt",
-        "VM.Monitor",
         "Datastore.Allocate",
         "Datastore.AllocateSpace",
         "Datastore.AllocateTemplate",

@@ -1,7 +1,7 @@
 variable "homelab_root" {
   description = "Path to the gitops git repository root"
   type        = string
-  default     = "~/Documents/homelab-tofu/"
+  default     = "~/Workspaces/homelab/"
   nullable    = false
 }
 

@@ -8,7 +8,6 @@ This module sets up Step-CA in an Alpine LXC container using the provided inform
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Modules](#modules) _(nested and adjacent)_
   - [setup_container](#setup_container)
 - [Resources](#resources)
@@ -41,30 +40,13 @@ This module sets up Step-CA in an Alpine LXC container using the provided inform
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 ![proxmox](https://img.shields.io/badge/proxmox->=0.78.1-1e73c8?logo=proxmox)
 ![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
 
 ## Providers
   
-![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
-
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── ssh_resource.configure_container
-├── ssh_resource.configure_host
-├── ssh_resource.revert_host
-├── module.setup_container
-│   ├── module.setup_container.random_password.root_password
-│   ├── module.setup_container.tls_private_key.ssh_key
-│   ├── module.setup_container.proxmox_virtual_environment_download_file.template
-│   ├── module.setup_container.proxmox_virtual_environment_container.container
-│   ├── module.setup_container.ssh_resource.install_openssh
-│   ├── module.setup_container.ssh_resource.install_packages
-```
+![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9)
 
 ## Modules
   

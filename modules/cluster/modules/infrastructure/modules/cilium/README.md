@@ -18,12 +18,11 @@ This module installs and configures Cilium.
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.5.7-d3287d?logo=terraform)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 
 ## Providers
   
-![http](https://img.shields.io/badge/http-3.5.0-c1166b)
+![http](https://img.shields.io/badge/http--c1166b)
 
 ## Modules
   

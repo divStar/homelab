@@ -26,13 +26,12 @@ architecture, platform and schematics.
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.5.7-d3287d?logo=terraform)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 
 ## Providers
   
-![proxmox](https://img.shields.io/badge/proxmox-0.68.1-1e73c8)
-![talos](https://img.shields.io/badge/talos-0.6.1-2479ce)
+![proxmox](https://img.shields.io/badge/proxmox--1e73c8)
+![talos](https://img.shields.io/badge/talos--2479ce)
 
 ## Resources
   

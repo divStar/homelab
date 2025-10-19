@@ -22,8 +22,7 @@ This module sets up k8s applications, that are used as part of the platform.
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.5.7-d3287d?logo=terraform)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 
 ## Modules
   
@@ -140,7 +139,7 @@ Path to the gitops git repository root
   ```
   **Default**:
   ```json
-  "~/Documents/homelab-tofu/"
+  "~/Workspaces/homelab/"
   ```
   In file: <a href="./variables.tf#L1"><code>variables.tf#L1</code></a>
 

@@ -9,7 +9,6 @@ These mapped directories can then be used e.g. using `virtiofs` "pass-through" t
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Resources](#resources)
   - _ssh_resource_.[directory_mappings](#ssh_resourcedirectory_mappings)
   - _ssh_resource_.[remove_directory_mappings](#ssh_resourceremove_directory_mappings)
@@ -22,21 +21,11 @@ These mapped directories can then be used e.g. using `virtiofs` "pass-through" t
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
-![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 
 ## Providers
   
-![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
-
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── ssh_resource.directory_mappings
-├── ssh_resource.remove_directory_mappings
-```
+![ssh](https://img.shields.io/badge/ssh--4fa4f9)
 
 ## Resources
   

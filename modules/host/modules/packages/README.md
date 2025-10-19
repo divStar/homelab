@@ -11,7 +11,6 @@ and `apt-get remove` are not yet supported by Proxmox API.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Resources](#resources)
   - _ssh_resource_.[package_install](#ssh_resourcepackage_install)
   - _ssh_resource_.[package_remove](#ssh_resourcepackage_remove)
@@ -23,20 +22,11 @@ and `apt-get remove` are not yet supported by Proxmox API.
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 
 ## Providers
   
-![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
-
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── ssh_resource.package_install
-├── ssh_resource.package_remove
-```
+![ssh](https://img.shields.io/badge/ssh--4fa4f9)
 
 ## Resources
   

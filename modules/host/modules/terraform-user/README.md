@@ -9,7 +9,6 @@ and API token for the Terraform provisioner on the host.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Resources](#resources)
   - _ssh_resource_.[assign_role](#ssh_resourceassign_role)
   - _ssh_resource_.[create_api_token](#ssh_resourcecreate_api_token)
@@ -26,25 +25,11 @@ and API token for the Terraform provisioner on the host.
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
-![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 
 ## Providers
   
-![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
-
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── ssh_resource.create_api_token
-├── ssh_resource.create_user
-├── ssh_resource.delete_user
-├── ssh_resource.delete_role
-├── ssh_resource.create_role
-├── ssh_resource.assign_role
-```
+![ssh](https://img.shields.io/badge/ssh--4fa4f9)
 
 ## Resources
   
@@ -59,7 +44,7 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L46"><code>main.tf#L46</code></a></td>
+      <td><a href="./main.tf#L50"><code>main.tf#L50</code></a></td>
     </tr>
   </table>
 </blockquote><!-- resource:"ssh_resource.assign_role":end -->
@@ -74,7 +59,7 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L60"><code>main.tf#L60</code></a></td>
+      <td><a href="./main.tf#L66"><code>main.tf#L66</code></a></td>
     </tr>
   </table>
 </blockquote><!-- resource:"ssh_resource.create_api_token":end -->
@@ -89,7 +74,7 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L33"><code>main.tf#L33</code></a></td>
+      <td><a href="./main.tf#L35"><code>main.tf#L35</code></a></td>
     </tr>
   </table>
 </blockquote><!-- resource:"ssh_resource.create_role":end -->
@@ -119,7 +104,7 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L74"><code>main.tf#L74</code></a></td>
+      <td><a href="./main.tf#L81"><code>main.tf#L81</code></a></td>
     </tr>
   </table>
 </blockquote><!-- resource:"ssh_resource.delete_role":end -->
@@ -134,7 +119,7 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L87"><code>main.tf#L87</code></a></td>
+      <td><a href="./main.tf#L96"><code>main.tf#L96</code></a></td>
     </tr>
   </table>
 </blockquote><!-- resource:"ssh_resource.delete_user":end -->
@@ -190,7 +175,6 @@ Configuration for Terraform provisioner user. Individual fields can be overridde
         "VM.Config.Cloudinit",
         "VM.Config.Options",
         "VM.PowerMgmt",
-        "VM.Monitor",
         "Datastore.Allocate",
         "Datastore.AllocateSpace",
         "Datastore.AllocateTemplate",

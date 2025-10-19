@@ -77,8 +77,15 @@ content: |-
   {{- if .Module.HasRequirements }}
 
   ## Requirements
+    {{- $useOpenTofu := true -}}  {{- /* TOGGLE: Set to false for Terraform */ -}}
     {{ range .Module.Requirements }}
-  ![{{ .Name }}](https://img.shields.io/badge/{{- .Name -}}-{{- .Version.Raw | replace " " "" -}}-{{ printf "%02x%02x%02x" (mod (.Name | adler32sum) 256) (mod (add (.Name | adler32sum) 85) 256) (mod (add (.Name | adler32sum) 170) 256) }}?logo={{ .Name }})
+    {{- $displayName := .Name -}}
+    {{- $logoName := .Name -}}
+    {{- if and (eq .Name "terraform") $useOpenTofu -}}
+      {{- $displayName = "OpenTofu" -}}
+      {{- $logoName = "opentofu" -}}
+    {{- end }}
+  ![{{ $logoName }}](https://img.shields.io/badge/{{- $displayName -}}-{{- .Version.Raw | replace " " "" -}}-{{ printf "%02x%02x%02x" (mod (.Name | adler32sum) 256) (mod (add (.Name | adler32sum) 85) 256) (mod (add (.Name | adler32sum) 170) 256) }}?logo={{ $logoName }})
     {{- end }}
   {{- end }}
 

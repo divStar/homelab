@@ -1,6 +1,6 @@
-# Storage Management
+# Proxmox storage import
 
-Handles the import and export of ZFS pools as well as directories.
+Imports existing storage into Proxmox.
 
 ## Contents
 
@@ -8,57 +8,31 @@ Handles the import and export of ZFS pools as well as directories.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Resources](#resources)
-  - _ssh_resource_.[export_zfs_pools](#ssh_resourceexport_zfs_pools)
-  - _ssh_resource_.[import_zfs_pools](#ssh_resourceimport_zfs_pools)
+  - _ssh_resource_.[import_proxmox_storage](#ssh_resourceimport_proxmox_storage)
+  - _ssh_resource_.[remove_proxmox_storage](#ssh_resourceremove_proxmox_storage)
 - [Variables](#variables)
   - [ssh](#ssh-required) (**Required**)
-  - [storage_pools](#storage_pools-optional) (*Optional*)
+  - [storage_directories](#storage_directories-required) (**Required**)
 - [Outputs](#outputs)
-  - [storage_pools](#storage_pools)
+  - [configured_storages](#configured_storages)
+  - [storage_details](#storage_details)
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
-![ssh](https://img.shields.io/badge/ssh-~>2.7-4fa4f9?logo=ssh)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 
 ## Providers
   
-![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
-
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── ssh_resource.export_zfs_pools
-├── ssh_resource.import_zfs_pools
-```
+![ssh](https://img.shields.io/badge/ssh--4fa4f9)
 
 ## Resources
   
-<blockquote><!-- resource:"ssh_resource.export_zfs_pools":start -->
+<blockquote><!-- resource:"ssh_resource.import_proxmox_storage":start -->
 
-### _ssh_resource_.`export_zfs_pools`
+### _ssh_resource_.`import_proxmox_storage`
 
-Export ZFS pools
-  <table>
-    <tr>
-      <td>Provider</td>
-      <td><code>ssh (loafoe/ssh)</code></td>
-    </tr>
-    <tr>
-      <td>In file</td>
-      <td><a href="./main.tf#L29"><code>main.tf#L29</code></a></td>
-    </tr>
-  </table>
-</blockquote><!-- resource:"ssh_resource.export_zfs_pools":end -->
-<blockquote><!-- resource:"ssh_resource.import_zfs_pools":start -->
-
-### _ssh_resource_.`import_zfs_pools`
-
-Import ZFS pools
+Imports a directory with given types into Proxmox
   <table>
     <tr>
       <td>Provider</td>
@@ -69,7 +43,23 @@ Import ZFS pools
       <td><a href="./main.tf#L16"><code>main.tf#L16</code></a></td>
     </tr>
   </table>
-</blockquote><!-- resource:"ssh_resource.import_zfs_pools":end -->
+</blockquote><!-- resource:"ssh_resource.import_proxmox_storage":end -->
+<blockquote><!-- resource:"ssh_resource.remove_proxmox_storage":start -->
+
+### _ssh_resource_.`remove_proxmox_storage`
+
+Removes a directory from Proxmox
+  <table>
+    <tr>
+      <td>Provider</td>
+      <td><code>ssh (loafoe/ssh)</code></td>
+    </tr>
+    <tr>
+      <td>In file</td>
+      <td><a href="./main.tf#L33"><code>main.tf#L33</code></a></td>
+    </tr>
+  </table>
+</blockquote><!-- resource:"ssh_resource.remove_proxmox_storage":end -->
 
 ## Variables
   
@@ -94,35 +84,42 @@ SSH configuration for remote connection
 
 </details>
 </blockquote><!-- variable:"ssh":end -->
-<blockquote><!-- variable:"storage_pools":start -->
+<blockquote><!-- variable:"storage_directories":start -->
 
-### `storage_pools` (*Optional*)
+### `storage_directories` (**Required**)
 
-Configuration of the storage (pools and directories) to import
+Map of storage directories to configure; the key is the name of the directory.
 
 <details style="border-top-color: inherit; border-top-width: 0.1em; border-top-style: solid; padding-top: 0.5em; padding-bottom: 0.5em;">
   <summary>Show more...</summary>
 
   **Type**:
   ```hcl
-  list(string)
-  ```
-  **Default**:
-  ```json
-  []
+  map(object({
+    path    = string
+    content = string
+  }))
   ```
   In file: <a href="./variables.tf#L14"><code>variables.tf#L14</code></a>
 
 </details>
-</blockquote><!-- variable:"storage_pools":end -->
+</blockquote><!-- variable:"storage_directories":end -->
 
 ## Outputs
   
-<blockquote><!-- output:"storage_pools":start -->
+<blockquote><!-- output:"configured_storages":start -->
 
-#### `storage_pools`
+#### `configured_storages`
 
-List of storage pools that were imported
+List of configured storage names
 
 In file: <a href="./outputs.tf#L1"><code>outputs.tf#L1</code></a>
-</blockquote><!-- output:"storage_pools":end -->
+</blockquote><!-- output:"configured_storages":end -->
+<blockquote><!-- output:"storage_details":start -->
+
+#### `storage_details`
+
+Full storage configuration details
+
+In file: <a href="./outputs.tf#L6"><code>outputs.tf#L6</code></a>
+</blockquote><!-- output:"storage_details":end -->

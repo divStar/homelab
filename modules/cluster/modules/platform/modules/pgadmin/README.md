@@ -15,8 +15,8 @@ This module installs pgAdmin onto a given cluster for PostgreSQL database admini
 - [Modules](#modules) _(nested and adjacent)_
   - [pgadmin](#pgadmin)
 - [Resources](#resources)
-  - _zitadel_application_oidc_.[this](#zitadel_application_oidcthis)
-  - _zitadel_project_.[this](#zitadel_projectthis)
+  - _zitactl_application_oidc_.[this](#zitactl_application_oidcthis)
+  - _zitactl_project_.[this](#zitactl_projectthis)
 - [Variables](#variables)
   - [cluster](#cluster-required) (**Required**)
   - [relative_path_to_versions_yaml](#relative_path_to_versions_yaml-required) (**Required**)
@@ -28,12 +28,11 @@ This module installs pgAdmin onto a given cluster for PostgreSQL database admini
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.5.7-d3287d?logo=terraform)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 
 ## Providers
   
-![zitadel](https://img.shields.io/badge/zitadel--ee4398)
+![zitactl](https://img.shields.io/badge/zitactl--fc51a6)
 
 ## Modules
   
@@ -49,7 +48,7 @@ Installs [pgAdmin 4](https://github.com/rowanruseler/helm-charts/tree/main/chart
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L47"><code>main.tf#L47</code></a></td>
+      <td><a href="./main.tf#L46"><code>main.tf#L46</code></a></td>
     </tr>
     <tr>
       <td colspan="2"><a href="../../../../../common/modules/helm-terraform-installer/README.md">README.md</a> <em>(experimental)</em></td>
@@ -59,37 +58,37 @@ Installs [pgAdmin 4](https://github.com/rowanruseler/helm-charts/tree/main/chart
 
 ## Resources
   
-<blockquote><!-- resource:"zitadel_application_oidc.this":start -->
+<blockquote><!-- resource:"zitactl_application_oidc.this":start -->
 
-### _zitadel_application_oidc_.`this`
+### _zitactl_application_oidc_.`this`
       
   <table>
     <tr>
       <td>Provider</td>
-      <td><code>zitadel (zitadel/zitadel)</code></td>
+      <td><code>zitactl (divstar/zitactl)</code></td>
     </tr>
     <tr>
       <td>In file</td>
       <td><a href="./main.tf#L32"><code>main.tf#L32</code></a></td>
     </tr>
   </table>
-</blockquote><!-- resource:"zitadel_application_oidc.this":end -->
-<blockquote><!-- resource:"zitadel_project.this":start -->
+</blockquote><!-- resource:"zitactl_application_oidc.this":end -->
+<blockquote><!-- resource:"zitactl_project.this":start -->
 
-### _zitadel_project_.`this`
+### _zitactl_project_.`this`
 
 Creates the `pgadmin` project within the given `var.zitadel_orga_name` organization.
   <table>
     <tr>
       <td>Provider</td>
-      <td><code>zitadel (zitadel/zitadel)</code></td>
+      <td><code>zitactl (divstar/zitactl)</code></td>
     </tr>
     <tr>
       <td>In file</td>
       <td><a href="./main.tf#L25"><code>main.tf#L25</code></a></td>
     </tr>
   </table>
-</blockquote><!-- resource:"zitadel_project.this":end -->
+</blockquote><!-- resource:"zitactl_project.this":end -->
 
 ## Variables
   

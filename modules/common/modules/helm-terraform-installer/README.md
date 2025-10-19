@@ -12,7 +12,6 @@ supports custom resources during pre- and post-install.
 
 - [Requirements](#requirements)
 - [Providers](#providers)
-- [Execution story](#execution-story)
 - [Resources](#resources)
   - _helm_release_.[this](#helm_releasethis)
   - _kubectl_manifest_.[namespace](#kubectl_manifestnamespace)
@@ -34,23 +33,12 @@ supports custom resources during pre- and post-install.
 </blockquote><!-- contents:end -->
 
 ## Requirements
-  
-![terraform](https://img.shields.io/badge/terraform->=1.8.0-d3287d?logo=terraform)
+![opentofu](https://img.shields.io/badge/OpenTofu->=1.10.5-d3287d?logo=opentofu)
 
 ## Providers
   
-![helm](https://img.shields.io/badge/helm-3.0.2-a7fc51)
-![kubectl](https://img.shields.io/badge/kubectl-1.19.0-eb4095)
-
-## Execution story
-
-Order in which Terraform will create resources (and likely destroy them in reverse order):
-```
-├── kubectl_manifest.namespace
-├── kubectl_manifest.pre_install
-├── helm_release.this
-├── kubectl_manifest.post_install
-```
+![helm](https://img.shields.io/badge/helm--a7fc51)
+![kubectl](https://img.shields.io/badge/kubectl--eb4095)
 
 ## Resources
   
@@ -65,7 +53,7 @@ Order in which Terraform will create resources (and likely destroy them in rever
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L29"><code>main.tf#L29</code></a></td>
+      <td><a href="./main.tf#L55"><code>main.tf#L55</code></a></td>
     </tr>
   </table>
 </blockquote><!-- resource:"helm_release.this":end -->
@@ -76,7 +64,7 @@ Order in which Terraform will create resources (and likely destroy them in rever
   <table>
     <tr>
       <td>Provider</td>
-      <td><code>kubectl (gavinbunney/kubectl)</code></td>
+      <td><code>kubectl (alekc/kubectl)</code></td>
     </tr>
     <tr>
       <td>In file</td>
@@ -91,11 +79,11 @@ Order in which Terraform will create resources (and likely destroy them in rever
   <table>
     <tr>
       <td>Provider</td>
-      <td><code>kubectl (gavinbunney/kubectl)</code></td>
+      <td><code>kubectl (alekc/kubectl)</code></td>
     </tr>
     <tr>
       <td>In file</td>
-      <td><a href="./main.tf#L54"><code>main.tf#L54</code></a></td>
+      <td><a href="./main.tf#L80"><code>main.tf#L80</code></a></td>
     </tr>
   </table>
 </blockquote><!-- resource:"kubectl_manifest.post_install":end -->
@@ -106,7 +94,7 @@ Order in which Terraform will create resources (and likely destroy them in rever
   <table>
     <tr>
       <td>Provider</td>
-      <td><code>kubectl (gavinbunney/kubectl)</code></td>
+      <td><code>kubectl (alekc/kubectl)</code></td>
     </tr>
     <tr>
       <td>In file</td>
@@ -261,7 +249,7 @@ Specifies whether to clean up the `helm_release` if deployment fails; this setti
   ```json
   true
   ```
-  In file: <a href="./variables.tf#L79"><code>variables.tf#L79</code></a>
+  In file: <a href="./variables.tf#L105"><code>variables.tf#L105</code></a>
 
 </details>
 </blockquote><!-- variable:"cleanup_on_fail":end -->
@@ -282,7 +270,7 @@ Specifies whether `helm_release` will deploy in an 'atomic', revertible way
   ```json
   true
   ```
-  In file: <a href="./variables.tf#L72"><code>variables.tf#L72</code></a>
+  In file: <a href="./variables.tf#L98"><code>variables.tf#L98</code></a>
 
 </details>
 </blockquote><!-- variable:"is_atomic":end -->
@@ -318,13 +306,26 @@ List of resources to deploy before installing the application
 
   **Type**:
   ```hcl
-  list(string)
+  list(object({
+    yaml = string
+    wait_for = optional(object({
+      fields = optional(list(object({
+        key        = string
+        value      = string
+        value_type = optional(string, "eq")
+      })), [])
+      conditions = optional(list(object({
+        type   = string
+        status = string
+      })), [])
+    }))
+  }))
   ```
   **Default**:
   ```json
   []
   ```
-  In file: <a href="./variables.tf#L60"><code>variables.tf#L60</code></a>
+  In file: <a href="./variables.tf#L73"><code>variables.tf#L73</code></a>
 
 </details>
 </blockquote><!-- variable:"post_install_resources":end -->
@@ -339,7 +340,20 @@ List of resources to deploy before installing the application
 
   **Type**:
   ```hcl
-  list(string)
+  list(object({
+    yaml = string
+    wait_for = optional(object({
+      fields = optional(list(object({
+        key        = string
+        value      = string
+        value_type = optional(string, "eq")
+      })), [])
+      conditions = optional(list(object({
+        type   = string
+        status = string
+      })), [])
+    }))
+  }))
   ```
   **Default**:
   ```json

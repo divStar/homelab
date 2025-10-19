@@ -11,8 +11,10 @@ variable "ssh" {
   })
 }
 
-variable "no_subscription" {
-  description = "Whether to use no-subscription repository instead of enterprise repository or not"
-  type        = bool
-  default     = true
+variable "storage_directories" {
+  description = "Map of storage directories to configure; the key is the name of the directory."
+  type = map(object({
+    path    = string
+    content = string
+  }))
 }

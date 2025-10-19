@@ -13,10 +13,10 @@ locals {
   }
 
   # no-subscription related local variables
-  resource_count = var.no_subscription.enabled ? 1 : 0
+  resource_count = var.no_subscription ? 1 : 0
 }
 
-resource "ssh_resource" "add_no_sub_repository" {
+resource "ssh_resource" "disable_enterprise_sources" {
   # when = "create"
 
   count = local.resource_count
@@ -26,16 +26,36 @@ resource "ssh_resource" "add_no_sub_repository" {
   private_key = local.ssh.private_key
 
   commands = [
-    "sed -i 's/^deb/# deb/' /etc/apt/sources.list.d/pve-enterprise.list",
-    "sed -i 's/^deb/# deb/' /etc/apt/sources.list.d/ceph.list",
-    "echo '${var.no_subscription.list_file_content}' > /etc/apt/sources.list.d/${var.no_subscription.list_file}"
+    "echo \"Enabled: no\" >> /etc/apt/sources.list.d/pve-enterprise.sources",
+    "echo \"Enabled: no\" >> /etc/apt/sources.list.d/ceph.sources",
   ]
+}
+
+resource "ssh_resource" "copy_no_subscription_sources" {
+  # when = "create"
+
+  count = local.resource_count
+
+  host        = local.ssh.host
+  user        = local.ssh.user
+  private_key = local.ssh.private_key
+
+  file {
+    source      = "${path.module}/files/pve-no-subscription.sources"
+    permissions = "0644"
+    destination = "/etc/apt/sources.list.d/pve-no-subscription.sources"
+  }
+
+  file {
+    source      = "${path.module}/files/ceph-no-subscription.sources"
+    permissions = "0644"
+    destination = "/etc/apt/sources.list.d/ceph-no-subscription.sources"
+  }
 }
 
 resource "ssh_resource" "update_all_repositories" {
   # when = "create"
-
-  depends_on = [ssh_resource.add_no_sub_repository]
+  depends_on = [ssh_resource.disable_enterprise_sources, ssh_resource.copy_no_subscription_sources]
 
   host        = local.ssh.host
   user        = local.ssh.user
@@ -46,7 +66,22 @@ resource "ssh_resource" "update_all_repositories" {
   ]
 }
 
-resource "ssh_resource" "remove_no_sub_repository" {
+# resource "ssh_resource" "delete_no_subscription_sources" {
+#   when = "destroy"
+
+#   count = local.resource_count
+
+#   host        = local.ssh.host
+#   user        = local.ssh.user
+#   private_key = local.ssh.private_key
+
+#   commands = [
+#     "rm -f /etc/apt/sources.list.d/pve-no-subscription.sources",
+#     "rm -f /etc/apt/sources.list.d/ceph-no-subscription.sources",
+#   ]
+# }
+
+resource "ssh_resource" "enable_enterprise_sources" {
   when = "destroy"
 
   count = local.resource_count
@@ -56,8 +91,21 @@ resource "ssh_resource" "remove_no_sub_repository" {
   private_key = local.ssh.private_key
 
   commands = [
-    "rm -f /etc/apt/sources.list.d/${var.no_subscription.list_file}",
-    "sed -i 's/^# deb/deb/' /etc/apt/sources.list.d/pve-enterprise.list",
-    "sed -i 's/^# deb/deb/' /etc/apt/sources.list.d/ceph.list"
+    "sed -i '/^Enabled: no$/d' /etc/apt/sources.list.d/pve-enterprise.sources",
+    "sed -i '/^Enabled: no$/d' /etc/apt/sources.list.d/ceph.sources"
+  ]
+}
+
+resource "ssh_resource" "update_all_repositories_enterprise" {
+  when = "destroy"
+
+  depends_on = [ssh_resource.enable_enterprise_sources]
+
+  host        = local.ssh.host
+  user        = local.ssh.user
+  private_key = local.ssh.private_key
+
+  commands = [
+    "apt-get update"
   ]
 }

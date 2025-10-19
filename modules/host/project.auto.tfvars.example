@@ -1,0 +1,78 @@
+proxmox_node_name = "sanctum"
+
+ssh = {
+  host = "192.168.1.5"
+  user = "root"
+}
+
+configuration_files = [
+  {
+    source      = "./files/.vimrc"
+    destination = "/root/.vimrc"
+  }
+]
+
+packages = [
+  "git",
+  "vim",
+  "linux-cpupower",
+  "shellcheck"
+]
+
+no_subscription = true
+
+scripts = {
+  directory = "/root/tofu-scripts"
+  items = [
+    {
+      name           = "pve-mod-nag-screen.sh"
+      url            = "https://raw.githubusercontent.com/Meliox/PVE-mods/refs/heads/main/pve-mod-nag-screen.sh"
+      apply_params   = "install"
+      destroy_params = "uninstall"
+      # run_on_destroy defaults to true if not specified
+    }
+  ]
+}
+
+storage_pools = [
+  "storage-pool"
+]
+
+storage_directories = {
+  "assets" = {
+    path    = "/mnt/storage/assets"
+    content = "backup,iso,vztmpl,rootdir,snippets,import,images"
+  }
+  "vms" = {
+    path    = "/mnt/storage/vms"
+    content = "images,rootdir"
+  }
+}
+
+directory_mappings = [
+  {
+    id      = "backups-storage"
+    path    = "/mnt/storage/backups"
+    comment = "Backup storage"
+  },
+  {
+    id      = "documents-storage"
+    path    = "/mnt/storage/documents"
+    comment = "Document storage"
+  }
+  {
+    id      = "music-storage"
+    path    = "/mnt/storage/music"
+    comment = "Music storage"
+  },
+  {
+    id      = "pictures-storage"
+    path    = "/mnt/storage/pictures"
+    comment = "Picture storage"
+  },
+  {
+    id      = "video-storage"
+    path    = "/mnt/storage/video"
+    comment = "Video storage"
+  }
+]

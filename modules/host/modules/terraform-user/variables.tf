@@ -30,7 +30,6 @@ variable "terraform_user" {
         "VM.Config.Cloudinit",
         "VM.Config.Options",
         "VM.PowerMgmt",
-        "VM.Monitor",
         "Datastore.Allocate",
         "Datastore.AllocateSpace",
         "Datastore.AllocateTemplate",

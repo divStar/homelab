@@ -28,6 +28,8 @@ resource "ssh_resource" "create_user" {
     # Create user, who cannot login
     "pveum user add ${var.terraform_user.name} --comment '${var.terraform_user.comment}'"
   ]
+
+  timeout = "20s"
 }
 
 resource "ssh_resource" "create_role" {
@@ -41,6 +43,8 @@ resource "ssh_resource" "create_role" {
     # Create role with permissions needed for Talos/K8s setup
     "pveum role add ${var.terraform_user.role.name} -privs '${join(",", var.terraform_user.role.privileges)}'"
   ]
+
+  timeout = "20s"
 }
 
 resource "ssh_resource" "assign_role" {
@@ -55,11 +59,12 @@ resource "ssh_resource" "assign_role" {
     # Assign role to user
     "pveum aclmod / -user ${var.terraform_user.name} -role ${var.terraform_user.role.name}"
   ]
+
+  timeout = "20s"
 }
 
 resource "ssh_resource" "create_api_token" {
   # when = "create"
-  timeout = "30s"
 
   host        = local.ssh.host
   user        = local.ssh.user
@@ -69,6 +74,8 @@ resource "ssh_resource" "create_api_token" {
     # Create a user token with the same privileges as the user himself
     "pveum user token add ${var.terraform_user.name} ${var.terraform_user.token.name} --comment '${var.terraform_user.token.comment}' --privsep=0 --output-format=json"
   ]
+
+  timeout = "20s"
 }
 
 resource "ssh_resource" "delete_role" {
@@ -82,6 +89,8 @@ resource "ssh_resource" "delete_role" {
     # Remove the role
     "pveum role delete ${var.terraform_user.role.name}"
   ]
+
+  timeout = "20s"
 }
 
 resource "ssh_resource" "delete_user" {
@@ -95,4 +104,6 @@ resource "ssh_resource" "delete_user" {
     # Remove the user
     "pveum user delete ${var.terraform_user.name}",
   ]
+
+  timeout = "20s"
 }

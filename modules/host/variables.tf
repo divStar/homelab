@@ -94,7 +94,6 @@ variable "terraform_user" {
         "VM.Config.Cloudinit",
         "VM.Config.Options",
         "VM.PowerMgmt",
-        "VM.Monitor",
         "Datastore.Allocate",
         "Datastore.AllocateSpace",
         "Datastore.AllocateTemplate",
@@ -170,29 +169,23 @@ variable "share_user" {
 
 variable "no_subscription" {
   description = "Whether to use no-subscription repository instead of enterprise repository or not"
-  # @field enabled true if no-subscription repository should be used, false otherwise
-  # @field list_file Name of the file within the /etc/apt/sources.list.d/ directory
-  # @field list_file_content Repository line to add (e.g. deb http://... <version> <name>)
-  type = object({
-    enabled           = bool
-    list_file         = optional(string, "pve-no-subscription.list")
-    list_file_content = optional(string, "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription")
-  })
-
-  default = {
-    enabled = true
-  }
-
-  validation {
-    condition     = !can(regex("\\s", var.no_subscription.list_file))
-    error_message = "The 'list_file' field cannot contain whitespace characters"
-  }
+  type        = bool
+  default     = true
 }
 
 variable "storage_pools" {
   description = "Configuration of the storage (pools and directories) to import"
   type        = list(string)
   default     = []
+}
+
+variable "storage_directories" {
+  description = "Map of storage directories to configure; the key is the name of the directory."
+  type = map(object({
+    path    = string
+    content = string
+  }))
+  default = {}
 }
 
 variable "directory_mappings" {

@@ -65,6 +65,15 @@ module "zfs_storage" {
   storage_pools = var.storage_pools
 }
 
+# Handles the import of directories into Proxmox.
+module "proxmox_storage_import" {
+  depends_on = [module.zfs_storage]
+  source     = "./modules/proxmox-storage-import"
+
+  ssh                 = var.ssh
+  storage_directories = var.storage_directories
+}
+
 # Handles letting Proxmox trust its own CA certificate.
 module "trust_proxmox_ca" {
   source = "./modules/trust-proxmox-ca"

@@ -1,0 +1,13 @@
+proxmox = {
+  name          = "sanctum"
+  host          = "192.168.1.5"
+  port          = 22
+  endpoint      = "https://192.168.1.5:8006"
+  insecure      = true
+  root_password = "<password>"
+  ssh_user      = "root"
+  ssh_key       = "~/.ssh/id_rsa"
+}
+
+#skip_host_configuration = true
+fingerprint_file = "/Users/igvo/Workspaces/homelab/modules/stepca-lxc/secret_fingerprint"

@@ -2,10 +2,30 @@
 
 > [!NOTE]
 > Even though currently the scripts are set up for just a single node, all pieces of software are capable of setting up and running multiple control planes and worker nodes.
->
+
+> [!WARNING]
 > If you run Traefik in HA, make sure to shift from built-in `certificatesResolvers` usage to `cert-manager`. I removed `cert-manager`, because I am unlikely to have multiple nodes (for now).
 
 This repository contains multiple modules and scripts, that you can run manually to set up a homelab / NAS. The scripts are very opinionated and they work for me - feel free to change anything you might want or need.
+
+The host module is meant to set up the Proxmox v9 host.
+
+The cluster module is meant to set up a Talos Kubernetes cluster.
+
+The Step CA LXC module is meant to set up a Step CA LXC container.
+
+> [!NOTE]
+> While the Step CA LXC container will work out of the box, Proxmox v9 will fail to install the necessary Step CA client. To install it on the Proxmox host, follow [the instructions in the official documentation](https://smallstep.com/docs/step-ca/installation/#debianubuntu).
+
+> [!NOTE]
+> I need to mount a specific partition persistently (`ext4` filesystem) and in order to not have to look up the commands each time, I am noting them here:
+> ```bash
+> $ mkdir -p /mnt/temp
+> $ cp /etc/fstab /etc/fstab.backup # backup fstab
+> $ echo "/dev/disk/by-id/nvme-Micron_7400_MTFDKBA800TFC_22063ABEC630-part1  /mnt/temp  ext4  defaults  0  2" >> /etc/fstab
+> $ mount -a # auto-mount all
+> ```
+> This should be done *before* the `host` Terraform script is executed.
 
 ## Table of Contents
 
@@ -60,12 +80,15 @@ Here's a list of all the software being used in this homelab setup:
 
 ## Modules
 
-### Main modules
+### Host module
 
 - **[`host`](modules/host/README.md)** - Configures the Proxmox host with required packages, users, storage pools, and system settings
+  - **[`authorized-keys-appender`](modules/host/modules/authorized-keys-appender/README.md)** - Handles appending of SSH keys to the authorized_keys file of a given user
   - **[`copy-configs`](modules/host/modules/copy-configs/README.md)** - Handles copying configuration files to the host
   - **[`directory-mappings`](modules/host/modules/directory-mappings/README.md)** - Maps directories for VirtioFS sharing with VMs
+  - **[`gitops-user`](modules/host/modules/gitops-user/README.md)** - Creates and manages a dedicated user with git+ssh access (gitops)
   - **[`packages`](modules/host/modules/packages/README.md)** - Installs additional APT packages on the host
+  - **[`proxmox-storage-import`](modules/host/modules/proxmox-storage-import/README.md)** - Imports existing storage directories into Proxmox
   - **[`repositories`](modules/host/modules/repositories/README.md)** - Manages APT repositories (enables no-subscription repo)
   - **[`scripts`](modules/host/modules/scripts/README.md)** - Executes various non-interactive setup scripts
   - **[`share-user`](modules/host/modules/share-user/README.md)** - Creates a dedicated user for file sharing
@@ -73,13 +96,14 @@ Here's a list of all the software being used in this homelab setup:
   - **[`trust-proxmox-ca`](modules/host/modules/trust-proxmox-ca/README.md)** - Configures Proxmox to trust its own CA certificate
   - **[`zfs-storage`](modules/host/modules/zfs-storage/README.md)** - Imports and manages ZFS storage pools
 
-- **[`stepca-lxc`](modules/stepca-lxc/README.md)** - Sets up Step-CA certificate authority in an Alpine LXC container for internal PKI management
+### Cluster
 
 - **[`cluster`](modules/cluster/README.md)** - Sets up the Talos Kubernetes cluster on Proxmox with networking (Cilium), ingress (Traefik), storage (local-path-provisioner), DNS (external-dns), database (CloudNative-PG), and platform applications
   - **[`talos-download-image`](modules/cluster/modules/talos-download-image/README.md)** - Downloads and manages Talos images for deployment
   - **[`talos-prepare-cluster`](modules/cluster/modules/talos-prepare-cluster/README.md)** - Prepares cluster by generating machine secrets and configurations
   - **[`talos-create-vm`](modules/cluster/modules/talos-create-vm/README.md)** - Creates Talos VMs on Proxmox with proper configuration
   - **[`talos-await-cluster`](modules/cluster/modules/talos-await-cluster/README.md)** - Waits for Talos cluster to become ready and available
+
   - **[`infrastructure`](modules/cluster/modules/infrastructure/README.md)** - Core cluster infrastructure components
     - **[`cilium`](modules/cluster/modules/infrastructure/modules/cilium/README.md)** - Installs Cilium CNI for eBPF-based networking, observability, and security
     - **[`traefik-crds`](modules/cluster/modules/infrastructure/modules/traefik-crds/README.md)** - Installs Traefik Custom Resource Definitions
@@ -87,10 +111,15 @@ Here's a list of all the software being used in this homelab setup:
     - **[`external-dns`](modules/cluster/modules/infrastructure/modules/external-dns/README.md)** - Installs external-dns for automatic DNS record management
     - **[`local-path-provisioner`](modules/cluster/modules/infrastructure/modules/local-path-provisioner/README.md)** - Installs local-path-provisioner for dynamic local storage
     - **[`metrics`](modules/cluster/modules/infrastructure/modules/metrics/README.md)** - Cluster metrics configuration
+
   - **[`platform`](modules/cluster/modules/platform/README.md)** - Platform applications and services
     - **[`cnpg-operator`](modules/cluster/modules/platform/modules/cnpg-operator/README.md)** - Installs CloudNative-PG operator for PostgreSQL management
     - **[`zitadel`](modules/cluster/modules/platform/modules/zitadel/README.md)** - Deploys Zitadel identity and access management platform
     - **[`pgadmin`](modules/cluster/modules/platform/modules/pgadmin/README.md)** - Deploys pgAdmin for PostgreSQL administration
+
+### Step CA LXC
+
+- **[`stepca-lxc`](modules/stepca-lxc/README.md)** - Sets up Step-CA certificate authority in an Alpine LXC container for internal PKI management
 
 ### Common Modules
 

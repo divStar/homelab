@@ -58,7 +58,7 @@ pgAdmin:
   releaseName: "pgadmin-release"
 
 # manually set versions
-proxmox_version: "8.4+"
+proxmox_version: "9.0.3"
 alpine_linux_version: "3.21.3"
 target_kube_version: "1.33"
 step_cli_version: "0.28.6"

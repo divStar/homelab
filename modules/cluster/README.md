@@ -45,8 +45,8 @@ This module and its sub-modules setup the Talos cluster on the Proxmox host.
 
 ## Providers
   
-![http](https://img.shields.io/badge/http-3.5.0-c1166b)
-![local](https://img.shields.io/badge/local-2.5.3-0c61b6)
+![http](https://img.shields.io/badge/http--c1166b)
+![local](https://img.shields.io/badge/local--0c61b6)
 
 ## Modules
   

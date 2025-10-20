@@ -3,10 +3,10 @@ name: Documentation
 on:
   pull_request:
     branches:
-      - main
+      - master
   push:
     branches:
-      - main
+      - master
 
 jobs:
   verify-docs:
@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install terraform-docs
-        uses: jaxxstorm/action-install-gh-release@v1.12.0
+        uses: jaxxstorm/action-install-gh-release@v2.1.0
         with:
           repo: terraform-docs/terraform-docs
           cache: enable
@@ -33,9 +33,6 @@ jobs:
             echo "❌ Error: Terraform documentation is not up to date"
             echo ""
             echo "The following files have uncommitted changes after running generate-docs.sh:"
-            git diff --compact-summary
-            echo ""
-            echo "Detailed diff:"
             git diff
             echo ""
             echo "To fix this, run './scripts/generate-docs.sh ../' locally, review the changes, add, commit and push them."

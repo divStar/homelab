@@ -18,7 +18,6 @@ This repository contains multiple modules and scripts, that you can run manually
 - [Modules](#modules)
   - [Main modules](#main-modules)
   - [Common Modules](#common-modules)
-  - [Application Modules](#application-modules)
   - [Legacy Modules (Not in Use)](#legacy-modules-not-in-use)
 - [Scripts](#scripts)
   - [State management](#state-management)
@@ -44,20 +43,20 @@ Here's a list of all the software being used in this homelab setup:
 ### **Orchestration, network and storage:**
 
 - <img src="docs/assets/kubernetes-logo.svg" width="20" height="20"> **[Kubernetes](https://kubernetes.io/)** ![Kubernetes version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.target_kube_version&label=%20) - Container orchestration platform
-- <img src="docs/assets/cilium-logo.svg" width="20" height="20"> **[Cilium](https://cilium.io/)** ![Cilium version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.cilium_version&label=%20&color=darkblue) - eBPF-based networking, observability, and security
-- <img src="docs/assets/traefik-logo.svg" width="20" height="20"> **[Traefik](https://traefik.io/)** ![Traefik Helm Chart version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.traefik_version&label=%20&color=darkblue) - Modern reverse proxy and load balancer with automatic service discovery
-- <img src="docs/assets/local-path-provisioner-logo.svg" width="20" height="20"> **[Local Path Provisioner](https://github.com/rancher/local-path-provisioner)** ![Local Path Provisioner Helm Chart version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.local_path_provisioner_version&label=%20&color=darkblue) - Dynamic local storage provisioner
-- <img src="docs/assets/external-dns-logo.svg" width="20" height="20"> **[External DNS](https://github.com/kubernetes-sigs/external-dns)** ![external-dns version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.external_dns_version&prefix=%20&label=%20&color=darkblue) - Kubernetes addon to configure external DNS servers
+- <img src="docs/assets/cilium-logo.svg" width="20" height="20"> **[Cilium](https://cilium.io/)** ![Cilium version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.cilium.chartVersion&label=%20&color=darkblue) - eBPF-based networking, observability, and security
+- <img src="docs/assets/traefik-logo.svg" width="20" height="20"> **[Traefik](https://traefik.io/)** ![Traefik Helm Chart version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.traefik.chartVersion&label=%20&color=darkblue) - Modern reverse proxy and load balancer with automatic service discovery
+- <img src="docs/assets/local-path-provisioner-logo.svg" width="20" height="20"> **[Local Path Provisioner](https://github.com/rancher/local-path-provisioner)** ![Local Path Provisioner Helm Chart version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.localPathProvisioner.chartVersion&label=%20&color=darkblue) - Dynamic local storage provisioner
+- <img src="docs/assets/external-dns-logo.svg" width="20" height="20"> **[External DNS](https://github.com/kubernetes-sigs/external-dns)** ![external-dns version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.externalDns.chartVersion&prefix=%20&label=%20&color=darkblue) - Kubernetes addon to configure external DNS servers
 
 ### **Security:**
 
 - <img src="docs/assets/smallstep-logo.svg" width="20" height="20"> **[Step-CA](https://smallstep.com/certificates/)** CLI ![Step-CLI version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.step_cli_version&label=%20) / server ![Step-CA version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.step_ca_version&label=%20) - Certificate authority for internal PKI
-- <img src="docs/assets/sealedsecrets-logo.svg" width="20" height="20"> **[Sealed Secrets](https://sealed-secrets.netlify.app/)** ![sealed-secrets version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.sealed_secrets_version&prefix=%20&label=%20&color=darkblue) - Kubernetes controller for one-way encrypted Secrets
-- <img src="docs/assets/zitadel-logo.svg" width="20" height="20"> **[Zitadel](https://zitadel.com/)** - Identity and access management platform
+- <img src="docs/assets/zitadel-logo.svg" width="20" height="20"> **[Zitadel](https://zitadel.com/)** ![Zitadel version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.zitadel.chartVersion&prefix=%20&label=%20&color=darkblue) - Identity and access management platform
 
 ### Database
 
-- <img src="docs/assets/postgresql-logo.svg" width="20" height="20"> **[PostgreSQL](https://github.com/bitnami/charts/tree/main/bitnami/postgresql)** ![postgres version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.postgres_version&prefix=%20&label=%20&color=darkblue) - General purpose database, which is used by e.g. Zitadel and Grafana
+- <img src="docs/assets/postgresql-logo.svg" width="20" height="20"> **[CloudNative-PG](https://cloudnative-pg.io/)** ![CNPG Operator version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.cnpgOperator.chartVersion&prefix=%20&label=%20&color=darkblue) - Kubernetes operator for PostgreSQL, used by Zitadel and other applications
+- **[pgAdmin](https://www.pgadmin.org/)** ![pgAdmin version](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2FdivStar%2Fhomelab%2Frefs%2Fheads%2Fmaster%2Fversions.yaml&query=%24.pgAdmin.chartVersion&prefix=%20&label=%20&color=darkblue) - Web-based PostgreSQL administration and management tool
 
 ## Modules
 
@@ -76,30 +75,27 @@ Here's a list of all the software being used in this homelab setup:
 
 - **[`stepca-lxc`](modules/stepca-lxc/README.md)** - Sets up Step-CA certificate authority in an Alpine LXC container for internal PKI management
 
-- **[`cluster`](modules/cluster/README.md)** - Sets up the Talos Kubernetes cluster on Proxmox with networking (Cilium), ingress (Traefik), storage (local-path-provisioner), DNS (external-dns), and secrets management (sealed-secrets)
+- **[`cluster`](modules/cluster/README.md)** - Sets up the Talos Kubernetes cluster on Proxmox with networking (Cilium), ingress (Traefik), storage (local-path-provisioner), DNS (external-dns), database (CloudNative-PG), and platform applications
   - **[`talos-download-image`](modules/cluster/modules/talos-download-image/README.md)** - Downloads and manages Talos images for deployment
   - **[`talos-prepare-cluster`](modules/cluster/modules/talos-prepare-cluster/README.md)** - Prepares cluster by generating machine secrets and configurations
   - **[`talos-create-vm`](modules/cluster/modules/talos-create-vm/README.md)** - Creates Talos VMs on Proxmox with proper configuration
   - **[`talos-await-cluster`](modules/cluster/modules/talos-await-cluster/README.md)** - Waits for Talos cluster to become ready and available
-  - **`cilium`** - Installs Cilium CNI for eBPF-based networking, observability, and security
-  - **`sealed-secrets`** - Installs sealed-secrets controller for encrypted secret management
-  - **`external-dns`** - Installs external-dns for automatic DNS record management
-  - **`local-path-provisioner`** - Installs local-path-provisioner for dynamic local storage
-  - **`traefik`** - Installs Traefik v3 ingress controller with ACME support and OIDC capabilities
+  - **[`infrastructure`](modules/cluster/modules/infrastructure/README.md)** - Core cluster infrastructure components
+    - **[`cilium`](modules/cluster/modules/infrastructure/modules/cilium/README.md)** - Installs Cilium CNI for eBPF-based networking, observability, and security
+    - **[`traefik-crds`](modules/cluster/modules/infrastructure/modules/traefik-crds/README.md)** - Installs Traefik Custom Resource Definitions
+    - **[`traefik`](modules/cluster/modules/infrastructure/modules/traefik/README.md)** - Installs Traefik v3 ingress controller with ACME support and OIDC capabilities
+    - **[`external-dns`](modules/cluster/modules/infrastructure/modules/external-dns/README.md)** - Installs external-dns for automatic DNS record management
+    - **[`local-path-provisioner`](modules/cluster/modules/infrastructure/modules/local-path-provisioner/README.md)** - Installs local-path-provisioner for dynamic local storage
+    - **[`metrics`](modules/cluster/modules/infrastructure/modules/metrics/README.md)** - Cluster metrics configuration
+  - **[`platform`](modules/cluster/modules/platform/README.md)** - Platform applications and services
+    - **[`cnpg-operator`](modules/cluster/modules/platform/modules/cnpg-operator/README.md)** - Installs CloudNative-PG operator for PostgreSQL management
+    - **[`zitadel`](modules/cluster/modules/platform/modules/zitadel/README.md)** - Deploys Zitadel identity and access management platform
+    - **[`pgadmin`](modules/cluster/modules/platform/modules/pgadmin/README.md)** - Deploys pgAdmin for PostgreSQL administration
 
 ### Common Modules
 
 - **[`common/modules/alpine`](modules/common/modules/alpine/README.md)** - Creates Alpine Linux LXC containers with SSH access and basic packages
 - **[`common/modules/helm-terraform-installer`](modules/common/modules/helm-terraform-installer/README.md)** - Installs Helm charts through Terraform with namespace and manifest management
-
-### Application Modules
-
-- ![on-going](https://img.shields.io/badge/on--going-orange?style=flat&logo=opensourcehardware&logoColor=white&logoSize=auto&labelColor=orange) **[`k8s-apps`](modules/k8s-apps/README.md)** - Deploys all relevant applications into the Kubernetes cluster
-  > [!NOTE]
-  > In order for these deployments to be successful, the Kubernetes cluster has to have been successfully set up.
-  - **[`postgres`](modules/k8s-apps/modules/postgres/README.md)** - Deploys the PostgreSQL general purpose database.
-  - ![on-going](https://img.shields.io/badge/on--going-orange?style=flat&logo=opensourcehardware&logoColor=white&logoSize=auto&labelColor=orange) **[`zitadel`](modules/k8s-apps/modules/zitadel/README.md)** - Deploys Zitadel identity and access management platform.
-  - ![on-going](https://img.shields.io/badge/on--going-orange?style=flat&logo=opensourcehardware&logoColor=white&logoSize=auto&labelColor=orange) **[`pgadmin`](modules/k8s-apps/modules/pgadmin/README.md)** - Deploys pgAdmin as the SQL management console for PostgreSQL.
 
 ### Legacy Modules (Not in Use)
 

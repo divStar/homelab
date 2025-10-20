@@ -47,7 +47,7 @@ This module sets up Step-CA in an Alpine LXC container using the provided inform
 
 ## Providers
   
-![ssh](https://img.shields.io/badge/ssh-2.7.0-4fa4f9)
+![ssh](https://img.shields.io/badge/ssh->=2.7.0-4fa4f9)
 
 ## Modules
   

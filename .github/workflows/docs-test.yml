@@ -1,0 +1,41 @@
+name: Documentation
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  verify-docs:
+    name: Verify Terraform Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install terraform-docs
+        uses: jaxxstorm/action-install-gh-release@v2.1.0
+        with:
+          repo: terraform-docs/terraform-docs
+          cache: enable
+
+      - name: Generate documentation
+        run: |
+          chmod +x ./scripts/generate-docs.sh
+          ./scripts/generate-docs.sh ../
+
+      - name: Verify documentation is up to date
+        run: |
+          if ! git diff --compact-summary --exit-code; then
+            echo "❌ Error: Terraform documentation is not up to date"
+            echo ""
+            echo "The following files have uncommitted changes after running generate-docs.sh:"
+            git diff
+            echo ""
+            echo "To fix this, run './scripts/generate-docs.sh ../' locally, review the changes, add, commit and push them."
+            exit 1
+          fi
+          echo "✅ All documentation is up to date"
